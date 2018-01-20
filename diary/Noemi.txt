@@ -1,0 +1,34 @@
+January 17, 2018 (Lab 1)
+	first meeting at the lab
+	Yanzhen Li not present (updated teams on January 18, saw they dropped)
+	we assigned roles for everyone/everyone decided their role & team agreed
+	I added everyone on Facebook and made a Facebook group and Sabrina did a list with everyone’s emails that was posted on the FB group
+	We discussed about the project basic requirements
+	We decided to communicated via Discord to allow screensharing and other very useful utilities it has.
+	William created the git repository with folders
+
+	We agreed on these basic options to do throughout the project:
+		cash spending (transactions details, input, ouput)
+		budgeting (amount, set a percent for groceries, rent ,etc)
+		credit cards, debits, loyalty cards (display like a bank application, very visual not much options for the user)
+
+___________________________________________________________________________________________________
+January 18, 2018 (Tutorial 1)
+	We learned about domain model.
+	I decided to do a plan of what the desktop application could look like.
+	I did some basics coding to provide the team with a possible outcome:
+
+___________________________________________________________________________________________________
+January 19, 2018
+	I worked on the use case template to have an idea for the domain model according to the template the TA showed us during the tutorial yesterday.
+	I worked another sample of how the application could look
+	The Team approved the design of the application I did and Tiantian completed the User Case Template.
+	I posted on GitHub the design.
+	After collecting and reviewing every teammate’s schedule, I could tell when we can almost all meet:
+	I created a Google Drive Folder with all necessary documents and shared it with every teammates so they can add, modify documents.
+	Tiantian proposed a Use Case with Latex.
+	William modified my code to make it clearer, separating, identifying variables.
+	William made a video to explain us how to use Git
+	Genevieve made a schedule to follow for the first iteration.
+___________________________________________________________________________________________________
+
