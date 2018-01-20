@@ -1,3 +1,7 @@
+package src;
+
+import src.ApplicationLayout;
+
 import javax.swing.*;
 
 public class Main{

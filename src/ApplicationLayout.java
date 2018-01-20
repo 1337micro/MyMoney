@@ -1,6 +1,7 @@
+package src;
+
 import javax.swing.*;
 import java.awt.*;
-
 
 public class ApplicationLayout extends JFrame  {
     private ImageIcon image;
@@ -56,7 +57,7 @@ public class ApplicationLayout extends JFrame  {
 
         //create a panel so we can change what ever to display the different functions
         JPanel sidePan = new JPanel();
-        image = new ImageIcon(getClass().getResource("smile.jpg"));
+        image = new ImageIcon(getClass().getResource("../smile.jpg"));
         label1 = new JLabel(image);
         sidePan.add(label1);
         add(sidePan, BorderLayout.CENTER);
