@@ -12,7 +12,7 @@ public class CashSpending {
     private List<Expenses> expenses;
 
     public void addExpense(ExpenditureType type, double amount){
-        if(getExpensesOfType(type) == null){
+        if(getExpensesOfType(type) == null || getExpensesOfType(type).size() == 0){
             //no such expense yet
 
             Expenses expense = new Expenses(type);
@@ -25,11 +25,14 @@ public class CashSpending {
         }
     }
     public List<Double> getExpensesOfType(ExpenditureType type){
-        List<Double> listOfExpense = null;
+        List<Double> listOfExpense = new ArrayList<>();
         for(Expenses expense : this.expenses){
             if(expense.type == type){
                 listOfExpense = expense.listOfExpenses;
             }
+        }
+        if(listOfExpense.size() == 0){
+            System.out.println("Careful, no expenses found!");
         }
         return listOfExpense;
     }
@@ -38,10 +41,17 @@ public class CashSpending {
 
 
     public enum ExpenditureType {
-        GROCERIES,
-        RENT,
-        TUITION,
-        TAXES
+        GROCERIES("GROCERIES"),
+        RENT("RENT"),
+        TUITION("TUITION"),
+        TAXES("TAXES");
+        private final String description;
+        public String toString(){
+            return this.description;
+        }
+        private ExpenditureType(final String description){
+            this.description = description;
+        }
     }
 
    public static class Expenses{
@@ -51,11 +61,6 @@ public class CashSpending {
        public Expenses(ExpenditureType type) {
            this.type = type;
            this.listOfExpenses = new ArrayList<Double>();
-       }
-
-
-       public ExpenditureType getType() {
-           return type;
        }
        public List<Double> getListOfExpenses() {
            return listOfExpenses;

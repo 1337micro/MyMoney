@@ -2,8 +2,10 @@ package src;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class ApplicationLayout extends JFrame  {
+public class ApplicationLayout extends JFrame{
     private ImageIcon image;
     private JLabel label1;
 
@@ -36,6 +38,7 @@ public class ApplicationLayout extends JFrame  {
         //creating buttons and setting their size
         JButton cashspending = new JButton(Constants.BUTTON_SPENDING);
         cashspending.setPreferredSize(new Dimension(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT));
+        cashspending.addActionListener(new CashSpendingUI());
         JButton cards = new JButton(Constants.BUTTON_CARDS);
         cards.setPreferredSize(new Dimension(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT));
         JButton budgeting = new JButton(Constants.BUTTON_BUDGET);
@@ -73,4 +76,6 @@ public class ApplicationLayout extends JFrame  {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
     }
+
+
 }

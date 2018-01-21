@@ -4,7 +4,14 @@ import src.ApplicationLayout;
 
 import javax.swing.*;
 
+import static src.CashSpending.*;
+
 public class Main{
+
+
+    private static CashSpending cashSpending = new CashSpending();
+    private static ApplicationLayout applicationLayout = new ApplicationLayout();
+
     public static void main(String[] args) {
         // Use the system theme, this is purely aesthetic
         try {
@@ -15,7 +22,16 @@ public class Main{
         }
 
         //displaying the window
-        ApplicationLayout applicationLayout = new ApplicationLayout();
+
         applicationLayout.setVisible(true);
+
+
+    }
+
+    public static CashSpending getCashSpending() {
+        return cashSpending;
+    }
+    public static ApplicationLayout getApplicationLayout() {
+        return applicationLayout;
     }
 }
