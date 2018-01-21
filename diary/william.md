@@ -4,16 +4,16 @@ William Prioriello 27080956
 - Created git repository and folder structure
 
 1/19/2018
-Looked over Noemi's code, made changes,
+-Looked over Noemi's code, made changes,
 created Constants Class
 add system look and feel to Swing application
 pushed to upstream git repository
 
 1/20/2018
-Started implementing Cash Spending Feature. Re-organized the code.
+-Started implementing Cash Spending Feature. Re-organized the code.
 Almost completed the feature
 
 
 1/21/2018
-Completed the Cash Spending Feature
+-Completed the Cash Spending Feature
 
