@@ -59,11 +59,13 @@ public class ApplicationLayout extends JFrame{
         add(vertical, BorderLayout.WEST);
 
         //create a panel so we can change what ever to display the different functions
+        /*removed this because it was conflicting with my panel visibility
         JPanel sidePan = new JPanel();
         image = new ImageIcon(getClass().getResource("../smile.jpg"));
         label1 = new JLabel(image);
         sidePan.add(label1);
         add(sidePan, BorderLayout.CENTER);
+        */
 
         //setting the version status of the application we can update that in time
         JLabel statusbar = new JLabel(Constants.APP_VERSION);

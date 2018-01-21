@@ -15,10 +15,10 @@ public class CashSpendingUI implements ActionListener {
             CashSpending.ExpenditureType.TUITION,
             CashSpending.ExpenditureType.TAXES};
 
-    JTextField amountSpentOnGroceries = new JTextField(50);
-    JTextField amountSpentOnRent = new JTextField(50);
-    JTextField amountSpentOnTuition = new JTextField(50);
-    JTextField amountSpentOnTaxes = new JTextField(50);
+    JTextField amountSpentOnGroceries = new JTextField(10);
+    JTextField amountSpentOnRent = new JTextField(10);
+    JTextField amountSpentOnTuition = new JTextField(10);
+    JTextField amountSpentOnTaxes = new JTextField(10);
     private void updateExpensesFields(){
         for(Object expenditure: typesOfExpenditure){
             CashSpending.ExpenditureType expenditureType = (CashSpending.ExpenditureType) expenditure;
@@ -46,7 +46,7 @@ public class CashSpendingUI implements ActionListener {
         }
     }
 
-    private JPanel buildCashSpendingDisplayPanel(){
+    private void buildCashSpendingDisplayPanel(){
         JTextField groceries = new JTextField(10);
         JTextField rent = new JTextField(10);
         JTextField tuition = new JTextField(10);
@@ -62,8 +62,8 @@ public class CashSpendingUI implements ActionListener {
 
 
 
-        JPanel jPanel = new JPanel();
-
+        thePanel = new JPanel();
+        thePanel.setLayout(new BoxLayout(thePanel, BoxLayout.LINE_AXIS));
 
 
         for(Object expenditure: typesOfExpenditure){
@@ -87,13 +87,15 @@ public class CashSpendingUI implements ActionListener {
                     innerPanel.add(amountSpentOnTaxes);
                     break;
             }
-           jPanel.add(innerPanel);
+            thePanel.add(innerPanel);
         }
         JButton addExpense = new JButton("Add an expense");
         addExpense.addActionListener(new AddExpenseListener());
-        jPanel.add(addExpense);
-        jPanel.setVisible(false);
-        return jPanel;
+        thePanel.add(addExpense);
+
+        thePanel.setVisible(false);
+
+
 
     }
     public void addPanelToLayout(JPanel jPanel, ApplicationLayout applicationLayout){
@@ -131,13 +133,24 @@ public class CashSpendingUI implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("Cash spending selected");
-        if(thePanel == null){
-            thePanel = buildCashSpendingDisplayPanel();
+
+        if(thePanel == null) {
+            buildCashSpendingDisplayPanel();
+            addPanelToLayout(thePanel, Main.getApplicationLayout());
         }
-        addPanelToLayout(thePanel, Main.getApplicationLayout());
+
+        if (thePanel.isVisible()){
+            thePanel.setVisible(false);
+        } else {
+            thePanel.setVisible(true);
+        }
 
 
-        thePanel.setVisible(!thePanel.isVisible());
+
+
+
+
+
 
     }
 
