@@ -1,0 +1,31 @@
+Diary - Genevieve Plante-Brisebois
+
+Journal entry 17/01/2018
+Lab 1
+Since I joined the class the day before I did not have an assigned team. I ended working with PB-PK at the recommandation of the TA. 
+Yanzhen Li was absent.
+We assigned roles, gave each other our contact informations.
+We discussed the features we wanted to have on our application and it's basic requirement. 
+Noemi made a facebook group
+Sabrina made a discord Channel
+William made the git repository
+I put my schedule on the facebook group and emailed the prof to know if I would be officially assigned to the team. 
+
+Journal entry 18/01/2018
+I made myself a git account and gave it to William so that he could add me on the git repository.
+Discussed with team members on discord. Roles of Ornela and Tiantian have been changed. 
+Tiantian's friend joined our team. Noemi made sure she had all the information to add to our contact information file.
+
+
+Journal entry 2018,01,19
+I reviewed the display samples provided by Noemi and gave my feedback.
+Worked on making a schedule to share with everyone so that we are more organized. (30 mins)
+Discussed on discord with other team members about various aspects of the project including git repository, SWING. 17h30-19h
+We decided to have a google drive for any text documentation and the git for final gathering of documents and coding.
+
+Journal entry 2018, 01, 21
+Start of work session:12h40
+Start reading up on what has been done on discord. 12h40-13h
+Installing git and going through tutorial, familiarizing myself with git: 13h00-1400
+reviewing code that has been done for the project to make sure to follow the proper structure:14h00-
+
