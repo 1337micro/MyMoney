@@ -1,0 +1,34 @@
+Diary - Tiantian Ji
+
+--> 17/01/2018
+Lab1
+
+First meeting with group members. Yanzhen Li was absent.
+Joined the Facebook group Noemi made and provided my schedule.
+Roles assigned. I am a documenter in the first iteration.
+We discussed about the project and made an agreement on the following three functionalities: cash-spending, cards, and budgeting.
+Joined the discord group made by Sabrina.
+Joined the git repository set up by William.
+
+
+--> 18/01/2018
+Tutorial1
+
+I downloaded Latex and watched some tutorial videos on basic syntax.
+Ornela switched her role with me, I am an organizer now.
+
+
+--> 19/01/2018
+
+I worked on the use case along with Noemi.I added the conditions and main/exception flow parts from what she provided. (10am - 11am)
+I used Latex to generate the use case table. (6pm - 7pm)
+
+
+--> 20/01/2018
+
+I used Xcode template to display the basic functions we would have. (around 20 mins)
+We discussed about the cash-spending function and decided to make it simple in the first iteration.
+
+
+
+

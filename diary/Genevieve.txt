@@ -27,5 +27,6 @@ Journal entry 2018, 01, 21
 Start of work session:12h40
 Start reading up on what has been done on discord. 12h40-13h
 Installing git and going through tutorial, familiarizing myself with git: 13h00-1400
-reviewing code that has been done for the project to make sure to follow the proper structure:14h00-
+reviewing code / learning swing :14h00-13h15
+						15h45-17h25
 
