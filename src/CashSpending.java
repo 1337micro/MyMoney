@@ -31,9 +31,6 @@ public class CashSpending {
                 listOfExpense = expense.listOfExpenses;
             }
         }
-        if(listOfExpense.size() == 0){
-            System.out.println("Careful, no expenses found!");
-        }
         return listOfExpense;
     }
 
@@ -49,7 +46,7 @@ public class CashSpending {
         public String toString(){
             return this.description;
         }
-        private ExpenditureType(final String description){
+        ExpenditureType(final String description){
             this.description = description;
         }
     }

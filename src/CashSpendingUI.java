@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Optional;
 
 import static src.CashSpending.ExpenditureType.*;
 public class CashSpendingUI implements ActionListener {
@@ -70,12 +71,12 @@ public class CashSpendingUI implements ActionListener {
 
 
     public Double showCashSpendingAmountOfMoneyDialog(CashSpending.ExpenditureType expenditureType){
-        String inputAmountSpent = JOptionPane
-                .showInputDialog("How much money did you spend on "+ expenditureType.toString().toLowerCase() + " ?");
+        Optional<String> inputAmountSpent = Optional.ofNullable(JOptionPane
+                .showInputDialog("How much money did you spend on " + expenditureType.toString().toLowerCase() + " ?"));
 
         double amountSpent = 0;
         try {
-            amountSpent = new Double(inputAmountSpent);
+            amountSpent = new Double(inputAmountSpent.orElse("0.0"));
         } catch (NumberFormatException e){
             e.printStackTrace();
             showErrorDialog();
@@ -100,13 +101,14 @@ public class CashSpendingUI implements ActionListener {
 
     private class AddExpenseListener implements ActionListener {
         private CashSpending.ExpenditureType showCashSpendingExpenditureDialog(ApplicationLayout applicationLayout) {
-            final int selection = JOptionPane.showOptionDialog(applicationLayout,"Choose your Expenditure Type: ",
+            final Integer selection = (JOptionPane.showOptionDialog(applicationLayout,"Choose your Expenditure Type: ",
                     "Type of Expense? ",
                     JOptionPane.OK_CANCEL_OPTION,
                     0,
                     null,
                     CashSpending.ExpenditureType.values(),
-                    0);
+                    0));
+            if(selection < 0) throw new RuntimeException("User closed the selection window");
             return CashSpending.ExpenditureType.values()[selection];
 
         }
