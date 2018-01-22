@@ -16,7 +16,9 @@ Talked a little more about features
 
 01/20/2018
 Was given the job to code the budgeting feature
+Planned how to write the code for budgeting feature
 
 01/21/2018
 Learning to use github
 Created diary
+Learned basic Swing
