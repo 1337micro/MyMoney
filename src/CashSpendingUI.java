@@ -1,43 +1,57 @@
 package src;
-
+import java.util.ArrayList;
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+
 import static src.CashSpending.ExpenditureType.*;
 public class CashSpendingUI implements ActionListener {
     JPanel thePanel;
+    private final int FIELD_SIZE = 10;
+    private JTextField amountSpentOnGroceries = new JTextField(FIELD_SIZE);
+    private JTextField amountSpentOnRent = new JTextField(FIELD_SIZE);
+    private JTextField amountSpentOnTuition = new JTextField(FIELD_SIZE);
+    private JTextField amountSpentOnTaxes = new JTextField(FIELD_SIZE);
+
+    //list of the JTextField fields above, added in the constructor
+    private  ArrayList<JTextField> listOfExpenseFields = new ArrayList<>();
     public CashSpendingUI(){
-
+        addJTextFieldToListAndSetNotEditable(listOfExpenseFields, amountSpentOnGroceries, amountSpentOnRent, amountSpentOnTuition, amountSpentOnTaxes);
     }
-    final Object[] typesOfExpenditure = {CashSpending.ExpenditureType.GROCERIES,
-            CashSpending.ExpenditureType.RENT,
-            CashSpending.ExpenditureType.TUITION,
-            CashSpending.ExpenditureType.TAXES};
+    final Object[] typesOfExpenditure = {GROCERIES, RENT, TUITION, TAXES};
 
-    JTextField amountSpentOnGroceries = new JTextField(10);
-    JTextField amountSpentOnRent = new JTextField(10);
-    JTextField amountSpentOnTuition = new JTextField(10);
-    JTextField amountSpentOnTaxes = new JTextField(10);
+
+
+
+    private void addJTextFieldToListAndSetNotEditable(List<JTextField> list, JTextField... jTextField){
+        for(JTextField field: jTextField){
+            setNotEditable(field);
+            list.add(field);
+        }
+    }
+    private void setNotEditable(JTextField textField){
+        textField.setEditable(false);
+    }
     private void updateExpensesFields(){
         for(Object expenditure: typesOfExpenditure){
             CashSpending.ExpenditureType expenditureType = (CashSpending.ExpenditureType) expenditure;
 
             if(Main.getCashSpending().getExpensesOfType(expenditureType) != null &&
                     Main.getCashSpending().getExpensesOfType(expenditureType).size() != 0){
+                Double sumOfExpendituresOfThisType = Utilities.sumListOfNumbers(Main.getCashSpending().getExpensesOfType(expenditureType));
                 switch (expenditureType){
-
                     case GROCERIES:
-                        amountSpentOnGroceries.setText(Utilities.sumListOfNumbers(Main.getCashSpending().getExpensesOfType(expenditureType)).toString());
+                        amountSpentOnGroceries.setText(sumOfExpendituresOfThisType.toString());
                         break;
                     case RENT:
-                        amountSpentOnRent.setText(Utilities.sumListOfNumbers(Main.getCashSpending().getExpensesOfType(expenditureType)).toString());
+                        amountSpentOnRent.setText(sumOfExpendituresOfThisType.toString());
                         break;
                     case TUITION:
-                        amountSpentOnTuition.setText(Utilities.sumListOfNumbers(Main.getCashSpending().getExpensesOfType(expenditureType)).toString());
+                        amountSpentOnTuition.setText(sumOfExpendituresOfThisType.toString());
                         break;
                     case TAXES:
-                        amountSpentOnTaxes.setText(Utilities.sumListOfNumbers(Main.getCashSpending().getExpensesOfType(expenditureType)).toString());
+                        amountSpentOnTaxes.setText(sumOfExpendituresOfThisType.toString());
                         break;
                 }
             }
@@ -47,16 +61,18 @@ public class CashSpendingUI implements ActionListener {
     }
 
     private void buildCashSpendingDisplayPanel(){
-        JTextField groceries = new JTextField(10);
-        JTextField rent = new JTextField(10);
-        JTextField tuition = new JTextField(10);
-        JTextField taxes = new JTextField(10);
+        JTextField groceries = new JTextField(FIELD_SIZE);
+        JTextField rent = new JTextField(FIELD_SIZE);
+        JTextField tuition = new JTextField(FIELD_SIZE);
+        JTextField taxes = new JTextField(FIELD_SIZE);
+        List<JTextField> listOfExpenditureTypes = new ArrayList<>(4);
+        addJTextFieldToListAndSetNotEditable(listOfExpenditureTypes, groceries, rent, tuition, taxes);
 
 
-        groceries.setText(CashSpending.ExpenditureType.GROCERIES.toString());
-        rent.setText(CashSpending.ExpenditureType.RENT.toString());
-        tuition.setText(CashSpending.ExpenditureType.TUITION.toString());
-        taxes.setText(CashSpending.ExpenditureType.TAXES.toString());
+        groceries.setText(GROCERIES.toString());
+        rent.setText(RENT.toString());
+        tuition.setText(TUITION.toString());
+        taxes.setText(TAXES.toString());
 
 
 
@@ -68,21 +84,21 @@ public class CashSpendingUI implements ActionListener {
 
         for(Object expenditure: typesOfExpenditure){
             JPanel innerPanel = new JPanel();
-            String expenditureString = (expenditure).toString();
-            switch (expenditureString){
-                case "GROCERIES":
+            //String expenditureString = (expenditure).toString();
+            switch ((CashSpending.ExpenditureType) expenditure){
+                case GROCERIES:
                     innerPanel.add(groceries);
                     innerPanel.add(amountSpentOnGroceries);
                     break;
-                case "RENT":
+                case RENT:
                     innerPanel.add(rent);
                     innerPanel.add(amountSpentOnRent);
                     break;
-                case "TUITION":
+                case TUITION:
                     innerPanel.add(tuition);
                     innerPanel.add(amountSpentOnTuition);
                     break;
-                case "TAXES":
+                case TAXES:
                     innerPanel.add(taxes);
                     innerPanel.add(amountSpentOnTaxes);
                     break;
