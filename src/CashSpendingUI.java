@@ -9,129 +9,67 @@ import static src.CashSpending.ExpenditureType.*;
 public class CashSpendingUI implements ActionListener {
     JPanel thePanel;
     private final int FIELD_SIZE = 10;
-    private JTextField amountSpentOnGroceries = new JTextField(FIELD_SIZE);
-    private JTextField amountSpentOnRent = new JTextField(FIELD_SIZE);
-    private JTextField amountSpentOnTuition = new JTextField(FIELD_SIZE);
-    private JTextField amountSpentOnTaxes = new JTextField(FIELD_SIZE);
 
     //list of the JTextField fields above, added in the constructor
-    private  ArrayList<JTextField> listOfExpenseFields = new ArrayList<>();
+    private  ArrayList<JTextField> listOfMoneySpentFields = new ArrayList<>();
     public CashSpendingUI(){
-        addJTextFieldToListAndSetNotEditable(listOfExpenseFields, amountSpentOnGroceries, amountSpentOnRent, amountSpentOnTuition, amountSpentOnTaxes);
+        addJTextFieldToListAndSetNotEditable(listOfMoneySpentFields);//add n jtextfields to listOfMoneySpentFields; where n is numbers of Expidenture Types
     }
-    final Object[] typesOfExpenditure = {GROCERIES, RENT, TUITION, TAXES};
-
-
 
 
     private void addJTextFieldToListAndSetNotEditable(List<JTextField> list, JTextField... jTextField){
-        for(JTextField field: jTextField){
-            setNotEditable(field);
-            list.add(field);
+        //no fields supplied, use ordering from enum type
+        for(int i =0; i<CashSpending.ExpenditureType.values().length; i++) {
+            JTextField jText = new JTextField(FIELD_SIZE);
+            jText.setEditable(false);
+            list.add(jText);
         }
     }
-    private void setNotEditable(JTextField textField){
-        textField.setEditable(false);
-    }
+
     private void updateExpensesFields(){
-        for(Object expenditure: typesOfExpenditure){
-            CashSpending.ExpenditureType expenditureType = (CashSpending.ExpenditureType) expenditure;
+        for(int i = 0; i<CashSpending.ExpenditureType.values().length; i++){
+            CashSpending.ExpenditureType expenditureType = CashSpending.ExpenditureType.values()[i];
 
             if(Main.getCashSpending().getExpensesOfType(expenditureType) != null &&
                     Main.getCashSpending().getExpensesOfType(expenditureType).size() != 0){
                 Double sumOfExpendituresOfThisType = Utilities.sumListOfNumbers(Main.getCashSpending().getExpensesOfType(expenditureType));
-                switch (expenditureType){
-                    case GROCERIES:
-                        amountSpentOnGroceries.setText(sumOfExpendituresOfThisType.toString());
-                        break;
-                    case RENT:
-                        amountSpentOnRent.setText(sumOfExpendituresOfThisType.toString());
-                        break;
-                    case TUITION:
-                        amountSpentOnTuition.setText(sumOfExpendituresOfThisType.toString());
-                        break;
-                    case TAXES:
-                        amountSpentOnTaxes.setText(sumOfExpendituresOfThisType.toString());
-                        break;
-                }
+                listOfMoneySpentFields.get(i).setText(sumOfExpendituresOfThisType.toString());
             }
-
-
         }
     }
-
     private void buildCashSpendingDisplayPanel(){
-        JTextField groceries = new JTextField(FIELD_SIZE);
-        JTextField rent = new JTextField(FIELD_SIZE);
-        JTextField tuition = new JTextField(FIELD_SIZE);
-        JTextField taxes = new JTextField(FIELD_SIZE);
-        List<JTextField> listOfExpenditureTypes = new ArrayList<>(4);
-        addJTextFieldToListAndSetNotEditable(listOfExpenditureTypes, groceries, rent, tuition, taxes);
+        List<JTextField> listOfExpenditureTypes = new ArrayList<>(CashSpending.ExpenditureType.values().length);
+        addJTextFieldToListAndSetNotEditable(listOfExpenditureTypes);
 
-
-        groceries.setText(GROCERIES.toString());
-        rent.setText(RENT.toString());
-        tuition.setText(TUITION.toString());
-        taxes.setText(TAXES.toString());
-
-
-
-
+        for(int i =0; i<listOfExpenditureTypes.size(); i++) {
+            JTextField expenditureType =  listOfExpenditureTypes.get(i);
+            expenditureType.setText(CashSpending.ExpenditureType.values()[i].toString());
+        }
 
         thePanel = new JPanel();
         thePanel.setLayout(new BoxLayout(thePanel, BoxLayout.LINE_AXIS));
 
-
-        for(Object expenditure: typesOfExpenditure){
+        for(int i =0; i<listOfExpenditureTypes.size(); i++) {
             JPanel innerPanel = new JPanel();
-            //String expenditureString = (expenditure).toString();
-            switch ((CashSpending.ExpenditureType) expenditure){
-                case GROCERIES:
-                    innerPanel.add(groceries);
-                    innerPanel.add(amountSpentOnGroceries);
-                    break;
-                case RENT:
-                    innerPanel.add(rent);
-                    innerPanel.add(amountSpentOnRent);
-                    break;
-                case TUITION:
-                    innerPanel.add(tuition);
-                    innerPanel.add(amountSpentOnTuition);
-                    break;
-                case TAXES:
-                    innerPanel.add(taxes);
-                    innerPanel.add(amountSpentOnTaxes);
-                    break;
-            }
+            innerPanel.add(listOfExpenditureTypes.get(i));
+            innerPanel.add(listOfMoneySpentFields.get(i));
             thePanel.add(innerPanel);
         }
-        JButton addExpense = new JButton("Add an expense");
+        JButton addExpense = new JButton(Constants.BUTTON_ADD_EXPENSE);
         addExpense.addActionListener(new AddExpenseListener());
         thePanel.add(addExpense);
-
         thePanel.setVisible(false);
-
-
-
     }
     public void addPanelToLayout(JPanel jPanel, ApplicationLayout applicationLayout){
         applicationLayout.add(jPanel);
     }
-    public void rmvPanelToLayout(JPanel jPanel, ApplicationLayout applicationLayout){
-        applicationLayout.remove(jPanel);
-    }
-    public void addComponentsToPanel(JPanel jPanel){
-        JOptionPane.showInputDialog("test");
-    }
-
-
+    //TODO make error dialog when input makes no sense
     private void showErrorDialog(){
 
     }
 
 
-    public Double showCashSpendingAmountOfMoneyDialog(CashSpending cashSpending,
-                                                       CashSpending.ExpenditureType expenditureType){
+    public Double showCashSpendingAmountOfMoneyDialog(CashSpending.ExpenditureType expenditureType){
         String inputAmountSpent = JOptionPane
                 .showInputDialog("How much money did you spend on "+ expenditureType.toString().toLowerCase() + " ?");
 
@@ -142,14 +80,12 @@ public class CashSpendingUI implements ActionListener {
             e.printStackTrace();
             showErrorDialog();
         }
-       // cashSpending.addExpense(expenditureType, amountSpent);
+
         return amountSpent;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("Cash spending selected");
-
         if(thePanel == null) {
             buildCashSpendingDisplayPanel();
             addPanelToLayout(thePanel, Main.getApplicationLayout());
@@ -160,14 +96,6 @@ public class CashSpendingUI implements ActionListener {
         } else {
             thePanel.setVisible(true);
         }
-
-
-
-
-
-
-
-
     }
 
     private class AddExpenseListener implements ActionListener {
@@ -177,42 +105,36 @@ public class CashSpendingUI implements ActionListener {
                     JOptionPane.OK_CANCEL_OPTION,
                     0,
                     null,
-                    typesOfExpenditure,
+                    CashSpending.ExpenditureType.values(),
                     0);
-            return (CashSpending.ExpenditureType) typesOfExpenditure[selection];
+            return CashSpending.ExpenditureType.values()[selection];
 
         }
-        private Double handleSelectionOfExpenditureType(CashSpending cashSpending, CashSpending.ExpenditureType selection){
-            //showCashSpendingAmountOfMoneyDialog(cashSpending selection)
-            System.out.print(selection.toString());
-
-
+        private Double handleSelectionOfExpenditureType(CashSpending.ExpenditureType selection){
             Double amountSpent;
             switch (selection){
                 case GROCERIES:
-                    amountSpent = showCashSpendingAmountOfMoneyDialog(cashSpending, GROCERIES);
+                    amountSpent = showCashSpendingAmountOfMoneyDialog(GROCERIES);
                     break;
                 case RENT:
-                    amountSpent = showCashSpendingAmountOfMoneyDialog(cashSpending, RENT);
+                    amountSpent = showCashSpendingAmountOfMoneyDialog(RENT);
                     break;
                 case TUITION:
-                    amountSpent =showCashSpendingAmountOfMoneyDialog(cashSpending, TUITION);
+                    amountSpent =showCashSpendingAmountOfMoneyDialog(TUITION);
                     break;
                 case TAXES:
-                    amountSpent =showCashSpendingAmountOfMoneyDialog(cashSpending, TAXES);
+                    amountSpent =showCashSpendingAmountOfMoneyDialog(TAXES);
                     break;
                 default:
                     amountSpent = 0.0;
-                    throw new RuntimeException("Invalid amount entered");
             }
             return amountSpent;
-
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
             final CashSpending.ExpenditureType expenditureType = showCashSpendingExpenditureDialog(Main.getApplicationLayout());
-            final double amountSpent = handleSelectionOfExpenditureType(Main.getCashSpending(), expenditureType);
+            final double amountSpent = handleSelectionOfExpenditureType(expenditureType);
 
             Main.getCashSpending().addExpense(expenditureType, amountSpent);
 

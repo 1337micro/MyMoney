@@ -15,6 +15,6 @@ public class Constants {
     public static final String BUTTON_BUDGET = "Budgeting";
     public static final String BUTTON_CARDS = "My cards";
     public static final String BUTTON_SPENDING = "Cash Spending";
-
+    public static final String BUTTON_ADD_EXPENSE = "Add an expense";
 
 }
