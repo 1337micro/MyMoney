@@ -75,8 +75,8 @@ public class CashSpending {
      * and a list of dollar amounts of all the purchases done for that type.
      */
    public static class Expenses{
-       private ExpenditureType type;
-       private List<Double> listOfExpenses;
+       private ExpenditureType type; //an Expenditure type
+       private List<Double> listOfExpenses; //a list of dollar amounts of all the purchases done for that type.
 
        public Expenses(ExpenditureType type) {
            this.type = type;
