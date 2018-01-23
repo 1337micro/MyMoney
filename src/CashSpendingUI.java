@@ -151,24 +151,7 @@ public class CashSpendingUI implements ActionListener {
          * @return
          */
         private Double handleSelectionOfExpenditureType(CashSpending.ExpenditureType selection){
-            Double amountSpent;
-            switch (selection){
-                case GROCERIES:
-                    amountSpent = showCashSpendingAmountOfMoneyDialog(GROCERIES);
-                    break;
-                case RENT:
-                    amountSpent = showCashSpendingAmountOfMoneyDialog(RENT);
-                    break;
-                case TUITION:
-                    amountSpent =showCashSpendingAmountOfMoneyDialog(TUITION);
-                    break;
-                case TAXES:
-                    amountSpent =showCashSpendingAmountOfMoneyDialog(TAXES);
-                    break;
-                default:
-                    amountSpent = 0.0;
-            }
-            return amountSpent;
+            return showCashSpendingAmountOfMoneyDialog(selection);
         }
 
         /**
