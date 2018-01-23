@@ -80,7 +80,7 @@ public class CashSpending {
 
        public Expenses(ExpenditureType type) {
            this.type = type;
-           this.listOfExpenses = new ArrayList<Double>();
+           this.listOfExpenses = new ArrayList<>();
        }
        public List<Double> getListOfExpenses() {
            return listOfExpenses;
