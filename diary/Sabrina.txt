@@ -11,6 +11,7 @@ Assigned roles, was given role of programmer for first iteration
 Created a Discord server for the group and sent out invitations
 
 01/18/2018
+Went to lab
 Met new teammates
 Talked a little more about features
 
@@ -22,3 +23,11 @@ Planned how to write the code for budgeting feature
 Learning to use github
 Created diary
 Learned basic Swing
+
+01/24/2018
+Went to lab, has meeting, discussed and finalised use cases
+
+01/26/2018
+Wrote code for Bugetting feature
+Wrote driver for Budgetting feature
+Wrote JUnit tests for Budgetting feature
