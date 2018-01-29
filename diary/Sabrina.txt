@@ -5,29 +5,40 @@ For comp 354 - Winter 2018
 --------------------------
 
 01/17/2018
+Went to lab
 Met teammates
 Discussed project features (budgeting, transactions, card display)
-Assigned roles, was given role of programmer for first iteration
-Created a Discord server for the group and sent out invitations
+Roles were assigned during lab, I was given role of programmer for first iteration
+I created a Discord server for the group and sent out invitations
 
 01/18/2018
-Went to lab
+Went to tutorial
 Met new teammates
 Talked a little more about features
 
 01/20/2018
 Was given the job to code the budgeting feature
-Planned how to write the code for budgeting feature
+I planned how to write the code for budgeting feature	(1h00)
 
 01/21/2018
-Learning to use github
-Created diary
-Learned basic Swing
+Learning to use github	(1hour)
+Created diary		(20min)
+Learned basic Swing	(1h00)
 
 01/24/2018
-Went to lab, has meeting, discussed and finalised use cases
+Went to lab, had meeting, discussed and finalised use cases as a group
+
+01/25/2018
+Went to tutorial, no meeting took place
 
 01/26/2018
-Wrote code for Bugetting feature
-Wrote driver for Budgetting feature
-Wrote JUnit tests for Budgetting feature
+Wrote code for Bugetting feature	(1h30)
+Wrote driver for Budgetting feature	(20min)
+
+01/27/2018
+Wrote JUnit tests for Budgetting feature	(1h00)
+Installed Latex
+Learned to use LaTex	(1h00) 
+
+01/28/2018
+Worked on BudgettingUI, to connect the Budgetting class to the interface (6pm-

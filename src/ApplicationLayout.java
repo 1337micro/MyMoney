@@ -43,7 +43,8 @@ public class ApplicationLayout extends JFrame{
         cards.setPreferredSize(new Dimension(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT));
         JButton budgeting = new JButton(Constants.BUTTON_BUDGET);
         budgeting.setPreferredSize(new Dimension(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT));
-
+        budgeting.addActionListener(new BudgetingUI());
+        
 
         //adding buttons to their panels
         frameTBbutt1.add(cashspending);

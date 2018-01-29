@@ -13,8 +13,10 @@ public class Constants {
     public static final int BUTTON_WIDTH = 150;
     public static final int BUTTON_HEIGHT= 20;
     public static final String BUTTON_BUDGET = "Budgeting";
+    public static final String BUTTON_CALCULATE_BUDGET = "Calculate Budget";
     public static final String BUTTON_CARDS = "My cards";
     public static final String BUTTON_SPENDING = "Cash Spending";
     public static final String BUTTON_ADD_EXPENSE = "Add an expense";
+
 
 }

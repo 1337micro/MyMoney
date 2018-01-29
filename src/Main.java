@@ -11,6 +11,7 @@ public class Main{
 
     private static CashSpending cashSpending = new CashSpending();
     private static ApplicationLayout applicationLayout = new ApplicationLayout();
+    private static Budgetting budgetting = new Budgetting();
 
     public static void main(String[] args) {
         // Use the system theme, this is purely aesthetic
@@ -33,5 +34,9 @@ public class Main{
     }
     public static ApplicationLayout getApplicationLayout() {
         return applicationLayout;
+    }
+    
+    public static Budgetting getBudgetting() {
+    	return budgetting;
     }
 }
