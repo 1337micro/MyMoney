@@ -1,5 +1,7 @@
 package src;
 
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.NumberFormat;
@@ -33,7 +35,7 @@ public class BudgetingUI implements ActionListener{
 
 	private NumberFormat amountFormat = NumberFormat.getNumberInstance();
 	private double amount = 0;
-	JFormattedTextField inputAvailableFunds;
+	JTextField inputAvailableFunds;
 	JTextField outputField;
 	JLabel label;
 	JButton calculateBudget;
@@ -44,8 +46,10 @@ public class BudgetingUI implements ActionListener{
 	private void buildBudgetingDisplayPanel(){
 
 		//Creating text field
-		inputAvailableFunds = new JFormattedTextField(amountFormat);
+		inputAvailableFunds = new JTextField();
 		inputAvailableFunds.setColumns(10);
+		inputAvailableFunds.setBounds(5, 5, 30, 20);
+
 
 		//Setting the label for text field
 		label = new JLabel("Available Funds: ");
@@ -54,7 +58,7 @@ public class BudgetingUI implements ActionListener{
 		//Initializing output field
 		outputField = new JTextField();
 		outputField.setEditable(false);
-		outputField.setVisible(false); //field is invisible until CalculateBudget button is pushed
+		outputField.setVisible(true); //field is invisible until CalculateBudget button is pushed
 
 		//Initializing the panel
 		panel = new JPanel();
@@ -91,8 +95,10 @@ public class BudgetingUI implements ActionListener{
 
 		private void displayBudget() {
 			//get value from input text field
-			amount = (double) inputAvailableFunds.getValue();
-
+			//ADD ERROR VERIFICATION STAGE
+			String inputText = inputAvailableFunds.getText();
+			amount = Double.parseDouble(inputText);
+					
 			//Calculate the budget
 			Budgetting budget = new Budgetting();
 			budget.setAvailableFunds(amount);
