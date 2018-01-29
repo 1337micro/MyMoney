@@ -45,9 +45,10 @@ public class BudgetingUI implements ActionListener{
 	private NumberFormat amountFormat = NumberFormat.getNumberInstance();
 	private double amount = 0;
 	JTextField inputAvailableFunds;
-	JTextField outputField;
+	JTextArea outputField;
 	JLabel label;
 	JButton calculateBudget;
+
 
 	/** Add the necessary SWING elements to the Budgeting panel
 	 *
@@ -57,7 +58,7 @@ public class BudgetingUI implements ActionListener{
 		//Creating text field
 		inputAvailableFunds = new JTextField();
 		inputAvailableFunds.setColumns(10);
-		inputAvailableFunds.setBounds(5, 5, 30, 20);
+	//	inputAvailableFunds.setBounds(5, 5, 10, 5);
 
 
 		//Setting the label for text field
@@ -65,13 +66,13 @@ public class BudgetingUI implements ActionListener{
 		label.setLabelFor(inputAvailableFunds);
 
 		//Initializing output field
-		outputField = new JTextField();
+		outputField = new JTextArea();
 		outputField.setEditable(false);
 		outputField.setVisible(true); //field is invisible until CalculateBudget button is pushed
 
 		//Initializing the panel
 		panel = new JPanel();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.LINE_AXIS));
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
 		//creating the button
 		calculateBudget = new JButton(Constants.BUTTON_CALCULATE_BUDGET);
@@ -82,6 +83,14 @@ public class BudgetingUI implements ActionListener{
 		panel.add(inputAvailableFunds);
 		panel.add(calculateBudget);
 		panel.add(outputField);
+		for(int i =0; i<10; i++) {
+			//very poor solution to making the JTextFields smaller along the vertical axis
+			JTextArea workAroundElementToSizeBoxes = new JTextArea();
+			workAroundElementToSizeBoxes.setText("");
+			workAroundElementToSizeBoxes.setEditable(false);
+			panel.add(workAroundElementToSizeBoxes);
+		}
+
 		panel.setVisible(false);
 	}
 
