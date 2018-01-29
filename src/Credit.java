@@ -1,17 +1,11 @@
 package src;
 
 public class Credit extends Cards{
-
-
-	String type;
-	int cardNumber;
 	int limit;
-	double moneyCurrent;
 	double moneyOwed;
 	
-	
 	public Credit() {
-		type="credit";
+		type=CardType.CREDIT;
 		cardNumber=0;
 		limit=0;
 		moneyCurrent=0;
@@ -19,7 +13,7 @@ public class Credit extends Cards{
 	}
 	
 	public Credit(String type, int cardNumber, int limit, double moneyCurrent, double moneyOwed) {
-		this.type=type;
+		this.type=CardType.CREDIT;
 		this.cardNumber=cardNumber;
 		this.limit =limit;
 		this.moneyCurrent=moneyCurrent;
@@ -55,13 +49,13 @@ public class Credit extends Cards{
 	 * getter for the gredit card limit
 	 * @return int of the credit card limit
 	 */
-			public int getLimit() {
-		return limit;
-	}
-			/**
-			 * getter for the money owed by the owner of the card
-			 * @return double of the amount of money owed by the owner of the card
-			 */
+	public int getLimit() {
+return limit;
+}
+	/**
+	 * getter for the money owed by the owner of the card
+	 * @return double of the amount of money owed by the owner of the card
+	 */
 	public double getMoneyOwed() {
 		return moneyOwed;
 	}

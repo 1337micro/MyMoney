@@ -162,11 +162,8 @@ public class CashSpendingUI implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             final CashSpending.ExpenditureType expenditureType = showCashSpendingExpenditureDialog(Main.getApplicationLayout());
             final double amountSpent = handleSelectionOfExpenditureType(expenditureType);
-
             Main.getCashSpending().addExpense(expenditureType, amountSpent);
-
             updateExpensesFields();
-
         }
     }
 }
