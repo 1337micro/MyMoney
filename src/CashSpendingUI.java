@@ -8,6 +8,10 @@ import java.util.Optional;
 
 import static src.CashSpending.ExpenditureType.*;
 public class CashSpendingUI implements ActionListener {
+    public JPanel getPanel() {
+        return thePanel;
+    }
+
     JPanel thePanel; // the panel containing all our JTextFields for CashSpending feature
     private final int FIELD_SIZE = 10; // number of columns in our GUI text fields
 
@@ -120,6 +124,10 @@ public class CashSpendingUI implements ActionListener {
             thePanel.setVisible(false);
         } else {
             thePanel.setVisible(true);
+            final Optional<JPanel> panelOptional = Optional
+                    .ofNullable(Main.getApplicationLayout().getBudgetingUI().getPanel());
+            if (panelOptional.isPresent()) panelOptional.get().setVisible(false);
+
         }
     }
 

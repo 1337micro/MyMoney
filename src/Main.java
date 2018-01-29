@@ -13,6 +13,7 @@ public class Main{
     private static ApplicationLayout applicationLayout = new ApplicationLayout();
     private static Budgetting budgetting = new Budgetting();
 
+
     public static void main(String[] args) {
         // Use the system theme, this is purely aesthetic
         try {
@@ -39,4 +40,7 @@ public class Main{
     public static Budgetting getBudgetting() {
     	return budgetting;
     }
+
+
+
 }

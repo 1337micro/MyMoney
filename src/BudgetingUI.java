@@ -5,10 +5,15 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.NumberFormat;
+import java.util.Optional;
 
 import javax.swing.*;
 
 public class BudgetingUI implements ActionListener{
+
+	public JPanel getPanel() {
+		return panel;
+	}
 
 	JPanel panel;
 	private final int FIELD_SIZE = 15;
@@ -28,6 +33,10 @@ public class BudgetingUI implements ActionListener{
 			panel.setVisible(false);
 		} else {
 			panel.setVisible(true);
+			final Optional<JPanel> panelOptional = Optional
+					.ofNullable(Main.getApplicationLayout().getCashSpendingUI().getPanel());
+			if (panelOptional.isPresent()) panelOptional.get().setVisible(false);
+
 		}
 
 	}

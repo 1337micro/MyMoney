@@ -6,8 +6,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ApplicationLayout extends JFrame{
+
+    private  CashSpendingUI cashSpendingUI;
     private ImageIcon image;
     private JLabel label1;
+    
+    private BudgetingUI budgetingUI;
 
     public ApplicationLayout() {
         // setting a menubar so there can be a header
@@ -38,12 +42,18 @@ public class ApplicationLayout extends JFrame{
         //creating buttons and setting their size
         JButton cashspending = new JButton(Constants.BUTTON_SPENDING);
         cashspending.setPreferredSize(new Dimension(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT));
-        cashspending.addActionListener(new CashSpendingUI());
+        CashSpendingUI cashSpendingUI = new CashSpendingUI();
+        this.cashSpendingUI = cashSpendingUI;        
+        cashspending.addActionListener(cashSpendingUI);
+        
         JButton cards = new JButton(Constants.BUTTON_CARDS);
         cards.setPreferredSize(new Dimension(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT));
+        
         JButton budgeting = new JButton(Constants.BUTTON_BUDGET);
         budgeting.setPreferredSize(new Dimension(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT));
-        budgeting.addActionListener(new BudgetingUI());
+        BudgetingUI budgetingUI = new BudgetingUI();
+        this.budgetingUI = budgetingUI;
+        budgeting.addActionListener(budgetingUI);
         
 
         //adding buttons to their panels
@@ -79,6 +89,14 @@ public class ApplicationLayout extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
     }
+    public CashSpendingUI getCashSpendingUI() {
+        return cashSpendingUI;
+    }
+
+    public BudgetingUI getBudgetingUI() {
+        return budgetingUI;
+    }
+
 
 
 }
