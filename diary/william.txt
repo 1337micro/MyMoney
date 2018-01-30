@@ -8,6 +8,7 @@ William Prioriello 27080956
 created Constants Class
 add system look and feel to Swing application
 pushed to upstream git repository
+created video for team demonstrating basic git features
 
 1/20/2018
 -Started implementing Cash Spending Feature. Re-organized the code.
