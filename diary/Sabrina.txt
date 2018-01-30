@@ -41,4 +41,7 @@ Installed Latex
 Learned to use LaTex	(1h00) 
 
 01/28/2018
-Worked on BudgettingUI, to connect the Budgetting class to the interface (6pm-
+Worked on BudgettingUI, to connect the Budgetting class to the interface (3h00)
+
+01/29/2018
+Added error proofing for user input in BudgetingUI class (30min)

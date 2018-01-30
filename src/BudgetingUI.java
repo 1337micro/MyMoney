@@ -114,8 +114,21 @@ public class BudgetingUI implements ActionListener{
 		private void displayBudget() {
 			//get value from input text field
 			//ADD ERROR VERIFICATION STAGE
-			String inputText = inputAvailableFunds.getText();
-			amount = Double.parseDouble(inputText);
+			String inputText = inputAvailableFunds.getText().trim();
+			
+			try {
+				amount = Double.parseDouble(inputText);
+			}
+			catch(NumberFormatException e) {
+				//If input isn't a number, print error message
+				
+				outputField.setText("\tPlease input a number\n"
+						+"\tUse a period and not a comma\n"
+						+"\tDo not use the '$' symbol\n");
+				if(!outputField.isVisible()) 
+					outputField.setVisible(true);
+				return;
+			}
 					
 			//Calculate the budget
 			Budgetting budget = new Budgetting();
@@ -125,9 +138,9 @@ public class BudgetingUI implements ActionListener{
 			outputField.setText(budget.toString());
 
 			//Make the outputField visible if it isn't already
-			if(!outputField.isVisible()) {
+			if(!outputField.isVisible()) 
 				outputField.setVisible(true);
-			}
+			
 		}
 
 		@Override
