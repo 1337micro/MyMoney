@@ -6,6 +6,10 @@ import java.util.List;
 
 public class MyCards {
 
+	public List<Cards> getCards() {
+		return cards;
+	}
+
 	private List <Cards> cards;
 	
 	

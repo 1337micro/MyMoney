@@ -19,3 +19,10 @@ Almost completed the feature
 -Refactored the Cash Spending Feature code, removed error prone code (repetitive code) and replaced it with more loops
 -Set the textfields as not editable (bugfix)
 
+1/24/2018
+-more unit testing for cash spending feature
+
+1/28/2018
+-help team mate for swing alignments (budgeting feature)
+1/30/2018
+-added a few getters
