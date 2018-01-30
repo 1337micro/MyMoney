@@ -12,6 +12,7 @@ public class Main{
     private static CashSpending cashSpending = new CashSpending();
     private static ApplicationLayout applicationLayout = new ApplicationLayout();
     private static Budgetting budgetting = new Budgetting();
+    private static MyCards myCards= new MyCards();
 
 
     public static void main(String[] args) {
@@ -41,6 +42,8 @@ public class Main{
     	return budgetting;
     }
 
-
+    public static MyCards getMyCards() {
+    	return myCards;
+    }
 
 }

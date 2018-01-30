@@ -12,11 +12,12 @@ public class Debit extends Cards{
 	 * @param int cardNumber
 	 * @param double moneyCurrent
 	 */
-	public Debit(String type, int cardNumber, double moneyCurrent) {
-		this.type=CardType.DEBIT;
+	public Debit(CardType type, int cardNumber, double moneyCurrent) {
+		this.type=CardType.CREDIT;
 		this.cardNumber=cardNumber;
 		this.moneyCurrent=moneyCurrent;
 	}
+	
 	
 	//I did not make getters and setters since they can use the ones 
 	//from the super class. Note that the account number of the person

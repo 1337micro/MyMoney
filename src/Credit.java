@@ -12,13 +12,14 @@ public class Credit extends Cards{
 		moneyOwed=limit-moneyCurrent;
 	}
 	
-	public Credit(String type, int cardNumber, int limit, double moneyCurrent, double moneyOwed) {
+	public Credit(CardType type, int cardNumber, int limit, double moneyCurrent, double moneyOwed) {
 		this.type=CardType.CREDIT;
 		this.cardNumber=cardNumber;
 		this.limit =limit;
 		this.moneyCurrent=moneyCurrent;
 		this.moneyOwed=moneyOwed;
 	}
+	
 	
 	//need to create setters and getter for limit and moneyOwed. the others can be from the super class
 	
