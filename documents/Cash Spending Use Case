@@ -16,7 +16,7 @@ Use Case ID  & MyMoneyW18COMP354a\\
 \hline
 Use Case Name  & Cash Spending\\
 \hline
-Goal/Purpose  & Allow a user to manage his/her cash spendings via a desktop application\\
+Goal/Purpose  & Allow a user to manage his/her cash spending via a desktop application\\
 \hline
 Actors  & Any User\\
 \hline
@@ -24,18 +24,19 @@ Pre-Conditions &  User has installed "My Money" desktop application \\
 \hline
 Post-Conditions & NA \\
 \hline
-Main Flow & User wants to update his/her incomes.
+Main Flow & User wants to update his/her expenses.
 1. User opens the application and selects the Cash Spending button. 
-2. The application displays two possible options for the user: incomes or outcomes
-3. User enters the value of his income or outcome and presses the "done" button.
-4. The application stores the value entered by the user and displays a message of success for the operation, including the value. Also, there are displayed two options for the user: make changes or go back to the front page
+2. The application displays a table with actual expenses on taxes, tuition, rent, groceries and a button to add other expenses.
+3. User clicks on the "Add an expense" button and selects one of the spending's categories.
+4. User enters the amount he spent on the selected category.
+5. The application stores the value in the expenditure's table. 
 \\
 \hline
 Alternate Flow(s) & NA
 
 \\
 \hline
-Exception Flow(s) & • 1. User entered invalid inputs(ex. a negative number)
+Exception Flow(s) & • 1. User entered invalid inputs(ex. a string)
    b) The application displays error message, and urges user to fix the input. \\
 \hline
 
