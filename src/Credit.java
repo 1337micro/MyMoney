@@ -1,33 +1,36 @@
 package src;
 
 public class Credit extends Cards{
-	int limit;
+
+	double limit;
 	double moneyOwed;
-	
+
 	public Credit() {
 		type=CardType.CREDIT;
+		accNb = 0;
 		cardNumber=0;
 		limit=0;
 		moneyCurrent=0;
-		moneyOwed=limit-moneyCurrent;
+		moneyOwed=moneyCurrent-limit;
 	}
-	
-	public Credit(Cards.CardType type, int cardNumber, int limit, double moneyCurrent, double moneyOwed) {
+
+	public Credit(Cards.CardType type, int accNb, int cardNumber, double moneyCurrent, double limit) {
 		this.type=CardType.CREDIT;
+		this.accNb = accNb;
 		this.cardNumber=cardNumber;
 		this.limit =limit;
 		this.moneyCurrent=moneyCurrent;
-		this.moneyOwed=moneyOwed;
+		this.moneyOwed=moneyCurrent-limit;
 	}
-	
+
 	//need to create setters and getter for limit and moneyOwed. the others can be from the super class
-	
+
 	//making setters
 	/**
 	 * setters for the limit of the credit card
 	 * @param int limit
 	 */
-	public void setLimit(int limit) {
+	public void setLimit(double limit) {
 		this.limit=limit;
 	}
 	/**
@@ -41,17 +44,33 @@ public class Credit extends Cards{
 			this.moneyOwed=moneyOwed;
 			moneyCurrent=limit-moneyOwed;
 		} 
-			
+
 	}
-	
+
+	public int getCardNumber() {
+		return cardNumber;
+	}
+
+	public void setCardNumber(int cardNumber) {
+		this.cardNumber = cardNumber;
+	}
+
+	public int getAccNb() {
+		return accNb;
+	}
+
+	public void setAccNb(int accNb) {
+		this.accNb = accNb;
+	}
+
 	//making getters
 	/**
 	 * getter for the gredit card limit
 	 * @return int of the credit card limit
 	 */
-	public int getLimit() {
-return limit;
-}
+	public double getLimit() {
+		return limit;
+	}
 	/**
 	 * getter for the money owed by the owner of the card
 	 * @return double of the amount of money owed by the owner of the card
@@ -60,3 +79,4 @@ return limit;
 		return moneyOwed;
 	}
 }
+
