@@ -1,4 +1,4 @@
-package src;
+
 
 public class BudgettingDriver {
 
@@ -15,6 +15,9 @@ public class BudgettingDriver {
 		System.out.println("Using the PARAMETERIZED contructor:");
 		Budgetting object2 = new Budgetting(2500, 30, 10, 10, 5, 5, 4, 7, 10, 10, 10);
 		System.out.println(object2);
+		
+		//Testing Print to file
+		object1.writeToFile();
 
 	}
 
