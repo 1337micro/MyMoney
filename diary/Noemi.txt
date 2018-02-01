@@ -12,23 +12,38 @@ January 17, 2018 (Lab 1)
 		budgeting (amount, set a percent for groceries, rent ,etc)
 		credit cards, debits, loyalty cards (display like a bank application, very visual not much options for the user)
 
-___________________________________________________________________________________________________
+__________________________________________________________________________________________
 January 18, 2018 (Tutorial 1)
 	We learned about domain model.
 	I decided to do a plan of what the desktop application could look like.
 	I did some basics coding to provide the team with a possible outcome:
 
-___________________________________________________________________________________________________
+__________________________________________________________________________________________
 January 19, 2018
-	I worked on the use case template to have an idea for the domain model according to the template the TA showed us during the tutorial yesterday.
+	I worked on the use case template to have an idea for the domain model according 	to the template the TA showed us during the tutorial yesterday.
 	I worked another sample of how the application could look
-	The Team approved the design of the application I did and Tiantian completed the User Case Template.
+	The Team approved the design of the application I did and Tiantian completed the U	User Case Template.
 	I posted on GitHub the design.
-	After collecting and reviewing every teammate’s schedule, I could tell when we can almost all meet:
-	I created a Google Drive Folder with all necessary documents and shared it with every teammates so they can add, modify documents.
+	After collecting and reviewing every teammate’s schedule, I could tell when we can 	almost all meet:
+	I created a Google Drive Folder with all necessary documents and shared it with 	every teammates so they can add, modify documents.
 	Tiantian proposed a Use Case with Latex.
 	William modified my code to make it clearer, separating, identifying variables.
 	William made a video to explain us how to use Git
-	Genevieve made a schedule to follow for the first iteration.
-___________________________________________________________________________________________________
-
+	Genevieve made a schedule to follow for the first iteration
+__________________________________________________________________________________________
+January 25, 2018
+	I checked what has been done during the lab yesterday as I was sick to go. I keep 	up with what has been done.
+	During the week I ask question about William code for the feature Cash Spending 	and ask him to make sure he had comments done.
+	I also made sure Sabrina was up to date with her feature.
+	I check with Genevieve if she was doing okay with My Cards feature and I suggested 	that she uses a Grid Layout so it could be more simple for her to place her 		components.
+__________________________________________________________________________________________
+January 29, 2018
+	I helped Genevieve with the My Cards features by providing a sample of the output.
+__________________________________________________________________________________________
+January 30, 2018
+	I am helping Genevieve with implementation of cardsUI by doing a JTable and adding all information in it.
+	I started to do the code for the iteration 2 for the my Cards feature.
+__________________________________________________________________________________________
+January 31, 2018
+Presentation of the work we are doing so far.Everyone in the team noticed that Ashesh did not do any work as a documenter. He did not participate in the discussion nor took any notice of the work to do. 
+ 
