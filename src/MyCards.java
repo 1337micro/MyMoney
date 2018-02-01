@@ -25,18 +25,18 @@ public class MyCards {
 	/*
 	 * method to add a card to the arraylist, debit type
 	 */
-	public void addCard(Cards.CardType type, int cardNumber, double moneyCurrent) {
+	public void addCard(Cards.CardType type, int accNb, int cardNumber, double moneyCurrent) {
 		if(type == Cards.CardType.DEBIT) {
-			Debit debit= new Debit(type, cardNumber, moneyCurrent);
+			Debit debit= new Debit(type, accNb, cardNumber, moneyCurrent);
 			cards.add(debit);
 		}
 	}
 	/*
 	 * method to add a card to the arrylist credit type
 	 */
-	public void addCard(Cards.CardType type, int cardNumber, int limit, double moneyCurrent, double moneyOwed) {
+	public void addCard(Cards.CardType type, int accNb, int cardNumber, double limit, double moneyCurrent) {
 		if(type == Cards.CardType.CREDIT) {
-			Credit credit = new Credit(type, cardNumber, limit, moneyCurrent, moneyOwed);
+			Credit credit = new Credit(type, accNb, cardNumber, limit, moneyCurrent);
 			cards.add(credit);
 			}
 	}
@@ -51,3 +51,4 @@ public class MyCards {
 	
 	
 }
+
