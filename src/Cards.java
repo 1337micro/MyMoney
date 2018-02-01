@@ -12,13 +12,16 @@ public class Cards {
 		}
 	}
 	protected CardType type;
+	protected int accNb;
 	protected int cardNumber;
 	protected double moneyCurrent;
 	
+	
 	public Cards() {
 		type=CardType.DEBIT;
-		moneyCurrent=0;
+		accNb = 0;
 		cardNumber=0;
+		moneyCurrent=0;
 	}
 
 	public CardType getType() {
@@ -27,6 +30,14 @@ public class Cards {
 
 	public void setType(CardType type) {
 		this.type = type;
+	}
+
+	public int getAccNb() {
+		return accNb;
+	}
+
+	public void setAccNb(int accNb) {
+		this.accNb = accNb;
 	}
 
 	public int getCardNumber() {
@@ -45,3 +56,4 @@ public class Cards {
 		this.moneyCurrent = moneyCurrent;
 	}
 }
+
