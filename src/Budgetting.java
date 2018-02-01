@@ -1,7 +1,8 @@
-package src;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 
 public class Budgetting {
-	
+
 	//Percentage instance members
 	//Getters and Setters are at the end of the document
 	double percentHousing;
@@ -14,11 +15,11 @@ public class Budgetting {
 	double percentEntertainement;
 	double percentTransportation;
 	double percentMisc;
-	
+
 	//Other instance members
 	double availableFunds;
-	
-	
+
+
 	//Default constructor with recommended percentages
 	//Based on http://www.leavedebtbehind.com/frugal-living/budgeting/10-recommended-category-percentages-for-your-family-budget/
 	public Budgetting() {
@@ -32,17 +33,17 @@ public class Budgetting {
 		this.percentEntertainement = 7;
 		this.percentTransportation = 12;
 		this.percentMisc = 5;
-		
+
 		this.availableFunds = 0;
 	}
-	
+
 	//Constructor with parameters
 	//ERROR testing needed for iteration 2
 	public Budgetting(double funds, double housing, double food, double utilities, double clothing, double medical, 
 			double donations, double savings, double entertainement, double transportation, double misc) {
-		
+
 		double total = housing + food + utilities + clothing + medical + donations + savings + entertainement + transportation + misc;
-		
+
 		if(total>100) {
 			System.out.println("Total exceeds 100%\n");
 		}
@@ -53,7 +54,7 @@ public class Budgetting {
 			System.out.println("Total was below 100%\n");
 			System.out.println("Extra " + missing + "% was added to Misc\n");
 		}
-		
+
 		this.percentHousing = housing;
 		this.percentFood = food;
 		this.percentUtilities = utilities;
@@ -64,55 +65,55 @@ public class Budgetting {
 		this.percentEntertainement = entertainement;
 		this.percentTransportation = transportation;
 		this.percentMisc = misc;
-		
+
 		this.availableFunds = funds;
 	}
-	
+
 	//Methods to calculate the percentages
 	public double calculateHousing() {
 		return percentHousing*availableFunds/100;
 	}
-	
+
 	public double calculateFood() {
 		return percentFood*availableFunds/100;
 	}
-	
+
 	public double calculateUtilities() {
 		return percentUtilities*availableFunds/100;
 	}
-	
+
 	public double calculateClothing() {
 		return percentClothing*availableFunds/100;
 	}
-	
+
 	public double calculateMedical() {
 		return percentMedical*availableFunds/100;
 	}
-	
+
 	public double calculateDonations() {
 		return percentDonations*availableFunds/100;
 	}
-	
+
 	public double calculateSavingsInsurance() {
 		return percentSavingsInsurance*availableFunds/100;
 	}
-	
+
 	public double calculateEntertainement() {
 		return percentEntertainement*availableFunds/100;
 	}
-	
+
 	public double calculateTransportation() {
 		return percentTransportation*availableFunds/100;
 	}
-	
+
 	public double calculateMisc() {
 		return percentMisc*availableFunds/100;
 	}
-	
+
 	//Display
 	public String toString(){
 		String toPrint = "";
-		
+
 		toPrint += "With " + getAvailableFunds() + "$ in available funds, it is recommended that you spend:\n";
 		toPrint += calculateHousing() + "$ (" + getPercentHousing() + "%) for Housing\n";
 		toPrint += calculateFood() + "$ (" + getPercentFood() + "%) for Food\n";
@@ -124,10 +125,45 @@ public class Budgetting {
 		toPrint += calculateEntertainement() + "$ (" + getPercentEntertainement() + "%) for Entertainement\n";
 		toPrint += calculateTransportation() + "$ (" + getPercentTransportation() + "%) for Transportation\n";
 		toPrint += calculateMisc() + "$ (" + getPercentMisc() + "%) for Miscellaneous\n";
-		
+
 		return toPrint;
 	}
-	
+
+	//Write to file
+	public void writeToFile(){
+		// opening file stream to write log
+		PrintWriter pw = null;
+		try {
+			pw = new PrintWriter(new FileOutputStream("Budgetting.txt"));
+		} catch (Exception e) {
+			System.out.println("Error while creating file");
+			System.exit(1);
+		}
+		
+		//Print to file according to
+		//AvailableFunds:Amount
+		//Section:Percentage:Amount
+		
+		pw.println("AvailableFunds:" + getAvailableFunds());
+		pw.println("Housing:" + getPercentHousing() + ":" + calculateHousing());
+		pw.println("Food:" + getPercentFood() + ":" + calculateFood());
+		pw.println("Utilities:" + getPercentUtilities() + ":" + calculateUtilities());
+		pw.println("Clothing:" + getPercentClothing() + ":" + calculateClothing());
+		pw.println("Medical:" + getPercentMedical() + ":" + calculateMedical());
+		pw.println("SavingsInsurance:" + getPercentSavingsInsurance() + ":" + calculateSavingsInsurance());
+		pw.println("Entertainement:" + getPercentEntertainement() + ":" + calculateEntertainement());
+		pw.println("Transportation:" + getPercentTransportation() + ":" + calculateTransportation());
+		pw.println("Misc:" + getPercentMisc() + ":" + calculateMisc());
+
+		// Closing file stream
+		try {
+			pw.close();
+		} catch (Exception e) {
+			System.out.println("Error while closing file");
+			System.exit(1);
+		}
+	}
+
 
 	//GETTERS AND SETTERS
 	public double getPercentHousing() {
@@ -217,7 +253,7 @@ public class Budgetting {
 	public void setAvailableFunds(double availableFunds) {
 		this.availableFunds = availableFunds;
 	}
-	
-	
-	
+
+
+
 }
