@@ -3,6 +3,7 @@ package src;
 public class Debit extends Cards{
 	public Debit() {
 		type=CardType.DEBIT;
+		accNb = 0;
 		cardNumber=0;
 		moneyCurrent=0;
 	}
@@ -12,8 +13,9 @@ public class Debit extends Cards{
 	 * @param int cardNumber
 	 * @param double moneyCurrent
 	 */
-	public Debit(Cards.CardType type, int cardNumber, double moneyCurrent) {
+	public Debit(Cards.CardType type, int accNb, int cardNumber, double moneyCurrent) {
 		this.type=CardType.DEBIT;
+		this.accNb = accNb;
 		this.cardNumber=cardNumber;
 		this.moneyCurrent=moneyCurrent;
 	}
@@ -24,3 +26,4 @@ public class Debit extends Cards{
 	
 	
 }
+
