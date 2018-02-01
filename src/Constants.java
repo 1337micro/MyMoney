@@ -1,6 +1,6 @@
 package src;
 public class Constants {
-    public static final int APP_LAYOUT_MARGIN_TOP = 10;
+	public static final int APP_LAYOUT_MARGIN_TOP = 10;
     public static final int APP_LAYOUT_MARGIN_LEFT = 10;
     public static final int APP_LAYOUT_MARGIN_RIGHT = 10;
     public static final int APP_LAYOUT_MARGIN_BOTTOM = 10;
@@ -18,5 +18,6 @@ public class Constants {
     public static final String BUTTON_SPENDING = "Cash Spending";
     public static final String BUTTON_ADD_EXPENSE = "Add an expense";
 
-
+    public static final String BUTTON_ADD_CARD = "Add a card";
+    public static final String BUTTON_REMOVE_CARD = "Remove a card";
 }

@@ -30,3 +30,37 @@ Installing git and going through tutorial, familiarizing myself with git: 13h00-
 reviewing code / learning swing :14h00-13h15
 						15h45-17h25
 
+Journal entry 2018, 01, 24
+lab meeting.
+
+
+Journal entry 2018, 01, 25
+We did not have a meeting after the tutorial since we had quite a long one the previous day. 
+
+Journal entry 2018, 01, 27
+watched swing tutorial : 13h-14h
+
+Journal entry 2018, 01, 29
+work on the code: 15h-17h
+			18h-20h
+			21h-22h26
+			22h45-24h
+I had issues with eclipse. It does not recognize the files as part of the package even when the file is saved in the workspace. I cannot run the files as a result. 
+
+I'm struggling with  SWING. Noemie helped me out a bit to understand how it works. 
+
+Journal entry 2018, 01, 30
+Noemie has helped me with figuring out a basic layout for the card feature. I am going to join her code with mine and code the event listeners.
+start working on the code: 11:29-12:43
+					13:45-14:23 
+trying to fix the merging issue with git: 16:50-17:30
+
+working on the event listeners: 22:30-23:00
+
+Journal entry 2018, 01, 31
+Working ont the event listeners for the cards UI, fixing display problem and new merge problem:				10:00-12:00
+									13:40-15:05
+									15:30-16:00
+									18:12-19:00
+									
+

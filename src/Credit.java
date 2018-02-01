@@ -12,7 +12,7 @@ public class Credit extends Cards{
 		moneyOwed=limit-moneyCurrent;
 	}
 	
-	public Credit(String type, int cardNumber, int limit, double moneyCurrent, double moneyOwed) {
+	public Credit(Cards.CardType type, int cardNumber, int limit, double moneyCurrent, double moneyOwed) {
 		this.type=CardType.CREDIT;
 		this.cardNumber=cardNumber;
 		this.limit =limit;

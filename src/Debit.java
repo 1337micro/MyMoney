@@ -12,7 +12,7 @@ public class Debit extends Cards{
 	 * @param int cardNumber
 	 * @param double moneyCurrent
 	 */
-	public Debit(String type, int cardNumber, double moneyCurrent) {
+	public Debit(Cards.CardType type, int cardNumber, double moneyCurrent) {
 		this.type=CardType.DEBIT;
 		this.cardNumber=cardNumber;
 		this.moneyCurrent=moneyCurrent;

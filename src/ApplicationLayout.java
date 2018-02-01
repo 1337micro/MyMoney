@@ -12,6 +12,7 @@ public class ApplicationLayout extends JFrame{
     private JLabel label1;
     
     private BudgetingUI budgetingUI;
+    private MyCardsUI cardsUI;
 
     public ApplicationLayout() {
         // setting a menubar so there can be a header
@@ -48,6 +49,10 @@ public class ApplicationLayout extends JFrame{
         
         JButton cards = new JButton(Constants.BUTTON_CARDS);
         cards.setPreferredSize(new Dimension(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT));
+        MyCardsUI cardsUI = new MyCardsUI();
+        this.cardsUI=cardsUI;
+        cards.addActionListener(cardsUI);
+        
         
         JButton budgeting = new JButton(Constants.BUTTON_BUDGET);
         budgeting.setPreferredSize(new Dimension(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT));
