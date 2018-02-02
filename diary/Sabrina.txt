@@ -9,7 +9,7 @@ Went to lab
 Met teammates
 Discussed project features (budgeting, transactions, card display)
 Roles were assigned during lab, I was given role of programmer for first iteration
-I created a Discord server for the group and sent out invitations
+Created a Discord server for the group and sent out invitations
 
 01/18/2018
 Went to tutorial
@@ -18,7 +18,7 @@ Talked a little more about features
 
 01/20/2018
 Was given the job to code the budgeting feature
-I planned how to write the code for budgeting feature	(1h00)
+Planned how to write the code for budgeting feature	(1h00)
 
 01/21/2018
 Learning to use github	(1hour)
@@ -45,3 +45,13 @@ Worked on BudgettingUI, to connect the Budgetting class to the interface (3h00)
 
 01/29/2018
 Added error proofing for user input in BudgetingUI class (30min)
+
+01/31/2018
+Went to lab for Demo
+Added write to file method (40min)
+
+02/01/2018
+Went to tutorial
+Added read from method for Budgetting.java class	(1h30)
+Laid ground work for iteration 2	(1h00)
+Added more JUnit tests	(40min)

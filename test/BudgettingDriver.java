@@ -1,3 +1,4 @@
+package src;
 
 
 public class BudgettingDriver {
@@ -18,6 +19,12 @@ public class BudgettingDriver {
 		
 		//Testing Print to file
 		object1.writeToFile();
+		
+		//Testing read full object from file
+		System.out.println("Output should be identical to the first output");
+		Budgetting object3 = new Budgetting();
+		object3.readBudgetingFromFile("Budgetting.txt");
+		System.out.println(object3);
 
 	}
 

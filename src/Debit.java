@@ -5,7 +5,7 @@ public class Debit extends Cards{
 		type=CardType.DEBIT;
 		accNb = 0;
 		cardNumber=0;
-		moneyCurrent=0;
+		moneyAvailable=0;
 	}
 	/**
 	 * Constructor for debit cards
@@ -17,7 +17,7 @@ public class Debit extends Cards{
 		this.type=CardType.DEBIT;
 		this.accNb = accNb;
 		this.cardNumber=cardNumber;
-		this.moneyCurrent=moneyCurrent;
+		this.moneyAvailable=moneyCurrent;
 	}
 	
 	//I did not make getters and setters since they can use the ones 
