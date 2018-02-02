@@ -14,14 +14,14 @@ public class Cards {
 	protected CardType type;
 	protected int accNb;
 	protected int cardNumber;
-	protected double moneyCurrent;
+	protected double moneyAvailable;
 	
 	
 	public Cards() {
 		type=CardType.DEBIT;
 		accNb = 0;
 		cardNumber=0;
-		moneyCurrent=0;
+		moneyAvailable=0;
 	}
 
 	public CardType getType() {
@@ -49,11 +49,11 @@ public class Cards {
 	}
 
 	public double getMoneyCurrent() {
-		return moneyCurrent;
+		return moneyAvailable;
 	}
 
-	public void setMoneyCurrent(double moneyCurrent) {
-		this.moneyCurrent = moneyCurrent;
+	public void setMoneyCurrent(double moneyAvailable) {
+		this.moneyAvailable = moneyAvailable;
 	}
 }
 
