@@ -9,12 +9,19 @@ import src.Cards.CardType;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Scanner;
 import java.awt.*;
 
 
 public class MyCardsUI implements ActionListener{
+
 
 	public JPanel getPanel() {
 		return panel;
@@ -32,6 +39,7 @@ public class MyCardsUI implements ActionListener{
 	double money;
 	int cardNum;
 	double moneyCur ;
+	double moneySpent;
 	double limitCard;
 	double moneyOwedCard;
 
@@ -73,7 +81,9 @@ public class MyCardsUI implements ActionListener{
 		tableModel = new DefaultTableModel(columnNames, 0);
 		table = new JTable(tableModel);
 		table.setRowSelectionAllowed(false);
-		
+
+
+
 
 		//Create the scroll pane and add the table to it. 
 		@SuppressWarnings("deprecation")
@@ -121,14 +131,15 @@ public class MyCardsUI implements ActionListener{
 					,"Addition of a card",JOptionPane.QUESTION_MESSAGE,Icon, possibilities, possibilities[0] );
 
 			if (type==Cards.CardType.DEBIT) {
-				
-				JTextField accNumber = new JTextField("Please Enter your account Number");
-				JTextField cardNumber = new JTextField("Please Enter the card Number");
+
+				JTextField accNumber = new JTextField("Please Enter your account Number (4 numbers)");
+				accNumber.setBackground(Color.RED);
+				JTextField cardNumber = new JTextField("Please Enter the card Number (5 numbers)");
 				JTextField moneyCurrent = new JTextField("Please Enter the amount of $");
 
 				Object [] fields = {accNumber, cardNumber, moneyCurrent};
 
-				JOptionPane.showInputDialog(null, fields, "Debit Card Information", JOptionPane.OK_CANCEL_OPTION );
+				JOptionPane.showInputDialog(null, fields, "Debit Card Information", JOptionPane.OK_CANCEL_OPTION);
 				cdtp = Cards.CardType.DEBIT;
 				accNb = Integer.parseInt(accNumber.getText());
 				cardNumD=Integer.parseInt(cardNumber.getText());
@@ -138,15 +149,15 @@ public class MyCardsUI implements ActionListener{
 				cards_list.add(card);
 				Object[] data = {cdtp, accNb, cardNumD, money};
 				tableModel.addRow(data);
-				
+				 
 
 			}
 			else {
 				JTextField accNumber = new JTextField("Please Enter your account Number (4 numbers)");
 				JTextField cardNumber = new JTextField("Please Enter the card Number (5 numbers)");
-				JTextField moneyCurrent = new JTextField("Please Enter Amount of $ you have");
+				JTextField moneyCurrent = new JTextField("Please Enter Amount of you already spent");
 				JTextField limit = new JTextField("Please enter your credit limit");
-				
+
 
 
 				Object [] fields = {accNumber, cardNumber, moneyCurrent, limit};
@@ -155,13 +166,13 @@ public class MyCardsUI implements ActionListener{
 				cdtp = Cards.CardType.CREDIT;
 				accNb = Integer.parseInt(accNumber.getText());
 				cardNum=Integer.parseInt(cardNumber.getText());
-				moneyCur = Double.parseDouble(moneyCurrent.getText());
+				moneySpent = Double.parseDouble(moneyCurrent.getText());
 				limitCard=Double.parseDouble(limit.getText());
-				//moneyOwedCard = Double.parseDouble(moneyOwed.getText());
 
-				Credit card = new Credit(cdtp, accNb, cardNum, moneyCur, limitCard);
+
+				Credit card = new Credit(cdtp, accNb, cardNum, moneySpent, limitCard);
 				cards_list.add(card);
-				Object[] data = {cdtp, accNb, cardNum, card.getMoneyOwed()};
+				Object[] data = {cdtp, accNb, cardNum, moneySpent};
 				tableModel.addRow(data);
 
 			}
@@ -195,8 +206,6 @@ public class MyCardsUI implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			JFrame frame= new JFrame();
-
-
 			Icon icon = null;
 			int cardNumber=(int)JOptionPane.showInputDialog(frame, "Please choose a card to remove", "Removal of a card",JOptionPane.OK_CANCEL_OPTION,icon,cardNum(cards_list),cardNum(cards_list)[0]);
 
@@ -208,7 +217,6 @@ public class MyCardsUI implements ActionListener{
 
 		}
 	}
-
 
 
 }
