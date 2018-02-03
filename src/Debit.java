@@ -1,11 +1,17 @@
 package src;
 
-public class Debit extends Cards{
+public class Debit implements Cards{
+//extends Cards{
+	CardType type;
+	int accNb;
+	int cardNumber;
+	double moneyAvailable;
+	
 	public Debit() {
 		type=CardType.DEBIT;
 		accNb = 0;
 		cardNumber=0;
-		moneyAvailable=0;
+		moneyAvailable=0.0;
 	}
 	/**
 	 * Constructor for debit cards
@@ -13,16 +19,74 @@ public class Debit extends Cards{
 	 * @param int cardNumber
 	 * @param double moneyCurrent
 	 */
-	public Debit(Cards.CardType type, int accNb, int cardNumber, double moneyCurrent) {
+	public Debit(CardType cardType, int accNb, int cardNumber, double moneyAvailable) {
 		this.type=CardType.DEBIT;
 		this.accNb = accNb;
 		this.cardNumber=cardNumber;
-		this.moneyAvailable=moneyCurrent;
+		this.moneyAvailable=moneyAvailable;
 	}
 	
-	//I did not make getters and setters since they can use the ones 
-	//from the super class. Note that the account number of the person
-	//will be the card number of the debit card
+	@Override
+	public CardType getType() {
+		return this.type;
+	}
+
+	@Override
+	public void setType(CardType type) {
+		this.type = type;
+
+	}
+	@Override
+	public int getCardNumber() {
+		return cardNumber;
+	}
+	@Override
+	public void setCardNumber(int cardNumber) {
+		this.cardNumber = cardNumber;
+	}
+	@Override
+	public int getAccNb() {
+		return accNb;
+	}
+	@Override
+	public void setAccNb(int accNb) {
+		this.accNb = accNb;
+	}
+	@Override
+	public double getMoneyAvailable() {
+		return this.moneyAvailable;
+	}
+	@Override
+	public void setMoneyAvailable(double moneyAvailable) {
+		this.moneyAvailable = moneyAvailable;
+		
+	}
+	
+	// not used in debit
+	@Override
+	public double getMoneySpent() {
+		
+		return 0;
+	}
+	@Override
+	public void setMoneySpent(double moneySpent) {
+		
+		
+	}
+	@Override
+	public void setLimit(double limit) {
+		
+		
+	}
+	@Override
+	public double getLimit() {
+		
+		return 0;
+	}
+	
+	
+	
+	
 	
 	
 }
