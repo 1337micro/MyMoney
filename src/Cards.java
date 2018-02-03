@@ -1,6 +1,8 @@
 package src;
 
-public class Cards {
+public interface Cards {
+
+
 	public enum CardType{
 		DEBIT("debit"), CREDIT("credit");
 		String cardtype;
@@ -10,50 +12,22 @@ public class Cards {
 		public String toString(){
 			return this.cardtype;
 		}
-	}
-	protected CardType type;
-	protected int accNb;
-	protected int cardNumber;
-	protected double moneyAvailable;
-	
-	
-	public Cards() {
-		type=CardType.DEBIT;
-		accNb = 0;
-		cardNumber=0;
-		moneyAvailable=0;
-	}
 
-	public CardType getType() {
-		return type;
 	}
+	public CardType getType();
+	public void setType(CardType type);
+	public int getAccNb();
+	public void setAccNb(int accNb) ;
+	public double getCardNumber();
+	public void setCardNumber(double cardNumber);
+	public double getMoneyAvailable();
+	public void setMoneyAvailable(double moneyAvailable);
+	public double getMoneySpent();
+	public void setMoneySpent(double moneySpent);
+	public void setLimit(double limit);
+	public double getLimit();
 
-	public void setType(CardType type) {
-		this.type = type;
-	}
 
-	public int getAccNb() {
-		return accNb;
-	}
 
-	public void setAccNb(int accNb) {
-		this.accNb = accNb;
-	}
 
-	public int getCardNumber() {
-		return cardNumber;
-	}
-
-	public void setCardNumber(int cardNumber) {
-		this.cardNumber = cardNumber;
-	}
-
-	public double getMoneyCurrent() {
-		return moneyAvailable;
-	}
-
-	public void setMoneyCurrent(double moneyAvailable) {
-		this.moneyAvailable = moneyAvailable;
-	}
 }
-
