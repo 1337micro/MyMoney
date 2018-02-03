@@ -1,27 +1,46 @@
 package src;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import src.Cards.CardType;
 
 
 public class MyCards {
+	private static List <Cards> cards;
+	private static PrintWriter pw = null;
+	private static File file = new File("/Users/noemilemonnier/Documents/workspace/MyMoney/MyCards");
+	private static File temp = new File("MyCardstemp.txt");
+	private static BufferedWriter bw;
+	private static BufferedReader reader;
+	private static CardType cdtp;
+	private static int cardNumD;
+	private static int accNb;
+	private static double money;
+	private static int cardNum;
+	private static double moneyAvailable;
+	private static double moneySpent;
+	private static double limitCard;
 
 	public List<Cards> getCards() {
 		return cards;
 	}
 
-	private List <Cards> cards;
-	
-	
-
-	
 	/*
 	 * create an arraylist to store the cards as a sequence
 	 */
 	public MyCards() {
 		this.cards= new ArrayList<>();
 	}
-	
+
 	/*
 	 * method to add a card to the arraylist, debit type
 	 */
@@ -31,24 +50,168 @@ public class MyCards {
 			cards.add(debit);
 		}
 	}
+
 	/*
-	 * method to add a card to the arrylist credit type
+	 * method to add a card to the arraylist credit type
 	 */
 	public void addCard(Cards.CardType type, int accNb, int cardNumber, double limit, double moneySpent) {
 		if(type == Cards.CardType.CREDIT) {
 			Credit credit = new Credit(type, accNb, cardNumber, limit, moneySpent);
 			cards.add(credit);
-			}
+
+		}
 	}
+
 	/*
 	 * method to remove a card from the list
 	 */
 	public void removeCard(int card) {
 		cards.remove(card);
 	}
-	
-	
-	
-	
+
+	/*
+	 * method to write to the database textfile
+	 */
+	public static void writeToFile(Cards newCard){
+
+		// opening file stream to write log
+		try {
+			pw = new PrintWriter(new FileOutputStream(file, true));
+		} catch (Exception e) {
+			System.out.println("Error while creating file");
+			System.exit(1);
+		}
+
+		//checks the type of the card that needs to be added to the Database and adjust its constructor
+		if(newCard.getType() == CardType.DEBIT){
+			newCard = new Debit(newCard.getType(), newCard.getAccNb(), newCard.getCardNumber(), newCard.getMoneyAvailable());	
+			pw.println(newCard.getType() + "," + newCard.getAccNb() + "," + newCard.getCardNumber() + "," + newCard.getMoneyAvailable());
+		}
+		if( newCard.getType() == CardType.CREDIT){
+			newCard = new Credit(newCard.getType(), newCard.getAccNb(), newCard.getCardNumber(), newCard.getMoneySpent(), newCard.getLimit());
+			pw.println(newCard.getType() + "," + newCard.getAccNb() + "," + newCard.getCardNumber() + "," + newCard.getMoneySpent()+ "," +newCard.getLimit()+ "," +newCard.getMoneyAvailable());
+		}
+
+
+		// Closing file stream
+		try {
+			pw.close();
+		} catch (Exception e) {
+			System.out.println("Error while closing file");
+			System.exit(1);
+		}
+	}
+
+	/*
+	 * method to clear the database textfile
+	 */
+	public static void clearDataBaseMyCards() throws IOException{
+		if (file.exists() && file.isFile())
+		{
+			//delete if exists
+			file.delete();
+		}
+		file.createNewFile();
+	}
+
+	/*
+	 * method to read the database textfile
+	 */
+	public static void readFromTheFile(ArrayList <Cards> cards_list, DefaultTableModel model) {
+
+		// Open file to read from
+		try {
+			reader = new BufferedReader(new FileReader(file));
+		} catch (Exception e) {
+			System.out.println("Error when opening file.");
+			System.out.println("Program will terminate.");
+			System.exit(0);
+		}
+
+		//Check to make sure correct file is being read
+		String line = null;
+		try {
+			while ((line = reader.readLine()) != null) {
+				if(line.startsWith("DEBIT")){
+					String[] lineArray = line.split(",");
+					cdtp = CardType.DEBIT;
+					accNb = Integer.parseInt(lineArray[1]);
+					cardNumD = Integer.parseInt(lineArray[2]);
+					money= Double.parseDouble(lineArray[3]);
+					
+					Debit cd = new Debit(cdtp, accNb, cardNumD, money);
+					cards_list.add(cd);
+					//adding it to the table
+					Object[] data = {cdtp, accNb, cardNumD, money};
+					model.addRow(data);
+				}
+				if(line.startsWith("CREDIT")){
+					String[] lineArray = line.split(",");
+					cdtp = CardType.CREDIT;
+					accNb = Integer.parseInt(lineArray[1]);
+					cardNum = Integer.parseInt(lineArray[2]);
+					moneySpent= Double.parseDouble(lineArray[3]);
+					limitCard=Double.parseDouble(lineArray[4]);
+					moneyAvailable=Double.parseDouble(lineArray[5]);
+					Credit cd = new Credit(cdtp, accNb, cardNum, moneySpent, limitCard);
+					cd.setMoneyAvailable(moneyAvailable);
+					cards_list.add(cd);
+					//adding values to table
+					Object[] data = {cdtp, accNb, cardNum, moneySpent};
+					model.addRow(data);
+				}
+
+
+			}
+
+		} catch (IOException e) {
+			System.out.println("Error while reading file");
+			System.out.println("Program will terminate.");
+			System.exit(0);
+		}
+
+
+		// Closing reading stream
+		try {
+			if (reader != null)
+				reader.close();
+
+		} catch (Exception e) {
+			System.out.println("Error when closing file.");
+			System.out.println("Program will terminate.");
+			System.exit(0);
+		}
+
+	}
+
+	/*
+	 * method to remove from the database textfile MyCards
+	 */
+	public static void removeLine(Cards card) throws IOException{
+		String removeID = "";
+		bw = new BufferedWriter(new FileWriter(temp));
+		reader = new BufferedReader(new FileReader(file));
+
+		if(card.getType() == Cards.CardType.DEBIT){
+			removeID= card.getType() +","+ card.getAccNb() +","+ card.getCardNumber() +","+ card.getMoneyAvailable();
+		}
+		if(card.getType() == Cards.CardType.CREDIT){
+			removeID = card.getType() +","+ card.getAccNb() +","+ card.getCardNumber()+","+card.getMoneySpent()+","+card.getLimit()+","+card.getMoneyAvailable();
+		}
+
+		String currentLine;
+		while((currentLine = reader.readLine()) != null){
+			String trimmedLine = currentLine.trim();
+			if(trimmedLine.equals(removeID)){
+				currentLine = "";
+			}
+			bw.write(currentLine + System.getProperty("line.separator"));
+
+		}
+		bw.close();
+		reader.close();
+		boolean deleted = file.delete();
+		boolean b = temp.renameTo(file);
+	}
 }
 
