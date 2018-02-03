@@ -2,6 +2,7 @@ package src;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 
 public class ApplicationLayout extends JFrame{
@@ -19,7 +20,15 @@ public class ApplicationLayout extends JFrame{
 		menubar.add(txt);
 		setJMenuBar(menubar);
 
-
+		// clearing the database textfile for MyCards before starting
+		/*
+		try {
+			MyCards.clearDataBaseMyCards();
+		} catch (IOException e) {
+			System.out.println("Erreur clearing the MyCards DB textfile");
+			e.printStackTrace();
+		}
+		*/
 		// creating the toolbar to put the buttons on the side
 		JToolBar vertical = new JToolBar(JToolBar.VERTICAL);
 		vertical.setFloatable(false);
