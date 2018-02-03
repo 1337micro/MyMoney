@@ -1,9 +1,14 @@
 package src;
 
-public class Credit extends Cards{
 
+public class Credit implements Cards{
+	//extends Cards{
+	CardType type;
+	int accNb;
+	int cardNumber;
 	double limit;
 	double moneySpent;
+	double moneyAvailable;
 
 	public Credit() {
 		type=CardType.CREDIT;
@@ -14,78 +19,76 @@ public class Credit extends Cards{
 		moneyAvailable=limit-moneySpent;
 	}
 
-	public Credit(Cards.CardType type, int accNb, int cardNumber, double moneySpent, double limit) {
+	public Credit(CardType cardType, int accNb, int d, double moneySpent, double limit) {
 		this.type=CardType.CREDIT;
 		this.accNb = accNb;
-		this.cardNumber=cardNumber;
+		this.cardNumber=d;
 		this.limit =limit;
 		this.moneySpent=moneySpent;
 		this.moneyAvailable=limit-moneySpent;
 	}
 
-	//need to create setters and getter for limit and moneyOwed. the others can be from the super class
+	@Override
+	public CardType getType() {
+		return this.type;
+	}
 
-	//making setters
-	/**
-	 * setters for the limit of the credit card
-	 * @param int limit
-	 */
+	@Override
+	public void setType(CardType type) {
+		this.type = type;
+
+	}
+
+	@Override
+	public int getAccNb() {
+		return accNb;
+	}
+	@Override
+	public void setAccNb(int accNb) {
+		this.accNb = accNb;
+	}
+	@Override
+	public int getCardNumber() {
+		return cardNumber;
+	}
+	@Override
+	public void setCardNumber(int cardNumber) {
+		this.cardNumber = cardNumber;
+	}
+	@Override
+	public double getMoneySpent() {
+		return moneySpent;
+	}
+	@Override
+	public void setMoneySpent(double moneySpent) {
+		this.moneySpent = moneySpent;
+	}
+	@Override
 	public void setLimit(double limit) {
 		this.limit=limit;
 	}
-	/**
-	 * setting the money available on the credit card
-	 * @param moneyAvailable
-	 */
-	public void setMoneyOwed(double moneyAvailable) {
+	@Override
+	public double getLimit() {
+		return limit;
+	}
+
+	@Override
+	public double getMoneyAvailable() {
+		return moneyAvailable;
+	}
+
+	@Override
+	public void setMoneyAvailable(double moneyAvailable) {	
 		if(limit-moneySpent==moneyAvailable)
 			this.moneyAvailable=moneyAvailable;
 		else {
 			this.moneyAvailable=moneyAvailable;
 			moneyAvailable=limit-moneySpent;
 		} 
-
 	}
 
-	public int getCardNumber() {
-		return cardNumber;
-	}
 
-	public void setCardNumber(int cardNumber) {
-		this.cardNumber = cardNumber;
-	}
 
-	public int getAccNb() {
-		return accNb;
-	}
 
-	public void setAccNb(int accNb) {
-		this.accNb = accNb;
-	}
-
-	//making getters
-	/**
-	 * getter for the gredit card limit
-	 * @return int of the credit card limit
-	 */
-	public double getLimit() {
-		return limit;
-	}
-	
-	public double getMoneySpent() {
-		return moneySpent;
-	}
-
-	public void setMoneySpent(double moneySpent) {
-		this.moneySpent = moneySpent;
-	}
-
-	/**
-	 * getter for the money owed by the owner of the card
-	 * @return double of the amount of money owed by the owner of the card
-	 */
-	public double getMoneyAvailable() {
-		return moneyAvailable;
-	}
 }
 
