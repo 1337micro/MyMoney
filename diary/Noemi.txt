@@ -45,9 +45,14 @@ January 30, 2018
 	I started to do the code for the iteration 2 for the my Cards feature.
 __________________________________________________________________________________________
 January 31, 2018
-Presentation of the work we are doing so far.Everyone in the team noticed that Ashesh did not do any work as a documenter. He did not participate in the discussion nor took any notice of the work to do. 
+	Presentation of the work we are doing so far.Everyone in the team noticed that Ashesh did not do any work as a documenter. He did not participate in the discussion nor took any notice of the work to do. 
 __________________________________________________________________________________________
 February 1, 2018
-For iteration 2: Coders: Real (cash spendings), Noemi (my cards), Ornela (budgeting)
+	For iteration 2: Coders: Real (cash spendings), Noemi (my cards), Ornela (budgeting)
 I fixed the table issue with the feature MyCards and adjusted some details about the Credit class. I change the layout colour too. 
- 
+__________________________________________________________________________________________
+February 2, 2018
+	I am working on the MyCard Feature to make the textile Database so we can write and read from it. Also I changed the Cards class to be an interface.
+__________________________________________________________________________________________
+February 3, 2018
+	I am fixing the MyCard feature: making sure the writing to the textfile MyCards is working properly, making sure that the textfile is cleared once the application is used, making sure the read that textfile is working properly. I also made sure the Add a Card is now writing to MyCards.txt, adding data to the TableModel and to the ArrayList <Cards> and sure the Remove a Card is removing from MyCards.txt the correct line, removing the correct data from TableModel and also from the ArrayList <Cards>.  
