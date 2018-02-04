@@ -4,8 +4,7 @@
 \begin{document}
 
 
-\section{Cash Spending Use Case}
-Here is the use case for our MyMoney application.
+\section{Use Case: Update Cash Spending}
 
 \medskip
 \begin{center}
@@ -14,30 +13,30 @@ Here is the use case for our MyMoney application.
 
 Use Case ID  & MyMoneyW18COMP354a\\
 \hline
-Use Case Name  & Cash Spending\\
+Use Case Name  & Update Cash Spending\\
 \hline
-Goal/Purpose  & Allow a user to manage his/her cash spending via a desktop application\\
+Goal/Purpose  & Allow a user to manage his/her cash spending on different categories.\\
 \hline
 Actors  & Any User\\
 \hline
-Pre-Conditions &  User has installed "My Money" desktop application \\
+Pre-Conditions &  User has installed "My Money" desktop application. \\
 \hline
-Post-Conditions & NA \\
+Post-Conditions & Cash expenses are updated.  \\
 \hline
-Main Flow & User wants to update his/her expenses.
-1. User opens the application and selects the Cash Spending button. 
-2. The application displays a table with actual expenses on taxes, tuition, rent, groceries and a button to add other expenses.
-3. User clicks on the "Add an expense" button and selects one of the spending's categories.
-4. User enters the amount he spent on the selected category.
-5. The application stores the value in the expenditure's table. 
+Main Flow & 
+1. User wants to update his/her expenses.\newline 2. User starts application.\newline
+3. User enters amount he spent on any selected category.\newline
+4. Application stores value in expenditure's table. 
 \\
 \hline
-Alternate Flow(s) & NA
-
+Alternate Flow(s) & 
+At any time, Application fails: \newline
+   - User restarts Application.
 \\
 \hline
-Exception Flow(s) & • 1. User entered invalid inputs(ex. a string)
-   b) The application displays error message, and urges user to fix the input. \\
+Exception Flow(s) & 
+User enters invalid inputs(ex. a string):\newline
+- Application displays error message and urges user to fix the input. \\
 \hline
 
 \end{tabular}
