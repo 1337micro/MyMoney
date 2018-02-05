@@ -4,7 +4,7 @@ public interface Cards {
 
 
 	public enum CardType{
-		DEBIT("debit"), CREDIT("credit");
+		DEBIT("DEBIT"), CREDIT("CREDIT");
 		String cardtype;
 		private CardType(String cardtype){
 			this.cardtype = cardtype;
@@ -18,8 +18,8 @@ public interface Cards {
 	public void setType(CardType type);
 	public int getAccNb();
 	public void setAccNb(int accNb) ;
-	public double getCardNumber();
-	public void setCardNumber(double cardNumber);
+	public int getCardNumber();
+	public void setCardNumber(int cardNumber);
 	public double getMoneyAvailable();
 	public void setMoneyAvailable(double moneyAvailable);
 	public double getMoneySpent();
