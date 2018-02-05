@@ -34,7 +34,7 @@ public class Budgetting {
 
 	//Other instance members
 	private double availableFunds;
-	private final String defaultPercentagesFile = "DefaultBudgetingPercentages.txt";
+	private final String defaultPercentagesFile = "src/DefaultBudgetingPercentages.txt";
 
 	//Default constructor with recommended percentages
 	//Based on http://www.leavedebtbehind.com/frugal-living/budgeting/10-recommended-category-percentages-for-your-family-budget/
@@ -169,6 +169,7 @@ public class Budgetting {
 		FileReader fr = null;
 
 		try {
+			final String property = System.getProperty("user.dir");
 			fr = new FileReader(fileName);
 			br = new BufferedReader(fr);
 		} catch (Exception e) {

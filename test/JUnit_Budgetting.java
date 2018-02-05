@@ -1,6 +1,10 @@
+package test;
+
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+import src.Budgetting;
+
 import static org.junit.Assert.assertEquals;
 
 public class JUnit_Budgetting {
@@ -52,7 +56,7 @@ public class JUnit_Budgetting {
 	@Test
 	public void testCalculateEntertainement() {
 		budget.setAvailableFunds(1000);
-		assertEquals(70,budget.calculateEntertainement(),0);
+		assertEquals(70,budget.calculateEntertainment(),0);
 	}
 
 	@Test

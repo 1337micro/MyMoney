@@ -17,7 +17,7 @@ import src.Cards.CardType;
 public class MyCards {
 	private static List <Cards> cards;
 	private static PrintWriter pw = null;
-	private static File file = new File("/Users/noemilemonnier/Documents/workspace/MyMoney/MyCards");
+	private static File file = new File("src/MyCards");
 	private static File temp = new File("MyCardstemp.txt");
 	private static BufferedWriter bw;
 	private static BufferedReader reader;
