@@ -1,3 +1,11 @@
+//-------------------------------------------------------
+//For Comp 354 Section PP - Winter 2018
+//Iteration 1: Sabrina Rieck, 40032864
+//Description: Budgetting class calculates a user's budget according to an amount of available money
+//				Takes in percentages and an amount, calculates amounts based on percentages and returns those amounts
+//				Has a read and write to file system
+//--------------------------------------------------------
+
 package src;
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
@@ -36,6 +44,10 @@ public class Budgetting {
 	private double availableFunds;
 	private final String defaultPercentagesFile = "src/DefaultBudgetingPercentages.txt";
 
+	
+	/**
+	 * Deafult constructor reads percentages from default file, has no available funds
+	 */
 	//Default constructor with recommended percentages
 	//Based on http://www.leavedebtbehind.com/frugal-living/budgeting/10-recommended-category-percentages-for-your-family-budget/
 	public Budgetting() {
@@ -45,18 +57,41 @@ public class Budgetting {
 		this.availableFunds = 0;
 	}
 	
+	/**
+	 * Constructor reads percentages from chosen file, has no available funds
+	 * @param fileName
+	 */
 	//Read percentages from chosen file
 	public Budgetting(String fileName) {
 		readBudgetingFromFile(fileName);
 		this.availableFunds = 0;
 	}
 	
+	/**
+	 * Constructor reads percentages from chosen file, and has input for available funds
+	 * @param availableFunds
+	 * @param fileName
+	 */
 	//Read percentage from chosen file with custom available of funds
 	public Budgetting(Double availableFunds, String fileName) {
 		readBudgetingFromFile(fileName);
 		this.availableFunds = availableFunds;
 	}
 
+	/**
+	 * Constructor takes in all percentages manually as parameters, as well as amount for available funds
+	 * @param funds
+	 * @param housing
+	 * @param food
+	 * @param utilities
+	 * @param clothing
+	 * @param medical
+	 * @param donations
+	 * @param savings
+	 * @param entertainment
+	 * @param transportation
+	 * @param misc
+	 */
 	//Constructor with parameters
 	//ERROR testing needed for iteration 2
 	public Budgetting(double funds, double housing, double food, double utilities, double clothing, double medical, 
@@ -89,6 +124,9 @@ public class Budgetting {
 		this.availableFunds = funds;
 	}
 
+	/**
+	 * Runs all the methods that calculate amounts based on percentages
+	 */
 	//Calculate amounts
 	//Methods listed here are near the bottom of the document
 	public void calculateAmountsFromPercentages() {
@@ -104,6 +142,9 @@ public class Budgetting {
 		calculateMisc(); 
 	}
 
+	/**
+	 * A display method to display available funds, and percentages and amounts for each category
+	 */
 	//Display
 	public String toString(){
 		calculateAmountsFromPercentages();
@@ -124,6 +165,13 @@ public class Budgetting {
 		return toPrint;
 	}
 
+	/**
+	 * Writes and object to file
+	 * Print to file according to
+	 * BudgetingDatabaseFile
+	 * AvailableFunds:Amount
+	 * Section:Percentage:Amount
+	 */
 	//Write results to file
 	public void writeToFile(){
 		calculateAmountsFromPercentages();
@@ -162,6 +210,12 @@ public class Budgetting {
 		}
 	}
 
+	/**
+	 * Reads from files that have
+	 * BudgetingDatabaseFile
+	 * as the first sentence
+	 * @param fileName
+	 */
 	//Read from file
 	public void readBudgetingFromFile(String fileName) {
 		// Open file to read from

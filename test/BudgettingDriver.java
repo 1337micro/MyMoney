@@ -1,6 +1,8 @@
-package test;
-
-import src.Budgetting;
+//-------------------------------------------------------
+//For Comp 354 Section PP - Winter 2018
+//Iteration 1: Sabrina Rieck, 40032864
+//Description: A visual testing of the Budgetting class
+//--------------------------------------------------------
 
 public class BudgettingDriver {
 

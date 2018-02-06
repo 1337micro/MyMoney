@@ -1,3 +1,10 @@
+//-------------------------------------------------------
+//For Comp 354 Section PP - Winter 2018
+//Iteration 1: Sabrina Rieck, 40032864
+//Description: BudgetingUI class links the Budgetting class to the interface. 
+//				Takes user input and returns value to the interface
+//--------------------------------------------------------
+
 package src;
 
 import java.awt.Component;
@@ -50,8 +57,8 @@ public class BudgetingUI implements ActionListener{
 	JButton calculateBudget;
 
 
-	/** Add the necessary SWING elements to the Budgeting panel
-	 *
+	/** 
+	 * Add the necessary SWING elements to the Budgeting panel
 	 */
 	private void buildBudgetingDisplayPanel(){
 
