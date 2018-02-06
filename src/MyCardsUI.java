@@ -60,10 +60,10 @@ public class MyCardsUI implements ActionListener{
 			"Card Number",
 			"Amount", 
 	"Select"};
-/*
- * Method to trigger the display of the cards feature when the user clicks on the MY Cards button on the application.
- * 
- */
+	/*
+	 * Method to trigger the display of the cards feature when the user clicks on the MY Cards button on the application.
+	 * 
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(panel == null) {
@@ -82,9 +82,9 @@ public class MyCardsUI implements ActionListener{
 		}
 
 	}
-/*
- * method to create the basic layout that is to be displayed for the cards feature
- */
+	/*
+	 * method to create the basic layout that is to be displayed for the cards feature
+	 */
 	public void MyCardsUI() {
 		tableModel = new DefaultTableModel(columnNames, 0);
 		table = new JTable(tableModel);
@@ -109,19 +109,19 @@ public class MyCardsUI implements ActionListener{
 		//panButton = new JPanel();
 		panel.add(addCardButton);
 		panel.add(removeCardButton);
-		
+
 		//reading the MyCards.txt to add anyvalues to the table
 		MyCards.readFromTheFile(cards_list, tableModel);
-		
+
 		addCardButton.addActionListener(new AddCardListener());
 		removeCardButton.addActionListener(new RemoveListener());
 
 		panel.setVisible(false);
 	}
 
-/*
- * Adding panel to layout
- */
+	/*
+	 * Adding panel to layout
+	 */
 	public void addPanelToLayout(JPanel jPanel, ApplicationLayout applicationLayout){
 		applicationLayout.add(jPanel);
 	}
@@ -129,15 +129,15 @@ public class MyCardsUI implements ActionListener{
 
 
 
-/*
- * Private class to customize the events that will happen when the user clicks on the add card button
- */
+	/*
+	 * Private class to customize the events that will happen when the user clicks on the add card button
+	 */
 
 	private class AddCardListener implements ActionListener{
-/*
- * Displays a window to allow the user to add a card, either credit or debit when the user clicks on the add card button
- * 
- */
+		/*
+		 * Displays a window to allow the user to add a card, either credit or debit when the user clicks on the add card button
+		 * 
+		 */
 		@Override
 
 		public void actionPerformed(ActionEvent arg0) {
@@ -148,27 +148,28 @@ public class MyCardsUI implements ActionListener{
 			Cards.CardType type= (Cards.CardType)JOptionPane.showInputDialog(frame, "Please choose the type of card you wish to add"
 					,"Addition of a card",JOptionPane.QUESTION_MESSAGE,Icon, possibilities, possibilities[0] );
 			String n = "Index Card: " + indexCard;
+
 			if (type==Cards.CardType.DEBIT) {
 				//create a panel and a layout that fits the amount of information required.
 				JPanel pane=new JPanel(new GridLayout(3,2));
-				
+
 				//create text fields to input the information
 				JTextField accNumber = new JTextField(20);
 				JTextField cardNumber = new JTextField(20);
 				JTextField moneyCurrent = new JTextField(20);
-				
+
 				//creating labels for the text fields
-				
+
 				JLabel aN= new JLabel("Please enter your account Number (4 numbers)");
 				JLabel cN= new JLabel("Please enter the card Number (8 numbers)");
 				JLabel mC= new JLabel("Please enter the current amount of money available on the card.");
-				
+
 				//setting the labels to the text fields
-				
+
 				aN.setLabelFor(accNumber);
 				cN.setLabelFor(cardNumber);
 				mC.setLabelFor(moneyCurrent);
-				
+
 				//adding the elements to the panel
 				pane.add(aN);
 				pane.add(accNumber);
@@ -176,45 +177,47 @@ public class MyCardsUI implements ActionListener{
 				pane.add(cardNumber);
 				pane.add(mC);
 				pane.add(moneyCurrent);
-				
+
 				//make the option panel appear in order to ask the user for information for the card
 				int cardInput=JOptionPane.showConfirmDialog(null, pane, "Debit Card Information", JOptionPane.OK_CANCEL_OPTION);
-				cdtp = Cards.CardType.DEBIT;
-				accNb = Integer.parseInt(accNumber.getText());
-				cardNumD=Integer.parseInt(cardNumber.getText());
-				money = Double.parseDouble(moneyCurrent.getText());
 
-				card = new Debit(cdtp, accNb, cardNumD, money);
-				cards_list.add(card);
-				Object[] data = {cdtp, accNb, cardNumD, money};
-				tableModel.addRow(data);
-				//cd = new Debit(cdtp, accNb, cardNumD, money);
-				MyCards.writeToFile(card);
+				if(cardInput != 2){	 //not equal to the cancel button
+					cdtp = Cards.CardType.DEBIT;
+					accNb = Integer.parseInt(accNumber.getText());
+					cardNumD=Integer.parseInt(cardNumber.getText());
+					money = Double.parseDouble(moneyCurrent.getText());
 
+					card = new Debit(cdtp, accNb, cardNumD, money);
+					cards_list.add(card);
+					Object[] data = {cdtp, accNb, cardNumD, money};
+					tableModel.addRow(data);
+					//cd = new Debit(cdtp, accNb, cardNumD, money);
+					MyCards.writeToFile(card);
+				}
 
 			}
 			if (type==Cards.CardType.CREDIT) {
 				//create a panel and a layout that fits the amount of information required.
 				JPanel pane=new JPanel(new GridLayout(4,2));
-				
+
 				//creating labels to go with the textfields
 				JLabel aN = new JLabel("Please Enter your account Number (4 numbers)");
 				JLabel cN = new JLabel("Please Enter the card Number (8 numbers)");
 				JLabel mC = new JLabel("Please Enter Amount of you already spent");
 				JLabel lt = new JLabel("Please enter your credit limit");
-				
+
 				//creating text fields to take the input from the user
 				JTextField accNumber = new JTextField(20);
 				JTextField cardNumber = new JTextField(20);
 				JTextField moneyCurrent = new JTextField(20);
 				JTextField limit = new JTextField(20);
-				
+
 				//setting the labels to their proper textfield
 				aN.setLabelFor(accNumber);
 				cN.setLabelFor(cardNumber);
 				mC.setLabelFor(moneyCurrent);
 				lt.setLabelFor(limit);
-				
+
 				//adding the components to the panel
 				pane.add(aN);
 				pane.add(accNumber);
@@ -224,40 +227,40 @@ public class MyCardsUI implements ActionListener{
 				pane.add(moneyCurrent);
 				pane.add(lt);
 				pane.add(limit);
-				
+
 				//popping up the option panel so that the user can input the information
 				int cardInput=JOptionPane.showConfirmDialog(null, pane, "Credit Card Information", JOptionPane.OK_CANCEL_OPTION);
-				
-				cdtp = Cards.CardType.CREDIT;
-				accNb = Integer.parseInt(accNumber.getText());
-				cardNum=Integer.parseInt(cardNumber.getText());
-				moneySpent = Double.parseDouble(moneyCurrent.getText());
-				limitCard=Double.parseDouble(limit.getText());
+				if(cardInput != 2){ //not equal to the cancel button
+					cdtp = Cards.CardType.CREDIT;
+					accNb = Integer.parseInt(accNumber.getText());
+					cardNum=Integer.parseInt(cardNumber.getText());
+					moneySpent = Double.parseDouble(moneyCurrent.getText());
+					limitCard=Double.parseDouble(limit.getText());
 
 
-				card = new Credit(cdtp, accNb, cardNum, moneySpent, limitCard);
-				cards_list.add(card);
-				Object[] data = {cdtp, accNb, cardNum, moneySpent};
-				tableModel.addRow(data);
-				//cd = new Credit(cdtp, accNb, cardNum, moneySpent, limitCard);
-				MyCards.writeToFile(card);
-
+					card = new Credit(cdtp, accNb, cardNum, moneySpent, limitCard);
+					cards_list.add(card);
+					Object[] data = {cdtp, accNb, cardNum, moneySpent};
+					tableModel.addRow(data);
+					//cd = new Credit(cdtp, accNb, cardNum, moneySpent, limitCard);
+					MyCards.writeToFile(card);
+				}
 
 			}
 		}
 	}
 
 
-/*
- * class to implement the display needed for the removal of cards.
- */
+	/*
+	 * class to implement the display needed for the removal of cards.
+	 */
 
 	private class RemoveListener implements ActionListener{
-		
+
 		/*
 		 * returns an array with the card numbers of all the cards present in the array.
 		 */
-		
+
 		public Object [] cardNum(ArrayList <Cards> a) {
 			Object [] cardNumbers=new Object[a.size()];
 			for (int i=0;i< a.size(); i++) {
@@ -293,9 +296,9 @@ public class MyCardsUI implements ActionListener{
 			///return null;
 			return 0;
 		}
-/*
- * method that activates the display when the user clicks on the remove card button. 
- */
+		/*
+		 * method that activates the display when the user clicks on the remove card button. 
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			JFrame frame= new JFrame();
@@ -331,14 +334,15 @@ public class MyCardsUI implements ActionListener{
 				cards_list.remove(indexCard);
 				tableModel.removeRow(indexCard);
 			}else if(cardNumber==JOptionPane.CANCEL_OPTION || cardNumber==JOptionPane.CLOSED_OPTION) {
-					System.out.println("Action Cancelled");
-					System.exit(0);;
+				System.out.println("Action Cancelled");
+				System.exit(0);;
 			}
 
 		}
 	}
 
 }
+
 
 
 
