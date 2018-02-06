@@ -1,3 +1,12 @@
+//-------------------------------------------------------
+//For Comp 354 Section PP - Winter 2018
+//Iteration 1: Genevieve Plante-Brisebois 40003112
+//Help received from the Programmer Organizer: Noémi Lemonnier 40001075
+//Description: Brings together the debit and credit classes together to make the program work. 
+//				It is the junction of all other card related files.
+//--------------------------------------------------------
+
+
 package src;
 
 import java.io.BufferedReader;

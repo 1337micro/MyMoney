@@ -62,5 +62,20 @@ Working ont the event listeners for the cards UI, fixing display problem and new
 									13:40-15:05
 									15:30-16:00
 									18:12-19:00
-									
+
+Journal entry 2018, 02, 01
+We did not have a meeting after the tutorial. I skipped the tutorial as I was not feeling well. 
+
+Journal entry 2018, 02, 05
+
+Noemie worked on the cards feature during the weekend as it is the most complex feature. She helped with the implementation of the database and improving the layout of the cards. I have the JUnits, fixing the behavior of the cards feature when clicking cancel and removing the extra field present in the UI left to do.Goal of the night: fixing UI. Tomorrow do JUnit. by Wednesday everything should be done and ready for QC to do their part and verifying that everything matches. I will later have to update my journal and put it on latex. 
+
+Start working on the UI for the cards feature: 22:30-	1:12
+
+Journal Entry 2018, 02, 06
+
+I could not fix the problems last nigth. If I throwed the error or if the system threw it I could not get the catch to work even if I made the catch for the right type of error. 
+
+working on the nullpointer error: 13:00-14:45
+						  16:31-				
 

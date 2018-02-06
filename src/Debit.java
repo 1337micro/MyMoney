@@ -1,3 +1,11 @@
+//-------------------------------------------------------
+//For Comp 354 Section PP - Winter 2018
+//Iteration 1: Genevieve Plante-Brisebois 40003112
+//Help received from the Programmer Organizer: Noémi Lemonnier 40001075
+//Description: implements the interface cards and serves the purpose of implementing the 
+//              specifics of the cards of type DEBIT
+//--------------------------------------------------------
+
 package src;
 
 public class Debit implements Cards{
