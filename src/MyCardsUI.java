@@ -143,6 +143,7 @@ public class MyCardsUI implements ActionListener{
 		public void actionPerformed(ActionEvent arg0) {
 
 			final Icon Icon = null;
+			ImageIcon credit_image = new ImageIcone();
 			JFrame frame= new JFrame();
 			Cards.CardType [] possibilities= {Cards.CardType.DEBIT,Cards.CardType.CREDIT};
 			Cards.CardType type= (Cards.CardType)JOptionPane.showInputDialog(frame, "Please choose the type of card you wish to add"
