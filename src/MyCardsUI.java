@@ -143,11 +143,11 @@ public class MyCardsUI implements ActionListener{
 		public void actionPerformed(ActionEvent arg0) {
 
 			final Icon Icon = null;
-			ImageIcon credit_image = new ImageIcone();
+			ImageIcon creditImage = new ImageIcon("/Users/noemilemonnier/Documents/workspace/MyMoney/credit.png");
 			JFrame frame= new JFrame();
 			Cards.CardType [] possibilities= {Cards.CardType.DEBIT,Cards.CardType.CREDIT};
 			Cards.CardType type= (Cards.CardType)JOptionPane.showInputDialog(frame, "Please choose the type of card you wish to add"
-					,"Addition of a card",JOptionPane.QUESTION_MESSAGE,Icon, possibilities, possibilities[0] );
+					,"Addition of a card",JOptionPane.QUESTION_MESSAGE,creditImage, possibilities, possibilities[0] );
 			String n = "Index Card: " + indexCard;
 
 			if (type==Cards.CardType.DEBIT) {
@@ -182,7 +182,10 @@ public class MyCardsUI implements ActionListener{
 				//make the option panel appear in order to ask the user for information for the card
 				int cardInput=JOptionPane.showConfirmDialog(null, pane, "Debit Card Information", JOptionPane.OK_CANCEL_OPTION);
 
-				if(cardInput != 2){	 //not equal to the cancel button
+				if(cardInput != 0){
+					JOptionPane.getRootFrame().dispose();
+				};
+				if(cardInput == 0){ 	 //not equal to the cancel button
 					cdtp = Cards.CardType.DEBIT;
 					accNb = Integer.parseInt(accNumber.getText());
 					cardNumD=Integer.parseInt(cardNumber.getText());
@@ -231,7 +234,10 @@ public class MyCardsUI implements ActionListener{
 
 				//popping up the option panel so that the user can input the information
 				int cardInput=JOptionPane.showConfirmDialog(null, pane, "Credit Card Information", JOptionPane.OK_CANCEL_OPTION);
-				if(cardInput != 2){ //not equal to the cancel button
+				if(cardInput != 0){
+					JOptionPane.getRootFrame().dispose();
+				};
+				if(cardInput == 0){ //not equal to the cancel button
 					cdtp = Cards.CardType.CREDIT;
 					accNb = Integer.parseInt(accNumber.getText());
 					cardNum=Integer.parseInt(cardNumber.getText());
