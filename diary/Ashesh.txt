@@ -1,2 +1,11 @@
 1/31/20018
 - Created diary
+
+18:00-19:00
+- Watched a instruction video made by William
+- Learned the basics to use git
+
+2:00-3:30
+- Updated User case for budgeting
+
+
