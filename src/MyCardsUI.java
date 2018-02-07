@@ -142,12 +142,13 @@ public class MyCardsUI implements ActionListener{
 
 		public void actionPerformed(ActionEvent arg0) {
 
-			final Icon Icon = null;
-			ImageIcon creditImage = new ImageIcon("/Users/noemilemonnier/Documents/workspace/MyMoney/credit.png");
+			//TODO : il faut ajuster le Location de l'image
+		
+
 			JFrame frame= new JFrame();
 			Cards.CardType [] possibilities= {Cards.CardType.DEBIT,Cards.CardType.CREDIT};
 			Cards.CardType type= (Cards.CardType)JOptionPane.showInputDialog(frame, "Please choose the type of card you wish to add"
-					,"Addition of a card",JOptionPane.QUESTION_MESSAGE,creditImage, possibilities, possibilities[0] );
+					,"Addition of a card",JOptionPane.QUESTION_MESSAGE,null, possibilities, possibilities[0] );
 			String n = "Index Card: " + indexCard;
 
 			if (type==Cards.CardType.DEBIT) {
@@ -180,9 +181,8 @@ public class MyCardsUI implements ActionListener{
 				pane.add(moneyCurrent);
 
 				//make the option panel appear in order to ask the user for information for the card
-				int cardInput=JOptionPane.showConfirmDialog(null, pane, "Debit Card Information", JOptionPane.OK_CANCEL_OPTION);
-
-				if(cardInput != 0){
+							int cardInput=JOptionPane.showConfirmDialog(null, pane, "Debit Card Information", JOptionPane.OK_CANCEL_OPTION);
+								if(cardInput != 0){
 					JOptionPane.getRootFrame().dispose();
 				};
 				if(cardInput == 0){ 	 //not equal to the cancel button
@@ -308,10 +308,19 @@ public class MyCardsUI implements ActionListener{
 		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			JFrame frame= new JFrame();
-			Icon icon = null;
-			int cardNumber= (int) JOptionPane.showInputDialog(null, "Please choose a card to remove", "Removal of a card",JOptionPane.OK_CANCEL_OPTION,icon,cardNum(cards_list),cardNum(cards_list)[0]);
-			if(cardNumber>0) {
+			JPanel pane = new JPanel(new GridLayout(4,2));
+			JComboBox cardslist = new JComboBox(cardNum(cards_list));
+			cardslist.setSize(20, 50);
+			pane.add(cardslist);
+
+			//JFrame frame= new JFrame();
+			//Icon icon = null;
+			int cardNumber= JOptionPane.showConfirmDialog(null, pane, "Please choose a card to remove", JOptionPane.OK_CANCEL_OPTION);
+		
+			if(cardNumber != JOptionPane.YES_OPTION){
+				JOptionPane.getRootFrame().dispose();
+			};
+			if(cardNumber == JOptionPane.YES_OPTION){ 
 				indexCard = getCardFromAccountNumber(cardNumber, cards_list);
 				//to remove the card from the database textfile MyCards
 				if(cards_list.get(indexCard).getType() == CardType.DEBIT){
@@ -340,9 +349,8 @@ public class MyCardsUI implements ActionListener{
 				}
 				cards_list.remove(indexCard);
 				tableModel.removeRow(indexCard);
-			}else if(cardNumber==JOptionPane.CANCEL_OPTION || cardNumber==JOptionPane.CLOSED_OPTION) {
-				System.out.println("Action Cancelled");
-				System.exit(0);;
+
+
 			}
 
 		}
