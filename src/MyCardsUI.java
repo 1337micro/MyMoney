@@ -315,13 +315,17 @@ public class MyCardsUI implements ActionListener{
 
 			//JFrame frame= new JFrame();
 			//Icon icon = null;
-			int cardNumber= JOptionPane.showConfirmDialog(null, pane, "Please choose a card to remove", JOptionPane.OK_CANCEL_OPTION);
-		
-			if(cardNumber != JOptionPane.YES_OPTION){
+		int optionChoosed= JOptionPane.showConfirmDialog(null, pane, "Please choose a card to remove", JOptionPane.OK_CANCEL_OPTION);
+			System.out.println("optionChoosed: "+ optionChoosed);
+			int index = cardslist.getSelectedIndex();
+			System.out.println("index: " + index);
+			Cards card = cards_list.get(index);
+			System.out.println("cardNb: " + card.getCardNumber());
+			if(optionChoosed != JOptionPane.YES_OPTION){
 				JOptionPane.getRootFrame().dispose();
 			};
-			if(cardNumber == JOptionPane.YES_OPTION){ 
-				indexCard = getCardFromAccountNumber(cardNumber, cards_list);
+			if(optionChoosed == JOptionPane.YES_OPTION){ 
+				indexCard = getCardFromAccountNumber(card.getCardNumber(), cards_list);
 				//to remove the card from the database textfile MyCards
 				if(cards_list.get(indexCard).getType() == CardType.DEBIT){
 					cd = new Debit();
