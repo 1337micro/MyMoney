@@ -196,22 +196,15 @@ public class MyCards {
 	/*
 	 * method to remove from the database textfile MyCards
 	 */
-	public static void removeLine(Cards card) throws IOException{
-		String removeID = "";
+public static void removeLine(String cardLine) throws IOException{
+		
 		bw = new BufferedWriter(new FileWriter(temp));
 		reader = new BufferedReader(new FileReader(file));
-
-		if(card.getType() == Cards.CardType.DEBIT){
-			removeID= card.getType() +","+ card.getAccNb() +","+ card.getCardNumber() +","+ card.getMoneyAvailable();
-		}
-		if(card.getType() == Cards.CardType.CREDIT){
-			removeID = card.getType() +","+ card.getAccNb() +","+ card.getCardNumber()+","+card.getMoneySpent()+","+card.getLimit()+","+card.getMoneyAvailable();
-		}
-
 		String currentLine;
 		while((currentLine = reader.readLine()) != null){
+			
 			String trimmedLine = currentLine.trim();
-			if(trimmedLine.equals(removeID)){
+			if(trimmedLine.equals(cardLine)){
 				currentLine = "";
 			}
 			bw.write(currentLine + System.getProperty("line.separator"));
@@ -219,7 +212,6 @@ public class MyCards {
 		}
 		bw.close();
 		reader.close();
-		boolean deleted = file.delete();
-		boolean b = temp.renameTo(file);
+		
 	}
 }

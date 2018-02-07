@@ -315,12 +315,12 @@ public class MyCardsUI implements ActionListener{
 
 			//JFrame frame= new JFrame();
 			//Icon icon = null;
-		int optionChoosed= JOptionPane.showConfirmDialog(null, pane, "Please choose a card to remove", JOptionPane.OK_CANCEL_OPTION);
-		
+	int optionChoosed= JOptionPane.showConfirmDialog(null, pane, "Please choose a card to remove", JOptionPane.OK_CANCEL_OPTION);
+			
 			int index = cardslist.getSelectedIndex();
 			
 			Cards card = cards_list.get(index);
-			
+		
 			if(optionChoosed != JOptionPane.YES_OPTION){
 				JOptionPane.getRootFrame().dispose();
 			};
@@ -333,6 +333,8 @@ public class MyCardsUI implements ActionListener{
 					cd.setCardNumber(cards_list.get(indexCard).getCardNumber());
 					cd.setType(cards_list.get(indexCard).getType());
 					cd.setMoneyAvailable(cards_list.get(indexCard).getMoneyAvailable());
+					line = cards_list.get(indexCard).getType() +","+ cards_list.get(indexCard).getAccNb() +","+ cards_list.get(indexCard).getCardNumber() +","+ cards_list.get(indexCard).getMoneyAvailable();
+					System.out.println(line);
 				}
 				if(cards_list.get(indexCard).getType() == CardType.CREDIT){
 					cd = new Credit();
@@ -342,10 +344,11 @@ public class MyCardsUI implements ActionListener{
 					cd.setLimit(cards_list.get(indexCard).getLimit());
 					cd.setMoneySpent(cards_list.get(indexCard).getMoneySpent());
 					cd.setMoneyAvailable(cards_list.get(indexCard).getMoneyAvailable());
-
+					line = cards_list.get(indexCard).getType() +","+ cards_list.get(indexCard).getAccNb() +","+ cards_list.get(indexCard).getCardNumber() +","+ cards_list.get(indexCard).getMoneySpent()+","+cards_list.get(indexCard).getLimit()+","+ cards_list.get(indexCard).getMoneyAvailable();
+					
 				}
 				try {
-					MyCards.removeLine(cd);
+					MyCards.removeLine(line);
 					System.out.println("It Removed Card#" + cd.getCardNumber());
 				} catch (IOException e1) {
 					System.out.println("Error in removing the line");
@@ -356,7 +359,6 @@ public class MyCardsUI implements ActionListener{
 
 
 			}
-
 		}
 	}
 
