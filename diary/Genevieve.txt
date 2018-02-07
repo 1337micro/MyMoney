@@ -76,6 +76,10 @@ Journal Entry 2018, 02, 06
 
 I could not fix the problems last nigth. If I throwed the error or if the system threw it I could not get the catch to work even if I made the catch for the right type of error. 
 
-working on the nullpointer error: 13:00-14:45
-						  16:31-				
+working on errors: 13:00-14:45
+			16:31-17:30
+			17:50-18:45
+
+Working on JUnit:23:00-1:05
+									
 
