@@ -3,9 +3,9 @@
 //Iteration 1: Genevieve Plante-Brisebois 40003112
 //Description: Class testing the methods for the cards feature.
 //--------------------------------------------------------
-
+package test;
 import org.junit.Test;
-import org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import src.MyCards;
 import src.Cards;
 import src.Debit;
