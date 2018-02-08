@@ -3,9 +3,9 @@
 //Iteration 1: Genevieve Plante-Brisebois 40003112
 //Description: Class testing the methods for the cards feature.
 //--------------------------------------------------------
-
+package test;
 import org.junit.Test;
-import org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import src.MyCards;
 import src.Cards;
 import src.Debit;
@@ -77,7 +77,7 @@ public class MyCardsTest {
 		assertEquals("Verifying card type",Cards.CardType.DEBIT, debitcard.getType());
 		assertEquals("Verifying account number",0,debitcard.getAccNb());
 		assertEquals("Verifying card number",0,debitcard.getCardNumber());
-		asserEquals("Verifying money available",0.0, debitcard.getMoneyAvailable());
+		assertEquals("Verifying money available",0.0, debitcard.getMoneyAvailable());
 	}
 	@Test
 	public void testDebitConstructor() {
@@ -85,7 +85,7 @@ public class MyCardsTest {
 		assertEquals("Verifying card type",Cards.CardType.DEBIT, debitcard.getType());
 		assertEquals("Verifying account number",1234,debitcard.getAccNb());
 		assertEquals("Verifying card number",12345678,debitcard.getCardNumber());
-		asserEquals("Verifying money available",500.0, debitcard.getMoneyAvailable());
+		assertEquals("Verifying money available",500.0, debitcard.getMoneyAvailable());
 	}
 	@Test
 	public void testDebitSetGetType() {
