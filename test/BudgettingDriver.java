@@ -4,6 +4,8 @@
 //Description: A visual testing of the Budgetting class
 //--------------------------------------------------------
 
+import src.Budgetting;
+
 public class BudgettingDriver {
 
 	public static void main(String[] args) {

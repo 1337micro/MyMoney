@@ -2,7 +2,7 @@ package src;
 //-------------------------------------------------------
 //For Comp 354 Section PP - Winter 2018
 //Iteration 1: Genevieve Plante-Brisebois 40003112
-//Help received from the Programmer Organizer: Noémi Lemonnier 40001075
+//Help received from the Programmer Organizer: Noï¿½mi Lemonnier 40001075
 //Description: implements the user interface for the cards feature.  
 //              
 //--------------------------------------------------------
@@ -324,6 +324,7 @@ public class MyCardsUI implements ActionListener{
 			if(optionChoosed != JOptionPane.YES_OPTION){
 				JOptionPane.getRootFrame().dispose();
 			};
+			String line = "";
 			if(optionChoosed == JOptionPane.YES_OPTION){ 
 				indexCard = getCardFromAccountNumber(card.getCardNumber(), cards_list);
 				//to remove the card from the database textfile MyCards
