@@ -318,7 +318,7 @@ public class MyCardsUI implements ActionListener{
 	int optionChoosed= JOptionPane.showConfirmDialog(null, pane, "Please choose a card to remove", JOptionPane.OK_CANCEL_OPTION);
 			
 			int index = cardslist.getSelectedIndex();
-			
+			String line="";
 			Cards card = cards_list.get(index);
 		
 			if(optionChoosed != JOptionPane.YES_OPTION){

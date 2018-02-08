@@ -10,6 +10,9 @@ import src.MyCards;
 import src.Cards;
 import src.Debit;
 import src.Credit;
+
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,26 +22,25 @@ import java.util.ArrayList;
 public class MyCardsTest {
 	Credit creditcard = new Credit();
 	Debit debitcard = new Debit();
-	
+	Credit cc= new Credit(Cards.CardType.CREDIT,1234,12345678,200.00,500.00);
 	//testing the constructor, setters and getters for the credit cards
 	@Test
 	public void testDefaultConstructorCredit() {
 		assertEquals("Verifying card type",Cards.CardType.CREDIT, creditcard.getType());
 		assertEquals("Verifying account number",0, creditcard.getAccNb());
 		assertEquals("Verifying card number",0,creditcard.getCardNumber());
-		assertEquals("Verifying card limit",0, creditcard.getLimit());
-		assertEquals("Verifying money spent",0, creditcard.getMoneySpent());
-		assertEquals("Verifying money available",0, creditcard.getMoneyAvailable());
+		assertEquals("Verifying card limit",0, creditcard.getLimit(),0);
+		assertEquals("Verifying money spent",0, creditcard.getMoneySpent(),0);
+		assertEquals("Verifying money available",0, creditcard.getMoneyAvailable(),0);
 	}
 	@Test
-	public void testCreditConstructor() {
-		Credit cc= new Credit(Cards.CardType.CREDIT, 1234,12345678, 200.00, 500.00);
+	public void testCreditConstructor() {		
 		assertEquals("Verifying card type",Cards.CardType.CREDIT, cc.getType());
-		assertEquals("Verifying account number",1234, creditcard.getAccNb());
-		assertEquals("Verifying card number",12345678,creditcard.getCardNumber());
-		assertEquals("Verifying card limit",500.00, creditcard.getLimit());
-		assertEquals("Verifying money spent",200.00, creditcard.getMoneySpent());
-		assertEquals("Verifying money available",300.00, creditcard.getMoneyAvailable());
+		assertEquals("Verifying account number",1234,cc.getAccNb());
+		assertEquals("Verifying card number",12345678,cc.getCardNumber());
+		assertEquals("Verifying card limit",500.00, cc.getLimit(),0);
+		assertEquals("Verifying money spent",200.00, cc.getMoneySpent(),0);
+		assertEquals("Verifying money available",300.00, cc.getMoneyAvailable(),0);
 	}
 	@Test
 	public void testCreditSetGetType() {
@@ -59,17 +61,17 @@ public class MyCardsTest {
 	@Test
 	public void testCreditSetGetMoneyAvailable() {
 		creditcard.setMoneyAvailable(200);
-		assertEquals("Verifying money available",200,creditcard.getMoneyAvailable());
+		assertEquals("Verifying money available",200,creditcard.getMoneyAvailable(),0);
 	}
 	@Test
 	public void testCreditSetGetMoneySpent() {
 		creditcard.setMoneySpent(200);
-		assertEquals("Verifying money spent",200, creditcard.getMoneySpent());
+		assertEquals("Verifying money spent",200, creditcard.getMoneySpent(),0);
 	}
 	@Test
 	public void testCreditSetGetLimit() {
 		creditcard.setLimit(500);
-		assertEquals("Verifying card limit",500, creditcard.getLimit());
+		assertEquals("Verifying card limit",500, creditcard.getLimit(),0);
 	}
 	//testing constructors, setters and getters for the debit cards
 	@Test
@@ -77,15 +79,15 @@ public class MyCardsTest {
 		assertEquals("Verifying card type",Cards.CardType.DEBIT, debitcard.getType());
 		assertEquals("Verifying account number",0,debitcard.getAccNb());
 		assertEquals("Verifying card number",0,debitcard.getCardNumber());
-		asserEquals("Verifying money available",0.0, debitcard.getMoneyAvailable());
+		assertEquals("Verifying money available",0.0, debitcard.getMoneyAvailable(),0);
 	}
 	@Test
 	public void testDebitConstructor() {
 		Debit dc = new Debit(Cards.CardType.DEBIT, 1234, 12345678, 500.00);
 		assertEquals("Verifying card type",Cards.CardType.DEBIT, debitcard.getType());
-		assertEquals("Verifying account number",1234,debitcard.getAccNb());
-		assertEquals("Verifying card number",12345678,debitcard.getCardNumber());
-		asserEquals("Verifying money available",500.0, debitcard.getMoneyAvailable());
+		assertEquals("Verifying account number",1234,dc.getAccNb());
+		assertEquals("Verifying card number",12345678,dc.getCardNumber());
+		assertEquals("Verifying money available",500.0, dc.getMoneyAvailable(),0);
 	}
 	@Test
 	public void testDebitSetGetType() {
@@ -105,7 +107,7 @@ public class MyCardsTest {
 	@Test
 	public void testDebitSetGetMoneyAvailable() {
 		debitcard.setMoneyAvailable(200.00);
-		assertEquals("Verifying money available",200.00, debitcard.getMoneyAvailable());
+		assertEquals("Verifying money available",200.00, debitcard.getMoneyAvailable(),0);
 	}
 	
 	//tests for the MyCards
@@ -128,5 +130,11 @@ public class MyCardsTest {
 		Credit expected = new Credit(Cards.CardType.CREDIT, 1234, 12345678,500.00, 200.00);
 		assertEquals("Verifying that the credit card has been added", true, cardsList.getCards().contains(expected));
 	}
-	//test remove method
+	//test reading/writing
+	@Test
+	public void testReadingWritint() {
+		MyCards.writeToFile(cc);
+		MyCards.readFromTheFile(cardsList, model);
+		
+	}
 }
