@@ -2,7 +2,7 @@
 //-------------------------------------------------------
 //For Comp 354 Section PP - Winter 2018
 //Iteration 1: Genevieve Plante-Brisebois 40003112
-//Help received from the Programmer Organizer: Noémi Lemonnier 40001085
+//Help received from the Programmer Organizer: Noï¿½mi Lemonnier 40001085
 //Description: implements the user interface for the cards feature.  
 //              
 //--------------------------------------------------------
@@ -76,9 +76,13 @@ public class MyCardsUI implements ActionListener{
 			panel.setVisible(false);
 		} else {
 			panel.setVisible(true);
-			final Optional<JPanel> panelOptional = Optional
+			final Optional<JPanel> cashSpendingOptional = Optional
 					.ofNullable(Main.getApplicationLayout().getCashSpendingUI().getPanel());
-			if (panelOptional.isPresent()) panelOptional.get().setVisible(false);
+			if (cashSpendingOptional.isPresent()) cashSpendingOptional.get().setVisible(false);
+
+			final Optional<JPanel> budgetingPanelOptional = Optional
+					.ofNullable(Main.getApplicationLayout().getBudgetingUI().getPanel());
+			if ( budgetingPanelOptional.isPresent())  budgetingPanelOptional.get().setVisible(false);
 
 		}
 

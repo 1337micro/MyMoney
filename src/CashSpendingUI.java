@@ -129,9 +129,14 @@ public class CashSpendingUI implements ActionListener {
             thePanel.setVisible(false);
         } else {
             thePanel.setVisible(true);
-            final Optional<JPanel> panelOptional = Optional
+            //hide all other panels that are not cash spending
+            final Optional<JPanel> budgetingPanelOptional = Optional
                     .ofNullable(Main.getApplicationLayout().getBudgetingUI().getPanel());
-            if (panelOptional.isPresent()) panelOptional.get().setVisible(false);
+            if ( budgetingPanelOptional.isPresent())  budgetingPanelOptional.get().setVisible(false);
+
+            final Optional<JPanel> cardsPanelOptional = Optional
+                    .ofNullable(Main.getApplicationLayout().getMyCardsUI().getPanel());
+            if ( cardsPanelOptional.isPresent()) cardsPanelOptional.get().setVisible(false);
 
         }
     }

@@ -44,6 +44,10 @@ public class BudgetingUI implements ActionListener{
 					.ofNullable(Main.getApplicationLayout().getCashSpendingUI().getPanel());
 			if (panelOptional.isPresent()) panelOptional.get().setVisible(false);
 
+			final Optional<JPanel> cardsPanelOptional = Optional
+					.ofNullable(Main.getApplicationLayout().getMyCardsUI().getPanel());
+			if ( cardsPanelOptional.isPresent()) cardsPanelOptional.get().setVisible(false);
+
 		}
 
 	}
