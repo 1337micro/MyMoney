@@ -1,7 +1,7 @@
 //-------------------------------------------------------
 //For Comp 354 Section PP - Winter 2018
 //Iteration 1: Genevieve Plante-Brisebois 40003112
-//Help received from the Programmer Organizer: Noémi Lemonnier 40001085
+//Help received from the Programmer Organizer: Noï¿½mi Lemonnier 40001085
 //Description: Brings together the debit and credit classes together to make the program work. 
 //				It is the junction of all other card related files.
 //--------------------------------------------------------
@@ -26,7 +26,7 @@ import src.Cards.CardType;
 public class MyCards {
 	private static List <Cards> cards;
 	private static PrintWriter pw = null;
-	private static File file = new File("src/MyCards");
+	private static File file = new File("src/MyCards.txt");
 	private static File temp = new File("MyCardstemp.txt");
 	private static BufferedWriter bw;
 	private static BufferedReader reader;
