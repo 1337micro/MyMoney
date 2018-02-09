@@ -29,19 +29,19 @@ public class Budgetting {
 	private double percentMisc;
 
 	//Calculated percentages
-	private double amountHousing;
-	private double amountFood;
-	private double amountUtilities;
-	private double amountClothing;
-	private double amountMedical;
-	private double amountDonations;
-	private double amountSavingsInsurance;
-	private double amountEntertainment;
-	private double amountTransportation;
-	private double amountMisc;
+	private double amountHousing = 0;
+	private double amountFood = 0;
+	private double amountUtilities = 0;
+	private double amountClothing = 0;
+	private double amountMedical = 0;
+	private double amountDonations = 0;
+	private double amountSavingsInsurance = 0;
+	private double amountEntertainment = 0;
+	private double amountTransportation = 0;
+	private double amountMisc = 0;
 
 	//Other instance members
-	private double availableFunds;
+	private double availableFunds =0;
 	private final String defaultPercentagesFile = "src/DefaultBudgetingPercentages.txt";
 
 	
