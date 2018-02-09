@@ -1,10 +1,10 @@
+//-------------------------------------------------------
+//For Comp 354 Section PP - Winter 2018
+//Iteration 1: Whole team
+//Description: Main driver class
+//--------------------------------------------------------
 package src;
-
-import src.ApplicationLayout;
-
 import javax.swing.*;
-
-import static src.CashSpending.*;
 
 public class Main{
 
