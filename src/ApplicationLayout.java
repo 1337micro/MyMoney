@@ -1,3 +1,11 @@
+//-------------------------------------------------------
+//For Comp 354 Section PP - Winter 2018
+//Iteration 1: Noemi Lemonnier 40001085
+//Help received from the Programmer William Prioriello
+//Description: Application layout class
+//--------------------------------------------------------
+
+
 package src;
 
 import javax.swing.*;
