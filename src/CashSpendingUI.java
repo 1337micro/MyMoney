@@ -1,3 +1,8 @@
+//-------------------------------------------------------
+//For Comp 354 Section PP - Winter 2018
+//Iteration 1: William Prioriello
+//Description: CashSpending "view" class
+// --------------------------------------------------------
 package src;
 import java.util.ArrayList;
 import javax.swing.*;

@@ -1,3 +1,8 @@
+//-------------------------------------------------------
+//For Comp 354 Section PP - Winter 2018
+//Iteration 1: Created by William Prioriello, modified as needed by team
+//Description: constants
+// --------------------------------------------------------
 package src;
 public class Constants {
 	public static final int APP_LAYOUT_MARGIN_TOP = 10;

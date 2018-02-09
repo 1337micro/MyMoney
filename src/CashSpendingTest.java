@@ -1,3 +1,8 @@
+//-------------------------------------------------------
+//For Comp 354 Section PP - Winter 2018
+//Iteration 1: William Prioriello
+//Description: Test for the CashSpending class
+// --------------------------------------------------------
 package src;
 
 

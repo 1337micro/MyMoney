@@ -1,3 +1,8 @@
+//-------------------------------------------------------
+//For Comp 354 Section PP - Winter 2018
+//Iteration 1: William Prioriello
+//Description: "Model" class keeps track of user-input spending
+//--------------------------------------------------------
 package src;
 
 import java.util.ArrayList;
