@@ -131,10 +131,12 @@ public class MyCardsTest {
 		assertEquals("Verifying that the credit card has been added", true, cardsList.getCards().contains(expected));
 	}
 	//test reading/writing
+	/*
 	@Test
 	public void testReadingWritint() {
 		MyCards.writeToFile(cc);
 		MyCards.readFromTheFile(cardsList, model);
 		
 	}
+	*/
 }
