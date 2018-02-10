@@ -26,8 +26,8 @@ import src.Cards.CardType;
 public class MyCards {
 	private static List <Cards> cards;
 	private static PrintWriter pw = null;
-	private static File file = new File("src/MyCards.txt");
-	private static File temp = new File("MyCardstemp.txt");
+	private static File file = new File("src/src/MyCards.txt");
+	//private static File temp = new File("MyCardstemp.txt");
 	private static BufferedWriter bw;
 	private static BufferedReader reader;
 	private static CardType cdtp;
@@ -81,13 +81,14 @@ public class MyCards {
 	/*
 	 * method to write to the database textfile
 	 */
-	public static void writeToFile(Cards newCard){
+	public static void writeToFile(Cards newCard) throws IOException{
 
 		// opening file stream to write log
 		try {
+
 			pw = new PrintWriter(new FileOutputStream(file, true));
 		} catch (Exception e) {
-			System.out.println("Error while creating file");
+			System.out.println("Error while writing to the file");
 			System.exit(1);
 		}
 
@@ -95,6 +96,7 @@ public class MyCards {
 		if(newCard.getType() == CardType.DEBIT){
 			newCard = new Debit(newCard.getType(), newCard.getAccNb(), newCard.getCardNumber(), newCard.getMoneyAvailable());	
 			pw.println(newCard.getType() + "," + newCard.getAccNb() + "," + newCard.getCardNumber() + "," + newCard.getMoneyAvailable());
+
 		}
 		if( newCard.getType() == CardType.CREDIT){
 			newCard = new Credit(newCard.getType(), newCard.getAccNb(), newCard.getCardNumber(), newCard.getMoneySpent(), newCard.getLimit());
@@ -122,7 +124,68 @@ public class MyCards {
 		}
 		file.createNewFile();
 	}
+	/*
+	 * method to find duplicate if user inputs a new card
+	 */
+	public static boolean readToFindDuplicate(Cards cardInput, DefaultTableModel model) {
+		// Open file to read from
+		try {
+			reader = new BufferedReader(new FileReader(file));
+		} catch (Exception e) {
+			System.out.println("Error when opening file.");
+			System.out.println("Program will terminate.");
+			System.exit(0);
+		}
+		String line = null;
+		try {
+			while ((line = reader.readLine()) != null) {
+				if(line.startsWith("DEBIT")){
+					String[] lineArray = line.split(",");
+					cdtp = CardType.DEBIT;
+					accNb = Integer.parseInt(lineArray[1]);
+					cardNumD = Integer.parseInt(lineArray[2]);
+					money= Double.parseDouble(lineArray[3]);
 
+					Debit cd = new Debit(cdtp, accNb, cardNumD, money);
+					if( cd.getCardNumber() == cardInput.getCardNumber()){
+						return true;
+					}
+				}
+				else if(line.startsWith("CREDIT")){
+					String[] lineArray = line.split(",");
+					cdtp = CardType.CREDIT;
+					accNb = Integer.parseInt(lineArray[1]);
+					cardNum = Integer.parseInt(lineArray[2]);
+					moneySpent= Double.parseDouble(lineArray[3]);
+					limitCard=Double.parseDouble(lineArray[4]);
+					moneyAvailable=Double.parseDouble(lineArray[5]);
+					Credit cd = new Credit(cdtp, accNb, cardNum, moneySpent, limitCard);
+					if( cd.getCardNumber() == cardInput.getCardNumber()){
+						return true;
+					}
+				}
+
+			}
+
+		} catch (IOException e) {
+			System.out.println("Error while reading file");
+			System.out.println("Program will terminate.");
+			System.exit(0);
+		}
+
+
+		// Closing reading stream
+		try {
+			if (reader != null)
+				reader.close();
+
+		} catch (Exception e) {
+			System.out.println("Error when closing file.");
+			System.out.println("Program will terminate.");
+			System.exit(0);
+		}
+		return false;
+	}
 	/*
 	 * method to read the database textfile
 	 */
@@ -147,7 +210,7 @@ public class MyCards {
 					accNb = Integer.parseInt(lineArray[1]);
 					cardNumD = Integer.parseInt(lineArray[2]);
 					money= Double.parseDouble(lineArray[3]);
-					
+
 					Debit cd = new Debit(cdtp, accNb, cardNumD, money);
 					cards_list.add(cd);
 					//adding it to the table
@@ -196,13 +259,13 @@ public class MyCards {
 	/*
 	 * method to remove from the database textfile MyCards
 	 */
-public static void removeLine(String cardLine) throws IOException{
-		
-		bw = new BufferedWriter(new FileWriter(temp));
+	public static void removeLine(String cardLine) throws IOException{
+
+		bw = new BufferedWriter(new FileWriter(file));
 		reader = new BufferedReader(new FileReader(file));
 		String currentLine;
 		while((currentLine = reader.readLine()) != null){
-			
+
 			String trimmedLine = currentLine.trim();
 			if(trimmedLine.equals(cardLine)){
 				currentLine = "";
@@ -212,6 +275,7 @@ public static void removeLine(String cardLine) throws IOException{
 		}
 		bw.close();
 		reader.close();
-		
+
 	}
 }
+

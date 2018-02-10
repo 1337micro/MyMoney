@@ -9,6 +9,8 @@
 package src;
 
 import java.util.ArrayList;
+import java.util.DuplicateFormatFlagsException;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -147,7 +149,7 @@ public class MyCardsUI implements ActionListener{
 
 		public void actionPerformed(ActionEvent arg0) {
 
-				
+
 
 			JFrame frame= new JFrame();
 			Cards.CardType [] possibilities= {Cards.CardType.DEBIT,Cards.CardType.CREDIT};
@@ -185,22 +187,47 @@ public class MyCardsUI implements ActionListener{
 				pane.add(moneyCurrent);
 
 				//make the option panel appear in order to ask the user for information for the card
-							int cardInput=JOptionPane.showConfirmDialog(null, pane, "Debit Card Information", JOptionPane.OK_CANCEL_OPTION);
-								if(cardInput != 0){
+				int cardInput=JOptionPane.showConfirmDialog(null, pane, "Debit Card Information", JOptionPane.OK_CANCEL_OPTION);
+				if(cardInput != 0){
 					JOptionPane.getRootFrame().dispose();
 				};
 				if(cardInput == 0){ 	 //not equal to the cancel button
-					cdtp = Cards.CardType.DEBIT;
-					accNb = Integer.parseInt(accNumber.getText());
-					cardNumD=Integer.parseInt(cardNumber.getText());
-					money = Double.parseDouble(moneyCurrent.getText());
+					try{
+						cdtp = Cards.CardType.DEBIT;
+						accNb = Integer.parseInt(accNumber.getText());
+						cardNum=Integer.parseInt(cardNumber.getText());
+						money = Double.parseDouble(moneyCurrent.getText());
+						if( accNb <=0 || cardNum <=0 || money <=0){
+							throw new NumberFormatException();
+						}
+						card = new Debit(cdtp, accNb, cardNum, money);
+						//if the card already exists
+						boolean isDuplicate = MyCards.readToFindDuplicate(card, tableModel);
+						if(isDuplicate == true){
+							throw new Exception();
+						}
+						cards_list.add(card);
+						Object[] data = {cdtp, accNb, cardNum, money};
+						tableModel.addRow(data);
+						MyCards.writeToFile(card);
 
-					card = new Debit(cdtp, accNb, cardNumD, money);
-					cards_list.add(card);
-					Object[] data = {cdtp, accNb, cardNumD, money};
-					tableModel.addRow(data);
-					//cd = new Debit(cdtp, accNb, cardNumD, money);
-					MyCards.writeToFile(card);
+					}catch (IOException e) {
+						e.printStackTrace();
+					}catch(NumberFormatException evt){
+						JOptionPane.showMessageDialog(null, "You have entered an invalid number!" , "Invalid Input", JOptionPane.CLOSED_OPTION);
+						int opt = JOptionPane.CLOSED_OPTION;
+						if(opt != 0){
+							JOptionPane.getRootFrame().dispose();
+						}
+					}
+					catch(Exception err){
+						JOptionPane.showMessageDialog(null, "You have entered a card number that already exist!" , "Invalid Input", JOptionPane.CLOSED_OPTION);
+						int opt = JOptionPane.CLOSED_OPTION;
+						if(opt != 0){
+							JOptionPane.getRootFrame().dispose();
+						}
+					}
+
 				}
 
 			}
@@ -242,19 +269,42 @@ public class MyCardsUI implements ActionListener{
 					JOptionPane.getRootFrame().dispose();
 				};
 				if(cardInput == 0){ //not equal to the cancel button
-					cdtp = Cards.CardType.CREDIT;
-					accNb = Integer.parseInt(accNumber.getText());
-					cardNum=Integer.parseInt(cardNumber.getText());
-					moneySpent = Double.parseDouble(moneyCurrent.getText());
-					limitCard=Double.parseDouble(limit.getText());
+					try{
+						cdtp = Cards.CardType.CREDIT;
+						accNb = Integer.parseInt(accNumber.getText());
+						cardNum=Integer.parseInt(cardNumber.getText());
+						moneySpent = Double.parseDouble(moneyCurrent.getText());
+						limitCard=Double.parseDouble(limit.getText());
+						if( accNb <=0 || cardNum <=0 || moneySpent <=0 || limitCard <=0){
+							throw new NumberFormatException();
+						}
+						card = new Credit(cdtp, accNb, cardNum, moneySpent, limitCard);
+						//if the card already exists
+						boolean isDuplicate = MyCards.readToFindDuplicate(card, tableModel);
+						if(isDuplicate == true){
+							throw new Exception();
+						}
+						cards_list.add(card);
+						Object[] data = {cdtp, accNb, cardNum, moneySpent};
+						tableModel.addRow(data);
+						MyCards.writeToFile(card);
+					}catch (IOException e) {
+						e.printStackTrace();
+					}catch(NumberFormatException evt){
+						JOptionPane.showMessageDialog(null, "You have entered an invalid number!" , "Invalid Input", JOptionPane.CLOSED_OPTION);
+						int opt = JOptionPane.CLOSED_OPTION;
+						if(opt != 0){
+							JOptionPane.getRootFrame().dispose();
+						}
+					}
+					catch(Exception err){
+						JOptionPane.showMessageDialog(null, "You have entered a card number that already exist!" , "Invalid Input", JOptionPane.CLOSED_OPTION);
+						int opt = JOptionPane.CLOSED_OPTION;
+						if(opt != 0){
+							JOptionPane.getRootFrame().dispose();
+						}
+					}
 
-
-					card = new Credit(cdtp, accNb, cardNum, moneySpent, limitCard);
-					cards_list.add(card);
-					Object[] data = {cdtp, accNb, cardNum, moneySpent};
-					tableModel.addRow(data);
-					//cd = new Credit(cdtp, accNb, cardNum, moneySpent, limitCard);
-					MyCards.writeToFile(card);
 				}
 
 			}
@@ -319,12 +369,12 @@ public class MyCardsUI implements ActionListener{
 
 			//JFrame frame= new JFrame();
 			//Icon icon = null;
-	int optionChoosed= JOptionPane.showConfirmDialog(null, pane, "Please choose a card to remove", JOptionPane.OK_CANCEL_OPTION);
-			
+			int optionChoosed= JOptionPane.showConfirmDialog(null, pane, "Please choose a card to remove", JOptionPane.OK_CANCEL_OPTION);
+
 			int index = cardslist.getSelectedIndex();
 			String line="";
 			Cards card = cards_list.get(index);
-		
+
 			if(optionChoosed != JOptionPane.YES_OPTION){
 				JOptionPane.getRootFrame().dispose();
 			};
@@ -349,7 +399,7 @@ public class MyCardsUI implements ActionListener{
 					cd.setMoneySpent(cards_list.get(indexCard).getMoneySpent());
 					cd.setMoneyAvailable(cards_list.get(indexCard).getMoneyAvailable());
 					line = cards_list.get(indexCard).getType() +","+ cards_list.get(indexCard).getAccNb() +","+ cards_list.get(indexCard).getCardNumber() +","+ cards_list.get(indexCard).getMoneySpent()+","+cards_list.get(indexCard).getLimit()+","+ cards_list.get(indexCard).getMoneyAvailable();
-					
+
 				}
 				try {
 					MyCards.removeLine(line);
@@ -367,6 +417,7 @@ public class MyCardsUI implements ActionListener{
 	}
 
 }
+
 
 
 
