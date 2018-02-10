@@ -1,7 +1,7 @@
 //-------------------------------------------------------
 //For Comp 354 Section PP - Winter 2018
 //Iteration 1: Genevieve Plante-Brisebois 40003112
-//Help received from the Programmer Organizer: No�mi Lemonnier 40001085
+//Help received from the Programmer Organizer: Noemi Lemonnier 40001085
 //Description: Brings together the debit and credit classes together to make the program work. 
 //				It is the junction of all other card related files.
 //--------------------------------------------------------
@@ -277,5 +277,46 @@ public class MyCards {
 		reader.close();
 
 	}
+
+/*
+ * returns the card object corresponding to the card number and list of cards in the parameters.
+ */
+public static int getCardFromAccountNumber(int cardNb, List <Cards> list) {
+	Cards card;
+	for(int i=0; i<list.size();i++) {
+		if (list.get(i).getCardNumber()==cardNb) 
+			if(list.get(i).getType() == CardType.DEBIT){
+				card = new Debit(list.get(i).getType(), list.get(i).getAccNb(), list.get(i).getCardNumber(), list.get(i).getMoneyAvailable());
+				int ind = i;
+				return ind;
+				//return card;
+
+			}
+		if (list.get(i).getCardNumber()==cardNb) 
+			if(list.get(i).getType() == CardType.CREDIT){
+				card = new Credit(list.get(i).getType(), list.get(i).getAccNb(), list.get(i).getCardNumber(), list.get(i).getMoneySpent(), list.get(i).getLimit());
+				//return card;
+				int ind = i;
+				return ind;
+
+			}
+		//{card= list.get(i);
+
+	}
+	///return null;
+	return 0;
+}
+/*
+ * returns the card at a specified index
+ */
+public Cards get(int index) {
+	return cards.get(index);
+}
+/*
+ * returns the list in arrayList <Cards> format
+ */
+public ArrayList <Cards> getArrayList() {
+	return (ArrayList <Cards>)cards;
+}
 }
 

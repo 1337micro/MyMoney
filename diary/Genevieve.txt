@@ -81,5 +81,14 @@ working on errors: 13:00-14:45
 			17:50-18:45
 
 Working on JUnit:23:00-1:05
-									
 
+Journal Entry 2018, 02, 07
+Lab session
+present: all but Ashesh
+Had a meeting to assign the roles for iteration 2
+I will be documenter for the MyCards Feature
+working on the JUnit during lab with Sabrina and Noemie		
+
+Journal Entry 2018,02, 10		
+Finalising all the details of the cards feature. making the final merge of all programming files. making a last check up that everything works the way it is supposed to: 14:00-16:30
+Writing my diary on latex: 

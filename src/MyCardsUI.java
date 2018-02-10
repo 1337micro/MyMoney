@@ -2,7 +2,7 @@
 //-------------------------------------------------------
 //For Comp 354 Section PP - Winter 2018
 //Iteration 1: Genevieve Plante-Brisebois 40003112
-//Help received from the Programmer Organizer: No�mi Lemonnier 40001085
+//Help received from the Programmer Organizer: Noemi Lemonnier 40001085
 //Description: implements the user interface for the cards feature.  
 //              
 //--------------------------------------------------------
@@ -330,33 +330,7 @@ public class MyCardsUI implements ActionListener{
 			return cardNumbers;
 		}
 
-		/*
-		 * returns the card object corresponding to the card number and list of cards in the parameters.
-		 */
-		public int getCardFromAccountNumber(double cardNb, List <Cards> list) {
-			for(int i=0; i<list.size();i++) {
-				if (list.get(i).getCardNumber()==cardNb) 
-					if(list.get(i).getType() == CardType.DEBIT){
-						card = new Debit(list.get(i).getType(), list.get(i).getAccNb(), list.get(i).getCardNumber(), list.get(i).getMoneyAvailable());
-						int ind = i;
-						return ind;
-						//return card;
-
-					}
-				if (list.get(i).getCardNumber()==cardNb) 
-					if(list.get(i).getType() == CardType.CREDIT){
-						card = new Credit(list.get(i).getType(), list.get(i).getAccNb(), list.get(i).getCardNumber(), list.get(i).getMoneySpent(), list.get(i).getLimit());
-						//return card;
-						int ind = i;
-						return ind;
-
-					}
-				//{card= list.get(i);
-
-			}
-			///return null;
-			return 0;
-		}
+		
 		/*
 		 * method that activates the display when the user clicks on the remove card button. 
 		 */
@@ -379,7 +353,7 @@ public class MyCardsUI implements ActionListener{
 				JOptionPane.getRootFrame().dispose();
 			};
 			if(optionChoosed == JOptionPane.YES_OPTION){ 
-				indexCard = getCardFromAccountNumber(card.getCardNumber(), cards_list);
+				indexCard = MyCards.getCardFromAccountNumber(card.getCardNumber(), cards_list);
 				//to remove the card from the database textfile MyCards
 				if(cards_list.get(indexCard).getType() == CardType.DEBIT){
 					cd = new Debit();
@@ -410,15 +384,7 @@ public class MyCardsUI implements ActionListener{
 				}
 				cards_list.remove(indexCard);
 				tableModel.removeRow(indexCard);
-
-
 			}
 		}
 	}
-
 }
-
-
-
-
-

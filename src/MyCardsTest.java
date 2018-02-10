@@ -4,20 +4,23 @@
 //Description: Class testing the methods for the cards feature.
 //--------------------------------------------------------
 package src;
-import org.junit.Test;
-import static org.junit.Assert.assertEquals;
+
+import  org.junit.Test;
+import static org.junit.Assert.*;
 import src.MyCards;
 import src.Cards;
 import src.Debit;
 import src.Credit;
 
-import static org.junit.Assert.assertEquals;
+
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.table.DefaultTableModel;
 
-import java.util.ArrayList;
+
 
 public class MyCardsTest {
 	Credit creditcard = new Credit();
@@ -121,22 +124,35 @@ public class MyCardsTest {
 	@Test
 	public void testAddCardDebit() {
 		cardsList.addCard(Cards.CardType.DEBIT, 1234, 12345678, 200.00);
-		Debit expected = new Debit(Cards.CardType.DEBIT, 1234, 12345678, 200.00);
-		assertEquals("Verifying that the debit card has been added", true, cardsList.getCards().contains(expected));
+		List <Cards> cardL=cardsList.getCards();
+		int index = MyCards.getCardFromAccountNumber(12345678,cardL);
+		Cards card = cardsList.get(index);	
+		assertEquals("Verifying that the debit card has been added", true, cardsList.getCards().contains(card));
 	}
 	@Test
 	public void testAddCardCredit() {
 		cardsList.addCard(Cards.CardType.CREDIT, 1234, 12345678,500.00, 200.00);
-		Credit expected = new Credit(Cards.CardType.CREDIT, 1234, 12345678,500.00, 200.00);
-		assertEquals("Verifying that the credit card has been added", true, cardsList.getCards().contains(expected));
+		List <Cards> cardL=cardsList.getCards();
+		int index = MyCards.getCardFromAccountNumber(12345678,cardL);
+		Cards card = cardsList.get(index);	
+		assertEquals("Verifying that the credit card has been added",true, cardsList.getCards().contains(card));
 	}
-	//test reading/writing
-	/*
 	@Test
-	public void testReadingWritint() {
-		MyCards.writeToFile(cc);
-		MyCards.readFromTheFile(cardsList, model);
+	public void testRemoveCard() {
+		cardsList.addCard(Cards.CardType.DEBIT, 1234, 12345678, 500);
+		List <Cards> cardL=cardsList.getCards();
+		int index = MyCards.getCardFromAccountNumber(12345678,cardL);
+		Cards card = cardsList.get(index);
+		cardsList.removeCard(index);
+		assertEquals("Verifying if a card is removed", false, cardsList.getCards().contains(card));
 		
 	}
-	*/
+	@Test
+	public void testGetCardFromAccNum() {
+		cardsList.addCard(Cards.CardType.DEBIT, 1234, 12345678, 500);
+		cardsList.addCard(Cards.CardType.DEBIT, 6548, 98563254, 800);
+		List <Cards> cardL=cardsList.getCards();
+		int index = MyCards.getCardFromAccountNumber(12345678,cardL);
+		assertEquals("Verifying that the index of the card is correct", 0, MyCards.getCardFromAccountNumber(12345678, cardL));
+	}
 }

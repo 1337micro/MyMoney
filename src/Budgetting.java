@@ -42,7 +42,7 @@ public class Budgetting {
 
 	//Other instance members
 	private double availableFunds =0;
-	sprivate final String defaultPercentagesFile = "src/src/DefaultBudgetingPercentages.txt";
+	private final String defaultPercentagesFile = "src/src/DefaultBudgetingPercentages.txt";
 
 	
 	/**
