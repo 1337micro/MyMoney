@@ -26,8 +26,7 @@ import src.Cards.CardType;
 public class MyCards {
 	private static List <Cards> cards;
 	private static PrintWriter pw = null;
-	private static File file = new File("src/src/MyCards.txt");
-	//private static File temp = new File("MyCardstemp.txt");
+	private static File file = new File("src/MyCards.txt");
 	private static BufferedWriter bw;
 	private static BufferedReader reader;
 	private static CardType cdtp;
@@ -289,21 +288,17 @@ public static int getCardFromAccountNumber(int cardNb, List <Cards> list) {
 				card = new Debit(list.get(i).getType(), list.get(i).getAccNb(), list.get(i).getCardNumber(), list.get(i).getMoneyAvailable());
 				int ind = i;
 				return ind;
-				//return card;
-
+				
 			}
 		if (list.get(i).getCardNumber()==cardNb) 
 			if(list.get(i).getType() == CardType.CREDIT){
 				card = new Credit(list.get(i).getType(), list.get(i).getAccNb(), list.get(i).getCardNumber(), list.get(i).getMoneySpent(), list.get(i).getLimit());
-				//return card;
-				int ind = i;
+								int ind = i;
 				return ind;
 
 			}
-		//{card= list.get(i);
-
+	
 	}
-	///return null;
 	return 0;
 }
 /*
