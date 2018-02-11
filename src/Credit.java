@@ -6,19 +6,19 @@
 //              specifics of the cards of type CREDIT
 //--------------------------------------------------------
 
-
 package src;
 
-
+// Credit Card Class that is a subclass of Cards
 public class Credit implements Cards{
-	//extends Cards{
+	
+	// Credit Cards have a few more variables than the Debit Cards
 	CardType type;
 	int accNb;
 	int cardNumber;
 	double limit;
 	double moneySpent;
 	double moneyAvailable;
-
+	
 	public Credit() {
 		type=CardType.CREDIT;
 		accNb = 0;
@@ -95,8 +95,5 @@ public class Credit implements Cards{
 			moneyAvailable=limit-moneySpent;
 		} 
 	}
-
-
-
 
 }

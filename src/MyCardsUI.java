@@ -25,12 +25,11 @@ import java.awt.*;
 
 public class MyCardsUI implements ActionListener{
 
-
 	public JPanel getPanel() {
 		return panel;
 	}
 
-	// panel and table
+	// Panel and table
 	Cards cd;
 	Cards card;
 	DefaultTableModel tableModel;
@@ -49,20 +48,21 @@ public class MyCardsUI implements ActionListener{
 	double moneyOwedCard;
 	int indexCard;
 
-	//list of cards
+	// List of cards
 	private ArrayList <Cards> cards_list = new ArrayList<Cards>();
 
 
-	//button to add and remove
+	// Button to add and remove Card
 	JButton addCardButton = new JButton(Constants.BUTTON_ADD_CARD);
 	JButton removeCardButton = new JButton(Constants.BUTTON_REMOVE_CARD);
 
-	//names of the columns
+	// Names of the columns
 	final Object[] columnNames = {"Card type", 
 			"Account Number",
 			"Card Number",
 			"Amount", 
 	"Select"};
+	
 	/*
 	 * Method to trigger the display of the cards feature when the user clicks on the MY Cards button on the application.
 	 * 
@@ -89,14 +89,14 @@ public class MyCardsUI implements ActionListener{
 		}
 
 	}
+	
 	/*
-	 * method to create the basic layout that is to be displayed for the cards feature
+	 * Method to create the basic layout that is to be displayed for the cards feature
 	 */
 	public void MyCardsUI() {
 		tableModel = new DefaultTableModel(columnNames, 0);
 		table = new JTable(tableModel);
 		table.setRowSelectionAllowed(false);
-
 
 
 		//Create the scroll pane and add the table to it. 
@@ -107,17 +107,15 @@ public class MyCardsUI implements ActionListener{
 		TableColumn tc = table.getColumnModel().getColumn(4);
 		tc.setCellEditor(table.getDefaultEditor(Boolean.class));
 		tc.setCellRenderer(table.getDefaultRenderer(Boolean.class));
+		
 		//Add the scroll pane to this panel.
-
-
 		panel= new JPanel();
 		panel.add(scrollPane);
 
-		//panButton = new JPanel();
 		panel.add(addCardButton);
 		panel.add(removeCardButton);
 
-		//reading the MyCards.txt to add anyvalues to the table
+		//reading the MyCards.txt to add any values to the table
 		MyCards.readFromTheFile(cards_list, tableModel);
 
 		addCardButton.addActionListener(new AddCardListener());
@@ -158,27 +156,27 @@ public class MyCardsUI implements ActionListener{
 			String n = "Index Card: " + indexCard;
 
 			if (type==Cards.CardType.DEBIT) {
-				//create a panel and a layout that fits the amount of information required.
+				// Create a panel and a layout that fits the amount of information required.
 				JPanel pane=new JPanel(new GridLayout(3,2));
 
-				//create text fields to input the information
+				// Create text fields to input the information
 				JTextField accNumber = new JTextField(20);
 				JTextField cardNumber = new JTextField(20);
 				JTextField moneyCurrent = new JTextField(20);
 
-				//creating labels for the text fields
+				// Creating labels for the text fields
 
 				JLabel aN= new JLabel("Please enter your account Number (4 numbers)");
 				JLabel cN= new JLabel("Please enter the card Number (8 numbers)");
 				JLabel mC= new JLabel("Please enter the current amount of money available on the card.");
 
-				//setting the labels to the text fields
+				// Setting the labels to the text fields
 
 				aN.setLabelFor(accNumber);
 				cN.setLabelFor(cardNumber);
 				mC.setLabelFor(moneyCurrent);
 
-				//adding the elements to the panel
+				// Adding the elements to the panel
 				pane.add(aN);
 				pane.add(accNumber);
 				pane.add(cN);
@@ -186,7 +184,7 @@ public class MyCardsUI implements ActionListener{
 				pane.add(mC);
 				pane.add(moneyCurrent);
 
-				//make the option panel appear in order to ask the user for information for the card
+				// Make the option panel appear in order to ask the user for information for the card
 				int cardInput=JOptionPane.showConfirmDialog(null, pane, "Debit Card Information", JOptionPane.OK_CANCEL_OPTION);
 				if(cardInput != 0){
 					JOptionPane.getRootFrame().dispose();
@@ -201,7 +199,7 @@ public class MyCardsUI implements ActionListener{
 							throw new NumberFormatException();
 						}
 						card = new Debit(cdtp, accNb, cardNum, money);
-						//if the card already exists
+						// Checks if the card already exists
 						boolean isDuplicate = MyCards.readToFindDuplicate(card, tableModel);
 						if(isDuplicate == true){
 							throw new Exception();
@@ -232,28 +230,28 @@ public class MyCardsUI implements ActionListener{
 
 			}
 			if (type==Cards.CardType.CREDIT) {
-				//create a panel and a layout that fits the amount of information required.
+				// Create a panel and a layout that fits the amount of information required.
 				JPanel pane=new JPanel(new GridLayout(4,2));
 
-				//creating labels to go with the textfields
+				// Creating labels to go with the textfields
 				JLabel aN = new JLabel("Please Enter your account Number (4 numbers)");
 				JLabel cN = new JLabel("Please Enter the card Number (8 numbers)");
 				JLabel mC = new JLabel("Please Enter Amount of you already spent");
 				JLabel lt = new JLabel("Please enter your credit limit");
 
-				//creating text fields to take the input from the user
+				// Creating text fields to take the input from the user
 				JTextField accNumber = new JTextField(20);
 				JTextField cardNumber = new JTextField(20);
 				JTextField moneyCurrent = new JTextField(20);
 				JTextField limit = new JTextField(20);
 
-				//setting the labels to their proper textfield
+				// Setting the labels to their proper textfield
 				aN.setLabelFor(accNumber);
 				cN.setLabelFor(cardNumber);
 				mC.setLabelFor(moneyCurrent);
 				lt.setLabelFor(limit);
 
-				//adding the components to the panel
+				// Adding the components to the panel
 				pane.add(aN);
 				pane.add(accNumber);
 				pane.add(cN);
@@ -263,7 +261,7 @@ public class MyCardsUI implements ActionListener{
 				pane.add(lt);
 				pane.add(limit);
 
-				//popping up the option panel so that the user can input the information
+				// Popping up the option panel so that the user can input the information
 				int cardInput=JOptionPane.showConfirmDialog(null, pane, "Credit Card Information", JOptionPane.OK_CANCEL_OPTION);
 				if(cardInput != 0){
 					JOptionPane.getRootFrame().dispose();
@@ -279,7 +277,7 @@ public class MyCardsUI implements ActionListener{
 							throw new NumberFormatException();
 						}
 						card = new Credit(cdtp, accNb, cardNum, moneySpent, limitCard);
-						//if the card already exists
+						// Checks if the card already exists
 						boolean isDuplicate = MyCards.readToFindDuplicate(card, tableModel);
 						if(isDuplicate == true){
 							throw new Exception();
@@ -313,15 +311,13 @@ public class MyCardsUI implements ActionListener{
 
 
 	/*
-	 * class to implement the display needed for the removal of cards.
+	 * Class to implement the display needed for the removal of cards.
 	 */
-
 	private class RemoveListener implements ActionListener{
 
 		/*
-		 * returns an array with the card numbers of all the cards present in the array.
+		 * Returns an array with the card numbers of all the cards present in the array.
 		 */
-
 		public Object [] cardNum(ArrayList <Cards> a) {
 			Object [] cardNumbers=new Object[a.size()];
 			for (int i=0;i< a.size(); i++) {
@@ -332,7 +328,7 @@ public class MyCardsUI implements ActionListener{
 
 		
 		/*
-		 * method that activates the display when the user clicks on the remove card button. 
+		 * Method that activates the display when the user clicks on the remove card button. 
 		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -341,8 +337,6 @@ public class MyCardsUI implements ActionListener{
 			cardslist.setSize(20, 50);
 			pane.add(cardslist);
 
-			//JFrame frame= new JFrame();
-			//Icon icon = null;
 			int optionChoosed= JOptionPane.showConfirmDialog(null, pane, "Please choose a card to remove", JOptionPane.OK_CANCEL_OPTION);
 
 			int index = cardslist.getSelectedIndex();
@@ -354,7 +348,7 @@ public class MyCardsUI implements ActionListener{
 			};
 			if(optionChoosed == JOptionPane.YES_OPTION){ 
 				indexCard = MyCards.getCardFromAccountNumber(card.getCardNumber(), cards_list);
-				//to remove the card from the database textfile MyCards
+				// To remove the card from the database textfile MyCards.txt
 				if(cards_list.get(indexCard).getType() == CardType.DEBIT){
 					cd = new Debit();
 					cd.setAccNb(cards_list.get(indexCard).getAccNb());

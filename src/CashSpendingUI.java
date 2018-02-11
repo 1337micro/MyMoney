@@ -12,15 +12,17 @@ import java.util.List;
 import java.util.Optional;
 
 import static src.CashSpending.ExpenditureType.*;
+
 public class CashSpendingUI implements ActionListener {
+	
     public JPanel getPanel() {
         return thePanel;
     }
 
-    JPanel thePanel; // the panel containing all our JTextFields for CashSpending feature
-    private final int FIELD_SIZE = 10; // number of columns in our GUI text fields
+    JPanel thePanel; // The panel containing all our JTextFields for CashSpending feature
+    private final int FIELD_SIZE = 10; // Number of columns in our GUI text fields
 
-    //list of the JTextField fields having the total amount spent in a particular category.
+    // List of the JTextField fields having the total amount spent in a particular category.
     private  ArrayList<JTextField> listOfMoneySpentFields = new ArrayList<>();
 
     public CashSpendingUI(){
@@ -90,10 +92,12 @@ public class CashSpendingUI implements ActionListener {
     public void addPanelToLayout(JPanel jPanel, ApplicationLayout applicationLayout){
         applicationLayout.add(jPanel);
     }
-    //TODO make error dialog when input makes no sense
+    
+    // ITERATION 2
+    //TODO Add error dialog when input makes no sense
     private void showErrorDialog(){
 
-    }
+    } 
 
     /** Create a popup asking the user to input the amount of money they spent on a particular type of expense
      * @param expenditureType type of expense
@@ -129,7 +133,7 @@ public class CashSpendingUI implements ActionListener {
             thePanel.setVisible(false);
         } else {
             thePanel.setVisible(true);
-            //hide all other panels that are not cash spending
+            // Hide all other panels that are not cash spending
             final Optional<JPanel> budgetingPanelOptional = Optional
                     .ofNullable(Main.getApplicationLayout().getBudgetingUI().getPanel());
             if ( budgetingPanelOptional.isPresent())  budgetingPanelOptional.get().setVisible(false);

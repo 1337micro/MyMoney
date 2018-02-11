@@ -43,14 +43,14 @@ public class MyCards {
 	}
 
 	/*
-	 * create an arraylist to store the cards as a sequence
+	 * Creates an Arraylist to store the cards as a sequence
 	 */
 	public MyCards() {
 		this.cards= new ArrayList<>();
 	}
 
 	/*
-	 * method to add a card to the arraylist, debit type
+	 * Method to add a Debit card to the Arraylist
 	 */
 	public void addCard(Cards.CardType type, int accNb, int cardNumber, double moneyAvailable) {
 		if(type == Cards.CardType.DEBIT) {
@@ -60,7 +60,7 @@ public class MyCards {
 	}
 
 	/*
-	 * method to add a card to the arraylist credit type
+	 * Method to add a Credit card to the Arraylist
 	 */
 	public void addCard(Cards.CardType type, int accNb, int cardNumber, double limit, double moneySpent) {
 		if(type == Cards.CardType.CREDIT) {
@@ -71,18 +71,18 @@ public class MyCards {
 	}
 
 	/*
-	 * method to remove a card from the list
+	 * Method to remove any card from the list
 	 */
 	public void removeCard(int card) {
 		cards.remove(card);
 	}
 
 	/*
-	 * method to write to the database textfile
+	 * Method to write to the database textfile (MyCards.txt)
 	 */
 	public static void writeToFile(Cards newCard) throws IOException{
 
-		// opening file stream to write log
+		// Opening file stream to write log
 		try {
 
 			pw = new PrintWriter(new FileOutputStream(file, true));
@@ -91,7 +91,7 @@ public class MyCards {
 			System.exit(1);
 		}
 
-		//checks the type of the card that needs to be added to the Database and adjust its constructor
+		// Checks the type of the card that needs to be added to the Database and adjust its constructor
 		if(newCard.getType() == CardType.DEBIT){
 			newCard = new Debit(newCard.getType(), newCard.getAccNb(), newCard.getCardNumber(), newCard.getMoneyAvailable());	
 			pw.println(newCard.getType() + "," + newCard.getAccNb() + "," + newCard.getCardNumber() + "," + newCard.getMoneyAvailable());
@@ -113,7 +113,7 @@ public class MyCards {
 	}
 
 	/*
-	 * method to clear the database textfile
+	 * Method to clear the database textfile (MyCards.txt)
 	 */
 	public static void clearDataBaseMyCards() throws IOException{
 		if (file.exists() && file.isFile())
@@ -124,14 +124,14 @@ public class MyCards {
 		file.createNewFile();
 	}
 	/*
-	 * method to find duplicate if user inputs a new card
+	 * Method to find duplicate if user inputs a new card
 	 */
 	public static boolean readToFindDuplicate(Cards cardInput, DefaultTableModel model) {
 		// Open file to read from
 		try {
 			reader = new BufferedReader(new FileReader(file));
 		} catch (Exception e) {
-			System.out.println("Error when opening file.");
+			System.out.println("Error when opening file1.");
 			System.out.println("Program will terminate.");
 			System.exit(0);
 		}
@@ -186,7 +186,7 @@ public class MyCards {
 		return false;
 	}
 	/*
-	 * method to read the database textfile
+	 * Method to read the database textfile (MyCards.txt)
 	 */
 	public static void readFromTheFile(ArrayList <Cards> cards_list, DefaultTableModel model) {
 
@@ -194,7 +194,7 @@ public class MyCards {
 		try {
 			reader = new BufferedReader(new FileReader(file));
 		} catch (Exception e) {
-			System.out.println("Error when opening file.");
+			System.out.println("Error when opening file2.");
 			System.out.println("Program will terminate.");
 			System.exit(0);
 		}
@@ -212,7 +212,7 @@ public class MyCards {
 
 					Debit cd = new Debit(cdtp, accNb, cardNumD, money);
 					cards_list.add(cd);
-					//adding it to the table
+					// Adding it to the table
 					Object[] data = {cdtp, accNb, cardNumD, money};
 					model.addRow(data);
 				}
@@ -256,7 +256,7 @@ public class MyCards {
 	}
 
 	/*
-	 * method to remove from the database textfile MyCards
+	 * Method to remove from the database textfile (MyCards.txt)
 	 */
 	public static void removeLine(String cardLine) throws IOException{
 
@@ -278,7 +278,7 @@ public class MyCards {
 	}
 
 /*
- * returns the card object corresponding to the card number and list of cards in the parameters.
+ * Returns the card object corresponding to the card number and list of cards in the parameters.
  */
 public static int getCardFromAccountNumber(int cardNb, List <Cards> list) {
 	Cards card;
@@ -302,13 +302,13 @@ public static int getCardFromAccountNumber(int cardNb, List <Cards> list) {
 	return 0;
 }
 /*
- * returns the card at a specified index
+ * Returns the card at a specified index
  */
 public Cards get(int index) {
 	return cards.get(index);
 }
 /*
- * returns the list in arrayList <Cards> format
+ * Returns the list of cards in ArrayList <Cards> format
  */
 public ArrayList <Cards> getArrayList() {
 	return (ArrayList <Cards>)cards;

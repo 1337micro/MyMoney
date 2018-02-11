@@ -46,7 +46,7 @@ public class Budgetting {
 
 	
 	/**
-	 * Deafult constructor reads percentages from default file, has no available funds
+	 * Default constructor reads percentages from default file, has no available funds
 	 */
 	//Default constructor with recommended percentages
 	//Based on http://www.leavedebtbehind.com/frugal-living/budgeting/10-recommended-category-percentages-for-your-family-budget/
@@ -536,7 +536,5 @@ public class Budgetting {
 	public void setAmountMisc(double amountMisc) {
 		this.amountMisc = amountMisc;
 	}
-
-
 
 }

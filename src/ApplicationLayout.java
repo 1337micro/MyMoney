@@ -22,22 +22,24 @@ public class ApplicationLayout extends JFrame{
 	private MyCardsUI cardsUI;
 
 	public ApplicationLayout() {
-		// setting a menubar so there can be a header
+		// Setting a menubar so there can be a header
 		JMenuBar menubar = new JMenuBar();
 		JMenu txt = new JMenu(Constants.APP_WELCOME_TITLE);
 		menubar.add(txt);
 		setJMenuBar(menubar);
 
-		// clearing the database textfile for MyCards before starting
+		// Clearing the database textfile for MyCards before starting
+		// TODO Iteration 2 
 		/*
 		try {
 			MyCards.clearDataBaseMyCards();
 		} catch (IOException e) {
-			System.out.println("Erreur clearing the MyCards DB textfile");
+			System.out.println("Error clearing the MyCards DB textfile");
 			e.printStackTrace();
 		}
 		*/
-		// creating the toolbar to put the buttons on the side
+		
+		// Creating the toolbar to put the buttons on the side
 		JToolBar vertical = new JToolBar(JToolBar.VERTICAL);
 		vertical.setFloatable(false);
 		vertical.setMargin(new Insets(Constants.APP_LAYOUT_MARGIN_TOP,
@@ -47,7 +49,7 @@ public class ApplicationLayout extends JFrame{
 
 		vertical.setBackground(new Color(180,183,183));
 
-		//creating panel for each button so they can be aligned
+		// Creating panel for each button so they can be aligned
 		JPanel frameTBbutt1 = new JPanel();
 		frameTBbutt1.setBackground(new Color(180,183,183));
 		JPanel frameTBbutt2 = new JPanel();
@@ -55,7 +57,7 @@ public class ApplicationLayout extends JFrame{
 		JPanel frameTBbutt3 = new JPanel();
 		frameTBbutt3.setBackground(new Color(180,183,183));
 
-		//creating buttons and setting their size
+		// Creating buttons and setting their size
 		JButton cashspending = new JButton(Constants.BUTTON_SPENDING);
 		cashspending.setPreferredSize(new Dimension(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT));
 		CashSpendingUI cashSpendingUI = new CashSpendingUI();
@@ -76,21 +78,22 @@ public class ApplicationLayout extends JFrame{
 		budgeting.addActionListener(budgetingUI);
 
 
-		//adding buttons to their panels
+		// Adding buttons to their panels
 		frameTBbutt1.add(cashspending);
 		frameTBbutt2.add(cards);
 		frameTBbutt3.add(budgeting);
 
-		//adding panels to the toolbar
+		// Adding panels to the toolbar
 		vertical.add(frameTBbutt1);
 		vertical.add(frameTBbutt2);
 		vertical.add(frameTBbutt3);
 
-		//adding toolbar to the frame
+		// Adding toolbar to the frame
 		add(vertical, BorderLayout.WEST);
 
-		//create a panel so we can change what ever to display the different functions
-		/*removed this because it was conflicting with my panel visibility
+		// Removed due to visual conflict with other panels (kept for iteration 2)
+		// Create a panel so we can change what ever to display the different functions
+		/* 
         JPanel sidePan = new JPanel();
         image = new ImageIcon(getClass().getResource("../smile.jpg"));
         label1 = new JLabel(image);
@@ -98,17 +101,19 @@ public class ApplicationLayout extends JFrame{
         add(sidePan, BorderLayout.CENTER);
 		 */
 
-		//setting the version status of the application we can update that in time
+		// Setting the version status of the application we can update that in time
 		JLabel statusbar = new JLabel(Constants.APP_VERSION);
 		add(statusbar, BorderLayout.SOUTH);
 
-		//setting the frame attributes
+		// Setting the frame attributes
 		setSize(Constants.APP_LAYOUT_WIDTH, Constants.APP_LAYOUT_HEIGHT);
 		setResizable(false);
 		setTitle(Constants.APP_TITLE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 	}
+	
+	// Getter functions for all UIs
 	public CashSpendingUI getCashSpendingUI() {
 		return cashSpendingUI;
 	}

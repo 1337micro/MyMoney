@@ -8,19 +8,22 @@
 
 package src;
 
+// Debit Card Class that is a subclass of Cards
 public class Debit implements Cards{
-//extends Cards{
+
 	CardType type;
 	int accNb;
 	int cardNumber;
 	double moneyAvailable;
 	
+	// Default Constructor
 	public Debit() {
 		type=CardType.DEBIT;
 		accNb = 0;
 		cardNumber=0;
 		moneyAvailable=0.0;
 	}
+	
 	/**
 	 * Constructor for debit cards
 	 * @param String type
@@ -70,7 +73,7 @@ public class Debit implements Cards{
 		
 	}
 	
-	// not used in debit
+	// Not used in Debit Class
 	@Override
 	public double getMoneySpent() {
 		

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CashSpending {
+	
     /**
      * initialize our list of expenses as an empty arraylist
      */
@@ -59,7 +60,7 @@ public class CashSpending {
 
 
     /**
-     * Types of Spending you can preform.
+     * Types of Spending a user can perform.
      */
     public enum ExpenditureType {
         GROCERIES("GROCERIES"),

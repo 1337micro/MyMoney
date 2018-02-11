@@ -34,8 +34,6 @@ class CashSpendingTest{
 
         spending.addExpense(typeOfExpenditureRent, dollarsSpentOnRent);
 
-
-        //assertEquals(spending.getExpensesOfType(CashSpending.ExpenditureType.GROCERIES).get(0), CashSpending.ExpenditureType.GROCERIES);
         assertEquals(spending.getExpensesOfType(CashSpending.ExpenditureType.GROCERIES).get(0), dollarsSpentOnGroceriesApple);
         assertEquals(spending.getExpensesOfType(CashSpending.ExpenditureType.GROCERIES).get(1), dollarsSpentOnGroceriesBanana);
 
@@ -63,8 +61,8 @@ class CashSpendingTest{
     }
 
 
-    /// TESTS FOR Expenses class
-    //TODO
+/*    /// TESTS FOR Expenses class
+    //TODO Iteration 2
     @Test
     void expensesConstructorAssignsFieldProperly(){
         CashSpending.ExpenditureType typeOfExpenditure =  CashSpending.ExpenditureType.GROCERIES;
@@ -77,7 +75,7 @@ class CashSpendingTest{
 
       //  assertEquals();
 
-    }
+    } */
 
 
 

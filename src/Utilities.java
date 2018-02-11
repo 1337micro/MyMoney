@@ -7,6 +7,8 @@ package src;
 
 import java.util.List;
 
+// Added methods that can be used in any feature
+
 public class Utilities {
     /**
      * Sum a list of doubles

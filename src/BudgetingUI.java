@@ -66,36 +66,37 @@ public class BudgetingUI implements ActionListener{
 	 */
 	private void buildBudgetingDisplayPanel(){
 
-		//Creating text field
+		// Creating text field
 		inputAvailableFunds = new JTextField();
 		inputAvailableFunds.setColumns(10);
+		
 	//	inputAvailableFunds.setBounds(5, 5, 10, 5);
 
-
-		//Setting the label for text field
+		// Setting the label for text field
 		label = new JLabel("Available Funds: ");
 		label.setLabelFor(inputAvailableFunds);
 
-		//Initializing output field
+		// Initializing output field
 		outputField = new JTextArea();
 		outputField.setEditable(false);
 		outputField.setVisible(true); //field is invisible until CalculateBudget button is pushed
 
-		//Initializing the panel
+		// Initializing the panel
 		panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-		//creating the button
+		// Creating the button
 		calculateBudget = new JButton(Constants.BUTTON_CALCULATE_BUDGET);
 		calculateBudget.addActionListener(new CalculateAndDisplayBudget());
 
-		//Adding elements to panel
+		// Adding elements to panel
 		panel.add(label);
 		panel.add(inputAvailableFunds);
 		panel.add(calculateBudget);
 		panel.add(outputField);
+		
 		for(int i =0; i<10; i++) {
-			//very poor solution to making the JTextFields smaller along the vertical axis
+			// Very poor solution to making the JTextFields smaller along the vertical axis (will find a better solution if time permits)
 			JTextArea workAroundElementToSizeBoxes = new JTextArea();
 			workAroundElementToSizeBoxes.setText("");
 			workAroundElementToSizeBoxes.setEditable(false);
@@ -123,8 +124,7 @@ public class BudgetingUI implements ActionListener{
 	public class CalculateAndDisplayBudget implements ActionListener{
 
 		private void displayBudget() {
-			//get value from input text field
-			//ADD ERROR VERIFICATION STAGE
+			// Get value from input text field
 			String inputText = inputAvailableFunds.getText().trim();
 			
 			try {
@@ -141,14 +141,14 @@ public class BudgetingUI implements ActionListener{
 				return;
 			}
 					
-			//Calculate the budget
+			// Calculate the budget
 			Budgetting budget = new Budgetting();
 			budget.setAvailableFunds(amount);
 
-			//Display the results
+			// Display the results
 			outputField.setText(budget.toString());
 
-			//Make the outputField visible if it isn't already
+			// Make the outputField visible if it isn't already
 			if(!outputField.isVisible()) 
 				outputField.setVisible(true);
 			
@@ -160,7 +160,6 @@ public class BudgetingUI implements ActionListener{
 			
 		}
 
-		
 	}
 
 }

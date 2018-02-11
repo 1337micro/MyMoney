@@ -20,13 +20,15 @@ import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
 
-
+// All the Tests for MyCards class
 
 public class MyCardsTest {
 	Credit creditcard = new Credit();
 	Debit debitcard = new Debit();
 	Credit cc= new Credit(Cards.CardType.CREDIT,1234,12345678,200.00,500.00);
-	//testing the constructor, setters and getters for the credit cards
+	
+	// CREDIT CARD
+	// Testing the constructor, setters and getters for the credit cards
 	@Test
 	public void testDefaultConstructorCredit() {
 		assertEquals("Verifying card type",Cards.CardType.CREDIT, creditcard.getType());
@@ -76,7 +78,9 @@ public class MyCardsTest {
 		creditcard.setLimit(500);
 		assertEquals("Verifying card limit",500, creditcard.getLimit(),0);
 	}
-	//testing constructors, setters and getters for the debit cards
+	
+	// DEBIT CARDS
+	// Testing constructors, setters and getters for the debit cards
 	@Test
 	public void testDefaultDebitConstructor() {
 		assertEquals("Verifying card type",Cards.CardType.DEBIT, debitcard.getType());
@@ -113,9 +117,11 @@ public class MyCardsTest {
 		assertEquals("Verifying money available",200.00, debitcard.getMoneyAvailable(),0);
 	}
 	
-	//tests for the MyCards
+	
+	// Tests for the MyCards
 	MyCards cardsList = new MyCards();
-	//testing if list is created when starting an instance of MyCards
+	
+	// Testing if list is created when starting an instance of MyCards
 	@Test
 	public void testMyCardsConstructorGetter() {
 		List <Cards> expected =  new ArrayList<>();

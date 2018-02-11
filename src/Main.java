@@ -8,7 +8,7 @@ import javax.swing.*;
 
 public class Main{
 
-
+	// Initializing the classes we need
     private static CashSpending cashSpending = new CashSpending();
     private static ApplicationLayout applicationLayout = new ApplicationLayout();
     private static Budgetting budgetting = new Budgetting();
@@ -25,7 +25,6 @@ public class Main{
         }
 
         //displaying the window
-
         applicationLayout.setVisible(true);
 
 
@@ -41,7 +40,6 @@ public class Main{
     public static Budgetting getBudgetting() {
     	return budgetting;
     }
-
 
 
     public static MyCards getMyCards() {

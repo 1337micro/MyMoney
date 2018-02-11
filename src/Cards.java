@@ -10,7 +10,7 @@ package src;
 
 public interface Cards {
 
-
+	
 	public enum CardType{
 		DEBIT("DEBIT"), CREDIT("CREDIT");
 		String cardtype;

@@ -4,6 +4,8 @@
 //Description: constants
 // --------------------------------------------------------
 package src;
+
+// Different Constant int and Strings that are used throughout the process of the application (mostly used as tags for our buttons and fields)
 public class Constants {
 	public static final int APP_LAYOUT_MARGIN_TOP = 10;
     public static final int APP_LAYOUT_MARGIN_LEFT = 10;
