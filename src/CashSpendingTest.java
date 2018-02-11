@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
-class CashSpendingTest{
+public class CashSpendingTest{
     CashSpending.ExpenditureType typeOfExpenditureGroceries =  CashSpending.ExpenditureType.GROCERIES;
     CashSpending.ExpenditureType typeOfExpenditureRent =  CashSpending.ExpenditureType.RENT;
     CashSpending.ExpenditureType typeOfExpenditureTaxes =  CashSpending.ExpenditureType.TAXES;
@@ -27,7 +27,7 @@ class CashSpendingTest{
 
 
     @Test
-    void addExpenseTest(){
+    public void addExpenseTest(){
         CashSpending spending = new CashSpending();
         spending.addExpense(typeOfExpenditureGroceries, dollarsSpentOnGroceriesApple);
         spending.addExpense(typeOfExpenditureGroceries, dollarsSpentOnGroceriesBanana);
@@ -41,7 +41,7 @@ class CashSpendingTest{
 
     }
     @Test
-    void getExpensesOfTypeTest(){
+    public void getExpensesOfTypeTest(){
         CashSpending spending = new CashSpending();
         spending.addExpense(typeOfExpenditureGroceries, dollarsSpentOnGroceriesApple);
         spending.addExpense(typeOfExpenditureGroceries, dollarsSpentOnGroceriesBanana);
@@ -86,7 +86,7 @@ class CashSpendingTest{
 
 
     @Test
-    void basic_test(){
+    public void basic_test(){
         assertEquals(1,1);
     }
 
