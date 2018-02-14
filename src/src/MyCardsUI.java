@@ -2,7 +2,7 @@ package src;
 //-------------------------------------------------------
 //For Comp 354 Section PP - Winter 2018
 //Iteration 1: Genevieve Plante-Brisebois 40003112
-
+//Help received from the Programmer Organizer: Noémi Lemonnier 40001075
 //Iteration 2: Noemi Lemonnier 40001085
 //Description: implements the user interface for the My Cards feature.  
 //            
@@ -91,41 +91,49 @@ public class MyCardsUI implements ActionListener{
 
 		//setting the custom table model to the class I created 
 		tableModel =  new DefaultTableModel(COLUMN_NAMES, 0);
-		table = new JTable(tableModel);
+		table = new JTable(tableModel){
+			public boolean isCellEditable(int row,int column){
+				switch(column){ 
+				case 4: return true;  
+				default: return false;
+				}  
+			}}; 
 
-		//making sure the user cannot move around the columns nor edit data 
-		table.getTableHeader().setReorderingAllowed(false);
-		table.setRowSelectionAllowed(false);
-		//setting the color of the grid
-		table.setGridColor(new Color(238,239,242));
-		table.getColumnModel().getColumn(4).setMaxWidth(70);
-		table.getModel().addTableModelListener(new AddBooleanListener());
 
-		//setting the "checkbox"
-		tc = table.getColumnModel().getColumn(4);
-		tc.setCellEditor(table.getDefaultEditor(Boolean.class));
-		tc.setCellRenderer(table.getDefaultRenderer(Boolean.class));
+			//making sure the user cannot move around the columns nor edit data 
+			table.getTableHeader().setReorderingAllowed(false);
+			table.setRowSelectionAllowed(false);
 
-		//Create the scroll pane and add the table to it. 
-		@SuppressWarnings("deprecation")
-		JScrollPane scrollPane = JTable.createScrollPaneForTable(table);
-		scrollPane.setPreferredSize(new Dimension(600, 300));
-		//setting the panel
-		panel= new JPanel();
-		panel.setBackground(new Color(204, 204, 255));
-		panel.add(scrollPane, BorderLayout.CENTER);
-		panel.add(addCardButton, BorderLayout.NORTH);
-		panel.add(removeCardButton, BorderLayout.NORTH);
-		panel.setVisible(false);
+			//setting the color of the grid
+			table.setGridColor(new Color(238,239,242));
+			table.getColumnModel().getColumn(4).setMaxWidth(70);
+			table.getModel().addTableModelListener(new AddBooleanListener());
 
-		//reading the MyCards.txt to add any values to the table
-		MyCards.readFromTheFile(cards_list, tableModel);
+			//setting the "checkbox"
+			tc = table.getColumnModel().getColumn(4);
+			tc.setCellEditor(table.getDefaultEditor(Boolean.class));
+			tc.setCellRenderer(table.getDefaultRenderer(Boolean.class));
 
-		//adding the buttons and setting their sizes and adding their Listener
-		addCardButton.setPreferredSize(new Dimension(150,25));
-		removeCardButton.setPreferredSize(new Dimension(150,25));
-		addCardButton.addActionListener(new AddCardListener());
-		removeCardButton.addActionListener(new RemoveListener());
+			//Create the scroll pane and add the table to it. 
+			@SuppressWarnings("deprecation")
+			JScrollPane scrollPane = JTable.createScrollPaneForTable(table);
+			scrollPane.setPreferredSize(new Dimension(600, 300));
+			//setting the panel
+			panel= new JPanel();
+			panel.setBackground(new Color(204, 204, 255));
+			panel.add(scrollPane, BorderLayout.CENTER);
+			panel.add(addCardButton, BorderLayout.NORTH);
+			panel.add(removeCardButton, BorderLayout.NORTH);
+			panel.setVisible(false);
+
+			//reading the MyCards.txt to add any values to the table
+			MyCards.readFromTheFile(cards_list, tableModel);
+
+			//adding the buttons and setting their sizes and adding their Listener
+			addCardButton.setPreferredSize(new Dimension(150,25));
+			removeCardButton.setPreferredSize(new Dimension(150,25));
+			addCardButton.addActionListener(new AddCardListener());
+			removeCardButton.addActionListener(new RemoveListener());
 	}
 
 	/*
@@ -383,7 +391,7 @@ public class MyCardsUI implements ActionListener{
 				Image newimg = image.getScaledInstance(300, 215,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
 				imgPan = new ImageIcon(newimg);  // transform it back
 				JLabel imgLab = new JLabel(imgPan);
-				
+
 				//make the option panel appear in order to ask the user for information for the card
 				int cardInput=  JOptionPane.showConfirmDialog(null, pane, "Loyalty Card Information", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, imgPan);
 				//if the user clicks on the CANCEL button or Closes the window
@@ -603,6 +611,7 @@ public class MyCardsUI implements ActionListener{
 	}
 
 }
+
 
 
 
