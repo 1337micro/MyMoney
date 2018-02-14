@@ -22,11 +22,11 @@ public class Main{
 		}
 
 		//displaying the window
-		//authentificationLayout.setVisible(true);
-
+		authentificationLayout.frame.setVisible(true);
 
 
 	}
 
 
 }
+
