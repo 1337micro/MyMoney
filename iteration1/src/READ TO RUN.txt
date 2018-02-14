@@ -1,0 +1,8 @@
+Here is all the source code and documents you need to run the MyMoney Application. 
+
+The Main.java class is the executable class of the Java App.
+
+To Run the text files need to be in a folder called "src" as we read a file named MyCards.txt which is in src folder
+In the code it looks like this : private static File file = new File("src/MyCards.txt");
+
+The opening Panel is blank, you need to press any button on the left to make the associated Panel appear.
