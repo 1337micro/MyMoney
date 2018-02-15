@@ -32,7 +32,7 @@ public class AuthentificationList {
 	 * Default constructor of the class
 	 */
 	public AuthentificationList() {
-		AuthentificationList.users_list= new ArrayList<>();
+		users_list= new ArrayList<>();
 	}
 
 	/*
@@ -163,29 +163,28 @@ public class AuthentificationList {
 
 		//Check to make sure correct file is being read
 		String line = null;
-		try {
+
+
+		try{
 			while ((line = reader.readLine()) != null) {
-				try{
-					while ((line = reader.readLine()) != null) {
 
-						String[] lineArray = line.split(",");
+				String[] lineArray = line.split(",");
 
-						username = lineArray[0];
-						password = lineArray[1];
-						if((username !=null) && (password != null)){
-							AuthentificationUser userTst = new AuthentificationUser(username, password);
-							user_list.add(userTst);
-						}
-						else{
-							throw new NumberFormatException();
-						}
-
-					}
-				}catch(NumberFormatException ne){
-					System.out.println("Line had an error and was ignored by the program:" + line);
-				};
+				username = lineArray[0];
+				password = lineArray[1];
+				if((username !=null) && (password != null)){
+					AuthentificationUser userTst = new AuthentificationUser(username, password);
+					user_list.add(userTst);
+				}
+				else{
+					throw new NumberFormatException();
+				}
 			}
-		} catch (IOException e) {
+
+		}catch(NumberFormatException ne){
+			System.out.println("Line had an error and was ignored by the program:" + line);
+		}
+		catch (IOException e) {
 			System.out.println("Error while reading file");
 			System.out.println("Program will terminate.");
 			System.exit(0);
@@ -207,3 +206,4 @@ public class AuthentificationList {
 
 
 }
+

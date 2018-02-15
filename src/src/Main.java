@@ -10,7 +10,7 @@ public class Main{
 
 
 
-	private static AuthentificationLayout authentificationLayout = new AuthentificationLayout();
+	private static AuthentificationUI authentificationUI = new AuthentificationUI();
 
 	public static void main(String[] args) {
 		// Use the system theme, this is purely aesthetic
@@ -22,7 +22,7 @@ public class Main{
 		}
 
 		//displaying the window
-		authentificationLayout.frame.setVisible(true);
+		authentificationUI.frame.setVisible(true);
 
 
 	}
