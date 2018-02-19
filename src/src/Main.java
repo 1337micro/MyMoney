@@ -7,9 +7,6 @@ package src;
 import javax.swing.*;
 
 public class Main{
-
-
-
 	private static AuthentificationUI authentificationUI = new AuthentificationUI();
 
 	public static void main(String[] args) {
@@ -20,13 +17,7 @@ public class Main{
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
-
 		//displaying the window
 		authentificationUI.frame.setVisible(true);
-
-
 	}
-
-
 }
-
