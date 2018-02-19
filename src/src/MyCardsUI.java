@@ -65,7 +65,7 @@ public class MyCardsUI implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(panel == null) {
 			MyCardsUI();
-			addPanelToLayout(panel, AuthentificationLayout.getApplicationLayout());
+			addPanelToLayout(panel, AuthentificationUI.getApplicationLayout());
 		}
 
 		if (panel.isVisible()){
@@ -73,11 +73,11 @@ public class MyCardsUI implements ActionListener{
 		} else {
 			panel.setVisible(true);
 			final Optional<JPanel> cashSpendingOptional = Optional
-					.ofNullable(AuthentificationLayout.getApplicationLayout().getCashSpendingUI().getPanel());
+					.ofNullable(AuthentificationUI.getApplicationLayout().getCashSpendingUI().getPanel());
 			if (cashSpendingOptional.isPresent()) cashSpendingOptional.get().setVisible(false);
 
 			final Optional<JPanel> budgetingPanelOptional = Optional
-					.ofNullable(AuthentificationLayout.getApplicationLayout().getBudgetingUI().getPanel());
+					.ofNullable(AuthentificationUI.getApplicationLayout().getBudgetingUI().getPanel());
 			if ( budgetingPanelOptional.isPresent())  budgetingPanelOptional.get().setVisible(false);
 
 		}
@@ -87,6 +87,7 @@ public class MyCardsUI implements ActionListener{
 	/*
 	 * method to create the basic layout that is to be displayed for the cards feature
 	 */
+	@SuppressWarnings("serial")
 	public void MyCardsUI() {
 
 		//setting the custom table model to the class I created 
@@ -156,12 +157,11 @@ public class MyCardsUI implements ActionListener{
 			int column = e.getColumn();
 			if (column == 4) {
 				//changing the color of the panel and optionpane
-				UIManager UI=new UIManager();
-				UI.put("OptionPane.background",new ColorUIResource(204, 204, 255));
-				UI.put("Panel.background",new ColorUIResource(255, 255, 255));
+				UIManager.put("OptionPane.background",new ColorUIResource(204, 204, 255));
+				UIManager.put("Panel.background",new ColorUIResource(255, 255, 255));
 				// getting the location of the checkbox
 				tableModel = (DefaultTableModel) e.getSource();
-				String columnName = tableModel.getColumnName(column);
+				//String columnName = tableModel.getColumnName(column);
 				Boolean checked = (Boolean) tableModel.getValueAt(row, column);
 				if (checked) {
 					//System.out.println(columnName + ": " + true + "\n" + row );
@@ -390,7 +390,7 @@ public class MyCardsUI implements ActionListener{
 				Image image = imgPan.getImage(); // transform it 
 				Image newimg = image.getScaledInstance(300, 215,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
 				imgPan = new ImageIcon(newimg);  // transform it back
-				JLabel imgLab = new JLabel(imgPan);
+				//JLabel imgLab = new JLabel(imgPan);
 
 				//make the option panel appear in order to ask the user for information for the card
 				int cardInput=  JOptionPane.showConfirmDialog(null, pane, "Loyalty Card Information", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, imgPan);

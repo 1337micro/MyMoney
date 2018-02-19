@@ -47,9 +47,9 @@ public class CashSpendingUI implements ActionListener {
         for(int i = 0; i<CashSpending.ExpenditureType.values().length; i++){
             CashSpending.ExpenditureType expenditureType = CashSpending.ExpenditureType.values()[i];
 
-            if(AuthentificationLayout.getCashSpending().getExpensesOfType(expenditureType) != null &&
-            		AuthentificationLayout.getCashSpending().getExpensesOfType(expenditureType).size() != 0){
-                Double sumOfExpendituresOfThisType = Utilities.sumListOfNumbers(AuthentificationLayout.getCashSpending().getExpensesOfType(expenditureType));
+            if(AuthentificationUI.getCashSpending().getExpensesOfType(expenditureType) != null &&
+            		AuthentificationUI.getCashSpending().getExpensesOfType(expenditureType).size() != 0){
+                Double sumOfExpendituresOfThisType = Utilities.sumListOfNumbers(AuthentificationUI.getCashSpending().getExpensesOfType(expenditureType));
                 listOfMoneySpentFields.get(i).setText(sumOfExpendituresOfThisType.toString());
             }
         }
@@ -122,7 +122,7 @@ public class CashSpendingUI implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(thePanel == null) {
             buildCashSpendingDisplayPanel();
-            addPanelToLayout(thePanel, AuthentificationLayout.getApplicationLayout());
+            addPanelToLayout(thePanel, AuthentificationUI.getApplicationLayout());
         }
 
         if (thePanel.isVisible()){
@@ -131,11 +131,11 @@ public class CashSpendingUI implements ActionListener {
             thePanel.setVisible(true);
             //hide all other panels that are not cash spending
             final Optional<JPanel> budgetingPanelOptional = Optional
-                    .ofNullable(AuthentificationLayout.getApplicationLayout().getBudgetingUI().getPanel());
+                    .ofNullable(AuthentificationUI.getApplicationLayout().getBudgetingUI().getPanel());
             if ( budgetingPanelOptional.isPresent())  budgetingPanelOptional.get().setVisible(false);
 
             final Optional<JPanel> cardsPanelOptional = Optional
-                    .ofNullable(AuthentificationLayout.getApplicationLayout().getMyCardsUI().getPanel());
+                    .ofNullable(AuthentificationUI.getApplicationLayout().getMyCardsUI().getPanel());
             if ( cardsPanelOptional.isPresent()) cardsPanelOptional.get().setVisible(false);
 
         }
@@ -178,10 +178,11 @@ public class CashSpendingUI implements ActionListener {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
-            final CashSpending.ExpenditureType expenditureType = showCashSpendingExpenditureDialog(AuthentificationLayout.getApplicationLayout());
+            final CashSpending.ExpenditureType expenditureType = showCashSpendingExpenditureDialog(AuthentificationUI.getApplicationLayout());
             final double amountSpent = handleSelectionOfExpenditureType(expenditureType);
-            AuthentificationLayout.getCashSpending().addExpense(expenditureType, amountSpent);
+            AuthentificationUI.getCashSpending().addExpense(expenditureType, amountSpent);
             updateExpensesFields();
         }
     }
 }
+

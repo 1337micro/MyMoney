@@ -30,7 +30,7 @@ public class BudgetingUI implements ActionListener{
 	public void actionPerformed(ActionEvent arg0) {
 		if(panel == null) {
 			buildBudgetingDisplayPanel();
-			addPanelToLayout(panel, AuthentificationLayout.getApplicationLayout());
+			addPanelToLayout(panel, AuthentificationUI.getApplicationLayout());
 		}
 
 		if (panel.isVisible()){
@@ -38,11 +38,11 @@ public class BudgetingUI implements ActionListener{
 		} else {
 			panel.setVisible(true);
 			final Optional<JPanel> panelOptional = Optional
-					.ofNullable(AuthentificationLayout.getApplicationLayout().getCashSpendingUI().getPanel());
+					.ofNullable(AuthentificationUI.getApplicationLayout().getCashSpendingUI().getPanel());
 			if (panelOptional.isPresent()) panelOptional.get().setVisible(false);
 
 			final Optional<JPanel> cardsPanelOptional = Optional
-					.ofNullable(AuthentificationLayout.getApplicationLayout().getMyCardsUI().getPanel());
+					.ofNullable(AuthentificationUI.getApplicationLayout().getMyCardsUI().getPanel());
 			if ( cardsPanelOptional.isPresent()) cardsPanelOptional.get().setVisible(false);
 
 		}
@@ -158,3 +158,4 @@ public class BudgetingUI implements ActionListener{
 	}
 
 }
+
