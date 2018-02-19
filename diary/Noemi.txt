@@ -58,4 +58,11 @@ February 3, 2018
 	I am fixing the MyCard feature: making sure the writing to the textfile MyCards is working properly, making sure that the textfile is cleared once the application is used, making sure the read that textfile is working properly. I also made sure the Add a Card is now writing to MyCards.txt, adding data to the TableModel and to the ArrayList <Cards> and sure the Remove a Card is removing from MyCards.txt the correct line, removing the correct data from TableModel and also from the ArrayList <Cards>. 
 __________________________________________________________________________________________
 February 5-6, 2018
-Working on myCards feature with Genevieve 
+Working on myCards feature with Genevieve
+__________________________________________________________________________________________
+February 10-11, 2018
+I made sure the Originality form was virtually signed by everyone.
+Real was assigned to submit documentation and Theo the code. I made sure they all did their job.
+__________________________________________________________________________________________
+February 13-14, 2018
+I worked on my part: MyCards feature. I made sure the Loyalty Card was working, I edited the visual of the app. I also add a new feature which is the login feature. I made the 3 classes for it and its database text file. I change two-three details in each class to make sure everything was working properly. The application is now more user friendly and is working very well.  

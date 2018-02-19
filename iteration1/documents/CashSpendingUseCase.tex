@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{graphicx}
+
+\begin{document}
+
+
+\section{Use Case: Update Cash Spending}
+
+\medskip
+\begin{center}
+\begin{tabular}{| l | p{6cm} |}
+\hline
+
+Use Case ID  & MyMoneyW18COMP354a\\
+\hline
+Use Case Name  & Update Cash Spending\\
+\hline
+Goal/Purpose  & Allow a user to manage his/her cash spending on different categories.\\
+\hline
+Actors  & Any User\\
+\hline
+Pre-Conditions &  User has installed "My Money" desktop application. \\
+\hline
+Post-Conditions & Cash expenses are updated.  \\
+\hline
+Main Flow & 
+1. User wants to update his/her expenses.\newline 2. User starts application.\newline
+3. User enters amount he spent on any selected category.\newline
+4. Application stores value in expenditure's table. 
+\\
+\hline
+Alternate Flow(s) & 
+At any time, Application fails: \newline
+   - User restarts Application.
+\\
+\hline
+Exception Flow(s) & 
+User enters invalid inputs(ex. a string):\newline
+- Application displays error message and urges user to fix the input. \\
+\hline
+
+\end{tabular}
+\end{center}
+
+\end{document}
