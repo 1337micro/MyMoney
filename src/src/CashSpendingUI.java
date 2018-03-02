@@ -5,7 +5,10 @@
 // --------------------------------------------------------
 package src;
 import java.util.ArrayList;
+
 import javax.swing.*;
+
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -14,26 +17,27 @@ import java.util.Optional;
 import static src.CashSpending.ExpenditureType.*;
 public class CashSpendingUI implements ActionListener {
     public JPanel getPanel() {
-        return thePanel;
+        return panel;
     }
 
-    JPanel thePanel; // the panel containing all our JTextFields for CashSpending feature
+    JPanel panel; // the panel containing all our JTextFields for CashSpending feature
     private final int FIELD_SIZE = 10; // number of columns in our GUI text fields
 
     //list of the JTextField fields having the total amount spent in a particular category.
     private  ArrayList<JTextField> listOfMoneySpentFields = new ArrayList<>();
 
-    public CashSpendingUI(){
-        addJTextFieldToListAndSetNotEditable(listOfMoneySpentFields);//add n jtextfields to listOfMoneySpentFields; where n is numbers of Expenditure Types
+    public CashSpendingUI() {
+    	//add n JTextFields to listOfMoneySpentFields; where n is numbers of Expenditure Types
+        addJTextFieldToListAndSetNotEditable(listOfMoneySpentFields);
     }
 
 
-    /**Add n jtextfields to list; where n is numbers of Expenditure Types
+    /**Add n JTextFields to list; where n is numbers of Expenditure Types
      * @param list that will be populated by JTextFields. We add a JTextField for each enum in ExpenditureType
      */
-    private void addJTextFieldToListAndSetNotEditable(List<JTextField> list){
+    private void addJTextFieldToListAndSetNotEditable(List<JTextField> list) {
         //no fields supplied, use ordering from enum type
-        for(int i =0; i<CashSpending.ExpenditureType.values().length; i++) {
+        for (int i = 0; i < CashSpending.ExpenditureType.values().length; i++) {
             JTextField jText = new JTextField(FIELD_SIZE);
             jText.setEditable(false);
             list.add(jText);
@@ -44,54 +48,57 @@ public class CashSpendingUI implements ActionListener {
      *
      */
     private void updateExpensesFields(){
-        for(int i = 0; i<CashSpending.ExpenditureType.values().length; i++){
+        for (int i = 0; i < CashSpending.ExpenditureType.values().length; i++) {
             CashSpending.ExpenditureType expenditureType = CashSpending.ExpenditureType.values()[i];
 
-            if(AuthentificationUI.getCashSpending().getExpensesOfType(expenditureType) != null &&
-            		AuthentificationUI.getCashSpending().getExpensesOfType(expenditureType).size() != 0){
+            if (AuthentificationUI.getCashSpending().getExpensesOfType(expenditureType) != null &&
+               AuthentificationUI.getCashSpending().getExpensesOfType(expenditureType).size() != 0) {
                 Double sumOfExpendituresOfThisType = Utilities.sumListOfNumbers(AuthentificationUI.getCashSpending().getExpensesOfType(expenditureType));
                 listOfMoneySpentFields.get(i).setText(sumOfExpendituresOfThisType.toString());
             }
         }
     }
 
-    /** Add the necessary SWING elements to the CashSpending panel named "thePanel"
+    /** Add the necessary SWING elements to the CashSpending panel named "panel"
      *
      */
-    private void buildCashSpendingDisplayPanel(){
+    private void buildCashSpendingDisplayPanel() {
         List<JTextField> listOfExpenditureTypes = new ArrayList<>(CashSpending.ExpenditureType.values().length);
         addJTextFieldToListAndSetNotEditable(listOfExpenditureTypes);
 
-        for(int i =0; i<listOfExpenditureTypes.size(); i++) {
+        for (int i = 0; i<listOfExpenditureTypes.size(); i++) {
             JTextField expenditureType =  listOfExpenditureTypes.get(i);
             expenditureType.setText(CashSpending.ExpenditureType.values()[i].toString());
         }
 
-        thePanel = new JPanel();
-        thePanel.setLayout(new BoxLayout(thePanel, BoxLayout.LINE_AXIS));
-
-        for(int i =0; i<listOfExpenditureTypes.size(); i++) {
+        panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.LINE_AXIS));
+        panel.setBackground(new Color(191, 255, 186));
+        
+        for (int i = 0; i<listOfExpenditureTypes.size(); i++) {
             JPanel innerPanel = new JPanel();
             innerPanel.add(listOfExpenditureTypes.get(i));
             innerPanel.add(listOfMoneySpentFields.get(i));
-            thePanel.add(innerPanel);
+            innerPanel.setBackground(new Color(191, 255, 186));
+            panel.add(innerPanel);
         }
         JButton addExpense = new JButton(Constants.BUTTON_ADD_EXPENSE);
         addExpense.addActionListener(new AddExpenseListener());
-        thePanel.add(addExpense);
-        thePanel.setVisible(false);
+        panel.add(addExpense);
+        panel.setVisible(false);
     }
 
     /**Add any JPanel to our application layout
      *
-     * @param jPanel Any SWING jpanel
+     * @param jPanel Any SWING JPanel
      * @param applicationLayout the application layout object
      */
-    public void addPanelToLayout(JPanel jPanel, ApplicationLayout applicationLayout){
+    public void addPanelToLayout(JPanel jPanel, ApplicationLayout applicationLayout) {
         applicationLayout.add(jPanel);
     }
+    
     //TODO make error dialog when input makes no sense
-    private void showErrorDialog(){
+    private void showErrorDialog() {
 
     }
 
@@ -99,7 +106,7 @@ public class CashSpendingUI implements ActionListener {
      * @param expenditureType type of expense
      * @return Double; the amount of money spent on this expenditureType
      */
-    public Double showCashSpendingAmountOfMoneyDialog(CashSpending.ExpenditureType expenditureType){
+    public Double showCashSpendingAmountOfMoneyDialog(CashSpending.ExpenditureType expenditureType) {
         Optional<String> inputAmountSpent = Optional.ofNullable(JOptionPane
                 .showInputDialog("How much money did you spend on " + expenditureType.toString().toLowerCase() + " ?"));
 
@@ -120,15 +127,15 @@ public class CashSpendingUI implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(thePanel == null) {
+        if (panel == null) {
             buildCashSpendingDisplayPanel();
-            addPanelToLayout(thePanel, AuthentificationUI.getApplicationLayout());
+            addPanelToLayout(panel, AuthentificationUI.getApplicationLayout());
         }
 
-        if (thePanel.isVisible()){
-            thePanel.setVisible(false);
+        if (panel.isVisible()){
+            panel.setVisible(false);
         } else {
-            thePanel.setVisible(true);
+            panel.setVisible(true);
             //hide all other panels that are not cash spending
             final Optional<JPanel> budgetingPanelOptional = Optional
                     .ofNullable(AuthentificationUI.getApplicationLayout().getBudgetingUI().getPanel());
@@ -168,7 +175,7 @@ public class CashSpendingUI implements ActionListener {
          * @param selection the type of expenditure that was selected
          * @return
          */
-        private Double handleSelectionOfExpenditureType(CashSpending.ExpenditureType selection){
+        private Double handleSelectionOfExpenditureType(CashSpending.ExpenditureType selection) {
             return showCashSpendingAmountOfMoneyDialog(selection);
         }
 
