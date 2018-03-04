@@ -1,6 +1,6 @@
 package src;
 
-public class CashSpendingObject {
+public class CashSpending {
 	//Calculated percentages
 	private double amountHousing = 0;
 	private double amountFood = 0;
@@ -16,7 +16,7 @@ public class CashSpendingObject {
 	/*
 	 * Constructor
 	 */
-	public CashSpendingObject(double housing, double food, double utilities, double clothing, double medical, 
+	public CashSpending(double housing, double food, double utilities, double clothing, double medical, 
 			double donations, double savings, double entertainment, double transportation, double misc) {
 		//to make sure no number are 
 		if(housing>=0 || food >= 0 || utilities >=0 || clothing >=0 || medical >=0 || donations >=0 || savings >=0 || entertainment >=0 || transportation >= 0 || misc >=0){
@@ -38,7 +38,7 @@ public class CashSpendingObject {
 	/*
 	 * Default Constructor
 	 */
-	public CashSpendingObject() {
+	public CashSpending() {
 		this.amountHousing = 0;
 		this.amountFood = 0;
 		this.amountUtilities = 0;
