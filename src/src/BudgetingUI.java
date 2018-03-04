@@ -351,4 +351,3 @@ public class BudgetingUI implements ActionListener{
 		}
 	}
 }
-

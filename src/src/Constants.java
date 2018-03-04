@@ -18,7 +18,7 @@ public class Constants {
     public static final int APP_LAYOUT_MARGIN_RIGHT = 10;
     public static final int APP_LAYOUT_MARGIN_BOTTOM = 10;
     public static final int APP_LAYOUT_HEIGHT = 500;
-    public static final int APP_LAYOUT_WIDTH = 800;
+    public static final int APP_LAYOUT_WIDTH = 1000;
     public static final String APP_TITLE = "MyMoney Desktop Application";
     public static final String APP_WELCOME_TITLE = "Welcome to " + APP_TITLE;
     public static final String APP_VERSION = "Version 2.0.0";
@@ -64,4 +64,3 @@ public class Constants {
     public final static String BUDGETING_FILE = "Budgetting.txt";
     
 }
-

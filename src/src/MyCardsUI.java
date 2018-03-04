@@ -53,13 +53,16 @@ public class MyCardsUI implements ActionListener{
 	Border compound = BorderFactory.createCompoundBorder(raisedbevel, loweredbevel);
 
 	//list of cards
-	private ArrayList <Cards> cards_list = new ArrayList<Cards>();
+	protected static ArrayList <Cards> cards_list = new ArrayList<Cards>();
 
 	//button to add and remove
 	JButton addCardButton = new JButton(Constants.BUTTON_ADD_CARD);
 	JButton removeCardButton = new JButton(Constants.BUTTON_REMOVE_CARD);
 
+	public static ArrayList<Cards> getListCards(){
+		return cards_list;
 
+	}
 	/*
 	 * Method to trigger the display of the cards feature when the user clicks on the MyCards button on the application.
 	 */
@@ -89,7 +92,7 @@ public class MyCardsUI implements ActionListener{
 	 * method to create the basic layout that is to be displayed for the cards feature
 	 */
 	@SuppressWarnings("serial")
-	public void MyCardsUI() {
+	public void MyCardsUI(){
 
 		//setting the custom table model to the class I created 
 		tableModel =  new DefaultTableModel(COLUMN_NAMES, 0);
@@ -119,15 +122,21 @@ public class MyCardsUI implements ActionListener{
 			//Create the scroll pane and add the table to it. 
 			@SuppressWarnings("deprecation")
 			JScrollPane scrollPane = JTable.createScrollPaneForTable(table);
-			scrollPane.setPreferredSize(new Dimension(600, 300));
+			scrollPane.setPreferredSize(new Dimension(750, 300));
 
 			//setting the panel
 			panel= new JPanel();
-			panel.setBackground(new Color(204, 204, 255));
+			JPanel pan2 = new JPanel();
+			pan2.setBackground(new Color(204, 204, 255));
+			pan2.add(scrollPane, BorderLayout.CENTER);
+			JPanel pan3 = new JPanel();
+			pan3.setBackground(new Color(204, 204, 255));
+			pan3.add(addCardButton);
+			pan3.add(removeCardButton);
+			panel.add(pan2);
+			panel.add(pan3);
 			panel.setBorder(compound);
-			panel.add(scrollPane, BorderLayout.CENTER);
-			panel.add(addCardButton, BorderLayout.NORTH);
-			panel.add(removeCardButton, BorderLayout.NORTH);
+			panel.setBackground(new Color(204, 204, 255));
 			panel.setVisible(false);
 
 			//reading the MyCards.txt to add any values to the table
@@ -616,7 +625,6 @@ public class MyCardsUI implements ActionListener{
 	}
 
 }
-
 
 
 
