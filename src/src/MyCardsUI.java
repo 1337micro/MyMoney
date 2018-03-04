@@ -498,9 +498,9 @@ public class MyCardsUI implements ActionListener{
 						//making sure the data entered by the user are integers and doubles
 						cdtp = Cards.CardType.CREDIT;
 						accNb = Integer.parseInt(accNumber.getText());
-						cardNum=Integer.parseInt(cardNumber.getText());
+						cardNum = Integer.parseInt(cardNumber.getText());
 						moneySpent = Double.parseDouble(moneyCurrent.getText());
-						limitCard=Double.parseDouble(limit.getText());
+						limitCard = Double.parseDouble(limit.getText());
 
 						//if user enters a negative number
 						if(accNb<=0 || cardNum<=0 || moneySpent<=0 || limitCard<=0){

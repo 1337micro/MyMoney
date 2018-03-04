@@ -64,7 +64,7 @@ public class Budgetting {
 	//Read percentages from chosen file
 	public Budgetting(String fileName) {
 		readBudgetingFromFile(fileName);
-		this.availableFunds = 0;
+		
 	}
 	
 	/**
@@ -105,7 +105,7 @@ public class Budgetting {
 		if(total<100) {
 			//Calculate missing percentage points
 			double missing = 100-total;
-			setPercentMisc(getPercentMisc() + missing);
+			misc= misc+ missing;
 			System.out.println("Total was below 100%\n");
 			System.out.println("Extra " + missing + "% was added to Misc\n");
 		}

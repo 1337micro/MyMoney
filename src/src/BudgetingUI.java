@@ -8,11 +8,19 @@
 package src;
 
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+
 import java.awt.event.ActionListener;
 import java.util.Optional;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.plaf.ColorUIResource;
+
 
 public class BudgetingUI implements ActionListener{
 
@@ -21,6 +29,23 @@ public class BudgetingUI implements ActionListener{
 	}
 
 	JPanel panel;
+	UIManager UI;
+	protected double av_funds = 0;
+	protected double p_housing = 0;
+	protected double p_food = 0;
+	protected double p_utilities = 0;
+	protected double p_clothing = 0;
+	protected double p_medical = 0;
+	protected double p_donations = 0;
+	protected double p_savings = 0;
+	protected double p_entertainment = 0;
+	protected double p_transportation = 0;
+	protected double p_misc = 0;
+	
+	
+	Border raisedbevel = BorderFactory.createRaisedBevelBorder();
+	Border loweredbevel = BorderFactory.createLoweredBevelBorder();
+	Border compound = BorderFactory.createCompoundBorder(raisedbevel, loweredbevel);
 
 	/**
 	 * Button listening for a click on the "Budgeting" button. It will show or hide the Budgeting panel
@@ -49,11 +74,14 @@ public class BudgetingUI implements ActionListener{
 
 	}
 
-	private double amount = 0;
+	
 	JTextField inputAvailableFunds;
 	JTextArea outputField;
 	JLabel label;
 	JButton calculateBudget;
+	JButton changePercentages; //add a button to change the percentages for each category
+	JButton clearPercentages; //add a button to clear budget and percentages
+	JButton showBudget; //add a button to show the personalized budget
 
 
 	/** 
@@ -61,40 +89,49 @@ public class BudgetingUI implements ActionListener{
 	 */
 	private void buildBudgetingDisplayPanel(){
 
-		//Creating text field
-		inputAvailableFunds = new JTextField();
-		inputAvailableFunds.setColumns(10);
-
-
-		//Setting the label for text field
-		label = new JLabel("Available Funds: ");
-		label.setLabelFor(inputAvailableFunds);
-
+	
 		//Initializing output field
 		outputField = new JTextArea();
 		outputField.setEditable(false);
 		outputField.setVisible(true); //field is invisible until CalculateBudget button is pushed
 
 		//Initializing the panel
-		panel = new JPanel();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		 panel = new JPanel();
+		
 
-		//creating the button
+		//setting the background
+		panel.setBackground(new Color(204, 204, 255));
+		panel.setBorder(compound);
+		
+		//creating the buttons
 		calculateBudget = new JButton(Constants.BUTTON_CALCULATE_BUDGET);
 		calculateBudget.addActionListener(new CalculateAndDisplayBudget());
 
+		
+		changePercentages = new JButton(Constants.BUTTON_CHANGE_PERCENTAGES);
+		changePercentages.addActionListener(new DisplayPercentages());
+		
+		clearPercentages = new JButton(Constants.BUTTON_CLEAR_PERCENTAGES);
+		clearPercentages.addActionListener(new ClearPercentages());
+		
+		showBudget = new JButton(Constants.BUTTON_SHOW_BUDGET);
+		showBudget.addActionListener(new showPersonalizedBudget());
+
 		//Adding elements to panel
-		panel.add(label);
-		panel.add(inputAvailableFunds);
+		
 		panel.add(calculateBudget);
-		panel.add(outputField);
-		for(int i =0; i<10; i++) {
+		panel.add(changePercentages);
+		panel.add(showBudget);
+		panel.add(clearPercentages);
+		panel.add(outputField, BorderLayout.CENTER);
+
+	/*	for(int i =0; i<10; i++) {
 			//very poor solution to making the JTextFields smaller along the vertical axis
 			JTextArea workAroundElementToSizeBoxes = new JTextArea();
 			workAroundElementToSizeBoxes.setText("");
 			workAroundElementToSizeBoxes.setEditable(false);
 			panel.add(workAroundElementToSizeBoxes);
-		}
+		}*/
 
 		panel.setVisible(false);
 	}
@@ -109,22 +146,209 @@ public class BudgetingUI implements ActionListener{
 		applicationLayout.add(jPanel);
 	}
 
+	public class showPersonalizedBudget implements ActionListener{
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			Budgetting budget = new Budgetting(Constants.BUDGETING_FILE);
+			double avF = budget.getAvailableFunds();
+			if (avF==0) 
+			{
+				JOptionPane.showMessageDialog(null, Constants.INVALID_MSG2,Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
+				outputField.setText(Constants.BGT_MSG3);
+			}
+			else if  (avF!=0) 
+				{ outputField.setText(budget.toString());}
+		
+	}
+	}
+	
 
-
+	public class ClearPercentages implements ActionListener{
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			int input = JOptionPane.showConfirmDialog(null, Constants.BGT_MSG2,Constants.BGT_TITLE, JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+			if(input != 0){
+				JOptionPane.getRootFrame().dispose();
+			};
+			//if the user clicks on the YES/OK BUTTON
+			if(input == 0){ 	
+			
+			
+			Budgetting budget = new Budgetting(Constants.DEFAULTBUDGETINGPERCENTAGES_FILE );
+			
+			
+			budget.writeToFile();
+			outputField.setText(Constants.BGT_MSG3);
+		
+	}
+	}
+	}
+	public class DisplayPercentages implements ActionListener{
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			UIManager.put("OptionPane.background",new ColorUIResource(204, 204, 255));
+			UIManager.put("Panel.background",new ColorUIResource(255, 255, 255));
+			JPanel panel1=new JPanel(new GridLayout(14,20));
+			
+			
+			JLabel availableFunds = new JLabel("Please Enter your Available Funds: ");
+			JLabel labelHousing = new JLabel("Housing %:");
+			JLabel labelFood = new JLabel("Food %: ");
+			JLabel labelUtilities = new JLabel("Utilities %: ");
+			JLabel labelClothing = new JLabel("Clothing %: ");
+			JLabel labelMedical = new JLabel("Medical %: ");
+			JLabel labelDonations = new JLabel("Donations %: ");
+			JLabel labelSavings = new JLabel("Savings %: ");
+			JLabel labelEntertainment = new JLabel("Entertainment %: ");
+			JLabel labelTransportation = new JLabel("Transportation %: ");
+			JLabel labelMisc = new JLabel("Misc %: ");
+			
+			JTextField inputAvailableFunds = new JTextField(10);
+			JTextField inputPercentageHousing = new JTextField(10);
+			JTextField inputPercentageFood = new JTextField(10);
+			JTextField inputPercentageUtilities = new JTextField(10);
+			JTextField inputPercentageClothing = new JTextField(10);
+			JTextField inputPercentageMedical = new JTextField(10);
+			JTextField inputPercentageDonations = new JTextField(10);
+			JTextField inputPercentageSavings = new JTextField(10);
+			JTextField inputPercentageEntertainment = new JTextField(10);
+			JTextField inputPercentageTransportation = new JTextField(10);
+			JTextField inputPercentageMisc = new JTextField(10);
+			
+			availableFunds.setLabelFor(inputAvailableFunds);
+			labelHousing.setLabelFor(inputPercentageHousing);
+			labelFood.setLabelFor(inputPercentageFood);
+			labelUtilities.setLabelFor(inputPercentageUtilities);
+			labelClothing.setLabelFor(inputPercentageClothing);
+			labelMedical.setLabelFor(inputPercentageMedical);
+			labelDonations.setLabelFor(inputPercentageDonations);
+			labelSavings.setLabelFor(inputPercentageSavings);
+			labelEntertainment.setLabelFor(inputPercentageEntertainment);
+			labelTransportation.setLabelFor(inputPercentageTransportation);
+			labelMisc.setLabelFor(inputPercentageMisc);
+			
+			//adding the components to the panel
+			
+			panel1.add(availableFunds);
+			panel1.add(inputAvailableFunds);
+			panel1.add(labelHousing);
+			panel1.add(inputPercentageHousing);
+			panel1.add(labelFood);
+			panel1.add(inputPercentageFood);
+			panel1.add(labelUtilities);
+			panel1.add(inputPercentageUtilities);
+			panel1.add(labelClothing);
+			panel1.add(inputPercentageClothing);
+			panel1.add(labelMedical);
+			panel1.add(inputPercentageMedical);
+			panel1.add(labelDonations);
+			panel1.add(inputPercentageDonations);
+			panel1.add(labelSavings);
+			panel1.add(inputPercentageSavings);
+			panel1.add(labelEntertainment);
+			panel1.add(inputPercentageEntertainment);
+			panel1.add(labelTransportation);
+			panel1.add(inputPercentageTransportation);
+			panel1.add(labelMisc);
+			panel1.add(inputPercentageMisc);
+			
+			panel1.setBorder(compound);
+		
+			//popping up the option panel so that the user can input the information
+			int percentageInput=JOptionPane.showConfirmDialog(null, panel1, "Budgetting Percentages", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+			if(percentageInput != 0){
+				JOptionPane.getRootFrame().dispose(); };
+				
+				if(percentageInput == 0){ 	
+					try{
+						av_funds = Double.parseDouble(inputAvailableFunds.getText());
+						p_housing = Double.parseDouble(inputPercentageHousing.getText());
+						p_food = Double.parseDouble(inputPercentageFood.getText());
+						p_utilities = Double.parseDouble(inputPercentageUtilities.getText());
+						p_clothing = Double.parseDouble(inputPercentageClothing.getText());
+						p_medical = Double.parseDouble(inputPercentageMedical.getText());
+						p_donations = Double.parseDouble(inputPercentageDonations.getText());
+						p_savings = Double.parseDouble(inputPercentageSavings.getText());
+						p_entertainment = Double.parseDouble(inputPercentageEntertainment.getText());
+						p_transportation = Double.parseDouble(inputPercentageTransportation.getText());
+						p_misc = Double.parseDouble(inputPercentageMisc.getText());
+					
+					if( !(av_funds > 0 || p_housing > 0 || p_utilities > 0 
+								|| p_clothing > 0 || p_medical > 0 || p_donations > 0 || 
+								p_savings > 0 || p_entertainment > 0 || p_transportation > 0|| p_misc> 0))
+						{
+							throw new NumberFormatException();
+						}
+				
+					Budgetting budget = new Budgetting(av_funds,p_food,p_housing,p_utilities, p_clothing, p_medical, p_donations, p_savings, p_entertainment, p_transportation, p_misc);
+		
+				
+					outputField.setText(budget.toString());
+					
+					int input = JOptionPane.showConfirmDialog(null, Constants.BGT_MSG,Constants.BGT_TITLE, JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+					if(input != 0){
+						JOptionPane.getRootFrame().dispose();
+					};
+					//if the user clicks on the YES/OK BUTTON
+					if(input == 0){ 	
+						budget.writeToFile();
+					}
+					
+	
+	}
+					catch (NumberFormatException nfe){
+						JOptionPane.showMessageDialog(null, Constants.INVALID_MSG,Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
+						int opt = JOptionPane.CLOSED_OPTION;
+						if(opt != 0){
+							JOptionPane.getRootFrame().dispose();
+						}
+					}
+					}}}
 	/**
 	 * Inner class to get input from text field, calculate the budget, then display it
 	 */
 	public class CalculateAndDisplayBudget implements ActionListener{
 
 		private void displayBudget() {
+			
+			UIManager.put("OptionPane.background",new ColorUIResource(204, 204, 255));
+			UIManager.put("Panel.background",new ColorUIResource(255, 255, 255));
 			//get value from input text field
 			//ADD ERROR VERIFICATION STAGE
-			String inputText = inputAvailableFunds.getText().trim();
+		//	String inputText = inputAvailableFunds.getText().trim();
+			//Creating text field
 			
-			try {
-				amount = Double.parseDouble(inputText);
+			JPanel panel2=new JPanel();
+			JTextField inputAFunds = new JTextField(10);
+		
+
+
+				//Setting the label for text field
+				JLabel aF = new JLabel("Please enter your available funds: ");
+				aF.setLabelFor(inputAFunds);
+				
+				panel2.add(aF);
+				panel2.add(inputAFunds);
+				
+			
+				
+				
+			int amountInput=JOptionPane.showConfirmDialog(null, panel2, "Available Funds", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+			if(amountInput != 0){
+				JOptionPane.getRootFrame().dispose();
+			};
+			//if the user clicks on the YES/OK BUTTON
+			if(amountInput == 0){ 	
+				try{
+				av_funds = Double.parseDouble(inputAFunds.getText());
+				if( !(av_funds > 0)){
+					throw new NumberFormatException();
 			}
-			catch(NumberFormatException e) {
+			/*catch(NumberFormatException e) {
 				//If input isn't a number, print error message
 				
 				outputField.setText("\tPlease input a number\n"
@@ -132,30 +356,49 @@ public class BudgetingUI implements ActionListener{
 						+"\tDo not use the '$' symbol\n");
 				if(!outputField.isVisible()) 
 					outputField.setVisible(true);
-				return;
-			}
-					
-			//Calculate the budget
-			Budgetting budget = new Budgetting();
-			budget.setAvailableFunds(amount);
+				return;*/
+			
+				//Calculate the budget
+				Budgetting budget = new Budgetting();
+				budget.setAvailableFunds(av_funds);
 
-			//Display the results
-			outputField.setText(budget.toString());
+				//Display the results
+				outputField.setText(budget.toString());
+				int input = JOptionPane.showConfirmDialog(null, Constants.BGT_MSG,Constants.BGT_TITLE, JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+				if(input != 0){
+					JOptionPane.getRootFrame().dispose();
+				};
+				//if the user clicks on the YES/OK BUTTON
+				if(input == 0){ 	
+					budget.writeToFile();
+				}}
+			catch (NumberFormatException e){
+				JOptionPane.showMessageDialog(null, Constants.INVALID_MSG1,Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
+				int opt = JOptionPane.CLOSED_OPTION;
+				if(opt != 0){
+					JOptionPane.getRootFrame().dispose();
+				}}
+				}
+			
 
 			//Make the outputField visible if it isn't already
-			if(!outputField.isVisible()) 
-				outputField.setVisible(true);
+		//	if(!outputField.isVisible()) 
+		//		outputField.setVisible(true);
 			
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+		
 			displayBudget();
 			
 		}
 
 		
 	}
+	
+	
+
 
 }
 

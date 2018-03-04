@@ -26,6 +26,9 @@ public class Constants {
     public static final int BUTTON_HEIGHT= 20;
     public static final String BUTTON_BUDGET = "Budgeting";
     public static final String BUTTON_CALCULATE_BUDGET = "Calculate Budget";
+    public static final String BUTTON_SHOW_BUDGET = "My Budget";
+    public static final String BUTTON_CHANGE_PERCENTAGES = "Change %";
+    public static final String BUTTON_CLEAR_PERCENTAGES = "Clear Budget";
     public static final String BUTTON_CARDS = "My Cards";
     public static final String BUTTON_ADD_CARD = "Add a card";
     public static final String BUTTON_REMOVE_CARD = "Remove a card";
@@ -34,7 +37,15 @@ public class Constants {
     
     public static final String INVALID_TITLE = "INVALID INPUT";
     public static final String INVALID_MSG = "You have entered an invalid value or a duplicate.\nPlease try again.";
-
+    public static final String INVALID_MSG1 = "You have entered an invalid value. Please try again"; 
+    public static final String INVALID_MSG2 = "You do not have a valid budget in our records. Please create a new budget!";
+    							
+    public static final String BGT_TITLE = "SAVE BUDGET";
+    public static final String BGT_MSG = "Do you want to save this budget?";
+    public static final String BGT_MSG1 = "Do you want to save your personalized percentages?";
+    public static final String BGT_MSG2 = "Do you want to delete your budget?";
+    public static final String BGT_MSG3 = "NO AVAILABLE BUDGET";
+    
     public static final ImageIcon WARNING_IMAGE = new ImageIcon("warningIcon.png");
     public static final ImageIcon CARDS_IMAGE = new ImageIcon("cardsImage.png");
     public static final Icon CREDIT_IMAGE = new ImageIcon("creditImage.png");
