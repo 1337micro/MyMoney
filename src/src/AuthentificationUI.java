@@ -11,6 +11,8 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 
 
 public class AuthentificationUI extends JFrame{
@@ -38,7 +41,9 @@ public class AuthentificationUI extends JFrame{
 	private static AuthentificationUser user;
 	JTextField userTxt;
 	JTextField passwTxt;
-
+	Border raisedbevel = BorderFactory.createRaisedBevelBorder();
+	Border loweredbevel = BorderFactory.createLoweredBevelBorder();
+	Border compound = BorderFactory.createCompoundBorder(raisedbevel, loweredbevel);
 
 	public AuthentificationUI() {
 		//setting the array
@@ -97,6 +102,7 @@ public class AuthentificationUI extends JFrame{
 		horizPan3.add(newUser);
 		verticalPan.add(horizPan3);
 		verticalPan.add(imgLab);
+		panel.setBorder(compound);
 		panel.add(verticalPan);
 
 		//setting the default JFrame
@@ -243,6 +249,7 @@ public class AuthentificationUI extends JFrame{
 		return myCards;
 	}
 }
+
 
 
 

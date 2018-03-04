@@ -1,6 +1,7 @@
 //-------------------------------------------------------
 //For Comp 354 Section PP - Winter 2018
 //Iteration 1: Sabrina Rieck, 40032864
+//Iteration 2: Ornela Bregu, 26898580
 //Description: Budgetting class calculates a user's budget according to an amount of available money
 //				Takes in percentages and an amount, calculates amounts based on percentages and returns those amounts
 //				Has a read and write to file system
@@ -540,3 +541,4 @@ public class Budgetting {
 
 
 }
+

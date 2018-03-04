@@ -10,6 +10,7 @@ package src;
 
 import java.util.ArrayList;
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.plaf.ColorUIResource;
@@ -47,7 +48,9 @@ public class MyCardsUI implements ActionListener{
 	protected static int pointsAvailable;
 	protected static int indexCard;
 	protected static String line = null; 
-
+	Border raisedbevel = BorderFactory.createRaisedBevelBorder();
+	Border loweredbevel = BorderFactory.createLoweredBevelBorder();
+	Border compound = BorderFactory.createCompoundBorder(raisedbevel, loweredbevel);
 
 	//list of cards
 	private ArrayList <Cards> cards_list = new ArrayList<Cards>();
@@ -58,8 +61,7 @@ public class MyCardsUI implements ActionListener{
 
 
 	/*
-	 * Method to trigger the display of the cards feature when the user clicks on the MY Cards button on the application.
-	 * 
+	 * Method to trigger the display of the cards feature when the user clicks on the MyCards button on the application.
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -67,7 +69,6 @@ public class MyCardsUI implements ActionListener{
 			MyCardsUI();
 			addPanelToLayout(panel, AuthentificationUI.getApplicationLayout());
 		}
-
 		if (panel.isVisible()){
 			panel.setVisible(false);
 		} else {
@@ -95,8 +96,8 @@ public class MyCardsUI implements ActionListener{
 		table = new JTable(tableModel){
 			public boolean isCellEditable(int row,int column){
 				switch(column){ 
-				case 4: return true;  
-				default: return false;
+				case 4: return true;   //this will allow the user to click on the checkbox
+				default: return false;  //all other column are not editable
 				}  
 			}}; 
 
@@ -119,9 +120,11 @@ public class MyCardsUI implements ActionListener{
 			@SuppressWarnings("deprecation")
 			JScrollPane scrollPane = JTable.createScrollPaneForTable(table);
 			scrollPane.setPreferredSize(new Dimension(600, 300));
+
 			//setting the panel
 			panel= new JPanel();
 			panel.setBackground(new Color(204, 204, 255));
+			panel.setBorder(compound);
 			panel.add(scrollPane, BorderLayout.CENTER);
 			panel.add(addCardButton, BorderLayout.NORTH);
 			panel.add(removeCardButton, BorderLayout.NORTH);
@@ -135,6 +138,8 @@ public class MyCardsUI implements ActionListener{
 			removeCardButton.setPreferredSize(new Dimension(150,25));
 			addCardButton.addActionListener(new AddCardListener());
 			removeCardButton.addActionListener(new RemoveListener());
+
+
 	}
 
 	/*
@@ -611,6 +616,7 @@ public class MyCardsUI implements ActionListener{
 	}
 
 }
+
 
 
 
