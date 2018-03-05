@@ -1,6 +1,5 @@
 //-------------------------------------------------------
 //For Comp 354 Section PP - Winter 2018
-//Iteration 1: William Prioriello
 //Iteration2: Noemi Lemonnier
 //Description: CashSpending "view" class
 // --------------------------------------------------------
@@ -12,7 +11,7 @@ import javax.swing.border.Border;
 import javax.swing.plaf.ColorUIResource;
 import javax.swing.table.DefaultTableModel;
 
-import src.CashSpendingObject.ExpenditureType;
+import src.CashSpending.ExpenditureType;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -36,7 +35,7 @@ public class CashSpendingUI implements ActionListener {
 	protected static DefaultTableModel tableModel;
 	protected static Object[] COLUMN_NAMES = {"HOUSING", "FOOD","UTILITIES","CLOTHING", "MEDICAL","DONATIONS","SAVINGS","ENTERTAINMENT","TRANSPORTATION","MISC"};
 	JButton addExpense = new JButton(Constants.BUTTON_ADD_EXPENSE);
-	protected static CashSpendingObject expense;
+	protected static CashSpending expense = new CashSpending();
 	@SuppressWarnings("rawtypes")
 	JComboBox listExpense;
 	@SuppressWarnings("rawtypes")
@@ -156,8 +155,6 @@ public class CashSpendingUI implements ActionListener {
 			//setting the labels to the text fields
 			bN.setLabelFor(amountTxt);
 
-
-
 			//adding the elements to the panel
 			pane.add(aN);
 			pane.add(listExpense);
@@ -166,19 +163,77 @@ public class CashSpendingUI implements ActionListener {
 			pane.add(cN);
 			pane.add(boxCards);
 
+
 			int option=  JOptionPane.showConfirmDialog(null, pane, "Adding an Expense", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 			//if the user clicks on the CANCEL button or Closes the window
 			if(option != 0){
 				JOptionPane.getRootFrame().dispose();
 			};
 			//if the user clicks on the YES/OK BUTTON
-			/*
 			if(option == 0){ 	
 				try{
-					listExpense.getSelectedIndex();
+					//to get the expenditure choosen and the amount entered
+					int index = listExpense.getSelectedIndex();
+					double amountMoney = Double.parseDouble(amountTxt.getText());
+					addingToTheExpenditure(index, amountMoney);
+
+					//add element to the table
+					Object[] rowData = {expense.getAmountHousing(), expense.getAmountFood(), expense.getAmountUtilities(), expense.getAmountClothing(), 
+							expense.getAmountMedical(), expense.getAmountDonations(), expense.getAmountSavingsInsurance(), expense.getAmountEntertainment(), 
+							expense.getAmountTransportation(), expense.getAmountMisc()};
+					tableModel.addRow(rowData);
+					//to make sure only one line is shown
+					if(tableModel.getRowCount()>1){
+						tableModel.removeRow(0);
+						}
+				}
+				catch (NumberFormatException nfe){
+					JOptionPane.showMessageDialog(null, Constants.INVALID_MSG,Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
+					int opt = JOptionPane.CLOSED_OPTION;
+					if(opt != 0){
+						JOptionPane.getRootFrame().dispose();
+					}
 				}
 
-			}à*/
+			}
+		}
+	}
+	
+	/*
+	 * Method used to check the expenditure the user choosed to add money on
+	 */
+	public void addingToTheExpenditure(int index, double temp){
+		try{
+			if((index >=0 || index<=9) && (temp>=0)){ 
+				switch (index) {
+				case 0: expense.addAmountHousing(temp);
+				break;
+				case 1: expense.addAmountFood(temp);
+				break;
+				case 2: expense.addAmountUtilities(temp);
+				break;
+				case 3: expense.addAmountClothing(temp);
+				break;
+				case 4: expense.addAmountMedical(temp);
+				break;
+				case 5: expense.addAmountDonations(temp);
+				break;
+				case 6: expense.addAmountSavings(temp);
+				break;
+				case 7: expense.addAmountEntertainment(temp);
+				break;
+				case 8: expense.addAmountTransportation(temp);
+				break;
+				case 9: expense.addAmountMisc(temp);
+				break;	
+				}
+			}
+		} catch(NumberFormatException e){
+			JOptionPane.showMessageDialog(null, Constants.INVALID_MSG,Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
+			int opt = JOptionPane.CLOSED_OPTION;
+			if(opt != 0){
+				JOptionPane.getRootFrame().dispose();
+			}
 		}
 	}
 
