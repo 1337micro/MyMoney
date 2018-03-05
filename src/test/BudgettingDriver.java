@@ -15,10 +15,11 @@ public class BudgettingDriver {
 		
 		//Testing parameterized constructor
 		System.out.println("Using the PARAMETERIZED contructor:");
-		Budgetting object2 = new Budgetting(2500, 30, 10, 10, 5, 5, 4, 7, 10, 10, 10);
+		Budgetting object2 = new Budgetting(2500, 30, 10, 10, 5, 5, 3, 7, 10, 10, 10);
 		System.out.println(object2);
 		
 		//Testing Print to file
+		System.out.println("Testing Print to file");
 		object1.writeToFile();
 		
 		//Testing read full object from file

@@ -10,6 +10,7 @@ package src;
 
 import java.util.ArrayList;
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.plaf.ColorUIResource;
@@ -47,19 +48,23 @@ public class MyCardsUI implements ActionListener{
 	protected static int pointsAvailable;
 	protected static int indexCard;
 	protected static String line = null; 
-
+	Border raisedbevel = BorderFactory.createRaisedBevelBorder();
+	Border loweredbevel = BorderFactory.createLoweredBevelBorder();
+	Border compound = BorderFactory.createCompoundBorder(raisedbevel, loweredbevel);
 
 	//list of cards
-	private ArrayList <Cards> cards_list = new ArrayList<Cards>();
+	protected static ArrayList <Cards> cards_list = new ArrayList<Cards>();
 
 	//button to add and remove
 	JButton addCardButton = new JButton(Constants.BUTTON_ADD_CARD);
 	JButton removeCardButton = new JButton(Constants.BUTTON_REMOVE_CARD);
 
+	public static ArrayList<Cards> getListCards(){
+		return cards_list;
 
+	}
 	/*
-	 * Method to trigger the display of the cards feature when the user clicks on the MY Cards button on the application.
-	 * 
+	 * Method to trigger the display of the cards feature when the user clicks on the MyCards button on the application.
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -67,7 +72,6 @@ public class MyCardsUI implements ActionListener{
 			MyCardsUI();
 			addPanelToLayout(panel, AuthentificationUI.getApplicationLayout());
 		}
-
 		if (panel.isVisible()){
 			panel.setVisible(false);
 		} else {
@@ -88,15 +92,15 @@ public class MyCardsUI implements ActionListener{
 	 * method to create the basic layout that is to be displayed for the cards feature
 	 */
 	@SuppressWarnings("serial")
-	public void MyCardsUI() {
+	public void MyCardsUI(){
 
 		//setting the custom table model to the class I created 
 		tableModel =  new DefaultTableModel(COLUMN_NAMES, 0);
 		table = new JTable(tableModel){
 			public boolean isCellEditable(int row,int column){
 				switch(column){ 
-				case 4: return true;  
-				default: return false;
+				case 4: return true;   //this will allow the user to click on the checkbox
+				default: return false;  //all other column are not editable
 				}  
 			}}; 
 
@@ -118,13 +122,21 @@ public class MyCardsUI implements ActionListener{
 			//Create the scroll pane and add the table to it. 
 			@SuppressWarnings("deprecation")
 			JScrollPane scrollPane = JTable.createScrollPaneForTable(table);
-			scrollPane.setPreferredSize(new Dimension(600, 300));
+			scrollPane.setPreferredSize(new Dimension(750, 300));
+
 			//setting the panel
 			panel= new JPanel();
+			JPanel pan2 = new JPanel();
+			pan2.setBackground(new Color(204, 204, 255));
+			pan2.add(scrollPane, BorderLayout.CENTER);
+			JPanel pan3 = new JPanel();
+			pan3.setBackground(new Color(204, 204, 255));
+			pan3.add(addCardButton);
+			pan3.add(removeCardButton);
+			panel.add(pan2);
+			panel.add(pan3);
+			panel.setBorder(compound);
 			panel.setBackground(new Color(204, 204, 255));
-			panel.add(scrollPane, BorderLayout.CENTER);
-			panel.add(addCardButton, BorderLayout.NORTH);
-			panel.add(removeCardButton, BorderLayout.NORTH);
 			panel.setVisible(false);
 
 			//reading the MyCards.txt to add any values to the table
@@ -135,6 +147,8 @@ public class MyCardsUI implements ActionListener{
 			removeCardButton.setPreferredSize(new Dimension(150,25));
 			addCardButton.addActionListener(new AddCardListener());
 			removeCardButton.addActionListener(new RemoveListener());
+
+
 	}
 
 	/*
@@ -498,9 +512,9 @@ public class MyCardsUI implements ActionListener{
 						//making sure the data entered by the user are integers and doubles
 						cdtp = Cards.CardType.CREDIT;
 						accNb = Integer.parseInt(accNumber.getText());
-						cardNum=Integer.parseInt(cardNumber.getText());
+						cardNum = Integer.parseInt(cardNumber.getText());
 						moneySpent = Double.parseDouble(moneyCurrent.getText());
-						limitCard=Double.parseDouble(limit.getText());
+						limitCard = Double.parseDouble(limit.getText());
 
 						//if user enters a negative number
 						if(accNb<=0 || cardNum<=0 || moneySpent<=0 || limitCard<=0){

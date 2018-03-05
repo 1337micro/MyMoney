@@ -1,94 +1,285 @@
 //-------------------------------------------------------
 //For Comp 354 Section PP - Winter 2018
-//Iteration 1: William Prioriello
-//Description: "Model" class keeps track of user-input spending
-//--------------------------------------------------------
+//Iteration 2: Noemi Lemonnier, 40001085
+//Description: CashSpending method to create the object containing all expenditures and the add method involved
+// --------------------------------------------------------
+
 package src;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CashSpending {
-    /**
-     * initialize our list of expenses as an empty arraylist
-     */
-    public CashSpending(){
-        this.expenses = new ArrayList<>();
-    }
+	//Calculated percentages
+	private double amountHousing = 0;
+	private double amountFood = 0;
+	private double amountUtilities = 0;
+	private double amountClothing = 0;
+	private double amountMedical = 0;
+	private double amountDonations = 0;
+	private double amountSavingsInsurance = 0;
+	private double amountEntertainment = 0;
+	private double amountTransportation = 0;
+	private double amountMisc = 0;
 
-    /**
-     * A list containing objects of Expenses which, in turn, contains a type of expenditure and a list of doubles
-     * signifying all the
-     * purchases made in that category
-     */
-    private List<Expenses> expenses;
+	/*
+	 * Constructor
+	 */
+	public CashSpending(double housing, double food, double utilities, double clothing, double medical, 
+			double donations, double savings, double entertainment, double transportation, double misc) {
+		//to make sure no number are 
+		if(housing>=0 || food >= 0 || utilities >=0 || clothing >=0 || medical >=0 || donations >=0 || savings >=0 || entertainment >=0 || transportation >= 0 || misc >=0){
+			this.amountHousing = housing;
+			this.amountFood = food;
+			this.amountUtilities = utilities;
+			this.amountClothing = clothing;
+			this.amountMedical = medical;
+			this.amountDonations = donations;
+			this.amountSavingsInsurance = savings;
+			this.amountEntertainment = entertainment;
+			this.amountTransportation = transportation;
+			this.amountMisc = misc;
+		}
+		else{
+			throw new NumberFormatException("Values cannot be below 0$");
+		}
+	}
+	/*
+	 * Default Constructor
+	 */
+	public CashSpending() {
+		this.amountHousing = 0;
+		this.amountFood = 0;
+		this.amountUtilities = 0;
+		this.amountClothing = 0;
+		this.amountMedical = 0;
+		this.amountDonations = 0;
+		this.amountSavingsInsurance = 0;
+		this.amountEntertainment = 0;
+		this.amountTransportation = 0;
+		this.amountMisc = 0;
 
-    /** Add a dollar amount that was spent for a specific category of expenditure in enum EpenditureType
-     *
-     * @param type the type of expenditure
-     * @param amount the dollar amount spent on this type of expenditure
-     */
-    public void addExpense(ExpenditureType type, double amount){
-        if(getExpensesOfType(type) == null || getExpensesOfType(type).size() == 0){
-            //no such expense yet
+	}
+	/*
+	 * Method to print out the object CashSpending
+	 * (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString(){
+		return "Cash spendings on\n Housing: " + this.getAmountHousing() + "$ Food: " + this.getAmountFood() + "$ Utilities: " + 
+				this.getAmountUtilities() + "$ Clothing: " + this.getAmountClothing() + "$ Medical: " + this.getAmountMedical() + 
+				"$ Donations: " + this.getAmountDonations() +  "$ Savings:" + this.getAmountSavingsInsurance() + "$ Entertainment:" 
+				+ this.getAmountEntertainment() +   "$ Transportation:"+ this.getAmountTransportation() +  "$ Misc: " + this.getAmountMisc() +  "$";
+	}
+	
+	/**
+	 * Types of Spending you can perform.
+	 */
+	public enum ExpenditureType {
+		HOUSING("HOUSING"),
+		FOOD("FOOD"),
+		UTILITIES("UTILITIES"),
+		CLOTHING("CLOTHING"),
+		MEDICAL("MEDICAL"),
+		DONATIONS("DONATIONS"),
+		SAVINGS("SAVINGS"),
+		ENTERTAINMENT("ENTERTAINMENT"),
+		TRANSPORTATION("TRANSPORTATION"),
+		MISC("MISC");
 
-            Expenses expense = new Expenses(type);
-            expense.getListOfExpenses().add(amount);
-            expenses.add(expense);
-        } else {
-            if(getExpensesOfType(type).size() == 0) throw new RuntimeException("This expense list should not be 0");
-            getExpensesOfType(type).add(amount);
-            // expense already exists in the lists 'expenses'
-        }
-    }
+		private final String description;
 
-    /**Get a list of all the purchases of a particular ExpenditureType
-     *
-     * @param type The type of expenditure we are looking for
-     * @return list of Doubles. All the purchases of a particular ExpenditureType
-     */
-    public List<Double> getExpensesOfType(ExpenditureType type){
-        List<Double> listOfExpense = new ArrayList<>();
-        for(Expenses expense : this.expenses){
-            if(expense.type == type){
-                listOfExpense = expense.listOfExpenses;
-            }
-        }
-        return listOfExpense;
-    }
+		public String toString(){
+			return this.description;
+		}
+		ExpenditureType(final String description){
+			this.description = description;
+		}
+	}
+	/*
+	 * Methods to add to each type
+	 */
+	public void addAmountHousing(double amount){
+		if(amount>=0){
+			double temp = this.getAmountHousing();
+			if(temp == this.amountHousing){
+				temp+=amount;
+				setAmountHousing(temp);
+			}
+		}
+		else{
+			throw new NumberFormatException();
+		}
+	}
+	public void addAmountFood(double amount){
+		if(amount>=0){
+			double temp = this.getAmountFood();
+			if(temp == this.amountFood){
+				temp+=amount;
+				setAmountFood(temp);
+			}
+		}
+		else{
+			throw new NumberFormatException();
+		}
+	}
+	public void addAmountUtilities(double amount){
+		if(amount>=0){
+			double temp = this.getAmountUtilities();
+			if(temp == this.amountUtilities){
+				temp+=amount;
+				setAmountUtilities(temp);
+			}
+		}
+		else{
+			throw new NumberFormatException();
+		}
+	}
+	public void addAmountClothing(double amount){
+		if(amount>=0){
+			double temp = this.getAmountClothing();
+			if(temp == this.amountClothing){
+				temp+=amount;
+				setAmountClothing(temp);
+			}
+		}
+		else{
+			throw new NumberFormatException();
+		}
+	}
+	public void addAmountMedical(double amount){
+		if(amount>=0){
+			double temp = this.getAmountMedical();
+			if(temp == this.amountMedical){
+				temp+=amount;
+				setAmountMedical(temp);
+			}
+		}
+		else{
+			throw new NumberFormatException();
+		}
+	}
+	public void addAmountDonations(double amount){
+		if(amount>=0){
+			double temp = this.getAmountDonations();
+			if(temp == this.amountDonations){
+				temp+=amount;
+				setAmountDonations(temp);
+			}
+		}
+		else{
+			throw new NumberFormatException();
+		}
+	}
+	public void addAmountSavings(double amount){
+		if(amount>=0){
+			double temp = this.getAmountSavingsInsurance();
+			if(temp == this.amountSavingsInsurance){
+				temp+=amount;
+				setAmountSavingsInsurance(temp);
+			}
+		}
+		else{
+			throw new NumberFormatException();
+		}
+	}
+	public void addAmountEntertainment(double amount){
+		if(amount>=0){
+			double temp = this.getAmountEntertainment();
+			if(temp == this.amountEntertainment){
+				temp+=amount;
+				setAmountEntertainment(temp);
+			}
+		}
+		else{
+			throw new NumberFormatException();
+		}
+	}
+	public void addAmountTransportation(double amount){
+		if(amount>=0){
+			double temp = this.getAmountTransportation();
+			if(temp == this.amountTransportation){
+				temp+=amount;
+				setAmountTransportation(temp);
+			}
+		}
+		else{
+			throw new NumberFormatException();
+		}
+	}
+	public void addAmountMisc(double amount){
+		if(amount>=0){
+			double temp = this.getAmountMisc();
+			if(temp == this.amountMisc){
+				temp+=amount;
+				setAmountMisc(temp);
+			}
+		}
+		else{
+			throw new NumberFormatException();
+		}
+	}
 
+	/*
+	 * Getters and Setters
+	 */
+	public double getAmountHousing() {
+		return amountHousing;
+	}
+	public void setAmountHousing(double amountHousing) {
+		this.amountHousing = amountHousing;
+	}
+	public double getAmountFood() {
+		return amountFood;
+	}
+	public void setAmountFood(double amountFood) {
+		this.amountFood = amountFood;
+	}
+	public double getAmountUtilities() {
+		return amountUtilities;
+	}
+	public void setAmountUtilities(double amountUtilities) {
+		this.amountUtilities = amountUtilities;
+	}
+	public double getAmountClothing() {
+		return amountClothing;
+	}
+	public void setAmountClothing(double amountClothing) {
+		this.amountClothing = amountClothing;
+	}
+	public double getAmountMedical() {
+		return amountMedical;
+	}
+	public void setAmountMedical(double amountMedical) {
+		this.amountMedical = amountMedical;
+	}
+	public double getAmountDonations() {
+		return amountDonations;
+	}
+	public void setAmountDonations(double amountDonations) {
+		this.amountDonations = amountDonations;
+	}
+	public double getAmountSavingsInsurance() {
+		return amountSavingsInsurance;
+	}
+	public void setAmountSavingsInsurance(double amountSavingsInsurance) {
+		this.amountSavingsInsurance = amountSavingsInsurance;
+	}
+	public double getAmountEntertainment() {
+		return amountEntertainment;
+	}
+	public void setAmountEntertainment(double amountEntertainment) {
+		this.amountEntertainment = amountEntertainment;
+	}
+	public double getAmountTransportation() {
+		return amountTransportation;
+	}
+	public void setAmountTransportation(double amountTransportation) {
+		this.amountTransportation = amountTransportation;
+	}
+	public double getAmountMisc() {
+		return amountMisc;
+	}
+	public void setAmountMisc(double amountMisc) {
+		this.amountMisc = amountMisc;
+	}
 
-    /**
-     * Types of Spending you can preform.
-     */
-    public enum ExpenditureType {
-        GROCERIES("GROCERIES"),
-        RENT("RENT"),
-        TUITION("TUITION"),
-        TAXES("TAXES");
-        private final String description;
-        public String toString(){
-            return this.description;
-        }
-        ExpenditureType(final String description){
-            this.description = description;
-        }
-    }
-
-    /**
-     * Every Expenses object has an Expenditure type
-     * and a list of dollar amounts of all the purchases done for that type.
-     */
-   public static class Expenses{
-       private ExpenditureType type; //an Expenditure type
-       private List<Double> listOfExpenses; //a list of dollar amounts of all the purchases done for that type.
-
-       public Expenses(ExpenditureType type) {
-           this.type = type;
-           this.listOfExpenses = new ArrayList<>();
-       }
-       public List<Double> getListOfExpenses() {
-           return listOfExpenses;
-       }
-   }
 }
+
