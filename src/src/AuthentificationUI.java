@@ -50,7 +50,7 @@ public class AuthentificationUI extends JFrame{
 
 		//to clear all past transactions
 		try {
-			CashSpendingUI.clearDataBaseMyCards();
+		CashSpendingUI.clearDataBaseTransactionsDone();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
