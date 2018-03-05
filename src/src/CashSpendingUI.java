@@ -1,6 +1,6 @@
 //-------------------------------------------------------
 //For Comp 354 Section PP - Winter 2018
-//Iteration2: Noemi Lemonnier
+//Iteration2: Noemi Lemonnier, 40001085
 //Description: CashSpending "view" class
 // --------------------------------------------------------
 package src;
