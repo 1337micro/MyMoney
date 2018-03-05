@@ -10,6 +10,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -46,6 +47,14 @@ public class AuthentificationUI extends JFrame{
 	Border compound = BorderFactory.createCompoundBorder(raisedbevel, loweredbevel);
 
 	public AuthentificationUI() {
+
+		//to clear all past transactions
+		try {
+			CashSpendingUI.clearDataBaseMyCards();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//setting the array
 		AuthentificationList.readFromTheFile(users_list);
 
@@ -120,7 +129,6 @@ public class AuthentificationUI extends JFrame{
 	private class CreateUserListener implements ActionListener{
 		/*
 		 * Displays a window to allow the user to create its account
-		 * 
 		 */
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
@@ -146,7 +154,7 @@ public class AuthentificationUI extends JFrame{
 			pane.add(psw);
 
 			//make the option panel appear in order to ask the user for information to create its account
-			int option=  JOptionPane.showConfirmDialog(null, pane, "Creation of an Account", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+			int option =  JOptionPane.showConfirmDialog(null, pane, "Creation of an Account", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 			//if the user clicks on the CANCEL button or Closes the window
 			if(option != 0){
 				JOptionPane.getRootFrame().dispose();
@@ -170,18 +178,38 @@ public class AuthentificationUI extends JFrame{
 						throw new NumberFormatException();
 					}
 					else{
-						users_list.add(user);
-						AuthentificationList.writeToFile(user);
-						JOptionPane.getRootFrame().dispose();
-						//close the authentification frame
-						frame.dispose();
-						
-						applicationLayout.setVisible(true);
-						
+						if(users_list.size()<1){
+							users_list.add(user);
+							AuthentificationList.writeToFile(user);
+							JOptionPane.getRootFrame().dispose();
+							//close the authentification frame
+							frame.dispose();
+
+							applicationLayout.setVisible(true);
+						}
+						else{
+							JPanel pan=new JPanel();
+
+							//Setting the label for text field
+							JLabel aF = new JLabel("This is a one user application.\nDo you want to remove the existing user and create your own?");
+							pan.add(aF);
+
+							int optn=JOptionPane.showConfirmDialog(null, pan, "INVALID INPUT", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+							if(optn != 0){
+								JOptionPane.getRootFrame().dispose();
+							};
+							//if the user clicks on the YES/OK BUTTON
+							if(optn == 0){ 
+								users_list.remove(0);
+								clearDataBaseAuthentification();
+								JOptionPane.getRootFrame().dispose();
+							}
+						}
+
 					}
 
 				}//if the user enters an invalid value or a card duplicate
-				catch (NumberFormatException nfe){
+				catch (NumberFormatException | IOException nfe){
 					JOptionPane.showMessageDialog(null, Constants.INVALID_MSG, Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
 					int opt = JOptionPane.CLOSED_OPTION;
 					if(opt != 0){
@@ -192,8 +220,6 @@ public class AuthentificationUI extends JFrame{
 			}
 
 		}
-
-
 
 	}
 
@@ -248,7 +274,21 @@ public class AuthentificationUI extends JFrame{
 	public static MyCards getMyCards() {
 		return myCards;
 	}
+
+	/*
+	 * method to clear the database textfile
+	 */
+	public static void clearDataBaseAuthentification() throws IOException{
+		if (Constants.AUTHENTIFICATION_FILE .exists() && Constants.AUTHENTIFICATION_FILE .isFile())
+		{
+			//delete if exists
+			Constants.AUTHENTIFICATION_FILE .delete();
+		}
+		Constants.AUTHENTIFICATION_FILE .createNewFile();
+
+	}
 }
+
 
 
 

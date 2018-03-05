@@ -19,6 +19,10 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Optional;
 
 public class CashSpendingUI implements ActionListener {
@@ -27,6 +31,10 @@ public class CashSpendingUI implements ActionListener {
 	}
 
 	//declaring attributes 
+	private static PrintWriter pw = null;
+	private static BufferedReader reader;
+	private static int i = 1;
+	private static int nbCard;
 	Border raisedbevel = BorderFactory.createRaisedBevelBorder();
 	Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 	Border compound = BorderFactory.createCompoundBorder(raisedbevel, loweredbevel);
@@ -145,7 +153,8 @@ public class CashSpendingUI implements ActionListener {
 			//create text fields to input the information
 			listExpense = new JComboBox(ExpenditureType.values());
 			boxCards = new JComboBox(cardNum(MyCardsUI.getListCards()));
-
+			nbCard = MyCardsUI.getListCards().get(boxCards.getSelectedIndex()).getCardNumber();
+			
 			//creating labels for the text fields
 			JLabel aN= new JLabel("Please select the expense type:");
 			JLabel bN= new JLabel("Please enter the amount of money:");
@@ -185,7 +194,7 @@ public class CashSpendingUI implements ActionListener {
 					//to make sure only one line is shown
 					if(tableModel.getRowCount()>1){
 						tableModel.removeRow(0);
-						}
+					}
 				}
 				catch (NumberFormatException nfe){
 					JOptionPane.showMessageDialog(null, Constants.INVALID_MSG,Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
@@ -198,7 +207,7 @@ public class CashSpendingUI implements ActionListener {
 			}
 		}
 	}
-	
+
 	/*
 	 * Method used to check the expenditure the user choosed to add money on
 	 */
@@ -207,24 +216,44 @@ public class CashSpendingUI implements ActionListener {
 			if((index >=0 || index<=9) && (temp>=0)){ 
 				switch (index) {
 				case 0: expense.addAmountHousing(temp);
+				i++;
+				writeToFile(ExpenditureType.HOUSING, expense.getAmountHousing(), nbCard);
 				break;
 				case 1: expense.addAmountFood(temp);
+				i++;
+				writeToFile(ExpenditureType.FOOD, expense.getAmountFood(), nbCard);
 				break;
 				case 2: expense.addAmountUtilities(temp);
+				i++;
+				writeToFile(ExpenditureType.UTILITIES, expense.getAmountUtilities(), nbCard);
 				break;
 				case 3: expense.addAmountClothing(temp);
+				i++;
+				writeToFile(ExpenditureType.CLOTHING, expense.getAmountClothing(), nbCard);
 				break;
 				case 4: expense.addAmountMedical(temp);
+				i++;
+				writeToFile(ExpenditureType.MEDICAL, expense.getAmountMedical(), nbCard);
 				break;
 				case 5: expense.addAmountDonations(temp);
+				i++;
+				writeToFile(ExpenditureType.DONATIONS, expense.getAmountDonations(), nbCard);
 				break;
 				case 6: expense.addAmountSavings(temp);
+				i++;
+				writeToFile(ExpenditureType.SAVINGS, expense.getAmountSavingsInsurance(), nbCard);
 				break;
 				case 7: expense.addAmountEntertainment(temp);
+				i++;
+				writeToFile(ExpenditureType.ENTERTAINMENT, expense.getAmountEntertainment(), nbCard);
 				break;
 				case 8: expense.addAmountTransportation(temp);
+				i++;
+				writeToFile(ExpenditureType.TRANSPORTATION, expense.getAmountTransportation(), nbCard);
 				break;
 				case 9: expense.addAmountMisc(temp);
+				i++;
+				writeToFile(ExpenditureType.MISC, expense.getAmountMisc(), nbCard);
 				break;	
 				}
 			}
@@ -236,5 +265,42 @@ public class CashSpendingUI implements ActionListener {
 			}
 		}
 	}
+	/*
+	 * method to write to the database textfile
+	 */
+	public static void writeToFile(ExpenditureType type, double amountMn, int num){
 
+		// opening file stream to write log
+		try {
+			pw = new PrintWriter(new FileOutputStream(Constants.TRANSACTIONS_FILE, true));
+		} catch (Exception e) {
+			System.out.println("Error while creating file");
+			System.exit(1);
+		}
+
+		pw.println("The transaction # " + i + " for expenditure " + type + " with an amount of $" + amountMn + " paid with card #" + num + " was completed.");
+
+		// Closing file stream
+		try {
+			pw.close();
+		} catch (Exception e) {
+			System.out.println("Error while closing file");
+			System.exit(1);
+		}
+	}
+
+	/*
+	 * method to clear the database textfile
+	 */
+	public static void clearDataBaseMyCards() throws IOException{
+		i = 0;
+		if (Constants.TRANSACTIONS_FILE.exists() && Constants.TRANSACTIONS_FILE.isFile())
+		{
+			//delete if exists
+			Constants.TRANSACTIONS_FILE.delete();
+		}
+		Constants.TRANSACTIONS_FILE.createNewFile();
+		
+	}
 }
+

@@ -6,6 +6,13 @@
 
 package src;
 
+import java.io.BufferedReader;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import src.Cards.CardType;
+
 public class CashSpending {
 	//Calculated percentages
 	private double amountHousing = 0;
@@ -68,7 +75,7 @@ public class CashSpending {
 				"$ Donations: " + this.getAmountDonations() +  "$ Savings:" + this.getAmountSavingsInsurance() + "$ Entertainment:" 
 				+ this.getAmountEntertainment() +   "$ Transportation:"+ this.getAmountTransportation() +  "$ Misc: " + this.getAmountMisc() +  "$";
 	}
-	
+
 	/**
 	 * Types of Spending you can perform.
 	 */
@@ -280,6 +287,8 @@ public class CashSpending {
 	public void setAmountMisc(double amountMisc) {
 		this.amountMisc = amountMisc;
 	}
+
+
 
 }
 

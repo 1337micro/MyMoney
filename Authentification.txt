@@ -1,4 +1,1 @@
-n_lemon,12345
-e_gung,98765
-x_asd,1234
-re_nguy,12345
+n_lemon,1234

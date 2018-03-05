@@ -65,4 +65,12 @@ I made sure the Originality form was virtually signed by everyone.
 Real was assigned to submit documentation and Theo the code. I made sure they all did their job.
 __________________________________________________________________________________________
 February 13-14, 2018
-I worked on my part: MyCards feature. I made sure the Loyalty Card was working, I edited the visual of the app. I also add a new feature which is the login feature. I made the 3 classes for it and its database text file. I change two-three details in each class to make sure everything was working properly. The application is now more user friendly and is working very well.  
+I worked on my part: MyCards feature. I made sure the Loyalty Card was working, I edited the visual of the app. I also add a new feature which is the login feature. I made the 3 classes for it and its database text file. I change two-three details in each class to make sure everything was working properly. The application is now more user friendly and is working very well. 
+__________________________________________________________________________________________
+February 14-28, 2018
+I worked on my on my MyCards features and created the Authentification feature too. We decided that we will not do. Multiple users as it is too complex with not using a MYSQL DB. MyCards and the Authentification features are done.
+__________________________________________________________________________________________
+March 4, 2018
+Ornela pushed her code and I edited the Color of it and made sure it was idiot-proofed.
+I changed the size of the application too.
+After waiting for Real part, I decided to help him as he said he had too much to do. I remade the code William did for iteration 1 for cash spendings and redid everything to make it user friendly: I created a CashSpending Object with all same expenditures as the Budgeting feature and made the display similar to my MyCards feature. I made sure all transactions were recorded via a textfile too.  
