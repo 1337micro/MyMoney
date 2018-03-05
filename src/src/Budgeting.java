@@ -14,7 +14,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class Budgetting {
+public class Budgeting {
 
 	//Percentage instance members
 	//Getters and Setters are at the end of the document
@@ -42,7 +42,7 @@ public class Budgetting {
 	private double amountMisc = 0;
 
 	//Other instance members
-	private double availableFunds =0;
+	private double availableFunds = 0;
 	//private final String defaultPercentagesFile = "src/DefaultBudgetingPercentages.txt";
 
 	
@@ -51,7 +51,7 @@ public class Budgetting {
 	 */
 	//Default constructor with recommended percentages
 	//Based on http://www.leavedebtbehind.com/frugal-living/budgeting/10-recommended-category-percentages-for-your-family-budget/
-	public Budgetting() {
+	public Budgeting() {
 		//Get the default percentages from a file
 		readBudgetingFromFile(Constants.DEFAULTBUDGETINGPERCENTAGES_FILE);
 
@@ -63,7 +63,7 @@ public class Budgetting {
 	 * @param fileName
 	 */
 	//Read percentages from chosen file
-	public Budgetting(String fileName) {
+	public Budgeting(String fileName) {
 		readBudgetingFromFile(fileName);
 		
 	}
@@ -74,7 +74,7 @@ public class Budgetting {
 	 * @param fileName
 	 */
 	//Read percentage from chosen file with custom available of funds
-	public Budgetting(Double availableFunds, String fileName) {
+	public Budgeting(Double availableFunds, String fileName) {
 		readBudgetingFromFile(fileName);
 		this.availableFunds = availableFunds;
 	}
@@ -95,7 +95,7 @@ public class Budgetting {
 	 */
 	//Constructor with parameters
 	//ERROR testing needed for iteration 2
-	public Budgetting(double funds, double housing, double food, double utilities, double clothing, double medical, 
+	public Budgeting(double funds, double housing, double food, double utilities, double clothing, double medical, 
 			double donations, double savings, double entertainment, double transportation, double misc) {
 
 		double total = housing + food + utilities + clothing + medical + donations + savings + entertainment + transportation + misc;

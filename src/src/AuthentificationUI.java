@@ -31,7 +31,7 @@ public class AuthentificationUI extends JFrame{
 	//to launch the different features in the applicationlayout
 	private static CashSpending cashSpending = new CashSpending();
 	private static ApplicationLayout applicationLayout = new ApplicationLayout();
-	private static Budgetting budgetting = new Budgetting();
+	private static Budgeting budgeting = new Budgeting();
 	private static MyCards myCards= new MyCards();
 
 	//declaring the different needed attributes
@@ -241,8 +241,8 @@ public class AuthentificationUI extends JFrame{
 		return applicationLayout;
 	}
 
-	public static Budgetting getBudgetting() {
-		return budgetting;
+	public static Budgeting getBudgetting() {
+		return budgeting;
 	}
 
 	public static MyCards getMyCards() {

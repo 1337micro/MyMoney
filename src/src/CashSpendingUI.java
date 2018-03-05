@@ -5,6 +5,8 @@
 // --------------------------------------------------------
 package src;
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Hashtable;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -40,7 +42,7 @@ public class CashSpendingUI implements ActionListener {
 	JComboBox listExpense;
 	@SuppressWarnings("rawtypes")
 	JComboBox boxCards;
-
+	private Dictionary<Integer, ExpenditureType> indexToExpenditureTypeDictionary;
 
 	/**
 	 * Button listening for a click on the "Cash Spending" button. It will show or hide the CashSpending panel "thePanel"
@@ -107,6 +109,18 @@ public class CashSpendingUI implements ActionListener {
 		panel.setBorder(compound);
 		panel.setBackground(new Color(204, 255, 229));
 		panel.setVisible(false);
+		
+		indexToExpenditureTypeDictionary = new Hashtable<Integer, ExpenditureType>();
+		indexToExpenditureTypeDictionary.put(0, ExpenditureType.HOUSING);
+		indexToExpenditureTypeDictionary.put(1, ExpenditureType.FOOD);
+		indexToExpenditureTypeDictionary.put(2, ExpenditureType.UTILITIES);
+		indexToExpenditureTypeDictionary.put(3, ExpenditureType.CLOTHING);
+		indexToExpenditureTypeDictionary.put(4, ExpenditureType.MEDICAL);
+		indexToExpenditureTypeDictionary.put(5, ExpenditureType.DONATIONS);
+		indexToExpenditureTypeDictionary.put(6, ExpenditureType.SAVINGS);
+		indexToExpenditureTypeDictionary.put(7, ExpenditureType.ENTERTAINMENT);
+		indexToExpenditureTypeDictionary.put(8, ExpenditureType.TRANSPORTATION);
+		indexToExpenditureTypeDictionary.put(9, ExpenditureType.MISC);
 	}
 
 
@@ -122,11 +136,11 @@ public class CashSpendingUI implements ActionListener {
 	/*
 	 * Private class to customize the events that will happen when the user clicks on the add card button
 	 */
-	private class AddExpenseListener implements ActionListener{
+	private class AddExpenseListener implements ActionListener {
 		public Object [] cardNum(ArrayList <Cards> a) {
-			Object [] cardNumbers=new Object[a.size()];
-			for (int i=0;i< a.size(); i++) {
-				cardNumbers[i]=a.get(i).getCardNumber();
+			Object [] cardNumbers = new Object[a.size()];
+			for (int i = 0; i < a.size(); i++) {
+				cardNumbers[i] = a.get(i).getCardNumber();
 			}
 			return cardNumbers;
 		}
@@ -137,19 +151,19 @@ public class CashSpendingUI implements ActionListener {
 		 */
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			UIManager.put("OptionPane.background",new ColorUIResource(204, 255, 229));
-			UIManager.put("Panel.background",new ColorUIResource(255, 255, 255));
+			UIManager.put("OptionPane.background", new ColorUIResource(204, 255, 229));
+			UIManager.put("Panel.background", new ColorUIResource(255, 255, 255));
 			//create a panel and a layout that fits the amount of information required.
-			JPanel pane=new JPanel(new GridLayout(7,2));
+			JPanel pane = new JPanel(new GridLayout(7,2));
 
 			//create text fields to input the information
 			listExpense = new JComboBox(ExpenditureType.values());
 			boxCards = new JComboBox(cardNum(MyCardsUI.getListCards()));
 
 			//creating labels for the text fields
-			JLabel aN= new JLabel("Please select the expense type:");
-			JLabel bN= new JLabel("Please enter the amount of money:");
-			JLabel cN= new JLabel("Which card was used for this transaction?");
+			JLabel aN = new JLabel("Please select the expense type:");
+			JLabel bN = new JLabel("Please enter the amount of money:");
+			JLabel cN = new JLabel("Which card was used for this transaction?");
 			JTextField amountTxt = new JTextField(10);
 
 			//setting the labels to the text fields
@@ -164,15 +178,16 @@ public class CashSpendingUI implements ActionListener {
 			pane.add(boxCards);
 
 
-			int option=  JOptionPane.showConfirmDialog(null, pane, "Adding an Expense", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+			int option = JOptionPane.showConfirmDialog(null, pane, "Adding an Expense", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 			//if the user clicks on the CANCEL button or Closes the window
 			if(option != 0){
 				JOptionPane.getRootFrame().dispose();
-			};
+			}
+			
 			//if the user clicks on the YES/OK BUTTON
 			if(option == 0){ 	
 				try{
-					//to get the expenditure choosen and the amount entered
+					//to get the expenditure chosen and the amount entered
 					int index = listExpense.getSelectedIndex();
 					double amountMoney = Double.parseDouble(amountTxt.getText());
 					addingToTheExpenditure(index, amountMoney);
@@ -200,33 +215,12 @@ public class CashSpendingUI implements ActionListener {
 	}
 	
 	/*
-	 * Method used to check the expenditure the user choosed to add money on
+	 * Method used to check the expenditure the user chose to add money on
 	 */
 	public void addingToTheExpenditure(int index, double temp){
 		try{
-			if((index >=0 || index<=9) && (temp>=0)){ 
-				switch (index) {
-				case 0: expense.addAmountHousing(temp);
-				break;
-				case 1: expense.addAmountFood(temp);
-				break;
-				case 2: expense.addAmountUtilities(temp);
-				break;
-				case 3: expense.addAmountClothing(temp);
-				break;
-				case 4: expense.addAmountMedical(temp);
-				break;
-				case 5: expense.addAmountDonations(temp);
-				break;
-				case 6: expense.addAmountSavings(temp);
-				break;
-				case 7: expense.addAmountEntertainment(temp);
-				break;
-				case 8: expense.addAmountTransportation(temp);
-				break;
-				case 9: expense.addAmountMisc(temp);
-				break;	
-				}
+			if((index >= 0 || index <= 9) && (temp >= 0)){ 
+				expense.addAmount(temp, indexToExpenditureTypeDictionary.get(index));
 			}
 		} catch(NumberFormatException e){
 			JOptionPane.showMessageDialog(null, Constants.INVALID_MSG,Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);

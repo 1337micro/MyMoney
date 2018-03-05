@@ -3,13 +3,13 @@ package test;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-import src.Budgetting;
+import src.Budgeting;
 
 import static org.junit.Assert.assertEquals;
 
 public class JUnit_Budgetting {
 
-	Budgetting budget = new Budgetting();
+	Budgeting budget = new Budgeting();
 	
 	@Test
 	public void testCalculateHousing() {

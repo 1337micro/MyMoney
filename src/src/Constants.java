@@ -61,6 +61,19 @@ public class Constants {
     public final static File AUTHENTIFICATION_FILE = new File("Authentification.txt");
     public final static File MYCARDS_FILE = new File("MyCards.txt");
     public final static String DEFAULTBUDGETINGPERCENTAGES_FILE = "DefaultBudgetingPercentages.txt";
-    public final static String BUDGETING_FILE = "Budgetting.txt";
+    public final static String BUDGETING_FILE = "Budgeting.txt";
     
+    //Budgeting constants
+    public final static char SEPARATOR = ':';
+    public final static String AVAILABLEFUNDS = "AvailableFunds";
+    public final static String HOUSING_TYPE = "Housing";
+    public final static String FOOD_TYPE = "Food";
+    public final static String UTILITIES_TYPE = "Utilities";
+    public final static String CLOTHING_TYPE = "Clothing";
+    public final static String MEDICAL_TYPE = "Medical";
+    public final static String DONATIONS_TYPE = "Donations";
+    public final static String SAVINGSINSURANCE_TYPE = "SavingsInsurance";
+    public final static String ENTERTAINMENT_TYPE = "Entertainment";
+    public final static String TRANSPORTATION_TYPE = "Transportation";
+    public final static String MISC_TYPE = "Misc";
 }

@@ -18,7 +18,8 @@ public class CashSpending {
 	private double amountEntertainment = 0;
 	private double amountTransportation = 0;
 	private double amountMisc = 0;
-
+	private Budgeting budgeting;
+	
 	/*
 	 * Constructor
 	 */
@@ -36,6 +37,7 @@ public class CashSpending {
 			this.amountEntertainment = entertainment;
 			this.amountTransportation = transportation;
 			this.amountMisc = misc;
+			this.budgeting = new Budgeting();
 		}
 		else{
 			throw new NumberFormatException("Values cannot be below 0$");
@@ -55,7 +57,7 @@ public class CashSpending {
 		this.amountEntertainment = 0;
 		this.amountTransportation = 0;
 		this.amountMisc = 0;
-
+		this.budgeting = new Budgeting();
 	}
 	/*
 	 * Method to print out the object CashSpending
@@ -63,10 +65,16 @@ public class CashSpending {
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString(){
-		return "Cash spendings on\n Housing: " + this.getAmountHousing() + "$ Food: " + this.getAmountFood() + "$ Utilities: " + 
-				this.getAmountUtilities() + "$ Clothing: " + this.getAmountClothing() + "$ Medical: " + this.getAmountMedical() + 
-				"$ Donations: " + this.getAmountDonations() +  "$ Savings:" + this.getAmountSavingsInsurance() + "$ Entertainment:" 
-				+ this.getAmountEntertainment() +   "$ Transportation:"+ this.getAmountTransportation() +  "$ Misc: " + this.getAmountMisc() +  "$";
+		return "Cash spendings on\n Housing: " + this.getAmountHousing() + 
+				"$ Food: " + this.getAmountFood() + 
+				"$ Utilities: " + this.getAmountUtilities() + 
+				"$ Clothing: " + this.getAmountClothing() + 
+				"$ Medical: " + this.getAmountMedical() + 
+				"$ Donations: " + this.getAmountDonations() + 
+				"$ Savings:" + this.getAmountSavingsInsurance() + 
+				"$ Entertainment:" + this.getAmountEntertainment() + 
+				"$ Transportation:"+ this.getAmountTransportation() + 
+				"$ Misc: " + this.getAmountMisc() +  "$";
 	}
 	
 	/**
@@ -93,128 +101,42 @@ public class CashSpending {
 			this.description = description;
 		}
 	}
-	/*
-	 * Methods to add to each type
-	 */
-	public void addAmountHousing(double amount){
-		if(amount>=0){
-			double temp = this.getAmountHousing();
-			if(temp == this.amountHousing){
-				temp+=amount;
-				setAmountHousing(temp);
-			}
-		}
-		else{
-			throw new NumberFormatException();
-		}
-	}
-	public void addAmountFood(double amount){
-		if(amount>=0){
-			double temp = this.getAmountFood();
-			if(temp == this.amountFood){
-				temp+=amount;
-				setAmountFood(temp);
-			}
-		}
-		else{
-			throw new NumberFormatException();
-		}
-	}
-	public void addAmountUtilities(double amount){
-		if(amount>=0){
-			double temp = this.getAmountUtilities();
-			if(temp == this.amountUtilities){
-				temp+=amount;
-				setAmountUtilities(temp);
-			}
-		}
-		else{
-			throw new NumberFormatException();
+	public void addAmount(double amount, ExpenditureType type){
+		switch (type){
+			case HOUSING:
+				setAmountHousing(this.getAmountHousing() + amount);
+				break;
+			case FOOD:
+				setAmountFood(this.getAmountFood() + amount);
+				break;
+			case UTILITIES:
+				setAmountUtilities(this.getAmountUtilities() + amount);
+				break;
+			case CLOTHING:
+				setAmountClothing(this.getAmountClothing() + amount);
+				break;
+			case MEDICAL:
+				setAmountMedical(this.getAmountMedical() + amount);
+				break;
+			case DONATIONS:
+				setAmountDonations(this.getAmountDonations() + amount);
+				break;
+			case SAVINGS:
+				setAmountSavingsInsurance(this.getAmountSavingsInsurance() + amount);
+				break;
+			case ENTERTAINMENT:
+				setAmountEntertainment(this.getAmountEntertainment() + amount);
+				break;
+			case TRANSPORTATION:
+				setAmountTransportation(this.getAmountTransportation() + amount);
+				break;
+			case MISC:
+				setAmountMisc(this.getAmountMisc() + amount);
+				break;
 		}
 	}
-	public void addAmountClothing(double amount){
-		if(amount>=0){
-			double temp = this.getAmountClothing();
-			if(temp == this.amountClothing){
-				temp+=amount;
-				setAmountClothing(temp);
-			}
-		}
-		else{
-			throw new NumberFormatException();
-		}
-	}
-	public void addAmountMedical(double amount){
-		if(amount>=0){
-			double temp = this.getAmountMedical();
-			if(temp == this.amountMedical){
-				temp+=amount;
-				setAmountMedical(temp);
-			}
-		}
-		else{
-			throw new NumberFormatException();
-		}
-	}
-	public void addAmountDonations(double amount){
-		if(amount>=0){
-			double temp = this.getAmountDonations();
-			if(temp == this.amountDonations){
-				temp+=amount;
-				setAmountDonations(temp);
-			}
-		}
-		else{
-			throw new NumberFormatException();
-		}
-	}
-	public void addAmountSavings(double amount){
-		if(amount>=0){
-			double temp = this.getAmountSavingsInsurance();
-			if(temp == this.amountSavingsInsurance){
-				temp+=amount;
-				setAmountSavingsInsurance(temp);
-			}
-		}
-		else{
-			throw new NumberFormatException();
-		}
-	}
-	public void addAmountEntertainment(double amount){
-		if(amount>=0){
-			double temp = this.getAmountEntertainment();
-			if(temp == this.amountEntertainment){
-				temp+=amount;
-				setAmountEntertainment(temp);
-			}
-		}
-		else{
-			throw new NumberFormatException();
-		}
-	}
-	public void addAmountTransportation(double amount){
-		if(amount>=0){
-			double temp = this.getAmountTransportation();
-			if(temp == this.amountTransportation){
-				temp+=amount;
-				setAmountTransportation(temp);
-			}
-		}
-		else{
-			throw new NumberFormatException();
-		}
-	}
-	public void addAmountMisc(double amount){
-		if(amount>=0){
-			double temp = this.getAmountMisc();
-			if(temp == this.amountMisc){
-				temp+=amount;
-				setAmountMisc(temp);
-			}
-		}
-		else{
-			throw new NumberFormatException();
-		}
+	public boolean isOverBudget(double amount){
+		return false;
 	}
 
 	/*
