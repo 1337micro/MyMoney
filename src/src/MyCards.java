@@ -27,7 +27,6 @@ import src.Cards.CardType;
 public class MyCards {
 	private static List <Cards> cards;
 	private static PrintWriter pw = null;
-	//TODO: make sure the MYCARDS.TXT file is in the MyMoney folder
 	private static BufferedReader reader;
 	private static CardType cdtp;
 	private static String eml;
