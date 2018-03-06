@@ -43,7 +43,7 @@ public class Budgetting {
 
 	//Other instance members
 	private double availableFunds =0;
-	//private final String defaultPercentagesFile = "src/DefaultBudgetingPercentages.txt";
+	
 
 	
 	/**
@@ -180,7 +180,7 @@ public class Budgetting {
 		// opening file stream to write log
 		PrintWriter pw = null;
 		try {
-			pw = new PrintWriter(new FileOutputStream("Budgetting.txt"));
+			pw = new PrintWriter(new FileOutputStream(Constants.BUDGETING_FILE));
 		} catch (Exception e) {
 			System.out.println("Error while creating file");
 			System.exit(1);
@@ -541,3 +541,4 @@ public class Budgetting {
 
 
 }
+
