@@ -139,7 +139,7 @@ public class BudgetingUI implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Budgetting budget = new Budgetting(Constants.BUDGETING_FILE);
+			Budgeting budget = new Budgeting(Constants.BUDGETING_FILE);
 			double avF = budget.getAvailableFunds();
 			if (avF==0)
 			{
@@ -165,7 +165,7 @@ public class BudgetingUI implements ActionListener{
 				JOptionPane.getRootFrame().dispose();
 			};
 			if(input == 0){ 	
-				Budgetting budget = new Budgetting(Constants.DEFAULTBUDGETINGPERCENTAGES_FILE );
+				Budgeting budget = new Budgeting(Constants.DEFAULTBUDGETINGPERCENTAGES_FILE );
 				budget.writeToFile();
 				outputField.setText(Constants.BGT_MSG3);
 
@@ -273,7 +273,7 @@ public class BudgetingUI implements ActionListener{
 							throw new NumberFormatException();
 						}
 
-						Budgetting budget = new Budgetting(av_funds,p_food,p_housing,p_utilities, p_clothing, p_medical, p_donations, p_savings, p_entertainment, p_transportation, p_misc);
+						Budgeting budget = new Budgeting(av_funds,p_food,p_housing,p_utilities, p_clothing, p_medical, p_donations, p_savings, p_entertainment, p_transportation, p_misc);
 
 
 						outputField.setText(budget.toString());
@@ -327,7 +327,7 @@ public class BudgetingUI implements ActionListener{
 					}
 
 					//Calculate the budget
-					Budgetting budget = new Budgetting();
+					Budgeting budget = new Budgeting();
 					budget.setAvailableFunds(av_funds);
 
 					//Display the results
@@ -356,4 +356,5 @@ public class BudgetingUI implements ActionListener{
 		}
 	}
 }
+
 

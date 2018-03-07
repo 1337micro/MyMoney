@@ -5,6 +5,9 @@
 // --------------------------------------------------------
 package src;
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Hashtable;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.plaf.ColorUIResource;
@@ -29,12 +32,9 @@ public class CashSpendingUI implements ActionListener {
 
 	//declaring attributes 
 	private static PrintWriter pw = null;
-	//private static String infoTextField;
-	//private static  TransactionsList trst_list = new TransactionsList();
+
 	private static Cards cardTemp;
 	private static String transactions;
-	//private static List<Transactions> list_of_transactions = new ArrayList<Transactions>();
-	//private static List<String> list_string;
 	private static int i = 1;
 	private static int nbCard;
 	Border raisedbevel = BorderFactory.createRaisedBevelBorder();
@@ -50,6 +50,7 @@ public class CashSpendingUI implements ActionListener {
 	JComboBox listExpense;
 	@SuppressWarnings("rawtypes")
 	JComboBox boxCards;
+	private Dictionary<Integer, ExpenditureType> indexToExpenditureTypeDictionary;
 
 	/*
 	public static ArrayList<Transactions> getCardTransactions_list() {
@@ -129,6 +130,18 @@ public class CashSpendingUI implements ActionListener {
 			panel.setBorder(compound);
 			panel.setBackground(new Color(204, 255, 229));
 			panel.setVisible(false);
+
+			indexToExpenditureTypeDictionary = new Hashtable<Integer, ExpenditureType>();
+			indexToExpenditureTypeDictionary.put(0, ExpenditureType.HOUSING);
+			indexToExpenditureTypeDictionary.put(1, ExpenditureType.FOOD);
+			indexToExpenditureTypeDictionary.put(2, ExpenditureType.UTILITIES);
+			indexToExpenditureTypeDictionary.put(3, ExpenditureType.CLOTHING);
+			indexToExpenditureTypeDictionary.put(4, ExpenditureType.MEDICAL);
+			indexToExpenditureTypeDictionary.put(5, ExpenditureType.DONATIONS);
+			indexToExpenditureTypeDictionary.put(6, ExpenditureType.SAVINGS);
+			indexToExpenditureTypeDictionary.put(7, ExpenditureType.ENTERTAINMENT);
+			indexToExpenditureTypeDictionary.put(8, ExpenditureType.TRANSPORTATION);
+			indexToExpenditureTypeDictionary.put(9, ExpenditureType.MISC);
 	}
 
 
@@ -227,140 +240,159 @@ public class CashSpendingUI implements ActionListener {
 	 * Method used to check the expenditure the user choosed to add money on
 	 */
 	public void addingToTheExpenditure(int index, int cardIndex, double amount){
-		//setting the Cards cardTemp as the selected card by user
-		if(MyCardsUI.getListCards().get(cardIndex).getType() == CardType.DEBIT){
-			cardTemp = new Debit();
-			cardTemp.setType(MyCardsUI.getListCards().get(cardIndex).getType());
-			cardTemp.setCardNumber(MyCardsUI.getListCards().get(cardIndex).getCardNumber());
-			cardTemp.setAccNb(MyCardsUI.getListCards().get(cardIndex).getAccNb());
-			cardTemp.setMoneyAvailable(MyCardsUI.getListCards().get(cardIndex).getMoneyAvailable());
-		}
-		if(MyCardsUI.getListCards().get(cardIndex).getType() == CardType.CREDIT){
-			cardTemp = new Credit();
-			cardTemp.setType(MyCardsUI.getListCards().get(cardIndex).getType());
-			cardTemp.setCardNumber(MyCardsUI.getListCards().get(cardIndex).getCardNumber());
-			cardTemp.setAccNb(MyCardsUI.getListCards().get(cardIndex).getAccNb());
-			cardTemp.setMoneySpent(MyCardsUI.getListCards().get(cardIndex).getMoneySpent());
-			cardTemp.setLimit(MyCardsUI.getListCards().get(cardIndex).getLimit());
-			cardTemp.setMoneyAvailable(MyCardsUI.getListCards().get(cardIndex).getMoneyAvailable());
-		}
-		if(MyCardsUI.getListCards().get(cardIndex).getType() == CardType.LOYALTY){
-			cardTemp = new LoyaltyCard();
-			cardTemp.setType(MyCardsUI.getListCards().get(cardIndex).getType());
-			cardTemp.setEmail(MyCardsUI.getListCards().get(cardIndex).getEmail());
-			cardTemp.setCardNumber(MyCardsUI.getListCards().get(cardIndex).getCardNumber());
-			cardTemp.setPointsAvailable(MyCardsUI.getListCards().get(cardIndex).getPointsAvailable());
-			cardTemp.setMoneyAvailable(MyCardsUI.getListCards().get(cardIndex).getMoneyAvailable());
-		}
+		try{
+			//checks if we are not going over budget
+			if(expense.isOverBudget(amount, indexToExpenditureTypeDictionary.get(index))) {
+				String e = Constants.INVALID_MSG_OVER_BUDGET;
+				throw new NumberFormatException(e);
+			}
+			//if amount enter is invalid
+			if(amount < 0 ){
+				String e = "Please enter a valid amount of money!";
+				throw new NumberFormatException(e);
+			}
 
+			if((index >=0 || index<=9) && (amount>=0)){ 
+				//setting the Cards cardTemp as the selected card by user
+				if(MyCardsUI.getListCards().get(cardIndex).getType() == CardType.DEBIT){
+					cardTemp = new Debit();
+					cardTemp.setType(MyCardsUI.getListCards().get(cardIndex).getType());
+					cardTemp.setCardNumber(MyCardsUI.getListCards().get(cardIndex).getCardNumber());
+					cardTemp.setAccNb(MyCardsUI.getListCards().get(cardIndex).getAccNb());
+					cardTemp.setMoneyAvailable(MyCardsUI.getListCards().get(cardIndex).getMoneyAvailable());
+				}
+				if(MyCardsUI.getListCards().get(cardIndex).getType() == CardType.CREDIT){
+					cardTemp = new Credit();
+					cardTemp.setType(MyCardsUI.getListCards().get(cardIndex).getType());
+					cardTemp.setCardNumber(MyCardsUI.getListCards().get(cardIndex).getCardNumber());
+					cardTemp.setAccNb(MyCardsUI.getListCards().get(cardIndex).getAccNb());
+					cardTemp.setMoneySpent(MyCardsUI.getListCards().get(cardIndex).getMoneySpent());
+					cardTemp.setLimit(MyCardsUI.getListCards().get(cardIndex).getLimit());
+					cardTemp.setMoneyAvailable(MyCardsUI.getListCards().get(cardIndex).getMoneyAvailable());
+				}
+				if(MyCardsUI.getListCards().get(cardIndex).getType() == CardType.LOYALTY){
+					cardTemp = new LoyaltyCard();
+					cardTemp.setType(MyCardsUI.getListCards().get(cardIndex).getType());
+					cardTemp.setEmail(MyCardsUI.getListCards().get(cardIndex).getEmail());
+					cardTemp.setCardNumber(MyCardsUI.getListCards().get(cardIndex).getCardNumber());
+					cardTemp.setPointsAvailable(MyCardsUI.getListCards().get(cardIndex).getPointsAvailable());
+					cardTemp.setMoneyAvailable(MyCardsUI.getListCards().get(cardIndex).getMoneyAvailable());
+				}
+				
+				boolean didItPass;
+				//depending on which expenditure the user selected
+				switch (index) {
+				case 0: 
+					//changing the money in the selected card
+					didItPass = MyCardsUI.getCardTransactionDone(cardIndex, amount); 
+					if(didItPass == true){
+						expense.addAmount(amount, ExpenditureType.HOUSING); //adding the expense to the table
+						i++; //adding number of operations
+						//getting the transaction with format as String
+						transactions = MyCards.formatTransactionCards(ExpenditureType.HOUSING, amount, cardTemp.getCardNumber());
+						//adding the transaction to the cards_list at the selected card
+						MyCardsUI.addToTheList(cardTemp, transactions);
+						//writing expense done to the TransactionsDone.txt
+						writeToFile(ExpenditureType.HOUSING, amount	, nbCard);} 
+					break;
 
-		if((index >=0 || index<=9) && (amount>=0)){ 
-			boolean didItPass;
-			//depending on which expenditure the user selected
-			switch (index) {
-			case 0: 
-				//changing the money in the selected card
-				didItPass = MyCardsUI.getCardTransactionDone(cardIndex, amount); 
-				if(didItPass == true){
-					expense.addAmountHousing(amount); //adding the expense to the table
-					i++; //adding number of operations
-					//getting the transaction with format as String
-					transactions = MyCards.formatTransactionCards(ExpenditureType.HOUSING, amount, cardTemp.getCardNumber());
-					//adding the transaction to the cards_list at the selected card
-					MyCardsUI.addToTheList(cardTemp, transactions);
-					//writing expense done to the TransactionsDone.txt
-					writeToFile(ExpenditureType.HOUSING, amount	, nbCard);} 
-				break;
+				case 1: 
+					didItPass = MyCardsUI.getCardTransactionDone(cardIndex, amount);
+					if(didItPass == true){
+						expense.addAmount(amount, ExpenditureType.FOOD);
+						i++;
+						transactions = MyCards.formatTransactionCards(ExpenditureType.FOOD, amount, cardTemp.getCardNumber());
+						MyCardsUI.addToTheList(cardTemp, transactions);
+						writeToFile(ExpenditureType.FOOD, amount, nbCard);}
+					break;
 
-			case 1: 
-				didItPass = MyCardsUI.getCardTransactionDone(cardIndex, amount);
-				if(didItPass == true){
-					expense.addAmountFood(amount);
-					i++;
-					transactions = MyCards.formatTransactionCards(ExpenditureType.FOOD, amount, cardTemp.getCardNumber());
-					MyCardsUI.addToTheList(cardTemp, transactions);
-					writeToFile(ExpenditureType.FOOD, amount, nbCard);}
-				break;
+				case 2: 
+					didItPass = MyCardsUI.getCardTransactionDone(cardIndex, amount);
+					if(didItPass == true){
+						expense.addAmount(amount, ExpenditureType.UTILITIES);
+						i++;
+						transactions = MyCards.formatTransactionCards(ExpenditureType.UTILITIES, amount, cardTemp.getCardNumber());
+						MyCardsUI.addToTheList(cardTemp, transactions);
+						writeToFile(ExpenditureType.UTILITIES, amount, nbCard);}
+					break;
 
-			case 2: 
-				didItPass = MyCardsUI.getCardTransactionDone(cardIndex, amount);
-				if(didItPass == true){
-					expense.addAmountUtilities(amount);
-					i++;
-					transactions = MyCards.formatTransactionCards(ExpenditureType.UTILITIES, amount, cardTemp.getCardNumber());
-					MyCardsUI.addToTheList(cardTemp, transactions);
-					writeToFile(ExpenditureType.UTILITIES, amount, nbCard);}
-				break;
+				case 3: 
+					didItPass = MyCardsUI.getCardTransactionDone(cardIndex, amount);
+					if(didItPass == true){
+						expense.addAmount(amount, ExpenditureType.CLOTHING);
+						i++;
+						transactions = MyCards.formatTransactionCards(ExpenditureType.CLOTHING, amount, cardTemp.getCardNumber());
+						MyCardsUI.addToTheList(cardTemp, transactions);
+						writeToFile(ExpenditureType.CLOTHING, amount, nbCard);}
+					break;
 
-			case 3: 
-				didItPass = MyCardsUI.getCardTransactionDone(cardIndex, amount);
-				if(didItPass == true){
-					expense.addAmountClothing(amount);
-					i++;
-					transactions = MyCards.formatTransactionCards(ExpenditureType.CLOTHING, amount, cardTemp.getCardNumber());
-					MyCardsUI.addToTheList(cardTemp, transactions);
-					writeToFile(ExpenditureType.CLOTHING, amount, nbCard);}
-				break;
+				case 4: 
+					didItPass = MyCardsUI.getCardTransactionDone(cardIndex, amount);
+					if(didItPass == true){
+						expense.addAmount(amount, ExpenditureType.MEDICAL);
+						i++;
+						transactions = MyCards.formatTransactionCards(ExpenditureType.MEDICAL, amount, cardTemp.getCardNumber());
+						MyCardsUI.addToTheList(cardTemp, transactions);
+						writeToFile(ExpenditureType.MEDICAL, amount, nbCard);}
+					break;
 
-			case 4: 
-				didItPass = MyCardsUI.getCardTransactionDone(cardIndex, amount);
-				if(didItPass == true){
-					expense.addAmountMedical(amount);
-					i++;
-					transactions = MyCards.formatTransactionCards(ExpenditureType.MEDICAL, amount, cardTemp.getCardNumber());
-					MyCardsUI.addToTheList(cardTemp, transactions);
-					writeToFile(ExpenditureType.MEDICAL, amount, nbCard);}
-				break;
+				case 5: 
+					didItPass = MyCardsUI.getCardTransactionDone(cardIndex, amount);
+					if(didItPass == true){
+						expense.addAmount(amount, ExpenditureType.DONATIONS);
+						i++;
+						transactions = MyCards.formatTransactionCards(ExpenditureType.DONATIONS, amount, cardTemp.getCardNumber());
+						MyCardsUI.addToTheList(cardTemp, transactions);
+						writeToFile(ExpenditureType.DONATIONS, amount, nbCard);}
+					break;
 
-			case 5: 
-				didItPass = MyCardsUI.getCardTransactionDone(cardIndex, amount);
-				if(didItPass == true){
-					expense.addAmountDonations(amount);
-					i++;
-					transactions = MyCards.formatTransactionCards(ExpenditureType.DONATIONS, amount, cardTemp.getCardNumber());
-					MyCardsUI.addToTheList(cardTemp, transactions);
-					writeToFile(ExpenditureType.DONATIONS, amount, nbCard);}
-				break;
+				case 6: 
+					didItPass = MyCardsUI.getCardTransactionDone(cardIndex, amount);
+					if(didItPass == true){
+						expense.addAmount(amount, ExpenditureType.SAVINGS);
+						i++;
+						transactions = MyCards.formatTransactionCards(ExpenditureType.SAVINGS, amount, cardTemp.getCardNumber());
+						MyCardsUI.addToTheList(cardTemp, transactions);
+						writeToFile(ExpenditureType.SAVINGS, amount, nbCard);}
+					break;
 
-			case 6: 
-				didItPass = MyCardsUI.getCardTransactionDone(cardIndex, amount);
-				if(didItPass == true){
-					expense.addAmountSavings(amount);
-					i++;
-					transactions = MyCards.formatTransactionCards(ExpenditureType.SAVINGS, amount, cardTemp.getCardNumber());
-					MyCardsUI.addToTheList(cardTemp, transactions);
-					writeToFile(ExpenditureType.SAVINGS, amount, nbCard);}
-				break;
+				case 7: 
+					didItPass = MyCardsUI.getCardTransactionDone(cardIndex, amount);
+					if(didItPass == true){
+						expense.addAmount(amount, ExpenditureType.ENTERTAINMENT);
+						i++;
+						transactions = MyCards.formatTransactionCards(ExpenditureType.ENTERTAINMENT, amount, cardTemp.getCardNumber());
+						MyCardsUI.addToTheList(cardTemp, transactions);
+						writeToFile(ExpenditureType.ENTERTAINMENT, amount, nbCard);}
+					break;
 
-			case 7: 
-				didItPass = MyCardsUI.getCardTransactionDone(cardIndex, amount);
-				if(didItPass == true){
-					expense.addAmountEntertainment(amount);
-					i++;
-					transactions = MyCards.formatTransactionCards(ExpenditureType.ENTERTAINMENT, amount, cardTemp.getCardNumber());
-					MyCardsUI.addToTheList(cardTemp, transactions);
-					writeToFile(ExpenditureType.ENTERTAINMENT, amount, nbCard);}
-				break;
+				case 8: 
+					didItPass = MyCardsUI.getCardTransactionDone(cardIndex, amount);
+					if(didItPass == true){
+						expense.addAmount(amount, ExpenditureType.TRANSPORTATION);
+						i++;
+						transactions = MyCards.formatTransactionCards(ExpenditureType.TRANSPORTATION, amount, cardTemp.getCardNumber());
+						MyCardsUI.addToTheList(cardTemp, transactions);
+						writeToFile(ExpenditureType.TRANSPORTATION, amount, nbCard);}
+					break;
 
-			case 8: 
-				didItPass = MyCardsUI.getCardTransactionDone(cardIndex, amount);
-				if(didItPass == true){
-					expense.addAmountTransportation(amount);
-					i++;
-					transactions = MyCards.formatTransactionCards(ExpenditureType.TRANSPORTATION, amount, cardTemp.getCardNumber());
-					MyCardsUI.addToTheList(cardTemp, transactions);
-					writeToFile(ExpenditureType.TRANSPORTATION, amount, nbCard);}
-				break;
+				case 9: 
+					didItPass = MyCardsUI.getCardTransactionDone(cardIndex, amount);
+					if(didItPass == true){
+						expense.addAmount(amount, ExpenditureType.MISC);
+						i++;
+						transactions = MyCards.formatTransactionCards(ExpenditureType.MISC, amount, cardTemp.getCardNumber());
+						MyCardsUI.addToTheList(cardTemp, transactions);
+						writeToFile(ExpenditureType.MISC, amount, nbCard);}
+					break;	
+				}
+			}
 
-			case 9: 
-				didItPass = MyCardsUI.getCardTransactionDone(cardIndex, amount);
-				if(didItPass == true){
-					expense.addAmountMisc(amount);
-					i++;
-					transactions = MyCards.formatTransactionCards(ExpenditureType.MISC, amount, cardTemp.getCardNumber());
-					MyCardsUI.addToTheList(cardTemp, transactions);
-					writeToFile(ExpenditureType.MISC, amount, nbCard);}
-				break;	
+		}catch(NumberFormatException e){
+			JOptionPane.showMessageDialog(null, e.getMessage(),Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
+			int opt = JOptionPane.CLOSED_OPTION;
+			if(opt != 0){
+				JOptionPane.getRootFrame().dispose();
 			}
 		}
 	}
