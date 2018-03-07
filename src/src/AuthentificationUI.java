@@ -6,12 +6,14 @@ package src;
 //          
 //--------------------------------------------------------
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -32,7 +34,7 @@ public class AuthentificationUI extends JFrame{
 	//to launch the different features in the applicationlayout
 	private static CashSpending cashSpending = new CashSpending();
 	private static ApplicationLayout applicationLayout = new ApplicationLayout();
-	private static Budgetting budgetting = new Budgetting();
+	private static Budgeting budgetting = new Budgeting();
 	private static MyCards myCards= new MyCards();
 
 	//declaring the different needed attributes
@@ -100,11 +102,17 @@ public class AuthentificationUI extends JFrame{
 		infoPass.setLabelFor(passwTxt);
 
 		//adding all needed components
-		verticalPan.add(new JLabel("To access the application, please enter:"));
-		horizPan.add(new JLabel("Username:\t"));
+		JLabel txt1 = new JLabel("To access MyMoneyApp, please enter:");
+		JLabel txt2 = new JLabel("Username:\t");
+		JLabel txt3 = new JLabel("Password:\t");
+		txt1.setFont(new Font("Garamond", Font.PLAIN, 16));
+		txt2.setFont(new Font("Courier New", Font.BOLD, 14));
+		txt3.setFont(new Font("Courier New", Font.BOLD, 14));
+		verticalPan.add(txt1);
+		horizPan.add(txt2);
 		horizPan.add(userTxt);
 		verticalPan.add(horizPan);
-		horizPan2.add(new JLabel("Password: \t"));
+		horizPan2.add(txt3);
 		horizPan2.add(passwTxt);
 		verticalPan.add(horizPan2);
 		horizPan3.add(signIn);
@@ -119,7 +127,7 @@ public class AuthentificationUI extends JFrame{
 		frame.setVisible(true);
 		frame.setSize(400, 300);
 		frame.setResizable(false);
-		frame.setTitle("Authentification Window");
+		frame.setTitle("MyMoneyApp Authentification");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
 	}
@@ -267,7 +275,7 @@ public class AuthentificationUI extends JFrame{
 		return applicationLayout;
 	}
 
-	public static Budgetting getBudgetting() {
+	public static Budgeting getBudgetting() {
 		return budgetting;
 	}
 
