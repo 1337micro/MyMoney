@@ -2,7 +2,7 @@
 //For Comp 354 Section PP - Winter 2018
 //Iteration 1: Sabrina Rieck, 40032864
 //Iteration 2: Ornela Bregu, 26898580
-//Description: BudgetingUI class links the Budgetting class to the interface. 
+//Description: BudgetingUI class links the Budgeting class to the interface. 
 //				Takes user input and returns value to the interface
 //--------------------------------------------------------
 
@@ -139,7 +139,7 @@ public class BudgetingUI implements ActionListener{
 			double avF = budget.getAvailableFunds();
 			if (avF==0)
 			{
-				JOptionPane.showMessageDialog(null, Constants.INVALID_MSG2,Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
+				JOptionPane.showMessageDialog(null, Constants.INVALID_MSG_NO_VALID_BUDGET,Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
 				outputField.setText(Constants.BGT_MSG3);
 			}
 			else if  (avF!=0) 
@@ -158,12 +158,11 @@ public class BudgetingUI implements ActionListener{
 			int input = JOptionPane.showConfirmDialog(null, Constants.BGT_MSG2,Constants.BGT_TITLE, JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 			if(input != 0){
 				JOptionPane.getRootFrame().dispose();
-			};
+			}
 			if(input == 0){ 	
-				Budgeting budget = new Budgeting(Constants.DEFAULTBUDGETINGPERCENTAGES_FILE );
+				Budgeting budget = new Budgeting(Constants.DEFAULTBUDGETINGPERCENTAGES_FILE);
 				budget.writeToFile();
 				outputField.setText(Constants.BGT_MSG3);
-
 			}
 		}
 	}
@@ -243,7 +242,7 @@ public class BudgetingUI implements ActionListener{
 			panel1.setBorder(compound);
 
 			//popping up the option panel so that the user can input the information
-			int percentageInput=JOptionPane.showConfirmDialog(null, panel1, "Budgetting Percentages", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+			int percentageInput=JOptionPane.showConfirmDialog(null, panel1, "Budgeting Percentages", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 			if(percentageInput != 0){
 				JOptionPane.getRootFrame().dispose(); };
 
@@ -285,7 +284,7 @@ public class BudgetingUI implements ActionListener{
 
 					}
 					catch (NumberFormatException nfe){
-						JOptionPane.showMessageDialog(null, Constants.INVALID_MSG,Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
+						JOptionPane.showMessageDialog(null, Constants.INVALID_MSG_INVALID_OR_DUPLICATE_VALUE,Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
 						int opt = JOptionPane.CLOSED_OPTION;
 						if(opt != 0){
 							JOptionPane.getRootFrame().dispose();
@@ -337,7 +336,7 @@ public class BudgetingUI implements ActionListener{
 						budget.writeToFile();
 					}}
 				catch (NumberFormatException e){
-					JOptionPane.showMessageDialog(null, Constants.INVALID_MSG1,Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
+					JOptionPane.showMessageDialog(null, Constants.INVALID_MSG_INVALID_VALUE,Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
 					int opt = JOptionPane.CLOSED_OPTION;
 					if(opt != 0){
 						JOptionPane.getRootFrame().dispose();

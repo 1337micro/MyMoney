@@ -2,7 +2,7 @@
 //For Comp 354 Section PP - Winter 2018
 //Iteration 1: Sabrina Rieck, 40032864
 //Iteration 2: Ornela Bregu, 26898580
-//Description: Budgetting class calculates a user's budget according to an amount of available money
+//Description: Budgeting class calculates a user's budget according to an amount of available money
 //				Takes in percentages and an amount, calculates amounts based on percentages and returns those amounts
 //				Has a read and write to file system
 //--------------------------------------------------------
@@ -64,8 +64,7 @@ public class Budgeting {
 	 */
 	//Read percentages from chosen file
 	public Budgeting(String fileName) {
-		readBudgetingFromFile(fileName);
-		
+		readBudgetingFromFile(fileName);		
 	}
 	
 	/**
@@ -180,7 +179,7 @@ public class Budgeting {
 		// opening file stream to write log
 		PrintWriter pw = null;
 		try {
-			pw = new PrintWriter(new FileOutputStream("Budgetting.txt"));
+			pw = new PrintWriter(new FileOutputStream(Constants.BUDGETING_FILE));
 		} catch (Exception e) {
 			System.out.println("Error while creating file");
 			System.exit(1);
@@ -315,7 +314,6 @@ public class Budgeting {
 			System.out.println("Program will terminate.");
 			System.exit(0);
 		}
-
 	}
 
 	//Methods to calculate the percentages

@@ -39,9 +39,10 @@ public class Constants {
     
     //invalid constants
     public static final String INVALID_TITLE = "INVALID INPUT";
-    public static final String INVALID_MSG = "You have entered an invalid value or a duplicate.\nPlease try again.";
-    public static final String INVALID_MSG1 = "You have entered an invalid value. \nPlease try again"; 
-    public static final String INVALID_MSG2 = "You do not have a valid budget in our records. \nPlease create a new budget!";
+    public static final String INVALID_MSG_INVALID_OR_DUPLICATE_VALUE = "You have entered an invalid value or a duplicate.\nPlease try again.";
+    public static final String INVALID_MSG_INVALID_VALUE = "You have entered an invalid value. \nPlease try again"; 
+    public static final String INVALID_MSG_NO_VALID_BUDGET = "You do not have a valid budget in our records. \nPlease create a new budget!";
+    public static final String INVALID_MSG_OVER_BUDGET = "You have entered a value that is over your budget.";
     
     // budgetUI constants
     public static final String BGT_TITLE = "SAVE BUDGET";

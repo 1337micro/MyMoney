@@ -182,7 +182,7 @@ public class AuthentificationUI extends JFrame{
 
 				}//if the user enters an invalid value or a card duplicate
 				catch (NumberFormatException nfe){
-					JOptionPane.showMessageDialog(null, Constants.INVALID_MSG, Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
+					JOptionPane.showMessageDialog(null, Constants.INVALID_MSG_INVALID_OR_DUPLICATE_VALUE, Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
 					int opt = JOptionPane.CLOSED_OPTION;
 					if(opt != 0){
 						JOptionPane.getRootFrame().dispose();
