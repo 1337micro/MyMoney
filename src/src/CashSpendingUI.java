@@ -102,7 +102,7 @@ public class CashSpendingUI implements ActionListener {
 			//setting the color of the grid and font of header column titles
 			table.setGridColor(new Color(238,239,242));
 			table.getTableHeader().setFont(new Font("Calibri", Font.BOLD, 14));
-			
+
 			//making sure the user cannot move around the columns nor edit data 
 			table.getTableHeader().setReorderingAllowed(false);
 			table.setRowSelectionAllowed(false);
@@ -182,59 +182,68 @@ public class CashSpendingUI implements ActionListener {
 			//create text fields to input the information
 			listExpense = new JComboBox<Object>(ExpenditureType.values());
 			boxCards = new JComboBox<Object>(cardNum(MyCardsUI.getListCards()));
-			nbCard = MyCardsUI.getListCards().get(boxCards.getSelectedIndex()).getCardNumber();
-
-			//creating labels for the text fields
-			JLabel aN= new JLabel("Select the expense type:");
-			aN.setFont(new Font("Calibri", Font.BOLD, 14));
-			JLabel bN= new JLabel("Enter the amount of money:");
-			bN.setFont(new Font("Calibri", Font.BOLD, 14));
-			JLabel cN= new JLabel("Select the card used for this transaction");
-			cN.setFont(new Font("Calibri", Font.BOLD, 14));
-			JTextField amountTxt = new JTextField(10);
-
-			//setting the labels to the text fields
-			bN.setLabelFor(amountTxt);
-
-			//adding the elements to the panel
-			pane.add(aN);
-			pane.add(listExpense);
-			pane.add(bN);
-			pane.add(amountTxt);
-			pane.add(cN);
-			pane.add(boxCards);
-
-
-			int option=  JOptionPane.showConfirmDialog(null, pane, "Adding an Expense", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-			//if the user clicks on the CANCEL button or Closes the window
-			if(option != 0){
-				JOptionPane.getRootFrame().dispose();
-			};
-
-			//if the user clicks on the YES/OK BUTTON
-			if(option == 0){ 	
-				try{
-					//to get the expenditure choosen and the amount entered
-					int index = listExpense.getSelectedIndex();
-					int cardIndex = boxCards.getSelectedIndex();
-					double amountMoney = Double.parseDouble(amountTxt.getText());
-					addingToTheExpenditure(index, cardIndex, amountMoney);
-
-					//add element to the table
-					Object[] rowData = {expense.getAmountHousing(), expense.getAmountFood(), expense.getAmountUtilities(), expense.getAmountClothing(), 
-							expense.getAmountMedical(), expense.getAmountDonations(), expense.getAmountSavingsInsurance(), expense.getAmountEntertainment(), 
-							expense.getAmountTransportation(), expense.getAmountMisc()};
-					tableModel.addRow(rowData);
-					//to make sure only one line is shown
-					if(tableModel.getRowCount()>1){
-						tableModel.removeRow(0);
-					}
+			if(MyCardsUI.getListCards().isEmpty()){
+				JOptionPane.showMessageDialog(null, "Please load your cards on clicking on My Cards tab",Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
+				int opt = JOptionPane.CLOSED_OPTION;
+				if(opt != 0){
+					JOptionPane.getRootFrame().dispose();
 				}
-				catch (NumberFormatException nfe){
-					JOptionPane.showMessageDialog(null, Constants.INVALID_MSG,Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
-					int opt = JOptionPane.CLOSED_OPTION;
-					if(opt != 0){
-						JOptionPane.getRootFrame().dispose();
+			}
+			else{
+				nbCard = MyCardsUI.getListCards().get(boxCards.getSelectedIndex()).getCardNumber();
+
+				//creating labels for the text fields
+				JLabel aN= new JLabel("Select the expense type:");
+				aN.setFont(new Font("Calibri", Font.BOLD, 14));
+				JLabel bN= new JLabel("Enter the amount of money:");
+				bN.setFont(new Font("Calibri", Font.BOLD, 14));
+				JLabel cN= new JLabel("Select the card used for this transaction");
+				cN.setFont(new Font("Calibri", Font.BOLD, 14));
+				JTextField amountTxt = new JTextField(10);
+
+				//setting the labels to the text fields
+				bN.setLabelFor(amountTxt);
+
+				//adding the elements to the panel
+				pane.add(aN);
+				pane.add(listExpense);
+				pane.add(bN);
+				pane.add(amountTxt);
+				pane.add(cN);
+				pane.add(boxCards);
+
+
+				int option=  JOptionPane.showConfirmDialog(null, pane, "Adding an Expense", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+				//if the user clicks on the CANCEL button or Closes the window
+				if(option != 0){
+					JOptionPane.getRootFrame().dispose();
+				};
+
+				//if the user clicks on the YES/OK BUTTON
+				if(option == 0){ 	
+					try{
+						//to get the expenditure choosen and the amount entered
+						int index = listExpense.getSelectedIndex();
+						int cardIndex = boxCards.getSelectedIndex();
+						double amountMoney = Double.parseDouble(amountTxt.getText());
+						addingToTheExpenditure(index, cardIndex, amountMoney);
+
+						//add element to the table
+						Object[] rowData = {expense.getAmountHousing(), expense.getAmountFood(), expense.getAmountUtilities(), expense.getAmountClothing(), 
+								expense.getAmountMedical(), expense.getAmountDonations(), expense.getAmountSavingsInsurance(), expense.getAmountEntertainment(), 
+								expense.getAmountTransportation(), expense.getAmountMisc()};
+						tableModel.addRow(rowData);
+						//to make sure only one line is shown
+						if(tableModel.getRowCount()>1){
+							tableModel.removeRow(0);
+						}
+					}
+					catch (NumberFormatException nfe){
+						JOptionPane.showMessageDialog(null, Constants.INVALID_MSG,Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
+						int opt = JOptionPane.CLOSED_OPTION;
+						if(opt != 0){
+							JOptionPane.getRootFrame().dispose();
+						}
 					}
 				}
 
