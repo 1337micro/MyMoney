@@ -89,39 +89,46 @@ public class CashSpendingUI implements ActionListener {
 		JLabel lab = new JLabel("Please note that you need to save your cards first.");
 		//setting the custom table model to the class I created 
 		tableModel =  new DefaultTableModel(COLUMN_NAMES, 0);
-		table = new JTable(tableModel);
-		//setting the color of the grid
-		table.setGridColor(new Color(238,239,242));
-		//making sure the user cannot move around the columns nor edit data 
-		table.getTableHeader().setReorderingAllowed(false);
-		table.setRowSelectionAllowed(false);
+		table = new JTable(tableModel){
+			public boolean isCellEditable(int row,int column){
+				switch(column){ 
+				default: return false;  //all other column are not editable
+				}  
+			}};
 
-		//Create the scroll pane and add the table to it. 
-		@SuppressWarnings("deprecation")
-		JScrollPane scrollPane = JTable.createScrollPaneForTable(table);
-		scrollPane.setPreferredSize(new Dimension(750, 300));
+			//setting the color of the grid
+			table.setGridColor(new Color(238,239,242));
 
-		panel = new JPanel();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.LINE_AXIS));
-		panel.setBackground(new Color(204, 255, 229));
-		panel.setBorder(compound);
+			//making sure the user cannot move around the columns nor edit data 
+			table.getTableHeader().setReorderingAllowed(false);
+			table.setRowSelectionAllowed(false);
 
-		addExpense.addActionListener(new AddExpenseListener());
+			//Create the scroll pane and add the table to it. 
+			@SuppressWarnings("deprecation")
+			JScrollPane scrollPane = JTable.createScrollPaneForTable(table);
+			scrollPane.setPreferredSize(new Dimension(750, 300));
 
-		//setting the panel
-		panel= new JPanel();
-		JPanel pan2 = new JPanel();
-		pan2.setBackground(new Color(204, 255, 229));
-		pan2.add(scrollPane, BorderLayout.CENTER);
-		JPanel pan3 = new JPanel();
-		pan3.setBackground(new Color(204, 255, 229));
-		pan3.add(addExpense);
-		panel.add(lab);
-		panel.add(pan2);
-		panel.add(pan3);
-		panel.setBorder(compound);
-		panel.setBackground(new Color(204, 255, 229));
-		panel.setVisible(false);
+			panel = new JPanel();
+			panel.setLayout(new BoxLayout(panel, BoxLayout.LINE_AXIS));
+			panel.setBackground(new Color(204, 255, 229));
+			panel.setBorder(compound);
+
+			addExpense.addActionListener(new AddExpenseListener());
+
+			//setting the panel
+			panel= new JPanel();
+			JPanel pan2 = new JPanel();
+			pan2.setBackground(new Color(204, 255, 229));
+			pan2.add(scrollPane, BorderLayout.CENTER);
+			JPanel pan3 = new JPanel();
+			pan3.setBackground(new Color(204, 255, 229));
+			pan3.add(addExpense);
+			panel.add(lab);
+			panel.add(pan2);
+			panel.add(pan3);
+			panel.setBorder(compound);
+			panel.setBackground(new Color(204, 255, 229));
+			panel.setVisible(false);
 	}
 
 
@@ -404,6 +411,6 @@ public class CashSpendingUI implements ActionListener {
 	}
 
 
-	
+
 
 }

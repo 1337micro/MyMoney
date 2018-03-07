@@ -126,7 +126,7 @@ public class AuthentificationList {
 
 				AuthentificationUser userTst = new AuthentificationUser(username, password);
 
-				if(userTst.getUsername().equals(user.getUsername())){
+				if(userTst.getUsername().equals(user.getUsername()) && userTst.getPassword().equals(user.getPassword())){
 					return true;}
 			}
 		} catch (IOException e) {
