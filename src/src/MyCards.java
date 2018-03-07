@@ -322,6 +322,7 @@ public class MyCards {
 		}
 		return false;
 	}
+	
 	/*
 	 * method to read the database textfile
 	 */
@@ -425,6 +426,8 @@ public class MyCards {
 		}
 
 	}
+	
+	
 
 	/*
 	 * method to remove from the database textfile MyCards
@@ -511,4 +514,3 @@ public class MyCards {
 
 
 }
-

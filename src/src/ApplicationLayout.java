@@ -19,6 +19,7 @@ public class ApplicationLayout extends JFrame{
 	private MyCardsUI cardsUI;
 
 	public ApplicationLayout() {
+	
 		// setting a menubar so there can be a header
 		JMenuBar menubar = new JMenuBar();
 		JMenu txt = new JMenu(Constants.APP_WELCOME_TITLE);

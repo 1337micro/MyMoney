@@ -48,4 +48,3 @@ public interface Cards {
 	public String getStringList();
 	
 }
-

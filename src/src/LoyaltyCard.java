@@ -169,4 +169,3 @@ public class LoyaltyCard implements Cards{
 	}
 	
 }
-
