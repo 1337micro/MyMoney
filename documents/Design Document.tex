@@ -1,5 +1,10 @@
 \documentclass[12pt]{article}
 
+\usepackage{graphicx}
+
+\graphicspath{ {/} }
+
+
 \pagestyle{empty}
 \setcounter{secnumdepth}{2}
 
@@ -86,18 +91,53 @@ Each subsystem interface must be presented in a separate subsection.
 Complete description of the system design, describing one subsystem separately in respective subsection.
 UML class diagrams are to be used, as well as a short textual description describing the purpose of each class.
 
-\subsection{Subsystem X}
+
+
+
 
 \subsubsection{Detailed Design Diagram}
 
 UML class diagram depicting the internal structure of the subsystem,
 accompanied by a paragraph of text describing the rationale of this design.
+\subsection{Cash Spending Class}
+\includegraphics{cashspending}
+
+\caption{Cash Spending Class Diagram}
 
 \subsubsection{Units Description}
-
 List each class in this subsystem and write a short description of its purpose,
 as well as notes or reminders useful for the programmers who will implement them.
 List all attributes and functions of the class.
+
+\begin{center}
+\begin{tabular}{|p{2cm}||p{15cm}|}
+\hline
+Class name & CashSpending \\
+\hline
+Description & Contains basic business logic that manipulates the user's spending data model\\
+\hline
+
+Attributes & budgeting,
+expenditureTypeToBudgetingConstantDictionary, 
+amountHousing,
+amountUtilities,
+amountFood,
+amountMisc,
+amountSavingsInsurance,
+amountMedical,
+amountEntertainment,
+amountTransportation,
+amountDonations,
+amountClothing\\
+\hline
+Methods & CashSpending(),
+toString(),
+addAmount(double, ExpenditureType),
+isOverBudget(double, ExpenditureType)\\
+\hline
+\end{tabular}
+\end{center}
+
 
 \section{Dynamic Design Scenarios}
 
