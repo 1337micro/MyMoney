@@ -203,7 +203,7 @@ public class CashSpendingUI implements ActionListener {
 						}
 				}
 				catch (NumberFormatException nfe){
-					JOptionPane.showMessageDialog(null, Constants.INVALID_MSG,Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
+					JOptionPane.showMessageDialog(null, Constants.INVALID_MSG_INVALID_OR_DUPLICATE_VALUE,Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
 					int opt = JOptionPane.CLOSED_OPTION;
 					if(opt != 0){
 						JOptionPane.getRootFrame().dispose();
@@ -217,13 +217,22 @@ public class CashSpendingUI implements ActionListener {
 	/*
 	 * Method used to check the expenditure the user chose to add money on
 	 */
-	public void addingToTheExpenditure(int index, double temp){
+	public void addingToTheExpenditure(int index, double tempAmount){
 		try{
-			if((index >= 0 || index <= 9) && (temp >= 0)){ 
-				expense.addAmount(temp, indexToExpenditureTypeDictionary.get(index));
+			if (tempAmount < 0) {
+				throw new NumberFormatException();
 			}
+			if (expense.isOverBudget(tempAmount, indexToExpenditureTypeDictionary.get(index))) {
+				JOptionPane.showMessageDialog(null, Constants.INVALID_MSG_OVER_BUDGET, Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
+				int opt = JOptionPane.CLOSED_OPTION;
+				if(opt != 0){
+					JOptionPane.getRootFrame().dispose();
+				}
+				return;
+			}
+			expense.addAmount(tempAmount, indexToExpenditureTypeDictionary.get(index));
 		} catch(NumberFormatException e){
-			JOptionPane.showMessageDialog(null, Constants.INVALID_MSG,Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
+			JOptionPane.showMessageDialog(null, Constants.INVALID_MSG_INVALID_OR_DUPLICATE_VALUE, Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
 			int opt = JOptionPane.CLOSED_OPTION;
 			if(opt != 0){
 				JOptionPane.getRootFrame().dispose();

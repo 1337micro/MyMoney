@@ -6,6 +6,8 @@
 
 package src;
 
+import java.util.Dictionary;
+
 public class CashSpending {
 	//Calculated percentages
 	private double amountHousing = 0;
@@ -19,6 +21,7 @@ public class CashSpending {
 	private double amountTransportation = 0;
 	private double amountMisc = 0;
 	private Budgeting budgeting;
+	private Dictionary<ExpenditureType, String> expenditureTypeToBudgetingConstantDictionary;
 	
 	/*
 	 * Constructor
@@ -104,38 +107,63 @@ public class CashSpending {
 	public void addAmount(double amount, ExpenditureType type){
 		switch (type){
 			case HOUSING:
-				setAmountHousing(this.getAmountHousing() + amount);
+				setAmountHousing(getAmountHousing() + amount);
 				break;
 			case FOOD:
-				setAmountFood(this.getAmountFood() + amount);
+				setAmountFood(getAmountFood() + amount);
 				break;
 			case UTILITIES:
-				setAmountUtilities(this.getAmountUtilities() + amount);
+				setAmountUtilities(getAmountUtilities() + amount);
 				break;
 			case CLOTHING:
-				setAmountClothing(this.getAmountClothing() + amount);
+				setAmountClothing(getAmountClothing() + amount);
 				break;
 			case MEDICAL:
-				setAmountMedical(this.getAmountMedical() + amount);
+				setAmountMedical(getAmountMedical() + amount);
 				break;
 			case DONATIONS:
-				setAmountDonations(this.getAmountDonations() + amount);
+				setAmountDonations(getAmountDonations() + amount);
 				break;
 			case SAVINGS:
-				setAmountSavingsInsurance(this.getAmountSavingsInsurance() + amount);
+				setAmountSavingsInsurance(getAmountSavingsInsurance() + amount);
 				break;
 			case ENTERTAINMENT:
-				setAmountEntertainment(this.getAmountEntertainment() + amount);
+				setAmountEntertainment(getAmountEntertainment() + amount);
 				break;
 			case TRANSPORTATION:
-				setAmountTransportation(this.getAmountTransportation() + amount);
+				setAmountTransportation(getAmountTransportation() + amount);
 				break;
 			case MISC:
-				setAmountMisc(this.getAmountMisc() + amount);
+				setAmountMisc(getAmountMisc() + amount);
 				break;
 		}
 	}
-	public boolean isOverBudget(double amount){
+	public boolean isOverBudget(double amount, ExpenditureType type){
+		//sets the budgeting amounts from the file
+		budgeting.readBudgetingFromFile(Constants.BUDGETING_FILE);
+		
+		switch (type) {
+			case HOUSING:
+				return getAmountHousing() + amount > budgeting.getAmountHousing();
+			case FOOD:
+				return getAmountFood() + amount > budgeting.getAmountFood();
+			case UTILITIES:
+				return getAmountUtilities() + amount > budgeting.getAmountUtilities();
+			case CLOTHING:
+				return getAmountClothing() + amount > budgeting.getAmountClothing();
+			case MEDICAL:
+				return getAmountMedical() + amount > budgeting.getAmountMedical();
+			case DONATIONS:
+				return getAmountDonations() + amount > budgeting.getAmountDonations();
+			case SAVINGS:
+				return getAmountSavingsInsurance() + amount > budgeting.getAmountSavingsInsurance();
+			case ENTERTAINMENT:
+				return getAmountEntertainment() + amount > budgeting.getAmountEntertainment();
+			case TRANSPORTATION:
+				return getAmountTransportation() + amount > budgeting.getAmountTransportation();
+			case MISC:
+				return getAmountMisc() + amount > budgeting.getAmountMisc();
+		}
 		return false;
 	}
 
