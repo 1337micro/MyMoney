@@ -74,8 +74,8 @@ public class ApplicationLayout extends JFrame{
 
 
 		//adding buttons to their panels
-		frameTBbutt1.add(cashspending);
-		frameTBbutt2.add(cards);
+		frameTBbutt1.add(cards);
+		frameTBbutt2.add(cashspending);
 		frameTBbutt3.add(budgeting);
 		frameTImg.add(imgLab);
 		//adding panels to the toolbar
@@ -113,3 +113,4 @@ public class ApplicationLayout extends JFrame{
 
 
 }
+
