@@ -48,7 +48,7 @@ public class Constants {
     public static final String BGT_MSG = "Do you want to save this budget?";
     public static final String BGT_MSG1 = "Do you want to save your personalized percentages?";
     public static final String BGT_MSG2 = "Do you want to delete your budget?";
-    public static final String BGT_MSG3 = "NO AVAILABLE BUDGET";
+    public static final String BGT_MSG3 = "WE'RE SORRY! NO EXCISTING BUDGET IN OUR RECORDS";
     
     //image location
     public static final ImageIcon WARNING_IMAGE = new ImageIcon("warningIcon.png");

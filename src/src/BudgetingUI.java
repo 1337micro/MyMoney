@@ -49,7 +49,7 @@ public class BudgetingUI implements ActionListener{
 	Border raisedbevel = BorderFactory.createRaisedBevelBorder();
 	Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 	Border compound = BorderFactory.createCompoundBorder(raisedbevel, loweredbevel);
-
+	Border lineBdr = BorderFactory.createLineBorder(Color.BLACK);
 	/**
 	 * Button listening for a click on the "Budgeting" button. It will show or hide the Budgeting panel
 	 * @param e SWING argument
@@ -85,14 +85,18 @@ public class BudgetingUI implements ActionListener{
 		//Initializing output field
 		outputField = new JTextArea();
 		outputField.setEditable(false);
-		outputField.setVisible(true); //field is invisible until CalculateBudget button is pushed
+		outputField.setVisible(false); //field is invisible until CalculateBudget button is pushed
 
 		//Initializing the panel
 		panel = new JPanel();
 
+		
 
 		//setting the background
 		panel.setBackground(new Color(204, 255, 255));
+		outputField.setBackground(new Color(255, 255, 224));
+		outputField.setBorder(lineBdr);
+	
 		panel.setBorder(compound);
 
 		//creating the buttons
@@ -143,7 +147,8 @@ public class BudgetingUI implements ActionListener{
 				outputField.setText(Constants.BGT_MSG3);
 			}
 			else if  (avF!=0) 
-			{ outputField.setText(budget.toString());}
+			{   outputField.setVisible(true);
+				outputField.setText(budget.toString());}
 
 		}
 	}
@@ -175,7 +180,7 @@ public class BudgetingUI implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			UIManager.put("OptionPane.background",new ColorUIResource(204, 255, 255));
-			UIManager.put("Panel.background",new ColorUIResource(255, 255, 255));
+			UIManager.put("Panel.background",new ColorUIResource(255, 255, 224));
 			JPanel panel1=new JPanel(new GridLayout(14,20));
 
 
@@ -298,11 +303,10 @@ public class BudgetingUI implements ActionListener{
 	public class CalculateAndDisplayBudget implements ActionListener{
 		private void displayBudget() {
 			UIManager.put("OptionPane.background",new ColorUIResource(204, 255, 255));
-			UIManager.put("Panel.background",new ColorUIResource(255, 255, 255));
+			UIManager.put("Panel.background",new ColorUIResource(255, 255, 224));
 
 			JPanel panel2=new JPanel();
 			JTextField inputAFunds = new JTextField(10);
-
 			//Setting the label for text field
 			JLabel aF = new JLabel("Please enter your available funds: ");
 			aF.setLabelFor(inputAFunds);
@@ -327,6 +331,7 @@ public class BudgetingUI implements ActionListener{
 					budget.setAvailableFunds(av_funds);
 
 					//Display the results
+					outputField.setVisible(true);
 					outputField.setText(budget.toString());
 					int input = JOptionPane.showConfirmDialog(null, Constants.BGT_MSG,Constants.BGT_TITLE, JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 					if(input != 0){
