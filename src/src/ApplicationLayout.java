@@ -55,12 +55,14 @@ public class ApplicationLayout extends JFrame{
 		
 		//creating buttons and setting their size
 		JButton cashspending = new JButton(Constants.BUTTON_SPENDING);
+		cashspending.setFont(new Font("Courier New", Font.ITALIC, 14));
 		cashspending.setPreferredSize(new Dimension(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT));
 		CashSpendingUI cashSpendingUI = new CashSpendingUI();
 		this.cashSpendingUI = cashSpendingUI;        
 		cashspending.addActionListener(cashSpendingUI);
 
 		JButton cards = new JButton(Constants.BUTTON_CARDS);
+		cards.setFont(new Font("Courier New", Font.ITALIC, 14));
 		cards.setPreferredSize(new Dimension(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT));
 		MyCardsUI cardsUI = new MyCardsUI();
 		this.cardsUI=cardsUI;
@@ -68,6 +70,7 @@ public class ApplicationLayout extends JFrame{
 
 
 		JButton budgeting = new JButton(Constants.BUTTON_BUDGET);
+		budgeting.setFont(new Font("Courier New", Font.ITALIC, 14));
 		budgeting.setPreferredSize(new Dimension(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT));
 		BudgetingUI budgetingUI = new BudgetingUI();
 		this.budgetingUI = budgetingUI;
@@ -114,4 +117,5 @@ public class ApplicationLayout extends JFrame{
 
 
 }
+
 

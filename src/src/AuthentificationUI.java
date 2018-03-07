@@ -24,7 +24,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.border.Border;
+import javax.swing.plaf.ColorUIResource;
 
 
 public class AuthentificationUI extends JFrame{
@@ -90,6 +92,7 @@ public class AuthentificationUI extends JFrame{
 		//setting the buttons
 		JButton newUser = new JButton("New User");
 		newUser.addActionListener(new CreateUserListener());
+
 		JButton signIn = new JButton("Sign In");
 		signIn.addActionListener(new SignInListener());
 
@@ -140,53 +143,83 @@ public class AuthentificationUI extends JFrame{
 		 */
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			//create a panel and a layout that fits the amount of information required.
-			JPanel pane=new JPanel(new GridLayout(5,2));
+			if(users_list.size()>0){
+				JPanel pan=new JPanel();
 
-			//create text fields to input the information
-			JTextField usn = new JTextField(5);
-			JTextField psw = new JTextField(10);
+				//Setting the label for text field
+				JLabel aF = new JLabel("This is a one user application.\nDo you want to remove the existing user and create your own?");
+				pan.add(aF);
 
-			//creating labels for the text fields
-			JLabel uS= new JLabel("Please enter a username: ");
-			JLabel pW= new JLabel("Please enter a password: ");
-
-			//setting the labels to the text fields
-			uS.setLabelFor(usn);
-			pW.setLabelFor(psw);
-
-			//adding the elements to the panel
-			pane.add(uS);
-			pane.add(usn);
-			pane.add(pW);
-			pane.add(psw);
-
-			//make the option panel appear in order to ask the user for information to create its account
-			int option =  JOptionPane.showConfirmDialog(null, pane, "Creation of an Account", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-			//if the user clicks on the CANCEL button or Closes the window
-			if(option != 0){
-				JOptionPane.getRootFrame().dispose();
-			};
-			//if the user clicks on the YES/OK BUTTON
-			if(option == 0){ 	
-				try{
-					username = usn.getText();
-					password = psw.getText();
-
-					//if the user does not enter any value
-					if((username == null) || (password == null)){
-						throw new NumberFormatException();
+				int optn=JOptionPane.showConfirmDialog(null, pan, "INVALID INPUT", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+				if(optn != 0){ //if user clicks on Cancel or closes the window
+					JOptionPane.getRootFrame().dispose();
+				};
+				//if the user clicks on the YES/OK BUTTON
+				if(optn == 0){ 
+					users_list.remove(0);
+					try {
+						clearDataBaseAuthentification();
+					} catch (IOException e) {
+						System.err.println("Error in clearing the database Authentification.txt");
+						e.printStackTrace();
 					}
+					JOptionPane.getRootFrame().dispose();
+				}
+			}
+					//if there is only no user account in the database Authentification.txt
+			if(users_list.size()<1){
+				//changing the color of the panel and optionpane
+				UIManager.put("OptionPane.background",new ColorUIResource(204, 204, 205));
+				UIManager.put("Panel.background",new ColorUIResource(204, 204, 205));
+				//create a panel and a layout that fits the amount of information required.
+				JPanel pane=new JPanel(new GridLayout(5,2));
 
-					user = new AuthentificationUser(username,password);
+				//create text fields to input the information
+				JTextField usn = new JTextField(5);
+				JTextField psw = new JTextField(10);
 
-					//if the username already exists
-					boolean isDuplicate = AuthentificationList.readToFindDuplicate(user);
-					if(isDuplicate == true){
-						throw new NumberFormatException();
-					}
-					else{
-						if(users_list.size()<1){
+				//creating labels for the text fields
+				JLabel uS= new JLabel("Enter a username:\t");
+				uS.setFont(new Font("Courier New", Font.BOLD, 14));
+				JLabel pW= new JLabel("Enter a password:\t");
+				pW.setFont(new Font("Courier New", Font.BOLD, 14));
+
+				//setting the labels to the text fields
+				uS.setLabelFor(usn);
+				pW.setLabelFor(psw);
+
+				//adding the elements to the panel
+				pane.add(uS);
+				pane.add(usn);
+				pane.add(pW);
+				pane.add(psw);
+
+				//make the option panel appear in order to ask the user for information to create its account
+				int option =  JOptionPane.showConfirmDialog(null, pane, "Creating an Account", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+				//if the user clicks on the CANCEL button or Closes the window
+				if(option != 0){
+					JOptionPane.getRootFrame().dispose();
+				};
+				//if the user clicks on the YES/OK BUTTON
+				if(option == 0){ 	
+					try{
+						username = usn.getText();
+						password = psw.getText();
+
+						//if the user does not enter any value
+						if((username == null) || (password == null)){
+							throw new NumberFormatException();
+						}
+
+						user = new AuthentificationUser(username,password);
+
+						//if the username already exists
+						boolean isDuplicate = AuthentificationList.readToFindDuplicate(user);
+						if(isDuplicate == true){
+							throw new NumberFormatException();
+						}
+						else{
+
 							users_list.add(user);
 							AuthentificationList.writeToFile(user);
 							JOptionPane.getRootFrame().dispose();
@@ -194,34 +227,18 @@ public class AuthentificationUI extends JFrame{
 							frame.dispose();
 
 							applicationLayout.setVisible(true);
-						}
-						else{
-							JPanel pan=new JPanel();
 
-							//Setting the label for text field
-							JLabel aF = new JLabel("This is a one user application.\nDo you want to remove the existing user and create your own?");
-							pan.add(aF);
 
-							int optn=JOptionPane.showConfirmDialog(null, pan, "INVALID INPUT", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-							if(optn != 0){
-								JOptionPane.getRootFrame().dispose();
-							};
-							//if the user clicks on the YES/OK BUTTON
-							if(optn == 0){ 
-								users_list.remove(0);
-								clearDataBaseAuthentification();
-								JOptionPane.getRootFrame().dispose();
-							}
+
 						}
 
-					}
-
-				}//if the user enters an invalid value or a card duplicate
-				catch (NumberFormatException | IOException nfe){
-					JOptionPane.showMessageDialog(null, Constants.INVALID_MSG, Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
-					int opt = JOptionPane.CLOSED_OPTION;
-					if(opt != 0){
-						JOptionPane.getRootFrame().dispose();
+					}//if the user enters an invalid value or a card duplicate
+					catch (NumberFormatException nfe){
+						JOptionPane.showMessageDialog(null, Constants.INVALID_MSG, Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
+						int opt = JOptionPane.CLOSED_OPTION;
+						if(opt != 0){
+							JOptionPane.getRootFrame().dispose();
+						}
 					}
 				}
 
@@ -296,6 +313,7 @@ public class AuthentificationUI extends JFrame{
 
 	}
 }
+
 
 
 

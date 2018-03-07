@@ -25,7 +25,7 @@ public class Constants {
 
 	//button constants 
 	public static final int BUTTON_WIDTH = 150;
-	public static final int BUTTON_HEIGHT= 20;
+	public static final int BUTTON_HEIGHT= 30;
 	public static final String BUTTON_BUDGET = "Budgeting";
 	public static final String BUTTON_CALCULATE_BUDGET = "Calculate Budget";
 	public static final String BUTTON_SHOW_BUDGET = "My Budget";
@@ -79,5 +79,6 @@ public class Constants {
 	public final static String TRANSPORTATION_TYPE = "Transportation";
 	public final static String MISC_TYPE = "Misc";
 }
+
 
 

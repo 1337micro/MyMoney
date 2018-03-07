@@ -17,6 +17,7 @@ import src.CashSpending.ExpenditureType;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -43,7 +44,7 @@ public class CashSpendingUI implements ActionListener {
 	JPanel panel; // the panel containing all our JTextFields for CashSpending feature
 	protected static JTable table;
 	protected static DefaultTableModel tableModel;
-	protected static Object[] COLUMN_NAMES = {"HOUSING", "FOOD","UTILITIES","CLOTHING", "MEDICAL","DONATIONS","SAVINGS","ENTERTAINMENT","TRANSPORTATION","MISC"};
+	protected static Object[] COLUMN_NAMES = {"Housing", "Food","Utilities","Clothing", "Medical","Donations","Savings","Entertainment","Transportation","Misc"};
 	JButton addExpense = new JButton(Constants.BUTTON_ADD_EXPENSE);
 	protected static CashSpending expense = new CashSpending();
 	@SuppressWarnings("rawtypes")
@@ -88,6 +89,7 @@ public class CashSpendingUI implements ActionListener {
 
 	public void CashSpendingUI() {
 		JLabel lab = new JLabel("Please note that you need to save your cards first.");
+		lab.setFont(new Font("Courier New", Font.BOLD, 14));
 		//setting the custom table model to the class I created 
 		tableModel =  new DefaultTableModel(COLUMN_NAMES, 0);
 		table = new JTable(tableModel){
@@ -97,9 +99,10 @@ public class CashSpendingUI implements ActionListener {
 				}  
 			}};
 
-			//setting the color of the grid
+			//setting the color of the grid and font of header column titles
 			table.setGridColor(new Color(238,239,242));
-
+			table.getTableHeader().setFont(new Font("Calibri", Font.BOLD, 14));
+			
 			//making sure the user cannot move around the columns nor edit data 
 			table.getTableHeader().setReorderingAllowed(false);
 			table.setRowSelectionAllowed(false);
@@ -171,8 +174,8 @@ public class CashSpendingUI implements ActionListener {
 		 */
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			UIManager.put("OptionPane.background",new ColorUIResource(204, 255, 229));
-			UIManager.put("Panel.background",new ColorUIResource(255, 255, 255));
+			//UIManager.put("OptionPane.background",new ColorUIResource(204, 255, 229));
+			//UIManager.put("Panel.background",new ColorUIResource(255, 255, 255));
 			//create a panel and a layout that fits the amount of information required.
 			JPanel pane=new JPanel(new GridLayout(7,2));
 
@@ -182,9 +185,12 @@ public class CashSpendingUI implements ActionListener {
 			nbCard = MyCardsUI.getListCards().get(boxCards.getSelectedIndex()).getCardNumber();
 
 			//creating labels for the text fields
-			JLabel aN= new JLabel("Please select the expense type:");
-			JLabel bN= new JLabel("Please enter the amount of money:");
-			JLabel cN= new JLabel("Which card was used for this transaction?");
+			JLabel aN= new JLabel("Select the expense type:");
+			aN.setFont(new Font("Calibri", Font.BOLD, 14));
+			JLabel bN= new JLabel("Enter the amount of money:");
+			bN.setFont(new Font("Calibri", Font.BOLD, 14));
+			JLabel cN= new JLabel("Select the card used for this transaction");
+			cN.setFont(new Font("Calibri", Font.BOLD, 14));
 			JTextField amountTxt = new JTextField(10);
 
 			//setting the labels to the text fields
@@ -278,7 +284,7 @@ public class CashSpendingUI implements ActionListener {
 					cardTemp.setPointsAvailable(MyCardsUI.getListCards().get(cardIndex).getPointsAvailable());
 					cardTemp.setMoneyAvailable(MyCardsUI.getListCards().get(cardIndex).getMoneyAvailable());
 				}
-				
+
 				boolean didItPass;
 				//depending on which expenditure the user selected
 				switch (index) {

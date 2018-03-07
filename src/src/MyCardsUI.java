@@ -96,7 +96,9 @@ public class MyCardsUI implements ActionListener{
 	 */
 	@SuppressWarnings("serial")
 	public void MyCardsUI(){
-
+		JLabel lab = new JLabel("Please add or remove the cards you own.");
+		lab.setFont(new Font("Courier New", Font.BOLD, 14));
+		
 		//setting the custom table model to the class I created 
 		tableModel =  new DefaultTableModel(COLUMN_NAMES, 0);
 		table = new JTable(tableModel){
@@ -106,7 +108,7 @@ public class MyCardsUI implements ActionListener{
 				default: return false;  //all other column are not editable
 				}  
 			}}; 
-
+			table.getTableHeader().setFont(new Font("Calibri", Font.BOLD, 14));
 
 			//making sure the user cannot move around the columns nor edit data 
 			table.getTableHeader().setReorderingAllowed(false);
@@ -136,6 +138,7 @@ public class MyCardsUI implements ActionListener{
 			pan3.setBackground(new Color(204, 204, 255));
 			pan3.add(addCardButton);
 			pan3.add(removeCardButton);
+			panel.add(lab);
 			panel.add(pan2);
 			panel.add(pan3);
 			panel.setBorder(compound);
@@ -174,8 +177,9 @@ public class MyCardsUI implements ActionListener{
 			int column = e.getColumn();
 			if (column == 4) {
 				//changing the color of the panel and optionpane
-				UIManager.put("OptionPane.background",new ColorUIResource(204, 204, 255));
-				UIManager.put("Panel.background",new ColorUIResource(255, 255, 255));
+				//UIManager.put("OptionPane.background",new ColorUIResource(204, 204, 205));
+				//UIManager.put("Panel.background",new ColorUIResource(255, 255, 255));
+				//Font("Calibri", Font.BOLD, 14));
 				// getting the location of the checkbox
 				tableModel = (DefaultTableModel) e.getSource();
 				//String columnName = tableModel.getColumnName(column);
@@ -194,7 +198,9 @@ public class MyCardsUI implements ActionListener{
 					pane.setPreferredSize(new Dimension(500, 100));
 
 					if(cards_list.get(row).getType() == Cards.CardType.DEBIT){
-						JLabel txt2 = new JLabel ("Past transactions: ");
+						JLabel txt2 = new JLabel ("Transactions done with this card: ");
+						
+						txt2.setFont(new Font("Calibri", Font.BOLD, 14));
 						transacBox = new JTextArea(3,30);
 						transacBox.setText(cards_list.get(row).getStringList());
 						transacBox.setEditable(false);
@@ -218,14 +224,17 @@ public class MyCardsUI implements ActionListener{
 					}
 					else if(cards_list.get(row).getType() == Cards.CardType.CREDIT){
 						JLabel txt2 = new JLabel ("Credit Card Limit:   $");
+						txt2.setFont(new Font("Calibri", Font.BOLD, 14));
 						double lmtCard = (cards_list.get(row).getLimit());
 						String lmt = String.valueOf(lmtCard);
 						accNm = new JTextArea(lmt);
+						
 						accNm.setEditable(false);
 						box1.add(txt2);
 						box1.add(accNm);
 
-						JLabel txt3 = new JLabel ("Past Transactions:");
+						JLabel txt3 = new JLabel ("Transactions done with this card: ");
+						txt3.setFont(new Font("Calibri", Font.BOLD, 14));
 						transacBox = new JTextArea(3,30);
 						transacBox.setText(cards_list.get(row).getStringList());
 						transacBox.setEditable(false);
@@ -251,6 +260,7 @@ public class MyCardsUI implements ActionListener{
 					}
 					else if(cards_list.get(row).getType() == Cards.CardType.LOYALTY){
 						JLabel txt2 = new JLabel ("Your Points Value in Cash: $");
+						txt2.setFont(new Font("Calibri", Font.BOLD, 14));
 						double pts = (cards_list.get(row).getMoneyAvailable());
 						String ptsCash = String.valueOf(pts);
 						accNm = new JTextArea(ptsCash);
@@ -258,7 +268,8 @@ public class MyCardsUI implements ActionListener{
 						box2.add(txt2);
 						box2.add(accNm);
 
-						JLabel txt3 = new JLabel ("Past Transactions:");
+						JLabel txt3 = new JLabel ("Transactions done with this card: ");
+						txt3.setFont(new Font("Calibri", Font.BOLD, 14));
 						transacBox = new JTextArea(3,30);
 						transacBox.setText(cards_list.get(row).getStringList());
 						transacBox.setEditable(false);
@@ -299,10 +310,10 @@ public class MyCardsUI implements ActionListener{
 		 */
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			UIManager.put("OptionPane.background",new ColorUIResource(204, 204, 255));
-			UIManager.put("Panel.background",new ColorUIResource(255, 255, 255));
+			//UIManager.put("OptionPane.background",new ColorUIResource(204, 204, 255));
+			//UIManager.put("Panel.background",new ColorUIResource(255, 255, 255));
 			Cards.CardType [] possibilities= {Cards.CardType.DEBIT,Cards.CardType.CREDIT, Cards.CardType.LOYALTY};
-			Cards.CardType type= (Cards.CardType)JOptionPane.showInputDialog(null, "Please choose the type of card you wish to add"
+			Cards.CardType type= (Cards.CardType)JOptionPane.showInputDialog(null, "Choose  type of card to add\t\t"
 					,"Addition of a card",JOptionPane.QUESTION_MESSAGE,Constants.CARDS_IMAGE, possibilities, possibilities[0] );
 			//if the user select Debit
 			if (type==Cards.CardType.DEBIT) {
@@ -317,9 +328,13 @@ public class MyCardsUI implements ActionListener{
 
 
 				//creating labels for the text fields
-				JLabel aN= new JLabel("Please enter your account Number (4 numbers)");
-				JLabel cN= new JLabel("Please enter the card Number (8 numbers)");
-				JLabel mC= new JLabel("Please enter the card's current amount of money");
+				JLabel aN= new JLabel("Enter your account Number (4 numbers)");
+				//aN.setForeground(new Color(204, 204, 255));
+				aN.setFont(new Font("Calibri", Font.BOLD, 14));
+				JLabel cN= new JLabel("Enter the card Number (8 numbers)");
+				cN.setFont(new Font("Calibri", Font.BOLD, 14));
+				JLabel mC= new JLabel("Enter the card's current amount of money");
+				mC.setFont(new Font("Calibri", Font.BOLD, 14));
 
 				//setting the labels to the text fields
 
@@ -349,7 +364,10 @@ public class MyCardsUI implements ActionListener{
 						accNb = Integer.parseInt(accNumber.getText());
 						cardNum = Integer.parseInt(cardNumber.getText());
 						money = Double.parseDouble(moneyCurrent.getText());
-
+						
+						if(accNb>9999 || cardNum>99999999){
+							throw new NumberFormatException();
+						}
 						if( !(accNb > 0 || cardNum > 0 || money > 0)){
 							throw new NumberFormatException();
 						}
@@ -390,9 +408,12 @@ public class MyCardsUI implements ActionListener{
 
 
 				//creating labels for the text fields
-				JLabel eN= new JLabel("Please enter your account email");
-				JLabel cN= new JLabel("Please enter the card Number (8 numbers)");
-				JLabel pN= new JLabel("Please enter the card's current amount of points");
+				JLabel eN= new JLabel("Enter your account email");
+				eN.setFont(new Font("Calibri", Font.BOLD, 14));
+				JLabel cN= new JLabel("Enter the card Number (8 numbers)");
+				cN.setFont(new Font("Calibri", Font.BOLD, 14));
+				JLabel pN= new JLabel("Enter the card's current amount of points");
+				pN.setFont(new Font("Calibri", Font.BOLD, 14));
 
 				//setting the labels to the text fields
 				eN.setLabelFor(emailTxt);
@@ -428,14 +449,14 @@ public class MyCardsUI implements ActionListener{
 						boolean emlBool = MyCards.isValid(eml);
 						//if user enters a negative number
 						if( emlBool == false){
-							throw new IllegalStateException();
+							throw new NumberFormatException();
 						}
 						cdtp = Cards.CardType.LOYALTY;
 						email = emailTxt.getText();
 						cardNum=Integer.parseInt(cardNumber.getText());
 						pointsAvailable = Integer.parseInt(ptsAvailable.getText());
 
-						if(cardNum<0 || pointsAvailable<=0){
+						if(cardNum<0 || pointsAvailable<=0 || cardNum>99999999){
 							throw new NumberFormatException();
 						}
 
@@ -454,13 +475,6 @@ public class MyCardsUI implements ActionListener{
 						MyCards.writeToFile(card);
 					}
 					//if the user enters an invalid number or email or a card duplicate
-					catch(IllegalStateException nf){
-						JOptionPane.showMessageDialog(null, Constants.INVALID_MSG,Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
-						int opt = JOptionPane.CLOSED_OPTION;
-						if(opt != 0){
-							JOptionPane.getRootFrame().dispose();
-						}
-					} 
 					catch (NumberFormatException nfe){
 						JOptionPane.showMessageDialog(null, Constants.INVALID_MSG,Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
 						int opt = JOptionPane.CLOSED_OPTION;
@@ -479,10 +493,14 @@ public class MyCardsUI implements ActionListener{
 				JPanel pane=new JPanel(new GridLayout(8,10));
 
 				//creating labels to go with the textfields
-				JLabel aN = new JLabel("Please Enter your account Number (4 numbers)");
-				JLabel cN = new JLabel("Please Enter the card Number (8 numbers)");
-				JLabel mC = new JLabel("Please Enter the amount of you already spent");
-				JLabel lt = new JLabel("Please enter your credit limit");
+				JLabel aN = new JLabel("Enter your account Number (4 numbers)");
+				aN.setFont(new Font("Calibri", Font.BOLD, 14));
+				JLabel cN = new JLabel("Enter the card Number (8 numbers)");
+				cN.setFont(new Font("Calibri", Font.BOLD, 14));
+				JLabel mC = new JLabel("Enter the amount of you already spent");
+				mC.setFont(new Font("Calibri", Font.BOLD, 14));
+				JLabel lt = new JLabel("Enter your credit limit");
+				lt.setFont(new Font("Calibri", Font.BOLD, 14));
 
 				//creating text fields to take the input from the user
 				JTextField accNumber = new JTextField(5);
@@ -525,7 +543,7 @@ public class MyCardsUI implements ActionListener{
 						limitCard = Double.parseDouble(limit.getText());
 
 						//if user enters a negative number
-						if(accNb<=0 || cardNum<=0 || moneySpent<=0 || limitCard<=0){
+						if(accNb<=0 || cardNum<=0 || moneySpent<=0 || limitCard<=0 || accNb>9999 || cardNum>99999999){
 							throw new NumberFormatException();
 						}
 
@@ -722,6 +740,7 @@ public class MyCardsUI implements ActionListener{
 		}
 	}
 }
+
 
 
 
