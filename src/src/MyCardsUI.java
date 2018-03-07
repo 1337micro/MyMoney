@@ -9,6 +9,8 @@ package src;
 //--------------------------------------------------------
 
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.event.TableModelEvent;
@@ -33,6 +35,7 @@ public class MyCardsUI implements ActionListener{
 	// declaring used attributes
 	protected static Object[] COLUMN_NAMES = {"Card type", "Account Number","Card Number", "Amount", "Select"};
 	protected static TableColumn tc;
+	//protected TransactionsList trans_list;
 	UIManager UI;
 	protected static Cards card;
 	protected static DefaultTableModel tableModel;
@@ -178,28 +181,31 @@ public class MyCardsUI implements ActionListener{
 				//String columnName = tableModel.getColumnName(column);
 				Boolean checked = (Boolean) tableModel.getValueAt(row, column);
 				if (checked) {
-					//System.out.println(columnName + ": " + true + "\n" + row );
 					//setting the panel for the details of the cards
 					Box box1 = Box.createHorizontalBox();
 					Box box2 = Box.createHorizontalBox();
 					Box box3 = Box.createHorizontalBox();
+					Box box4 = Box.createHorizontalBox();
 					Box boxFinal = Box.createVerticalBox();
-					JTextField accNm, accAddr;
+					JTextArea accNm;
+					JTextArea transacBox;
+					JScrollPane jp;
 					JPanel pane=new JPanel();
 					pane.setPreferredSize(new Dimension(500, 100));
 
 					if(cards_list.get(row).getType() == Cards.CardType.DEBIT){
-						JLabel txt1 = new JLabel ("\tThis is a debit card.");
-						box1.add(txt1);
-
 						JLabel txt2 = new JLabel ("Past transactions: ");
-						accNm = new JTextField("need to put transactions here");
-						accNm.setEditable(false);
+						transacBox = new JTextArea(3,30);
+						transacBox.setText(cards_list.get(row).getStringList());
+						transacBox.setEditable(false);
+						transacBox.setBorder(compound);
+						jp = new JScrollPane(transacBox);
+						jp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 						box2.add(txt2);
-						box2.add(accNm);
+						box4.add(jp);
 
-						boxFinal.add(box1);
 						boxFinal.add(box2);
+						boxFinal.add(box4);
 						pane.add(boxFinal);
 
 						//displaying
@@ -211,26 +217,27 @@ public class MyCardsUI implements ActionListener{
 
 					}
 					else if(cards_list.get(row).getType() == Cards.CardType.CREDIT){
-						JLabel txt1 = new JLabel ("\tThis is a credit card.");
-						box1.add(txt1);
-
-						JLabel txt2 = new JLabel ("Credit Card Limit:    ");
+						JLabel txt2 = new JLabel ("Credit Card Limit:   $");
 						double lmtCard = (cards_list.get(row).getLimit());
 						String lmt = String.valueOf(lmtCard);
-						accNm = new JTextField(lmt);
+						accNm = new JTextArea(lmt);
 						accNm.setEditable(false);
-						box2.add(txt2);
-						box2.add(accNm);
+						box1.add(txt2);
+						box1.add(accNm);
 
 						JLabel txt3 = new JLabel ("Past Transactions:");
-						accAddr = new JTextField("need to put transactions here");
-						accAddr.setEditable(false);
+						transacBox = new JTextArea(3,30);
+						transacBox.setText(cards_list.get(row).getStringList());
+						transacBox.setEditable(false);
+						transacBox.setBorder(compound);
+						jp = new JScrollPane(transacBox);
+						jp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 						box3.add(txt3);
-						box3.add(accAddr);
+						box4.add(jp);
 
 						boxFinal.add(box1);
-						boxFinal.add(box2);
 						boxFinal.add(box3);
+						boxFinal.add(box4);
 						pane.add(boxFinal);
 
 						//displaying
@@ -243,26 +250,27 @@ public class MyCardsUI implements ActionListener{
 
 					}
 					else if(cards_list.get(row).getType() == Cards.CardType.LOYALTY){
-						JLabel txt1 = new JLabel ("\tThis is a Loyalty card.");
-						box1.add(txt1);
-
 						JLabel txt2 = new JLabel ("Your Points Value in Cash: $");
 						double pts = (cards_list.get(row).getMoneyAvailable());
 						String ptsCash = String.valueOf(pts);
-						accNm = new JTextField(ptsCash);
+						accNm = new JTextArea(ptsCash);
 						accNm.setEditable(false);
 						box2.add(txt2);
 						box2.add(accNm);
 
 						JLabel txt3 = new JLabel ("Past Transactions:");
-						accAddr = new JTextField("need to put transactions");
-						accAddr.setEditable(false);
+						transacBox = new JTextArea(3,30);
+						transacBox.setText(cards_list.get(row).getStringList());
+						transacBox.setEditable(false);
+						transacBox.setBorder(compound);						
+						jp = new JScrollPane(transacBox);
+						jp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 						box3.add(txt3);
-						box3.add(accAddr);
+						box4.add(jp);
 
-						boxFinal.add(box1);
 						boxFinal.add(box2);
 						boxFinal.add(box3);
+						boxFinal.add(box4);
 						pane.add(boxFinal);
 
 						int option = (int) JOptionPane.showConfirmDialog(null, pane, "Card Information", JOptionPane.CLOSED_OPTION, JOptionPane.PLAIN_MESSAGE);
@@ -553,11 +561,11 @@ public class MyCardsUI implements ActionListener{
 	}
 
 
+
 	/*
 	 * class to implement the display needed for the removal of cards.
 	 */
 	private class RemoveListener implements ActionListener{
-
 		/*
 		 * returns an array with the card numbers of all the cards present in the array as Object
 		 * this methods is used to get the cardNumber selected to remove it
@@ -569,9 +577,6 @@ public class MyCardsUI implements ActionListener{
 			}
 			return cardNumbers;
 		}
-
-
-
 
 		/*
 		 * method that activates the display when the user clicks on the remove card button. 
@@ -587,23 +592,7 @@ public class MyCardsUI implements ActionListener{
 
 				//if the card Number selected is at the index obtained by getIndexCardFromAccountNumber in the existing array list
 				if(cardNb == cards_list.get(indexCard).getCardNumber()){
-					//checks if the selected card is a debit one
-					if(cards_list.get(indexCard).getType() == CardType.DEBIT){
-						//format the String line as the selected card information should appear in the text file 
-						line = cards_list.get(indexCard).getType() +","+ cards_list.get(indexCard).getAccNb() +","+ cards_list.get(indexCard).getCardNumber() +","+ cards_list.get(indexCard).getMoneyAvailable();
-						System.out.println(line); 
-					}
-					//checks if the selected card is a credit one
-					if(cards_list.get(indexCard).getType() == CardType.CREDIT){
-						//format the String line as the selected card information should appear in the text file
-						line = cards_list.get(indexCard).getType() +","+ cards_list.get(indexCard).getAccNb() +","+ cards_list.get(indexCard).getCardNumber() +","+ cards_list.get(indexCard).getMoneySpent()+","+cards_list.get(indexCard).getLimit()+","+ cards_list.get(indexCard).getMoneyAvailable();
-						System.out.println(line);
-					}
-					if(cards_list.get(indexCard).getType() == CardType.LOYALTY){
-						//format the String line as the selected card information should appear in the text file
-						line = cards_list.get(indexCard).getType() +","+ cards_list.get(indexCard).getEmail() +","+ cards_list.get(indexCard).getCardNumber() +","+ cards_list.get(indexCard).getPointsAvailable() + "," + cards_list.get(indexCard).getMoneyAvailable();
-						System.out.println(line);
-					}
+					line = getLineFormatTextfile(indexCard);
 					try {
 						//calls the method in MyCards to remove the selected card in the Text File
 						MyCards.removeLine(line);
@@ -623,7 +612,115 @@ public class MyCardsUI implements ActionListener{
 			}
 		}
 	}
+	/*
+	 * Method to apply the change in the card information 
+	 */
+	public static boolean getCardTransactionDone(int index, double amount){
+		try{ 
+			String ln = getLineFormatTextfile(index);
+			if(cards_list.get(index).getType().equals(CardType.DEBIT)){
+				if(cards_list.get(index).getMoneyAvailable() >= amount){ //if enough money in the account
+					double newAmount = cards_list.get(index).getMoneyAvailable() - amount;
+					cards_list.get(index).setMoneyAvailable(newAmount);	// setting new amount available
+					String ln2 = getLineFormatTextfile(index); //getting the file format of new info of card
+					MyCards.modifyFile(ln, ln2); //changing the info in the MyCards.txt DB
+					Object obt = newAmount;
+					table.setValueAt(obt, index, 3);
+					tableModel.fireTableDataChanged();
+					return true;
+				}
+				else{
+					throw new NumberFormatException();
+				}
+			}
+			else if(cards_list.get(index).getType().equals(CardType.CREDIT)){
+				double totalSpent = cards_list.get(index).getMoneySpent() + amount;
+				double newMoneyAvailable = cards_list.get(index).getLimit() - totalSpent;
+				if(cards_list.get(index).getMoneyAvailable() >= amount){ //if enough money in the account
+					cards_list.get(index).setMoneySpent(totalSpent);
+					cards_list.get(index).setMoneyAvailable(newMoneyAvailable);
+					String ln2 = getLineFormatTextfile(index);
+					tableModel.fireTableDataChanged();
+					MyCards.modifyFile(ln, ln2);
+					Object obt = totalSpent;
+					table.setValueAt(obt, index, 3);
+					tableModel.fireTableDataChanged();
+					return true;
+				}
+				else{
+					throw new NumberFormatException();
+				}
 
+			}
+			else if(cards_list.get(index).getType().equals(CardType.LOYALTY)){
+				int totalPoints = LoyaltyCard.moneyInPoints(amount);
+
+				if(cards_list.get(index).getPointsAvailable() >= totalPoints){ //if enough money in the account
+					int whatIsLeft = cards_list.get(index).getPointsAvailable() - totalPoints;
+					double pointsInMoney = whatIsLeft/100;
+					cards_list.get(index).setPointsAvailable(whatIsLeft);
+					cards_list.get(index).setMoneyAvailable(pointsInMoney);
+					String ln2 = getLineFormatTextfile(index);
+					tableModel.fireTableDataChanged();
+					MyCards.modifyFile(ln, ln2);
+					Object obt = whatIsLeft;
+					table.setValueAt(obt, index, 3);
+					tableModel.fireTableDataChanged();
+					return true;
+				}
+				else{
+					throw new NumberFormatException();
+				}
+			}
+			// if the card number is does not match
+		} catch(NumberFormatException e){
+			JOptionPane.showMessageDialog(null, "You have exceeded your account money!\nThis transaction was not added.",Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
+			int opt = JOptionPane.CLOSED_OPTION;
+			if(opt != 0){
+				JOptionPane.getRootFrame().dispose();
+			}
+		}
+		return false;
+	}
+
+	/*
+	 * Method to obtain the card information as presented in the database textfile "MyCards.txt"
+	 */
+	public static String getLineFormatTextfile(int indexCard){
+		//checks if the selected card is a debit one
+		if(cards_list.get(indexCard).getType() == CardType.DEBIT){
+			//format the String line as the selected card information should appear in the text file 
+			line = cards_list.get(indexCard).getType() +","+ cards_list.get(indexCard).getAccNb() +","+ cards_list.get(indexCard).getCardNumber() +","+ cards_list.get(indexCard).getMoneyAvailable(); 
+			return line;
+		}
+		//checks if the selected card is a credit one
+		if(cards_list.get(indexCard).getType() == CardType.CREDIT){
+			//format the String line as the selected card information should appear in the text file
+			line = cards_list.get(indexCard).getType() +","+ cards_list.get(indexCard).getAccNb() +","+ cards_list.get(indexCard).getCardNumber() +","+ cards_list.get(indexCard).getMoneySpent()+","+cards_list.get(indexCard).getLimit()+","+ cards_list.get(indexCard).getMoneyAvailable();
+			return line;
+		}
+		if(cards_list.get(indexCard).getType() == CardType.LOYALTY){
+			//format the String line as the selected card information should appear in the text file
+			line = cards_list.get(indexCard).getType() +","+ cards_list.get(indexCard).getEmail() +","+ cards_list.get(indexCard).getCardNumber() +","+ cards_list.get(indexCard).getPointsAvailable() + "," + cards_list.get(indexCard).getMoneyAvailable();
+			return line;
+		}
+		return null;
+	}
+
+	/*
+	 * method to add expenses 
+	 */
+	public static void addToTheList(Cards cardTmp,  String n){
+		List<String> temp_lst= new ArrayList<>();
+		for(int i=0; i < cards_list.size(); i++){
+			if(cards_list.get(i).getCardNumber() == cardTmp.getCardNumber()){
+				temp_lst = cards_list.get(i).getList();
+				temp_lst.add(n);
+				cardTmp.setList(temp_lst);
+				break;
+			}
+		}
+	}
 }
 
 

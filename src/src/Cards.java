@@ -9,6 +9,8 @@
 
 package src;
 
+import java.util.List;
+
 public interface Cards {
 
 
@@ -23,6 +25,7 @@ public interface Cards {
 		}
 
 	}
+	public String listFormat();
 	public CardType getType();
 	public void setType(CardType type);
 	public int getAccNb();
@@ -39,8 +42,10 @@ public interface Cards {
 	public void setEmail(String email);
 	public int getPointsAvailable();
 	public void setPointsAvailable(int pointsAvailable);
-
-
-
-
+	public boolean equals(Cards card);
+	public List<String> getList();
+	public void setList(List<String> list);
+	public String getStringList();
+	
 }
+

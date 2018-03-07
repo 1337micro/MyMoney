@@ -1,12 +1,16 @@
 package src;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LoyaltyCard implements Cards{
 	CardType type;
 	String accNb;
 	int cardNumber;
 	int pointsAvailable;
 	double moneyAvailable;
-
+	List<String> list;
+	String tmp ="";
 
 	//default constructor
 	public LoyaltyCard() {
@@ -15,6 +19,7 @@ public class LoyaltyCard implements Cards{
 		cardNumber=0;
 		pointsAvailable=0;
 		moneyAvailable=0;
+		this.list = new ArrayList<>();
 	}
 
 	/**
@@ -30,8 +35,26 @@ public class LoyaltyCard implements Cards{
 		this.cardNumber=cardNumber;
 		this.pointsAvailable=pointsAvailable;
 		this.moneyAvailable = (pointsAvailable/100);
+		this.list = new ArrayList<>();
 	}
 
+	/*
+	 * Method to get one string with all the information
+	 */
+	public String listFormat(){
+		String tmp="";
+		for(int i =0 ; i< this.getList().size(); i++){
+			tmp+=tmp+ this.getList().get(i) +"\n";
+		}
+		return tmp;
+	}
+	/*
+	 * method that convert money in points
+	 */
+	public static int moneyInPoints(double money){
+		int total =  (int) (money*100);
+		return total;
+	}
 	/*
 	 * Getters and Setter for the class attributes
 	 */
@@ -43,9 +66,6 @@ public class LoyaltyCard implements Cards{
 	public void setType(CardType type) {
 		this.type = type;
 	}
-
-
-
 	public String getEmail() {
 		return this.accNb;
 	}
@@ -85,6 +105,13 @@ public class LoyaltyCard implements Cards{
 		} 
 
 	}
+	public List<String> getList() {
+		return list;
+	}
+
+	public void setList(List<String> list) {
+		this.list = list;
+	}
 
 	//not used in this case
 	@Override
@@ -119,5 +146,27 @@ public class LoyaltyCard implements Cards{
 		return 0;
 	}
 
+	/*
+	 * Method to check if the card is equal to another card
+	 */
+	@Override
+	public boolean equals(Cards card) {
+		if((this.getType() == card.getType()) &&(this.getAccNb() == card.getAccNb()) && (this.getCardNumber() == card.getAccNb()) && (this.getPointsAvailable() == card.getPointsAvailable())&&(this.getMoneyAvailable() == card.getMoneyAvailable())){
+			return true;
+		}
+		return false;
+	}
 
+	/*
+	 * method to get each string of their list
+	 */
+	@Override
+	public String getStringList() {
+		for(int i=0; i< this.getList().size(); i++){
+			tmp+= this.getList().get(i);
+		}
+		return tmp;
+	}
+	
 }
+

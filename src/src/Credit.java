@@ -10,6 +10,8 @@
 
 package src;
 
+import java.util.ArrayList;
+import java.util.List;
 
 public class Credit implements Cards{
 	//extends Cards{
@@ -19,7 +21,9 @@ public class Credit implements Cards{
 	double limit;
 	double moneySpent;
 	double moneyAvailable;
-
+	List<String> list;
+	String tmp ="";
+	
 	public Credit() {
 		type=CardType.CREDIT;
 		accNb = 0;
@@ -27,6 +31,7 @@ public class Credit implements Cards{
 		limit=0;
 		moneySpent=0;
 		moneyAvailable=limit-moneySpent;
+		this.list = new ArrayList<>();
 	}
 
 	public Credit(CardType cardType, int accNb, int d, double moneySpent, double limit) {
@@ -36,8 +41,19 @@ public class Credit implements Cards{
 		this.limit =limit;
 		this.moneySpent=moneySpent;
 		this.moneyAvailable=limit-moneySpent;
+		this.list = new ArrayList<>();
 	}
-
+	/*
+	 * Method to get one string with all the information
+	 */
+	public String listFormat(){
+		String tmp="";
+		for(int i =0 ; i< this.getList().size(); i++){
+			tmp+=tmp+ this.getList().get(i) +"\n";
+		}
+		return tmp;
+	}
+	
 	@Override
 	public CardType getType() {
 		return this.type;
@@ -96,6 +112,13 @@ public class Credit implements Cards{
 			moneyAvailable=limit-moneySpent;
 		} 
 	}
+	public List<String> getList() {
+		return list;
+	}
+
+	public void setList(List<String> list) {
+		this.list = list;
+	}
 
 	//not used in this case
 	@Override
@@ -116,7 +139,27 @@ public class Credit implements Cards{
 	public void setEmail(String email) {
 	}
 
+	/*
+	 * Method to check if the card is equal to another card
+	 */
+	@Override
+	public boolean equals(Cards card) {
+		if((this.getType() == card.getType()) &&(this.getAccNb() == card.getAccNb()) && (this.getCardNumber() == card.getAccNb()) &&(this.getLimit() == card.getLimit()) && (this.getMoneySpent() == card.getMoneySpent())){
+			return true;
+		}
+		return false;
+	}
 
-
+	/*
+	 * method to get each string of their list
+	 */
+	@Override
+	public String getStringList() {
+		for(int i=0; i< this.getList().size(); i++){
+			tmp+= this.getList().get(i);
+		}
+		return tmp;
+	}
 
 }
+

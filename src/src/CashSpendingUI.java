@@ -5,21 +5,18 @@
 // --------------------------------------------------------
 package src;
 import java.util.ArrayList;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.plaf.ColorUIResource;
 import javax.swing.table.DefaultTableModel;
-
+import src.Cards.CardType;
 import src.CashSpending.ExpenditureType;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -32,7 +29,12 @@ public class CashSpendingUI implements ActionListener {
 
 	//declaring attributes 
 	private static PrintWriter pw = null;
-	private static BufferedReader reader;
+	//private static String infoTextField;
+	//private static  TransactionsList trst_list = new TransactionsList();
+	private static Cards cardTemp;
+	private static String transactions;
+	//private static List<Transactions> list_of_transactions = new ArrayList<Transactions>();
+	//private static List<String> list_string;
 	private static int i = 1;
 	private static int nbCard;
 	Border raisedbevel = BorderFactory.createRaisedBevelBorder();
@@ -49,6 +51,11 @@ public class CashSpendingUI implements ActionListener {
 	@SuppressWarnings("rawtypes")
 	JComboBox boxCards;
 
+	/*
+	public static ArrayList<Transactions> getCardTransactions_list() {
+		return cardTransactions_list;
+	}
+	 */
 
 	/**
 	 * Button listening for a click on the "Cash Spending" button. It will show or hide the CashSpending panel "thePanel"
@@ -141,7 +148,6 @@ public class CashSpendingUI implements ActionListener {
 
 		/*
 		 * Displays a window to allow the user to add a card, either credit or debit when the user clicks on the add card button
-		 * 
 		 */
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
@@ -151,10 +157,10 @@ public class CashSpendingUI implements ActionListener {
 			JPanel pane=new JPanel(new GridLayout(7,2));
 
 			//create text fields to input the information
-			listExpense = new JComboBox(ExpenditureType.values());
-			boxCards = new JComboBox(cardNum(MyCardsUI.getListCards()));
+			listExpense = new JComboBox<Object>(ExpenditureType.values());
+			boxCards = new JComboBox<Object>(cardNum(MyCardsUI.getListCards()));
 			nbCard = MyCardsUI.getListCards().get(boxCards.getSelectedIndex()).getCardNumber();
-			
+
 			//creating labels for the text fields
 			JLabel aN= new JLabel("Please select the expense type:");
 			JLabel bN= new JLabel("Please enter the amount of money:");
@@ -178,13 +184,15 @@ public class CashSpendingUI implements ActionListener {
 			if(option != 0){
 				JOptionPane.getRootFrame().dispose();
 			};
+
 			//if the user clicks on the YES/OK BUTTON
 			if(option == 0){ 	
 				try{
 					//to get the expenditure choosen and the amount entered
 					int index = listExpense.getSelectedIndex();
+					int cardIndex = boxCards.getSelectedIndex();
 					double amountMoney = Double.parseDouble(amountTxt.getText());
-					addingToTheExpenditure(index, amountMoney);
+					addingToTheExpenditure(index, cardIndex, amountMoney);
 
 					//add element to the table
 					Object[] rowData = {expense.getAmountHousing(), expense.getAmountFood(), expense.getAmountUtilities(), expense.getAmountClothing(), 
@@ -211,60 +219,145 @@ public class CashSpendingUI implements ActionListener {
 	/*
 	 * Method used to check the expenditure the user choosed to add money on
 	 */
-	public void addingToTheExpenditure(int index, double temp){
-		try{
-			if((index >=0 || index<=9) && (temp>=0)){ 
-				switch (index) {
-				case 0: expense.addAmountHousing(temp);
-				i++;
-				writeToFile(ExpenditureType.HOUSING, expense.getAmountHousing(), nbCard);
+	public void addingToTheExpenditure(int index, int cardIndex, double amount){
+		//setting the Cards cardTemp as the selected card by user
+		if(MyCardsUI.getListCards().get(cardIndex).getType() == CardType.DEBIT){
+			cardTemp = new Debit();
+			cardTemp.setType(MyCardsUI.getListCards().get(cardIndex).getType());
+			cardTemp.setCardNumber(MyCardsUI.getListCards().get(cardIndex).getCardNumber());
+			cardTemp.setAccNb(MyCardsUI.getListCards().get(cardIndex).getAccNb());
+			cardTemp.setMoneyAvailable(MyCardsUI.getListCards().get(cardIndex).getMoneyAvailable());
+		}
+		if(MyCardsUI.getListCards().get(cardIndex).getType() == CardType.CREDIT){
+			cardTemp = new Credit();
+			cardTemp.setType(MyCardsUI.getListCards().get(cardIndex).getType());
+			cardTemp.setCardNumber(MyCardsUI.getListCards().get(cardIndex).getCardNumber());
+			cardTemp.setAccNb(MyCardsUI.getListCards().get(cardIndex).getAccNb());
+			cardTemp.setMoneySpent(MyCardsUI.getListCards().get(cardIndex).getMoneySpent());
+			cardTemp.setLimit(MyCardsUI.getListCards().get(cardIndex).getLimit());
+			cardTemp.setMoneyAvailable(MyCardsUI.getListCards().get(cardIndex).getMoneyAvailable());
+		}
+		if(MyCardsUI.getListCards().get(cardIndex).getType() == CardType.LOYALTY){
+			cardTemp = new LoyaltyCard();
+			cardTemp.setType(MyCardsUI.getListCards().get(cardIndex).getType());
+			cardTemp.setEmail(MyCardsUI.getListCards().get(cardIndex).getEmail());
+			cardTemp.setCardNumber(MyCardsUI.getListCards().get(cardIndex).getCardNumber());
+			cardTemp.setPointsAvailable(MyCardsUI.getListCards().get(cardIndex).getPointsAvailable());
+			cardTemp.setMoneyAvailable(MyCardsUI.getListCards().get(cardIndex).getMoneyAvailable());
+		}
+
+
+		if((index >=0 || index<=9) && (amount>=0)){ 
+			boolean didItPass;
+			//depending on which expenditure the user selected
+			switch (index) {
+			case 0: 
+				//changing the money in the selected card
+				didItPass = MyCardsUI.getCardTransactionDone(cardIndex, amount); 
+				if(didItPass == true){
+					expense.addAmountHousing(amount); //adding the expense to the table
+					i++; //adding number of operations
+					//getting the transaction with format as String
+					transactions = MyCards.formatTransactionCards(ExpenditureType.HOUSING, amount, cardTemp.getCardNumber());
+					//adding the transaction to the cards_list at the selected card
+					MyCardsUI.addToTheList(cardTemp, transactions);
+					//writing expense done to the TransactionsDone.txt
+					writeToFile(ExpenditureType.HOUSING, amount	, nbCard);} 
 				break;
-				case 1: expense.addAmountFood(temp);
-				i++;
-				writeToFile(ExpenditureType.FOOD, expense.getAmountFood(), nbCard);
+
+			case 1: 
+				didItPass = MyCardsUI.getCardTransactionDone(cardIndex, amount);
+				if(didItPass == true){
+					expense.addAmountFood(amount);
+					i++;
+					transactions = MyCards.formatTransactionCards(ExpenditureType.FOOD, amount, cardTemp.getCardNumber());
+					MyCardsUI.addToTheList(cardTemp, transactions);
+					writeToFile(ExpenditureType.FOOD, amount, nbCard);}
 				break;
-				case 2: expense.addAmountUtilities(temp);
-				i++;
-				writeToFile(ExpenditureType.UTILITIES, expense.getAmountUtilities(), nbCard);
+
+			case 2: 
+				didItPass = MyCardsUI.getCardTransactionDone(cardIndex, amount);
+				if(didItPass == true){
+					expense.addAmountUtilities(amount);
+					i++;
+					transactions = MyCards.formatTransactionCards(ExpenditureType.UTILITIES, amount, cardTemp.getCardNumber());
+					MyCardsUI.addToTheList(cardTemp, transactions);
+					writeToFile(ExpenditureType.UTILITIES, amount, nbCard);}
 				break;
-				case 3: expense.addAmountClothing(temp);
-				i++;
-				writeToFile(ExpenditureType.CLOTHING, expense.getAmountClothing(), nbCard);
+
+			case 3: 
+				didItPass = MyCardsUI.getCardTransactionDone(cardIndex, amount);
+				if(didItPass == true){
+					expense.addAmountClothing(amount);
+					i++;
+					transactions = MyCards.formatTransactionCards(ExpenditureType.CLOTHING, amount, cardTemp.getCardNumber());
+					MyCardsUI.addToTheList(cardTemp, transactions);
+					writeToFile(ExpenditureType.CLOTHING, amount, nbCard);}
 				break;
-				case 4: expense.addAmountMedical(temp);
-				i++;
-				writeToFile(ExpenditureType.MEDICAL, expense.getAmountMedical(), nbCard);
+
+			case 4: 
+				didItPass = MyCardsUI.getCardTransactionDone(cardIndex, amount);
+				if(didItPass == true){
+					expense.addAmountMedical(amount);
+					i++;
+					transactions = MyCards.formatTransactionCards(ExpenditureType.MEDICAL, amount, cardTemp.getCardNumber());
+					MyCardsUI.addToTheList(cardTemp, transactions);
+					writeToFile(ExpenditureType.MEDICAL, amount, nbCard);}
 				break;
-				case 5: expense.addAmountDonations(temp);
-				i++;
-				writeToFile(ExpenditureType.DONATIONS, expense.getAmountDonations(), nbCard);
+
+			case 5: 
+				didItPass = MyCardsUI.getCardTransactionDone(cardIndex, amount);
+				if(didItPass == true){
+					expense.addAmountDonations(amount);
+					i++;
+					transactions = MyCards.formatTransactionCards(ExpenditureType.DONATIONS, amount, cardTemp.getCardNumber());
+					MyCardsUI.addToTheList(cardTemp, transactions);
+					writeToFile(ExpenditureType.DONATIONS, amount, nbCard);}
 				break;
-				case 6: expense.addAmountSavings(temp);
-				i++;
-				writeToFile(ExpenditureType.SAVINGS, expense.getAmountSavingsInsurance(), nbCard);
+
+			case 6: 
+				didItPass = MyCardsUI.getCardTransactionDone(cardIndex, amount);
+				if(didItPass == true){
+					expense.addAmountSavings(amount);
+					i++;
+					transactions = MyCards.formatTransactionCards(ExpenditureType.SAVINGS, amount, cardTemp.getCardNumber());
+					MyCardsUI.addToTheList(cardTemp, transactions);
+					writeToFile(ExpenditureType.SAVINGS, amount, nbCard);}
 				break;
-				case 7: expense.addAmountEntertainment(temp);
-				i++;
-				writeToFile(ExpenditureType.ENTERTAINMENT, expense.getAmountEntertainment(), nbCard);
+
+			case 7: 
+				didItPass = MyCardsUI.getCardTransactionDone(cardIndex, amount);
+				if(didItPass == true){
+					expense.addAmountEntertainment(amount);
+					i++;
+					transactions = MyCards.formatTransactionCards(ExpenditureType.ENTERTAINMENT, amount, cardTemp.getCardNumber());
+					MyCardsUI.addToTheList(cardTemp, transactions);
+					writeToFile(ExpenditureType.ENTERTAINMENT, amount, nbCard);}
 				break;
-				case 8: expense.addAmountTransportation(temp);
-				i++;
-				writeToFile(ExpenditureType.TRANSPORTATION, expense.getAmountTransportation(), nbCard);
+
+			case 8: 
+				didItPass = MyCardsUI.getCardTransactionDone(cardIndex, amount);
+				if(didItPass == true){
+					expense.addAmountTransportation(amount);
+					i++;
+					transactions = MyCards.formatTransactionCards(ExpenditureType.TRANSPORTATION, amount, cardTemp.getCardNumber());
+					MyCardsUI.addToTheList(cardTemp, transactions);
+					writeToFile(ExpenditureType.TRANSPORTATION, amount, nbCard);}
 				break;
-				case 9: expense.addAmountMisc(temp);
-				i++;
-				writeToFile(ExpenditureType.MISC, expense.getAmountMisc(), nbCard);
+
+			case 9: 
+				didItPass = MyCardsUI.getCardTransactionDone(cardIndex, amount);
+				if(didItPass == true){
+					expense.addAmountMisc(amount);
+					i++;
+					transactions = MyCards.formatTransactionCards(ExpenditureType.MISC, amount, cardTemp.getCardNumber());
+					MyCardsUI.addToTheList(cardTemp, transactions);
+					writeToFile(ExpenditureType.MISC, amount, nbCard);}
 				break;	
-				}
-			}
-		} catch(NumberFormatException e){
-			JOptionPane.showMessageDialog(null, Constants.INVALID_MSG,Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
-			int opt = JOptionPane.CLOSED_OPTION;
-			if(opt != 0){
-				JOptionPane.getRootFrame().dispose();
 			}
 		}
 	}
+
 	/*
 	 * method to write to the database textfile
 	 */
@@ -277,8 +370,8 @@ public class CashSpendingUI implements ActionListener {
 			System.out.println("Error while creating file");
 			System.exit(1);
 		}
-
-		pw.println("The transaction # " + i + " for expenditure " + type + " with an amount of $" + amountMn + " paid with card #" + num + " was completed.");
+		String n = ("Transaction #" + i + " for expenditure " + type + " with an amount of $" + amountMn + " paid with card # " + num + " was completed.");
+		pw.println(n);
 
 		// Closing file stream
 		try {
@@ -300,7 +393,17 @@ public class CashSpendingUI implements ActionListener {
 			Constants.TRANSACTIONS_FILE.delete();
 		}
 		Constants.TRANSACTIONS_FILE.createNewFile();
-		
-	}
-}
 
+	}
+
+	/*
+	 * Method to obtain the card Number selected by user when expense added
+	 */
+	public static int getNbCard() {
+		return nbCard;
+	}
+
+
+	
+
+}

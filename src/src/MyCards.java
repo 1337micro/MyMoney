@@ -11,9 +11,9 @@
 package src;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -22,10 +22,12 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 import src.Cards.CardType;
+import src.CashSpending.ExpenditureType;
 
 
 public class MyCards {
 	private static List <Cards> cards;
+	private static List <String> lst_string;
 	private static PrintWriter pw = null;
 	private static BufferedReader reader;
 	private static CardType cdtp;
@@ -39,10 +41,61 @@ public class MyCards {
 	private static int pointsAvailable;
 	private static boolean emlBool;
 
+	/*
+	 * method to get the array of cards
+	 */
 	public List<Cards> getCards() {
 		return cards;
 	}
 
+	/*
+	 * method to add expenses  to the card list of string
+	 */
+	public static void addToTheList(Cards cardTmp,  String n){
+		List<String> temp_lst= new ArrayList<>();
+		for(int i=0; i < cards.size(); i++){
+			if(cards.get(i).getCardNumber() == cardTmp.getCardNumber()){
+				temp_lst = cards.get(i).getList();
+				temp_lst.add(n);
+				cardTmp.setList(temp_lst);
+			}
+			else{
+				temp_lst.add(n);
+				cardTmp.setList(temp_lst);
+				cards.add(cardTmp);
+			}
+		}
+	}
+	
+
+	/*
+	 * to format the output 
+	 */
+	public static String formatTransactionCards(ExpenditureType type, double amountMn, int cardNb){
+		//String n = cardNb+"# paid transaction for expenditure " + type + " of $" + amountMn + "\n";
+		String n = "Transaction for expenditure " + type + " of $" + amountMn + "\n";
+		return n;
+	}
+
+	/*
+	 * Method to check if email address are email addresses
+	 */
+	public static Boolean isValid(String email) {
+		return email.matches("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
+	}
+
+	/*
+	 * method to get the index of a card based on its card number
+	 */
+	public static int getIndexFromCardNb(int num){
+		for(int i = 0; i< cards.size(); i++){
+			if(cards.get(i).getCardNumber() == num){
+				return i;
+			}
+		}
+		return -1;
+
+	}
 	/*
 	 * create an arraylist to store the cards as a sequence
 	 */
@@ -50,11 +103,25 @@ public class MyCards {
 		this.cards= new ArrayList<>();
 	}
 
+	public static List<String> getLst_string() {
+		return lst_string;
+	}
+
+	public String getIndex(int index){
+		return lst_string.get(index);
+	}
 	/*
 	 * returns the card at a specified index
 	 */
 	public Cards get(int index) {											
 		return cards.get(index);
+	}
+
+	/*
+	 * method to remove a card from the list
+	 */
+	public void removeCard(int card) {
+		cards.remove(card);
 	}
 
 	/*
@@ -81,14 +148,7 @@ public class MyCards {
 		if(type == Cards.CardType.CREDIT) {
 			Credit credit = new Credit(type, accNb, cardNumber, limit, moneySpent);
 			cards.add(credit);
-
 		}
-	}
-	/*
-	 * Method to check if email address are email addresses
-	 */
-	public static Boolean isValid(String email) {
-		return email.matches("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
 	}
 
 	/*
@@ -105,12 +165,6 @@ public class MyCards {
 		}
 	}
 
-	/*
-	 * method to remove a card from the list
-	 */
-	public void removeCard(int card) {
-		cards.remove(card);
-	}
 
 	/*
 	 * returns the index of the corresponding card number from the array
@@ -217,7 +271,6 @@ public class MyCards {
 					cardNum = Integer.parseInt(lineArray[2]);
 					money= Double.parseDouble(lineArray[3]);
 					Debit cd = new Debit(cdtp, accNb, cardNum, money);
-
 					if( cd.getCardNumber() == cardInput.getCardNumber()){
 						return true;
 					}
@@ -398,6 +451,62 @@ public class MyCards {
 		File.write(input.getBytes());
 		reader.close();
 		File.close();
+	}
+
+	/*
+	 * Method used to modify a card when a transaction is done in the database textfile MyCards.txt
+	 */
+	static void modifyFile(String oldString, String newString)
+	{
+
+		String oldContent = "";
+
+		FileWriter writer = null;
+
+		try
+		{
+			reader = new BufferedReader(new FileReader(Constants.MYCARDS_FILE));
+
+			//Reading all the lines of input text file into oldContent
+
+			String line = reader.readLine();
+
+			while (line != null) 
+			{
+				oldContent = oldContent + line + System.lineSeparator();
+
+				line = reader.readLine();
+			}
+
+			//Replacing oldString with newString in the oldContent
+
+			String newContent = oldContent.replaceAll(oldString, newString);
+
+			//Rewriting the input text file with newContent
+
+			writer = new FileWriter(Constants.MYCARDS_FILE);
+
+			writer.write(newContent);
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				//Closing the resources
+
+				reader.close();
+
+				writer.close();
+			} 
+			catch (IOException e) 
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 
 
