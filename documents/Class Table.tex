@@ -1,24 +1,23 @@
 \documentclass{article}
 \usepackage[table]{xcolor}
+\usepackage{multirow}
 \begin{document}
 %ignore above
 
-
-\begin{center}
-\newcolumntype{s}{>{\columncolor[HTML]{d9dbdd}} p{3cm}}
-\begin{tabular}{| s | l |}
+\begin{table}[]
+\centering
+\begin{tabular}{|l|l|l|l|l|}
 \hline
-Class name & BLANK \\
-\hline
-Description & BLANK \\
-\hline
-Attributes & BLANK \\
-\hline
-Methods & BLANK \\
-\hline
+\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} Class name}                   & \multicolumn{4}{l|}{WORDS HERE}                                                     \\ \hline
+\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} Description}                  & \multicolumn{4}{l|}{WORDS HERE}                                                     \\ \hline
+\rowcolor[HTML]{C0C0C0} 
+\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }                             & Visibility & Data type   & Method name                 & Description                \\ \cline{2-5} 
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} Attributes}} & WORDS      & WORDS       & WORDS                       & WORDS                      \\ \hline
+\rowcolor[HTML]{C0C0C0} 
+\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }                             & Visibility & Method Name & \multicolumn{2}{l|}{\cellcolor[HTML]{C0C0C0}Description} \\ \cline{2-5} 
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} Methods}}    & WORDS      & WORDS       & \multicolumn{2}{l|}{WORDS}                               \\ \hline
 \end{tabular}
-\end{center}
-
+\end{table}
 
 %ignore below
 \end{document}
