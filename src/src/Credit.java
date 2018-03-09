@@ -3,8 +3,8 @@
 //Iteration 1: Genevieve Plante-Brisebois 40003112
 //Help received from the Programmer Organizer: Noémi Lemonnier 40001075
 //Iteration 2: Noémi Lemonnier 40001075
-//Description: implements the interface cards and serves the purpose of implementing the 
-//              specifics of the cards of type CREDIT
+//Description: Credit.java implements the interface Cards and serves 
+//the purpose of implementing the specifics of the cards of type CREDIT
 //--------------------------------------------------------
 
 
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Credit implements Cards{
-	//extends Cards{
+	//declaring attributes
 	CardType type;
 	int accNb;
 	int cardNumber;
@@ -23,7 +23,9 @@ public class Credit implements Cards{
 	double moneyAvailable;
 	List<String> list;
 	String tmp ="";
-	
+	/*
+	 * Default constructor
+	 */
 	public Credit() {
 		type=CardType.CREDIT;
 		accNb = 0;
@@ -33,7 +35,9 @@ public class Credit implements Cards{
 		moneyAvailable=limit-moneySpent;
 		this.list = new ArrayList<>();
 	}
-
+	/*
+	 * Constructor
+	 */
 	public Credit(CardType cardType, int accNb, int d, double moneySpent, double limit) {
 		this.type=CardType.CREDIT;
 		this.accNb = accNb;
@@ -53,18 +57,42 @@ public class Credit implements Cards{
 		}
 		return tmp;
 	}
+	/*
+	 * Method to check if the card is equal to another card
+	 */
+	@Override
+	public boolean equals(Cards card) {
+		if((this.getType() == card.getType()) &&(this.getAccNb() == card.getAccNb()) && (this.getCardNumber() == card.getAccNb()) &&(this.getLimit() == card.getLimit()) && (this.getMoneySpent() == card.getMoneySpent())){
+			return true;
+		}
+		return false;
+	}
+
+	/*
+	 * method to get each string of their list
+	 */
+	@Override
+	public String getStringList() {
+		for(int i=0; i< this.getList().size(); i++){
+			tmp+= this.getList().get(i);
+		}
+		return tmp;
+	}
 	
+/*
+ * Getters and setters for the attributes
+ * (non-Javadoc)
+ * @see src.Cards#getType()
+ */
 	@Override
 	public CardType getType() {
 		return this.type;
 	}
-
 	@Override
 	public void setType(CardType type) {
 		this.type = type;
 
 	}
-
 	@Override
 	public int getAccNb() {
 		return accNb;
@@ -97,12 +125,10 @@ public class Credit implements Cards{
 	public double getLimit() {
 		return limit;
 	}
-
 	@Override
 	public double getMoneyAvailable() {
 		return moneyAvailable;
 	}
-
 	@Override
 	public void setMoneyAvailable(double moneyAvailable) {	
 		if(limit-moneySpent==moneyAvailable)
@@ -139,26 +165,5 @@ public class Credit implements Cards{
 	public void setEmail(String email) {
 	}
 
-	/*
-	 * Method to check if the card is equal to another card
-	 */
-	@Override
-	public boolean equals(Cards card) {
-		if((this.getType() == card.getType()) &&(this.getAccNb() == card.getAccNb()) && (this.getCardNumber() == card.getAccNb()) &&(this.getLimit() == card.getLimit()) && (this.getMoneySpent() == card.getMoneySpent())){
-			return true;
-		}
-		return false;
-	}
-
-	/*
-	 * method to get each string of their list
-	 */
-	@Override
-	public String getStringList() {
-		for(int i=0; i< this.getList().size(); i++){
-			tmp+= this.getList().get(i);
-		}
-		return tmp;
-	}
-
 }
+

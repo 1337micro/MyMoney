@@ -3,8 +3,8 @@
 //Iteration 1: Genevieve Plante-Brisebois 40003112
 //Help received from the Programmer Organizer: Noémi Lemonnier 40001075
 //Iteration 2: Noemi Lemonnier 40001085
-//Description: create an interface for the cards in order to 
-//             link the cards since there are different types but they share some features. 
+//Description: Cards.java is an interface used by Debit, Credit, LoyaltyCards classes
+//in order to link the cards since there are different types but they share some features. 
 //--------------------------------------------------------
 
 package src;
@@ -48,3 +48,4 @@ public interface Cards {
 	public String getStringList();
 	
 }
+

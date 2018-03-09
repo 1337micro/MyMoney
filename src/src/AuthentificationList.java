@@ -2,7 +2,8 @@ package src;
 //-------------------------------------------------------
 //For Comp 354 Section PP - Winter 2018
 //Iteration 2: Noemi Lemonnier 40001085
-//Description: Class to create a list of Authentification objects and have different methods used.
+//Description: AuthentifictionList.java is a class to used to create a list of Authentification
+//objects and have different methods used.
 //        
 //--------------------------------------------------------
 
@@ -15,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AuthentificationList {
+
+	//declaring attributes
 	private static List <AuthentificationUser> users_list;
 	private static PrintWriter pw = null;
 	private static BufferedReader reader;
@@ -22,7 +25,7 @@ public class AuthentificationList {
 	private static String password;
 
 	/*
-	 * method to get the list of Authentification
+	 * method to get the list of AuthentificationUser
 	 */
 	public static List<AuthentificationUser> getUsersList() {
 		return users_list;
@@ -36,7 +39,7 @@ public class AuthentificationList {
 	}
 
 	/*
-	 * returns the Authentific at a specified index
+	 * returns the AuthentificationUser at a specified index in the ArrayList
 	 */
 	public AuthentificationUser get(int index) {
 		return users_list.get(index);
@@ -64,6 +67,7 @@ public class AuthentificationList {
 	public ArrayList <AuthentificationUser> getArrayList() {
 		return (ArrayList <AuthentificationUser>)users_list;
 	}
+
 	/*
 	 * returns the index of the corresponding card number from the array
 	 */
@@ -82,7 +86,6 @@ public class AuthentificationList {
 	 * method to write to the database textfile
 	 */
 	public static void writeToFile(AuthentificationUser newUser){
-
 		// opening file stream to write log
 		try {
 			pw = new PrintWriter(new FileOutputStream(Constants.AUTHENTIFICATION_FILE, true));
@@ -90,7 +93,7 @@ public class AuthentificationList {
 			System.out.println("Error while creating file");
 			System.exit(1);
 		}
-
+		//creating a new AuthentificationUser and printing to the textfile
 		newUser = new AuthentificationUser(newUser.getUsername(), newUser.getPassword());	
 		pw.println(newUser.getUsername() + ","+ newUser.getPassword());
 
@@ -107,7 +110,7 @@ public class AuthentificationList {
 	 * method to find duplicate if user inputs a new card
 	 */
 	public static boolean readToFindDuplicate(AuthentificationUser user) {
-		// Open file to read from
+		// Open file to read 
 		try {
 			reader = new BufferedReader(new FileReader(Constants.AUTHENTIFICATION_FILE));
 		} catch (Exception e) {
@@ -118,14 +121,14 @@ public class AuthentificationList {
 		String line = null;
 		try {
 			while ((line = reader.readLine()) != null) {
-
+				//spliting each line by "," and getting the username and password
 				String[] lineArray = line.split(",");
-
 				username = lineArray[0];
 				password = lineArray[1];
-
+				
+				//creating an object AuthentificationUser with what was in the file
 				AuthentificationUser userTst = new AuthentificationUser(username, password);
-
+				//checking if there is already a username and password in the file that exist 
 				if(userTst.getUsername().equals(user.getUsername()) && userTst.getPassword().equals(user.getPassword())){
 					return true;}
 			}
@@ -151,7 +154,6 @@ public class AuthentificationList {
 	 * method to read the database textfile
 	 */
 	public static void readFromTheFile(ArrayList <AuthentificationUser> user_list) {
-
 		// Open file to read from
 		try {
 			reader = new BufferedReader(new FileReader(Constants.AUTHENTIFICATION_FILE));
@@ -164,17 +166,17 @@ public class AuthentificationList {
 		//Check to make sure correct file is being read
 		String line = null;
 
-
 		try{
 			while ((line = reader.readLine()) != null) {
-
+				//spliting each line by "," and getting the username and password
 				String[] lineArray = line.split(",");
-
 				username = lineArray[0];
 				password = lineArray[1];
+				//checking that no username and password are null
 				if((username !=null) && (password != null)){
+					//creating an object AuthentificationUser with information from the file
 					AuthentificationUser userTst = new AuthentificationUser(username, password);
-					user_list.add(userTst);
+					user_list.add(userTst); // adding userTst to the ArrayList
 				}
 				else{
 					throw new NumberFormatException();
@@ -206,3 +208,4 @@ public class AuthentificationList {
 
 
 }
+

@@ -1,9 +1,16 @@
 package src;
+//-------------------------------------------------------
+//For Comp 354 Section PP - Winter 2018
+//Iteration 2: Noémi Lemonnier 40001075
+//Description: LoyaltyCard.java implements the interface Cards and serves 
+//the purpose of implementing the specifics of the cards of type LoyaltyCard
+//--------------------------------------------------------
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LoyaltyCard implements Cards{
+	//declaring attributes
 	CardType type;
 	String accNb;
 	int cardNumber;
@@ -12,7 +19,9 @@ public class LoyaltyCard implements Cards{
 	List<String> list;
 	String tmp ="";
 
-	//default constructor
+	/*
+	 * Default constructor
+	 */
 	public LoyaltyCard() {
 		type=CardType.LOYALTY;
 		accNb = "";
@@ -56,6 +65,28 @@ public class LoyaltyCard implements Cards{
 		return total;
 	}
 	/*
+	 * Method to check if the card is equal to another card
+	 */
+	@Override
+	public boolean equals(Cards card) {
+		if((this.getType() == card.getType()) &&(this.getAccNb() == card.getAccNb()) && (this.getCardNumber() == card.getAccNb()) && (this.getPointsAvailable() == card.getPointsAvailable())&&(this.getMoneyAvailable() == card.getMoneyAvailable())){
+			return true;
+		}
+		return false;
+	}
+
+	/*
+	 * method to get each string of their list
+	 */
+	@Override
+	public String getStringList() {
+		for(int i=0; i< this.getList().size(); i++){
+			tmp+= this.getList().get(i);
+		}
+		return tmp;
+	}
+
+	/*
 	 * Getters and Setter for the class attributes
 	 */
 	@Override
@@ -69,11 +100,9 @@ public class LoyaltyCard implements Cards{
 	public String getEmail() {
 		return this.accNb;
 	}
-
 	public void setEmail(String email) {
 		this.accNb = email;
 	}
-
 	@Override
 	public int getCardNumber() {
 		return this.cardNumber;
@@ -82,15 +111,12 @@ public class LoyaltyCard implements Cards{
 	public void setCardNumber(int cardNumber) {
 		this.cardNumber = cardNumber;
 	}
-
 	public int getPointsAvailable() {
 		return pointsAvailable;
 	}
-
 	public void setPointsAvailable(int pointsAvailable) {
 		this.pointsAvailable = pointsAvailable;
 	}
-
 	@Override
 	public double getMoneyAvailable() {
 		return this.moneyAvailable;
@@ -103,12 +129,10 @@ public class LoyaltyCard implements Cards{
 			this.moneyAvailable=moneyAvailable;
 			moneyAvailable=(pointsAvailable/100);
 		} 
-
 	}
 	public List<String> getList() {
 		return list;
 	}
-
 	public void setList(List<String> list) {
 		this.list = list;
 	}
@@ -146,26 +170,5 @@ public class LoyaltyCard implements Cards{
 		return 0;
 	}
 
-	/*
-	 * Method to check if the card is equal to another card
-	 */
-	@Override
-	public boolean equals(Cards card) {
-		if((this.getType() == card.getType()) &&(this.getAccNb() == card.getAccNb()) && (this.getCardNumber() == card.getAccNb()) && (this.getPointsAvailable() == card.getPointsAvailable())&&(this.getMoneyAvailable() == card.getMoneyAvailable())){
-			return true;
-		}
-		return false;
-	}
-
-	/*
-	 * method to get each string of their list
-	 */
-	@Override
-	public String getStringList() {
-		for(int i=0; i< this.getList().size(); i++){
-			tmp+= this.getList().get(i);
-		}
-		return tmp;
-	}
-	
 }
+

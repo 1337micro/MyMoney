@@ -2,7 +2,9 @@ package src;
 //-------------------------------------------------------
 //For Comp 354 Section PP - Winter 2018
 //Iteration 2: Noemi Lemonnier 40001085
-//Description: Display for the Authentification feature
+//Description: AuthentificationUI.java is the class used to display the AuthentificationList and AuthentificationUser 
+// It pops up a window that requires the user to enter a username and password and the system will check if they are
+// accepted or rejected and if accepted, they will be taken to the main menu ApplicationLayout
 //          
 //--------------------------------------------------------
 import java.awt.Color;
@@ -13,8 +15,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -33,13 +33,13 @@ public class AuthentificationUI extends JFrame{
 	//open the window
 	JFrame frame = new JFrame();
 
-	//to launch the different features in the applicationlayout
+	//to launch the different features in the ApplicationLayout.java
 	private static CashSpending cashSpending = new CashSpending();
 	private static ApplicationLayout applicationLayout = new ApplicationLayout();
 	private static Budgeting budgetting = new Budgeting();
 	private static MyCards myCards= new MyCards();
 
-	//declaring the different needed attributes
+	//declaring attributes
 	private static ArrayList <AuthentificationUser> users_list = new ArrayList<AuthentificationUser>();
 	private static String username;
 	private static String password;
@@ -62,17 +62,17 @@ public class AuthentificationUI extends JFrame{
 		//setting the array
 		AuthentificationList.readFromTheFile(users_list);
 
-		//setting the display
+		//setting the display, their background color and their layout
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(204, 204, 205));
+		panel.setBackground(Constants.AUTHENTIFICATION_COLOR);
 		JPanel verticalPan = new JPanel();
-		verticalPan.setBackground(new Color(204, 204, 205));
+		verticalPan.setBackground(Constants.AUTHENTIFICATION_COLOR);
 		JPanel horizPan = new JPanel();
-		horizPan.setBackground(new Color(204, 204, 205));
+		horizPan.setBackground(Constants.AUTHENTIFICATION_COLOR);
 		JPanel horizPan2 = new JPanel();
-		horizPan2.setBackground(new Color(204, 204, 205));
+		horizPan2.setBackground(Constants.AUTHENTIFICATION_COLOR);
 		JPanel horizPan3 = new JPanel();
-		horizPan3.setBackground(new Color(204, 204, 205));
+		horizPan3.setBackground(Constants.AUTHENTIFICATION_COLOR);
 		BoxLayout boxLayoutV = new BoxLayout(verticalPan, BoxLayout.Y_AXIS);
 		BoxLayout boxLayoutH1 = new BoxLayout(horizPan, BoxLayout.X_AXIS);
 		BoxLayout boxLayoutH2 = new BoxLayout(horizPan2, BoxLayout.X_AXIS);
@@ -82,17 +82,16 @@ public class AuthentificationUI extends JFrame{
 		horizPan2.setLayout(boxLayoutH2);
 		horizPan3.setLayout(boxLayoutH3);
 
-		//setting the image
+		//setting the Unicorn image
 		ImageIcon imgPan = new ImageIcon("unicorn.png"); // load the image to a imageIcon
 		Image image = imgPan.getImage(); // transform it 
 		Image newimg = image.getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
 		imgPan = new ImageIcon(newimg);  // transform it back
 		JLabel imgLab = new JLabel(imgPan);
 
-		//setting the buttons
+		//setting the buttons and their actionListener
 		JButton newUser = new JButton("New User");
 		newUser.addActionListener(new CreateUserListener());
-
 		JButton signIn = new JButton("Sign In");
 		signIn.addActionListener(new SignInListener());
 
@@ -108,9 +107,9 @@ public class AuthentificationUI extends JFrame{
 		JLabel txt1 = new JLabel("To access MyMoneyApp, please enter:");
 		JLabel txt2 = new JLabel("Username:\t");
 		JLabel txt3 = new JLabel("Password:\t");
-		txt1.setFont(new Font("Garamond", Font.PLAIN, 16));
-		txt2.setFont(new Font("Courier New", Font.BOLD, 14));
-		txt3.setFont(new Font("Courier New", Font.BOLD, 14));
+		txt1.setFont(new Font("Garamond", Font.PLAIN, 16)); //setting the font
+		txt2.setFont(new Font("Courier New", Font.BOLD, 14)); //setting the font
+		txt3.setFont(new Font("Courier New", Font.BOLD, 14)); //setting the font
 		verticalPan.add(txt1);
 		horizPan.add(txt2);
 		horizPan.add(userTxt);
@@ -130,7 +129,7 @@ public class AuthentificationUI extends JFrame{
 		frame.setVisible(true);
 		frame.setSize(400, 300);
 		frame.setResizable(false);
-		frame.setTitle("MyMoneyApp Authentification");
+		frame.setTitle("MyMoneyApp Authentification"); //setting title
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
 	}
@@ -143,6 +142,8 @@ public class AuthentificationUI extends JFrame{
 		 */
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+			//making sure only one login information are in the database textfile
+			//if there is already a login information in the DB textfile
 			if(users_list.size()>0){
 				JPanel pan=new JPanel();
 
@@ -155,6 +156,7 @@ public class AuthentificationUI extends JFrame{
 					JOptionPane.getRootFrame().dispose();
 				};
 				//if the user clicks on the YES/OK BUTTON
+				//remove the login information from the file and from the array
 				if(optn == 0){ 
 					users_list.remove(0);
 					try {
@@ -163,14 +165,15 @@ public class AuthentificationUI extends JFrame{
 						System.err.println("Error in clearing the database Authentification.txt");
 						e.printStackTrace();
 					}
-					JOptionPane.getRootFrame().dispose();
+					JOptionPane.getRootFrame().dispose(); //close the JOptionPane
 				}
 			}
-					//if there is only no user account in the database Authentification.txt
+			//if there is only no user account in the database Authentification.txt
 			if(users_list.size()<1){
-				//changing the color of the panel and optionpane
+				//changing the color of the panel and optionPane
 				UIManager.put("OptionPane.background",new ColorUIResource(204, 204, 205));
 				UIManager.put("Panel.background",new ColorUIResource(204, 204, 205));
+
 				//create a panel and a layout that fits the amount of information required.
 				JPanel pane=new JPanel(new GridLayout(5,2));
 
@@ -203,6 +206,7 @@ public class AuthentificationUI extends JFrame{
 				//if the user clicks on the YES/OK BUTTON
 				if(option == 0){ 	
 					try{
+						//getting information entered by the user
 						username = usn.getText();
 						password = psw.getText();
 
@@ -210,22 +214,23 @@ public class AuthentificationUI extends JFrame{
 						if((username == null) || (password == null)){
 							throw new NumberFormatException();
 						}
-
+						//creating a new AuthentificationUser object
 						user = new AuthentificationUser(username,password);
 
-						//if the username already exists
+						//if  login information already exists
 						boolean isDuplicate = AuthentificationList.readToFindDuplicate(user);
 						if(isDuplicate == true){
 							throw new NumberFormatException();
 						}
+						//if  login information does not exist
 						else{
+							users_list.add(user); //add object to the ArrayList
+							AuthentificationList.writeToFile(user); //write information to the Db txt 
+							JOptionPane.getRootFrame().dispose(); //close the window
 
-							users_list.add(user);
-							AuthentificationList.writeToFile(user);
-							JOptionPane.getRootFrame().dispose();
 							//close the authentification frame
 							frame.dispose();
-
+							//open the main menu of the application
 							applicationLayout.setVisible(true);
 
 
@@ -259,11 +264,15 @@ public class AuthentificationUI extends JFrame{
 				if(userTxt.getText().isEmpty() || passwTxt.getText().isEmpty()){
 					throw new NumberFormatException();
 				}
+				//set attributes with information entered by user
 				String name = userTxt.getText();
 				String psswd = passwTxt.getText();
+				//creating new object AuthentificationUser
 				user = new AuthentificationUser(name, psswd);
+				
 				//checks if the username entered exists in the database textfile
 				boolean isValid = AuthentificationList.readToFindDuplicate(user);
+				//if the username and password matche the db txt information
 				if(isValid == true){
 					//close the authentification frame
 					frame.dispose();

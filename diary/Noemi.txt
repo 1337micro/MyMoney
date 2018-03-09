@@ -76,4 +76,6 @@ I changed the size of the application too.
 Real was in charge of the CashSpending feature but he never worked on it really. After the break week, I decided to do his feature as he seemed to have too much trouble to do it.  I remade the code William did for iteration 1 for cash spendings and redid everything to make it user friendly: I created a CashSpending Object with all same expenditures as the Budgeting feature and made the display similar to my MyCards feature. I made sure all transactions were recorded via a textfile too. 
 __________________________________________________________________________________________
 March 5-7, 2018
-I finished the CashSpending feature but Real will need to connect the cash spending with the Budget features and to do the JUnit test. I also finished connections the transactions to the Cards and made sure the amount of the cards would change and exceptions would be handle.  
+I finished the CashSpending feature but Real will need to connect the cash spending with the Budget features and to do the JUnit test. I also finished connections the transactions to the Cards and made sure the amount of the cards would change and exceptions would be handle.  _________________________________________________________________________________________
+March 7-8, 2018
+I did the demo for the TA. I added comment to my files: Authentification features, MyCards feature and ApplicationLayout and Constants so Documenters know what they need.

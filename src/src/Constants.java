@@ -1,4 +1,5 @@
 package src;
+import java.awt.Color;
 //-------------------------------------------------------
 //For Comp 354 Section PP - Winter 2018
 //Iteration 2: Noemi Lemonnier 40001085
@@ -36,14 +37,21 @@ public class Constants {
 	public static final String BUTTON_REMOVE_CARD = "Remove a card";
 	public static final String BUTTON_SPENDING = "Cash Spending";
 	public static final String BUTTON_ADD_EXPENSE = "Add an expense";
+	public static final String BUTTON_CLEAR_EXPENSE = "Clear all expenses";
 
+	//color constant
+	public static final Color CASHSPENDING_COLOR = new Color(204, 255, 229);
+	public static final Color MYCARDS_COLOR = new Color(204, 204, 255);
+	public static final Color BUDGETING_COLOR = new Color(204, 255, 255);
+	public static final Color AUTHENTIFICATION_COLOR = new Color(204, 204, 205);
+	
 	//invalid constants
 	public static final String INVALID_TITLE = "INVALID INPUT";
 	public static final String INVALID_MSG = "You have entered an invalid value or a duplicate.\nPlease try again.";
 	public static final String INVALID_MSG1 = "You have entered an invalid value. \nPlease try again"; 
 	public static final String INVALID_MSG2 = "You do not have a valid budget in our records. \nPlease create a new budget!";
 	public static final String INVALID_MSG_OVER_BUDGET = "You have entered a value that is over your budget.";
-	
+
 	// budgetUI constants
 	public static final String BGT_TITLE = "SAVE BUDGET";
 	public static final String BGT_MSG = "Do you want to save this budget?";
@@ -57,6 +65,7 @@ public class Constants {
 	public static final Icon CREDIT_IMAGE = new ImageIcon("creditImage.png");
 	public static final Icon DEBIT_IMAGE = new ImageIcon("debitImage.png");
 	public static final Icon LOYALTY_IMAGE = new ImageIcon("loyaltyImage.png");
+	public static ImageIcon IMG_UNICORN = new ImageIcon("unicorn.png");
 
 	//Authentification constants
 	public final static File AUTHENTIFICATION_FILE = new File("Authentification.txt");

@@ -4,18 +4,17 @@ package src;
 //Iteration 1: Genevieve Plante-Brisebois 40003112
 //Help received from the Programmer Organizer: Noémi Lemonnier 40001075
 //Iteration 2: Noemi Lemonnier 40001085
-//Description: implements the user interface for the My Cards feature.  
+//Description: MyCardsUI.java is a class that display the user interface 
+// for the My Cards class.  
 //            
 //--------------------------------------------------------
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
-import javax.swing.plaf.ColorUIResource;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import src.Cards.CardType;
@@ -35,7 +34,6 @@ public class MyCardsUI implements ActionListener{
 	// declaring used attributes
 	protected static Object[] COLUMN_NAMES = {"Card type", "Account Number","Card Number", "Amount", "Select"};
 	protected static TableColumn tc;
-	//protected TransactionsList trans_list;
 	UIManager UI;
 	protected static Cards card;
 	protected static DefaultTableModel tableModel;
@@ -54,18 +52,14 @@ public class MyCardsUI implements ActionListener{
 	Border raisedbevel = BorderFactory.createRaisedBevelBorder();
 	Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 	Border compound = BorderFactory.createCompoundBorder(raisedbevel, loweredbevel);
-
 	//list of cards
 	protected static ArrayList <Cards> cards_list = new ArrayList<Cards>();
-
 	//button to add and remove
 	JButton addCardButton = new JButton(Constants.BUTTON_ADD_CARD);
 	JButton removeCardButton = new JButton(Constants.BUTTON_REMOVE_CARD);
 
-	public static ArrayList<Cards> getListCards(){
-		return cards_list;
 
-	}
+
 	/*
 	 * Method to trigger the display of the cards feature when the user clicks on the MyCards button on the application.
 	 */
@@ -98,7 +92,7 @@ public class MyCardsUI implements ActionListener{
 	public void MyCardsUI(){
 		JLabel lab = new JLabel("Please add or remove the cards you own.");
 		lab.setFont(new Font("Courier New", Font.BOLD, 14));
-		
+
 		//setting the custom table model to the class I created 
 		tableModel =  new DefaultTableModel(COLUMN_NAMES, 0);
 		table = new JTable(tableModel){
@@ -132,17 +126,17 @@ public class MyCardsUI implements ActionListener{
 			//setting the panel
 			panel= new JPanel();
 			JPanel pan2 = new JPanel();
-			pan2.setBackground(new Color(204, 204, 255));
+			pan2.setBackground(Constants.MYCARDS_COLOR); //background color
 			pan2.add(scrollPane, BorderLayout.CENTER);
 			JPanel pan3 = new JPanel();
-			pan3.setBackground(new Color(204, 204, 255));
+			pan3.setBackground(Constants.MYCARDS_COLOR); //background color
 			pan3.add(addCardButton);
 			pan3.add(removeCardButton);
 			panel.add(lab);
 			panel.add(pan2);
 			panel.add(pan3);
 			panel.setBorder(compound);
-			panel.setBackground(new Color(204, 204, 255));
+			panel.setBackground(Constants.MYCARDS_COLOR); //background color
 			panel.setVisible(false);
 
 			//reading the MyCards.txt to add any values to the table
@@ -177,9 +171,6 @@ public class MyCardsUI implements ActionListener{
 			int column = e.getColumn();
 			if (column == 4) {
 				//changing the color of the panel and optionpane
-				//UIManager.put("OptionPane.background",new ColorUIResource(204, 204, 205));
-				//UIManager.put("Panel.background",new ColorUIResource(255, 255, 255));
-				//Font("Calibri", Font.BOLD, 14));
 				// getting the location of the checkbox
 				tableModel = (DefaultTableModel) e.getSource();
 				//String columnName = tableModel.getColumnName(column);
@@ -199,17 +190,16 @@ public class MyCardsUI implements ActionListener{
 
 					if(cards_list.get(row).getType() == Cards.CardType.DEBIT){
 						JLabel txt2 = new JLabel ("Transactions done with this card: ");
-						
-						txt2.setFont(new Font("Calibri", Font.BOLD, 14));
-						transacBox = new JTextArea(3,30);
-						transacBox.setText(cards_list.get(row).getStringList());
-						transacBox.setEditable(false);
-						transacBox.setBorder(compound);
-						jp = new JScrollPane(transacBox);
-						jp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+						txt2.setFont(new Font("Calibri", Font.BOLD, 14)); // set font
+						transacBox = new JTextArea(3,30); //set size
+						transacBox.setText(cards_list.get(row).getStringList()); // get transactions of the cards
+						transacBox.setEditable(false); //not editable by user
+						transacBox.setBorder(compound); //giving bounders
+						jp = new JScrollPane(transacBox); //so if many transactions user can scroll
+						jp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); //location of the scroll
+						//layout
 						box2.add(txt2);
 						box4.add(jp);
-
 						boxFinal.add(box2);
 						boxFinal.add(box4);
 						pane.add(boxFinal);
@@ -224,26 +214,25 @@ public class MyCardsUI implements ActionListener{
 					}
 					else if(cards_list.get(row).getType() == Cards.CardType.CREDIT){
 						JLabel txt2 = new JLabel ("Credit Card Limit:   $");
-						txt2.setFont(new Font("Calibri", Font.BOLD, 14));
-						double lmtCard = (cards_list.get(row).getLimit());
-						String lmt = String.valueOf(lmtCard);
-						accNm = new JTextArea(lmt);
-						
-						accNm.setEditable(false);
+						txt2.setFont(new Font("Calibri", Font.BOLD, 14)); //set font
+						double lmtCard = (cards_list.get(row).getLimit()); //get the card limit
+						String lmt = String.valueOf(lmtCard); //get the value
+						accNm = new JTextArea(lmt); //set the value
+						accNm.setEditable(false); //not editable by user
+						//layout
 						box1.add(txt2);
 						box1.add(accNm);
-
 						JLabel txt3 = new JLabel ("Transactions done with this card: ");
-						txt3.setFont(new Font("Calibri", Font.BOLD, 14));
-						transacBox = new JTextArea(3,30);
-						transacBox.setText(cards_list.get(row).getStringList());
-						transacBox.setEditable(false);
-						transacBox.setBorder(compound);
-						jp = new JScrollPane(transacBox);
-						jp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+						txt3.setFont(new Font("Calibri", Font.BOLD, 14)); // set font
+						transacBox = new JTextArea(3,30); //set size
+						transacBox.setText(cards_list.get(row).getStringList()); // get transactions of the cards
+						transacBox.setEditable(false); //not editable by user
+						transacBox.setBorder(compound); //giving bounders
+						jp = new JScrollPane(transacBox); //so if many transactions user can scroll
+						jp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); //location of the scroll
+						//layout
 						box3.add(txt3);
 						box4.add(jp);
-
 						boxFinal.add(box1);
 						boxFinal.add(box3);
 						boxFinal.add(box4);
@@ -329,7 +318,6 @@ public class MyCardsUI implements ActionListener{
 
 				//creating labels for the text fields
 				JLabel aN= new JLabel("Enter your account Number (4 numbers)");
-				//aN.setForeground(new Color(204, 204, 255));
 				aN.setFont(new Font("Calibri", Font.BOLD, 14));
 				JLabel cN= new JLabel("Enter the card Number (8 numbers)");
 				cN.setFont(new Font("Calibri", Font.BOLD, 14));
@@ -365,10 +353,8 @@ public class MyCardsUI implements ActionListener{
 						cardNum = Integer.parseInt(cardNumber.getText());
 						money = Double.parseDouble(moneyCurrent.getText());
 						
-						if(accNb>9999 || cardNum>99999999){
-							throw new NumberFormatException();
-						}
-						if( !(accNb > 0 || cardNum > 0 || money > 0)){
+						//checking if attributes have negatif values or outside range accepted values
+						if( accNb < 0 || cardNum < 0 || money < 0 || accNb>9999 || cardNum>99999999){
 							throw new NumberFormatException();
 						}
 						card = new Debit(cdtp, accNb, cardNum, money);
@@ -377,10 +363,14 @@ public class MyCardsUI implements ActionListener{
 						if(isDuplicate == true){
 							throw new NumberFormatException();
 						}
+						//adding the card to the arraylist of Cards
 						cards_list.add(card);
 						Object[] data = {cdtp, accNb, cardNum, money};
+						//adding row to the table
 						tableModel.addRow(data);
+						//writing the data that will be added to the database text file
 						MyCards.writeToFile(card);
+						
 
 					}//if the user enters a string or an invalid number or a card duplicate
 					catch (NumberFormatException nfe){
@@ -455,8 +445,9 @@ public class MyCardsUI implements ActionListener{
 						email = emailTxt.getText();
 						cardNum=Integer.parseInt(cardNumber.getText());
 						pointsAvailable = Integer.parseInt(ptsAvailable.getText());
-
-						if(cardNum<0 || pointsAvailable<=0 || cardNum>99999999){
+						
+						//making sure all attributes are valid 
+						if(cardNum<0 || pointsAvailable<0 || cardNum>99999999){
 							throw new NumberFormatException();
 						}
 
@@ -467,10 +458,11 @@ public class MyCardsUI implements ActionListener{
 						if(isDuplicate == true){
 							throw new  NumberFormatException();
 						}
+						//adding the card to the arraylist of Cards
 						cards_list.add(card);
 						Object[] data = {cdtp, email, cardNum, pointsAvailable, false};
+						//adding row to the table
 						tableModel.addRow(data);
-
 						//writing the data that will be added to the database text file
 						MyCards.writeToFile(card);
 					}
@@ -542,8 +534,8 @@ public class MyCardsUI implements ActionListener{
 						moneySpent = Double.parseDouble(moneyCurrent.getText());
 						limitCard = Double.parseDouble(limit.getText());
 
-						//if user enters a negative number
-						if(accNb<=0 || cardNum<=0 || moneySpent<=0 || limitCard<=0 || accNb>9999 || cardNum>99999999){
+						//if user enters a negative number 
+						if(accNb<0 || cardNum<0 || moneySpent<0 || limitCard<0 || accNb>9999 || cardNum>99999999){
 							throw new NumberFormatException();
 						}
 
@@ -554,11 +546,11 @@ public class MyCardsUI implements ActionListener{
 						if(isDuplicate == true){
 							throw new NumberFormatException();
 						}
-
+						//adding the card to the arraylist of Cards
 						cards_list.add(card);
 						Object[] data = {cdtp, accNb, cardNum, moneySpent};
+						//adding row to the table
 						tableModel.addRow(data);
-
 						//writing the data that will be added to the database text file
 						MyCards.writeToFile(card);
 					}
@@ -638,12 +630,17 @@ public class MyCardsUI implements ActionListener{
 			String ln = getLineFormatTextfile(index);
 			if(cards_list.get(index).getType().equals(CardType.DEBIT)){
 				if(cards_list.get(index).getMoneyAvailable() >= amount){ //if enough money in the account
+					//set new amount money spent
 					double newAmount = cards_list.get(index).getMoneyAvailable() - amount;
-					cards_list.get(index).setMoneyAvailable(newAmount);	// setting new amount available
-					String ln2 = getLineFormatTextfile(index); //getting the file format of new info of card
-					MyCards.modifyFile(ln, ln2); //changing the info in the MyCards.txt DB
+					cards_list.get(index).setMoneyAvailable(newAmount);	
+					//Format the new expense
+					String ln2 = getLineFormatTextfile(index); 
+					//modify the database text file line about that card
+					MyCards.modifyFile(ln, ln2); 
+					//modify the value in the table
 					Object obt = newAmount;
 					table.setValueAt(obt, index, 3);
+					//fire the change
 					tableModel.fireTableDataChanged();
 					return true;
 				}
@@ -652,16 +649,21 @@ public class MyCardsUI implements ActionListener{
 				}
 			}
 			else if(cards_list.get(index).getType().equals(CardType.CREDIT)){
+				//calculate money spent and what is left
 				double totalSpent = cards_list.get(index).getMoneySpent() + amount;
 				double newMoneyAvailable = cards_list.get(index).getLimit() - totalSpent;
 				if(cards_list.get(index).getMoneyAvailable() >= amount){ //if enough money in the account
+					//set new amount money spent and what is left between limit and money spent
 					cards_list.get(index).setMoneySpent(totalSpent);
 					cards_list.get(index).setMoneyAvailable(newMoneyAvailable);
+					//Format the new expense
 					String ln2 = getLineFormatTextfile(index);
-					tableModel.fireTableDataChanged();
+					//modify the database text file line about that card
 					MyCards.modifyFile(ln, ln2);
+					//modify the value in the table
 					Object obt = totalSpent;
 					table.setValueAt(obt, index, 3);
+					//fire the change
 					tableModel.fireTableDataChanged();
 					return true;
 				}
@@ -674,15 +676,21 @@ public class MyCardsUI implements ActionListener{
 				int totalPoints = LoyaltyCard.moneyInPoints(amount);
 
 				if(cards_list.get(index).getPointsAvailable() >= totalPoints){ //if enough money in the account
+					//calculate what is left of the points
 					int whatIsLeft = cards_list.get(index).getPointsAvailable() - totalPoints;
+					//transform points in money
 					double pointsInMoney = whatIsLeft/100;
+					//set new amount points and new amount money
 					cards_list.get(index).setPointsAvailable(whatIsLeft);
 					cards_list.get(index).setMoneyAvailable(pointsInMoney);
+					//Format the new expense
 					String ln2 = getLineFormatTextfile(index);
-					tableModel.fireTableDataChanged();
+					//modify the database text file line about that card
 					MyCards.modifyFile(ln, ln2);
+					//modify the value in the table
 					Object obt = whatIsLeft;
 					table.setValueAt(obt, index, 3);
+					//fire the change
 					tableModel.fireTableDataChanged();
 					return true;
 				}
@@ -731,13 +739,27 @@ public class MyCardsUI implements ActionListener{
 	public static void addToTheList(Cards cardTmp,  String n){
 		List<String> temp_lst= new ArrayList<>();
 		for(int i=0; i < cards_list.size(); i++){
-			if(cards_list.get(i).getCardNumber() == cardTmp.getCardNumber()){
+			//if a card already in the list has the same card number as the input one
+			if(cards_list.get(i).getCardNumber() == cardTmp.getCardNumber()){ 
+				//set temp_lst as the initial list
 				temp_lst = cards_list.get(i).getList();
+				// add to it the new expense
 				temp_lst.add(n);
+				//set temp_lst as new list of cards object
 				cardTmp.setList(temp_lst);
 				break;
 			}
 		}
+	}
+
+	/*
+	 * Get and Set for ArrayList <Cards> cards_list
+	 */
+	public static ArrayList<Cards> getListCards(){
+		return cards_list;
+	}
+	public static void setLst_string(List<String> list, int index) {
+		cards_list.get(index).setList(list);
 	}
 }
 

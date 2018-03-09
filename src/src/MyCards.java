@@ -26,6 +26,7 @@ import src.CashSpending.ExpenditureType;
 
 
 public class MyCards {
+	//declaring attributes
 	private static List <Cards> cards;
 	private static List <String> lst_string;
 	private static PrintWriter pw = null;
@@ -42,11 +43,12 @@ public class MyCards {
 	private static boolean emlBool;
 
 	/*
-	 * method to get the array of cards
+	 * Default Constructor
 	 */
-	public List<Cards> getCards() {
-		return cards;
+	public MyCards() {
+		this.cards= new ArrayList<>();
 	}
+
 
 	/*
 	 * method to add expenses  to the card list of string
@@ -54,19 +56,21 @@ public class MyCards {
 	public static void addToTheList(Cards cardTmp,  String n){
 		List<String> temp_lst= new ArrayList<>();
 		for(int i=0; i < cards.size(); i++){
+			//if find a card in the ArrayList that is the same as the one input
 			if(cards.get(i).getCardNumber() == cardTmp.getCardNumber()){
+				//set the temporary arraylist as the card initial list of expense
 				temp_lst = cards.get(i).getList();
-				temp_lst.add(n);
-				cardTmp.setList(temp_lst);
+				temp_lst.add(n); //add the new expense to the initial list
+				cardTmp.setList(temp_lst); //set the new list to the card object
 			}
-			else{
+			else{ //if no card already exist with the cardNumber as the one input
 				temp_lst.add(n);
 				cardTmp.setList(temp_lst);
 				cards.add(cardTmp);
 			}
 		}
 	}
-	
+
 
 	/*
 	 * to format the output 
@@ -96,39 +100,12 @@ public class MyCards {
 		return -1;
 
 	}
-	/*
-	 * create an arraylist to store the cards as a sequence
-	 */
-	public MyCards() {
-		this.cards= new ArrayList<>();
-	}
-
-	public static List<String> getLst_string() {
-		return lst_string;
-	}
-
-	public String getIndex(int index){
-		return lst_string.get(index);
-	}
-	/*
-	 * returns the card at a specified index
-	 */
-	public Cards get(int index) {											
-		return cards.get(index);
-	}
 
 	/*
 	 * method to remove a card from the list
 	 */
 	public void removeCard(int card) {
 		cards.remove(card);
-	}
-
-	/*
-	 * returns the list in arrayList <Cards> format
-	 */
-	public ArrayList <Cards> getArrayList() {
-		return (ArrayList <Cards>)cards;
 	}
 
 	/*
@@ -173,35 +150,29 @@ public class MyCards {
 		//Cards cardTmp;
 		//goes through the array
 		for(int i=0; i<list.size();i++) {
-
 			//if you get a match with the card number inputed and one in the array
 			if (list.get(i).getCardNumber()==cardNb){ 
-
 				//if it is a debit
 				if(list.get(i).getType() == CardType.DEBIT){
 					//cardTmp = new Debit(list.get(i).getType(), list.get(i).getAccNb(), list.get(i).getCardNumber(), list.get(i).getMoneyAvailable());
 					return i;
-
 				}
 				//if it is a credit
 				if(list.get(i).getType() == CardType.CREDIT){
 					//cardTmp = new Credit(list.get(i).getType(), list.get(i).getAccNb(), list.get(i).getCardNumber(), list.get(i).getMoneySpent(), list.get(i).getLimit());
-
 					return i;
 				}
 				//if it is a loyalty card
 				if(list.get(i).getType() == CardType.LOYALTY){
 					//cardTmp = new LoyaltyCard(list.get(i).getType(), list.get(i).getEmail(), list.get(i).getCardNumber(), list.get(i).getPointsAvailable());
-
 					return i;
-
 				}
-
 			}
 		}
 		//if nothing is find 
 		return 0;
 	}
+	
 	/*
 	 * method to write to the database textfile
 	 */
@@ -322,7 +293,7 @@ public class MyCards {
 		}
 		return false;
 	}
-	
+
 	/*
 	 * method to read the database textfile
 	 */
@@ -348,7 +319,7 @@ public class MyCards {
 						accNb = Integer.parseInt(lineArray[1]);
 						cardNum = Integer.parseInt(lineArray[2]);
 						money= Double.parseDouble(lineArray[3]);
-						if((accNb>=0) && (cardNum>=0) && (money>=0)){
+						if((accNb>=0) && (cardNum>=0) && (money>=0)){ //to make sure no input is null
 							Debit cd = new Debit(cdtp, accNb, cardNum, money);
 							cards_list.add(cd);
 							//adding it to the table
@@ -426,8 +397,8 @@ public class MyCards {
 		}
 
 	}
-	
-	
+
+
 
 	/*
 	 * method to remove from the database textfile MyCards
@@ -461,34 +432,24 @@ public class MyCards {
 	 */
 	static void modifyFile(String oldString, String newString)
 	{
-
 		String oldContent = "";
-
 		FileWriter writer = null;
-
 		try
 		{
 			reader = new BufferedReader(new FileReader(Constants.MYCARDS_FILE));
-
 			//Reading all the lines of input text file into oldContent
-
 			String line = reader.readLine();
-
 			while (line != null) 
 			{
 				oldContent = oldContent + line + System.lineSeparator();
-
 				line = reader.readLine();
 			}
 
 			//Replacing oldString with newString in the oldContent
-
 			String newContent = oldContent.replaceAll(oldString, newString);
 
 			//Rewriting the input text file with newContent
-
 			writer = new FileWriter(Constants.MYCARDS_FILE);
-
 			writer.write(newContent);
 		}
 		catch (IOException e)
@@ -500,9 +461,7 @@ public class MyCards {
 			try
 			{
 				//Closing the resources
-
 				reader.close();
-
 				writer.close();
 			} 
 			catch (IOException e) 
@@ -512,5 +471,38 @@ public class MyCards {
 		}
 	}
 
-
+	/*
+	 * Get and Set for List<Cards> cards
+	 */
+	public List<Cards> getCards() {
+		return cards;
+	}
+	/*
+	 * Get and Set for List <String> lst_string
+	 */
+	public static void setLst_string(List<String> list, int index) {
+		cards.get(index).setList(list);
+	}
+	public static List<String> getLst_string() {
+		return lst_string;
+	}
+	/*
+	 * Method to get the index of the List <String> lst_string;
+	 */
+	public String getIndex(int index){
+		return lst_string.get(index);
+	}
+	/*
+	 * Method to get  the card at a specified index of the List <Cards> cards
+	 */
+	public Cards get(int index) {											
+		return cards.get(index);
+	}
+	/*
+	 * returns the list in arrayList <Cards> format
+	 */
+	public ArrayList <Cards> getArrayList() {
+		return (ArrayList <Cards>)cards;
+	}
 }
+

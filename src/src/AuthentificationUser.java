@@ -2,15 +2,16 @@ package src;
 //-------------------------------------------------------
 //For Comp 354 Section PP - Winter 2018
 //Iteration 2: Noemi Lemonnier 40001085
-//Description: Class to create the Authentification which contains the username and the password
+//Description: AuthentificationUser.java is a class used to create 
+// the login object which contains the username and the password
 //          
 //--------------------------------------------------------
 
 
 public class AuthentificationUser {
+	//declaring attributes 
 	String username;
 	String password;
-
 
 	/*
 	 * default constructor
@@ -19,6 +20,7 @@ public class AuthentificationUser {
 		username="";
 		password="";
 	}
+	
 	/*
 	 *  constructor
 	 */
@@ -33,15 +35,12 @@ public class AuthentificationUser {
 	public String getUsername() {
 		return username;
 	}
-
 	public  void setUsername(String username) {
 		this.username = username;
 	}
-
 	public  String getPassword() {
 		return password;
 	}
-
 	public  void setPassword(String password) {
 		this.password = password;
 	}

@@ -1,7 +1,8 @@
 //-------------------------------------------------------
 //For Comp 354 Section PP - Winter 2018
 //Iteration 2: Noemi Lemonnier 40001085
-//Description: Application layout class
+//Description: ApplicationLayout.java is a class used to do the presentation of the main menu of the MyMoney App
+//It has 3 buttons to have access to the 3 features of the application: MyCards, CashSpending, Budgeting
 //--------------------------------------------------------
 
 
@@ -13,25 +14,24 @@ import java.awt.*;
 
 @SuppressWarnings("serial")
 public class ApplicationLayout extends JFrame{
-
+	// declaring attributes
 	private  CashSpendingUI cashSpendingUI;
 	private BudgetingUI budgetingUI;
 	private MyCardsUI cardsUI;
 
 	public ApplicationLayout() {
-	
-		// setting a menubar so there can be a header
+
+		// setting a menubar and its header
 		JMenuBar menubar = new JMenuBar();
 		JMenu txt = new JMenu(Constants.APP_WELCOME_TITLE);
 		menubar.add(txt);
 		setJMenuBar(menubar);
 
-		//setting the image
-		ImageIcon imgPan = new ImageIcon("unicorn.png"); // load the image to a imageIcon
-		Image image = imgPan.getImage(); // transform it 
-		Image newimg = image.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
-		imgPan = new ImageIcon(newimg);  // transform it back
-		JLabel imgLab = new JLabel(imgPan);
+		//setting the Unicorn image
+		Image image = Constants.IMG_UNICORN.getImage();  //transforming the type of imgPan
+		Image newimg = image.getScaledInstance(100, 100,java.awt.Image.SCALE_SMOOTH); //resizing the image   
+		Constants.IMG_UNICORN = new ImageIcon(newimg);  // transform it back
+		JLabel imgLab = new JLabel(Constants.IMG_UNICORN); //setting the image as a Label
 
 		// creating the toolbar to put the buttons on the side
 		JToolBar vertical = new JToolBar(JToolBar.VERTICAL);
@@ -40,7 +40,7 @@ public class ApplicationLayout extends JFrame{
 				Constants.APP_LAYOUT_MARGIN_LEFT,
 				Constants.APP_LAYOUT_MARGIN_BOTTOM,
 				Constants.APP_LAYOUT_MARGIN_RIGHT));
-
+		//setting the background color
 		vertical.setBackground(new Color(204, 204, 205));
 
 		//creating panel for each button so they can be aligned
@@ -52,29 +52,31 @@ public class ApplicationLayout extends JFrame{
 		frameTBbutt3.setBackground(new Color(204, 204, 205));
 		JPanel frameTImg = new JPanel();
 		frameTImg.setBackground(new Color(204, 204, 205));
-		
-		//creating buttons and setting their size
+
+		//creating the button for CashSpending feature and setting their size
 		JButton cashspending = new JButton(Constants.BUTTON_SPENDING);
-		cashspending.setFont(new Font("Courier New", Font.ITALIC, 14));
-		cashspending.setPreferredSize(new Dimension(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT));
+		cashspending.setFont(new Font("Courier New", Font.ITALIC, 14)); //setting font
+		cashspending.setForeground(new Color(204, 204, 205));
+		cashspending.setPreferredSize(new Dimension(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT)); //setting size
 		CashSpendingUI cashSpendingUI = new CashSpendingUI();
 		this.cashSpendingUI = cashSpendingUI;        
-		cashspending.addActionListener(cashSpendingUI);
+		cashspending.addActionListener(cashSpendingUI); //when button is clicked
 
+		//creating the button for MyCards feature and setting their size
 		JButton cards = new JButton(Constants.BUTTON_CARDS);
-		cards.setFont(new Font("Courier New", Font.ITALIC, 14));
-		cards.setPreferredSize(new Dimension(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT));
+		cards.setFont(new Font("Courier New", Font.ITALIC, 14));//setting font
+		cards.setPreferredSize(new Dimension(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT));//setting size
 		MyCardsUI cardsUI = new MyCardsUI();
 		this.cardsUI=cardsUI;
-		cards.addActionListener(cardsUI);
+		cards.addActionListener(cardsUI);//when button is clicked
 
-
+		//creating the button for Budgeting feature and setting their size
 		JButton budgeting = new JButton(Constants.BUTTON_BUDGET);
-		budgeting.setFont(new Font("Courier New", Font.ITALIC, 14));
-		budgeting.setPreferredSize(new Dimension(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT));
+		budgeting.setFont(new Font("Courier New", Font.ITALIC, 14));//setting font
+		budgeting.setPreferredSize(new Dimension(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT));//setting size
 		BudgetingUI budgetingUI = new BudgetingUI();
 		this.budgetingUI = budgetingUI;
-		budgeting.addActionListener(budgetingUI);
+		budgeting.addActionListener(budgetingUI);//when button is clicked
 
 
 		//adding buttons to their panels
@@ -82,6 +84,8 @@ public class ApplicationLayout extends JFrame{
 		frameTBbutt2.add(cashspending);
 		frameTBbutt3.add(budgeting);
 		frameTImg.add(imgLab);
+		
+		
 		//adding panels to the toolbar
 		vertical.add(frameTBbutt1);
 		vertical.add(frameTBbutt2);
