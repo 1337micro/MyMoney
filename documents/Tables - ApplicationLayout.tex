@@ -1,0 +1,148 @@
+\documentclass{article}
+\usepackage[table]{xcolor}
+\usepackage{multirow}
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+\begin{document}
+%ignore above
+
+
+%CLASS TABLE BEGIN
+\begin{table}[]
+\centering
+\begin{tabular}{|p{2cm}||p{1.5cm}||p{6cm}||p{3cm}||p{3cm}|}
+\hline
+
+%Class Name
+\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} Class Name}                   & \multicolumn{4}{l|}{ApplicationLayout}                                                     \\ \hline
+
+%Class Description
+\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} Description}                  & \multicolumn{4}{l|}{ApplicationLayout.java is a class used to do the presentation of the main menu of the MyMoney App. It has 3 buttons to have access to the 3 features of the application: MyCards, CashSpending, Budgeting}                                                     \\ \hline
+
+%Attributes
+\rowcolor[HTML]{C0C0C0} 
+\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }                             & Visibility & Data type   & name                 & Description                \\ \cline{2-5} 
+
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} Attributes}} & private  &  CashSpendingUI  & cashSpendingUI & Links to a Cash Spending interface  \\ \cline{2-5}
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & private  &  BudgetingUI  & budgetingUI &  Links to a Budgeting interface                      \\ \cline{2-5}
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & private  &  MyCardsUI  & cardsUI                       &  Links to a Cards interface                     \\ \cline{2-5}
+
+
+%Methods
+\rowcolor[HTML]{C0C0C0} 
+\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }                             & Visibility & Method Name & \multicolumn{2}{l|}{\cellcolor[HTML]{C0C0C0}Description} \\ \cline{2-5} 
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} Methods}}    &  Public      &  ApplicationLayout()       & \multicolumn{2}{l|}{Constructor, create app  layout }                               \\ \cline{2-5}
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} Methods}}    &  Public      &  getCashSpendingUI()       & \multicolumn{2}{l|}{Returns a Cash Spending interface }                               \\ \cline{2-5}
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} Methods}}    &  Public      &  getBudgetingUI()       & \multicolumn{2}{l|}{Returns a Budgeting interface }                               \\ \cline{2-5}
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} Methods}}    &  Public      &  getMyCardsUI()       & \multicolumn{2}{l|}{Returns a My Cards interface }                               \\ \cline{2-5}
+
+\end{tabular}
+\end{table}
+%CLASS TABLE END
+
+%METHOD TABLES BEGIN
+
+% ApplicationLayout(
+\begin{center}
+\begin{tabular}{|p{2.5cm}||p{10cm}|}
+\hline
+Method Name & ApplicationLayout() \\
+\hline
+Class Name & ApplicationLayout \\
+\hline
+Functionality & Constructor\\
+\hline
+
+Input & None\\
+\hline
+Output & None\\
+\hline
+
+Pseudo Code & Begin\newline
+\tab Set menu bar and header\newline
+\tab Set unicorn image\newline
+\tab Create toolbar for buttons\newline
+\tab Set background color\newline
+\tab Create panels for each button \newline
+\tab Create button for Cash Spending\newline
+\tab Create button for My Cards \newline
+\tab Create button for Budgeting\newline
+\tab Add buttons to panels\newline
+\tab Add panels to toolbar\newline
+\tab Add toolbar to frame\newline
+\tab Set frame attributes\newline
+End
+
+\\
+\hline
+\end{tabular}
+\end{center}
+
+% getCashSpendingUI()
+\begin{center}
+\begin{tabular}{|p{2.5cm}||p{10cm}|}
+\hline
+Method Name & getCashSpendingUI() \\
+\hline
+Class Name & ApplicationLayout \\
+\hline
+Functionality & Getter\\
+\hline
+
+Input & None\\
+\hline
+Output & CashSpendingUI\\
+\hline
+
+Pseudo Code & return cashSpendingUI\\
+\hline
+\end{tabular}
+\end{center}
+
+
+% getBudgetingUI()
+\begin{center}
+\begin{tabular}{|p{2.5cm}||p{10cm}|}
+\hline
+Method Name & getBudgetingUI() \\
+\hline
+Class Name & ApplicationLayout \\
+\hline
+Functionality & Getter\\
+\hline
+
+Input & None\\
+\hline
+Output & BudgetingUI\\
+\hline
+
+Pseudo Code & return BudgetingUI\\
+\hline
+\end{tabular}
+\end{center}
+
+
+% getMyCardsUI(
+\begin{center}
+\begin{tabular}{|p{2.5cm}||p{10cm}|}
+\hline
+Method Name & getMyCardsUI() \\
+\hline
+Class Name & ApplicationLayout \\
+\hline
+Functionality & Getter\\
+\hline
+
+Input & None\\
+\hline
+Output & MyCardsUI\\
+\hline
+
+Pseudo Code & return MyCardsUI\\
+\hline
+\end{tabular}
+\end{center}
+
+%METHOD TABLES END
+
+%ignore below
+\end{document}

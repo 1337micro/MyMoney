@@ -1,0 +1,296 @@
+\documentclass{article}
+\usepackage[table]{xcolor}
+\usepackage{multirow}
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+\begin{document}
+%ignore above
+
+
+%CLASS TABLE BEGIN
+\begin{table}[]
+\centering
+\begin{tabular}{|p{2cm}||p{1.5cm}||p{6cm}||p{3cm}||p{3cm}|}
+\hline
+
+%Class Name
+\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} Class Name}                   & \multicolumn{4}{l|}{Credit}                                                     \\ \hline
+
+%Class Description
+\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} Description}                  & \multicolumn{4}{l|}{WORDS HERE}                                                     \\ \hline
+
+%Attributes
+\rowcolor[HTML]{C0C0C0} 
+\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }                             & Visibility & Data type   & name                 & Description                \\ \cline{2-5} 
+
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} Attributes}} & private  &  List $<$AuthentificationUser$>$  & users\textunderscore list & List of all users  \\ \cline{2-5}
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & private  &  PrintWriter  & pw & To print to file                     \\ \cline{2-5}
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & private  &  BufferedReader  & reader                       & To read from file                     \\ \cline{2-5}
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & private  &  String & username                       & Current login username                      \\ \cline{2-5}
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & private  &  String & password                      & Current login password                      \\ \cline{2-5}
+
+%Methods
+\rowcolor[HTML]{C0C0C0} 
+\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }                             & Visibility & Method Name & \multicolumn{2}{l|}{\cellcolor[HTML]{C0C0C0}Description} \\ \cline{2-5} 
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} Methods}}    &  Public      &  getUsersList()       & \multicolumn{2}{l|}{Get the list of AuthentificationUser }                               \\ \cline{2-5}
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }}    &  Public      &  AuthentificationList()       & \multicolumn{2}{l|}{Default constructor }                               \\ \cline{2-5}
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }}    &  Public      &  get()       & \multicolumn{2}{l|}{Returns the AuthentificationUser at a specified index in the ArrayList}                               \\ \cline{2-5}
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }}    &  Public      & addUser()       & \multicolumn{2}{l|}{Add a user to the array list }                               \\ \cline{2-5}
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }}    &  Public      &  removeUser()      & \multicolumn{2}{l|}{Remove a user from the list }                               \\ \cline{2-5}
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }}    &  Public      &  getArrayList()      & \multicolumn{2}{l|}{Returns the list in arrayList $<$Authentification$>$ format }                               \\ \cline{2-5}
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }}    &  Public      &  getIndexUserFromUserName()      & \multicolumn{2}{l|}{Returns the index of the corresponding card number from the array }                               \\ \cline{2-5}
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }}    &  Public      &  writeToFile()       & \multicolumn{2}{l|}{Write to the database textfile }                               \\ \cline{2-5}
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }}    &  Public      &  readToFindDuplicate()       & \multicolumn{2}{l|}{Find duplicate if user inputs a new card }                               \\ \cline{2-5}
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }}    &  Public      &  readFromTheFile()      & \multicolumn{2}{l|}{Read the database textfile }                               \\ \cline{2-5}
+
+\end{tabular}
+\end{table}
+
+%CLASS TABLE END
+
+%METHOD TABLES BEGIN
+
+% getUsersList()
+\begin{center}
+\begin{tabular}{|p{2.5cm}||p{10cm}|}
+\hline
+Method Name &  getUsersList() \\
+\hline
+Class Name & AuthentificationList \\
+\hline
+Functionality & Returns the list of AuthentificationUser\\
+\hline
+
+Input & None\\
+\hline
+Output & List $<$AuthentificationUser$>$\\
+\hline
+
+Pseudo Code & Begin\newline
+\tab return users\textunderscore list\newline
+End \\
+\hline
+\end{tabular}
+\end{center}
+
+% AuthentificationList()
+\begin{center}
+\begin{tabular}{|p{2.5cm}||p{10cm}|}
+\hline
+Method Name & AuthentificationList() \\
+\hline
+Class Name & AuthentificationList \\
+\hline
+Functionality & Default constructor\\
+\hline
+
+Input & None\\
+\hline
+Output & None\\
+\hline
+
+Pseudo Code &  Begin\newline
+\tab Instantiate new ArraList for users\textunderscore list\newline
+End \\
+\hline
+\end{tabular}
+\end{center}
+
+%get(int index)
+\begin{center}
+\begin{tabular}{|p{2.5cm}||p{10cm}|}
+\hline
+Method Name & get() \\
+\hline
+Class Name & AuthentificationList \\
+\hline
+Functionality & Returns the AuthentificationUser at a specified index in the ArrayList\\
+\hline
+
+Input & int index\\
+\hline
+Output & None\\
+\hline
+
+Pseudo Code & Begin\newline
+\tab return users\textunderscore list.get(index)\newline
+End \\
+\hline
+\end{tabular}
+\end{center}
+
+%addUser(String usernm, String passwrd)
+\begin{center}
+\begin{tabular}{|p{2.5cm}||p{10cm}|}
+\hline
+Method Name & addUser() \\
+\hline
+Class Name & AuthentificationList \\
+\hline
+Functionality & Add a user to the array list\\
+\hline
+
+Input & String usernm, String passwrd\\
+\hline
+Output & None\\
+\hline
+
+Pseudo Code & Begin\newline
+\tab Create new AuthentificationUser \newline
+\tab Add new user to users\textunderscore list \newline
+End \\
+\hline
+\end{tabular}
+\end{center}
+
+% removeUser(int index)
+\begin{center}
+\begin{tabular}{|p{2.5cm}||p{10cm}|}
+\hline
+Method Name & removeUser() \\
+\hline
+Class Name & AuthentificationList \\
+\hline
+Functionality & Remove a user from the list\\
+\hline
+
+Input & int index\\
+\hline
+Output & None\\
+\hline
+
+Pseudo Code & Begin\newline
+\tab users\textunderscore list.remove(index)\newline
+End \\
+\hline
+\end{tabular}
+\end{center}
+
+% getArrayList()
+\begin{center}
+\begin{tabular}{|p{2.5cm}||p{10cm}|}
+\hline
+Method Name & getArrayList() \\
+\hline
+Class Name & AuthentificationList \\
+\hline
+Functionality & Returns the list in arrayList $<$Authentification$>$ format\\
+\hline
+
+Input & None\\
+\hline
+Output & ArrayList $<$AuthentificationUser$>$\\
+\hline
+
+Pseudo Code & Begin\newline
+\tab return users\textunderscore list\newline
+End \\
+\hline
+\end{tabular}
+\end{center}
+
+% getIndexUserFromUserName(String usernm, List <AuthentificationUser> list)
+\begin{center}
+\begin{tabular}{|p{2.5cm}||p{10cm}|}
+\hline
+Method Name & getIndexUserFromUserName() \\
+\hline
+Class Name & AuthentificationList \\
+\hline
+Functionality & Returns the index of the corresponding card number from the array\\
+\hline
+
+Input & String usernm, List $<$AuthentificationUser$>$ list\\
+\hline
+Output & int\\
+\hline
+
+Pseudo Code & Begin\newline
+\tab for size of list\newline
+\tab \tab if current card number= one serched for\newline
+\tab \tab \tab return index\newline
+\tab else return 0\newline
+End \\
+\hline
+\end{tabular}
+\end{center}
+
+% writeToFile(AuthentificationUser newUser)
+\begin{center}
+\begin{tabular}{|p{2.5cm}||p{10cm}|}
+\hline
+Method Name & writeToFile() \\
+\hline
+Class Name & AuthentificationList \\
+\hline
+Functionality & Write to the database textfile\\
+\hline
+
+Input & AuthentificationUser newUser\\
+\hline
+Output & None\\
+\hline
+
+Pseudo Code & Begin\newline
+\tab Instantiate pw\newline
+\tab Write new username and password to file\newline
+\tab Close pw\newline
+End \\
+\hline
+\end{tabular}
+\end{center}
+
+% readToFindDuplicate(AuthentificationUser user)
+\begin{center}
+\begin{tabular}{|p{2.5cm}||p{10cm}|}
+\hline
+Method Name & readToFindDuplicate() \\
+\hline
+Class Name & AuthentificationList \\
+\hline
+Functionality & Find duplicate if user inputs a new card\\
+\hline
+
+Input & AuthentificationUser user\\
+\hline
+Output & Boolean\\
+\hline
+
+Pseudo Code & Begin\newline
+\tab Instantiate reader \newline
+\tab Read username and password from file\newline
+\tab \tab If matches current user\newline
+\tab \tab \tab return true\newline
+\tab Close reader\newline
+End \\
+\hline
+\end{tabular}
+\end{center}
+
+% readFromTheFile(ArrayList <AuthentificationUser> user_list)
+\begin{center}
+\begin{tabular}{|p{2.5cm}||p{10cm}|}
+\hline
+Method Name & readFromTheFile() \\
+\hline
+Class Name & AuthentificationList \\
+\hline
+Functionality & Read the database textfile\\
+\hline
+
+Input & ArrayList $<$AuthentificationUser$>$ user\textunderscore list\\
+\hline
+Output & None\\
+\hline
+
+Pseudo Code & Begin\newline
+\tab Instantiate reader \newline
+\tab Read username and password from file\newline
+\tab Close reader\newline
+End \\
+\hline
+\end{tabular}
+\end{center}
+%METHOD TABLES END
+
+%ignore below
+\end{document}
