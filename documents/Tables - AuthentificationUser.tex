@@ -1,0 +1,172 @@
+\documentclass{article}
+\usepackage[table]{xcolor}
+\usepackage{multirow}
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+\begin{document}
+%ignore above
+
+% CLASS TABLE BEGIN
+\begin{table}[]
+\centering
+\begin{tabular}{|p{2cm}||p{1.5cm}||p{6cm}||p{3cm}||p{3cm}|}
+\hline
+
+%Class Name
+\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} Class Name}                   & \multicolumn{4}{l|}{AuthentificationUser}                                                     \\ \hline
+
+%Class Description
+\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} Description}                  & \multicolumn{4}{l|}{AuthentificationUser.java is a class used to create the login object which contains the username and the password}                                                     \\ \hline
+
+%Attributes
+\rowcolor[HTML]{C0C0C0} 
+\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }                             & Visibility & Data type   & name                 & Description                \\ \cline{2-5} 
+
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} Attributes}} & public  &  String  & username & Username  \\ \cline{2-5}
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String  & password & Password                     \\ \cline{2-5}
+
+
+%Methods
+\rowcolor[HTML]{C0C0C0} 
+\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }                             & Visibility & Method Name & \multicolumn{2}{l|}{\cellcolor[HTML]{C0C0C0}Description} \\ \cline{2-5} 
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} Methods}}    &  Public      &  AuthentificationUser()       & \multicolumn{2}{l|}{Default constructor }                               \\ \cline{2-5}
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} Methods}}    &  Public      &  AuthentificationUser()       & \multicolumn{2}{l|}{Parameterized constructor }                               \\ \cline{2-5}
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} Methods}}    &  Public      &  getUsername()       & \multicolumn{2}{l|}{Get the username }                               \\ \cline{2-5}
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} Methods}}    &  Public      &  setUsername()       & \multicolumn{2}{l|}{Set the username }                               \\ \cline{2-5}
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} Methods}}    &  Public      &  getPassword()       & \multicolumn{2}{l|}{Get the password }                               \\ \cline{2-5}
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} Methods}}    &  Public      &  setPassword()       & \multicolumn{2}{l|}{Set the password }                               \\ \cline{2-5}
+
+\end{tabular}
+\end{table}
+%CLASS TABLE END
+
+%METHOD TABLE BEGIN
+
+% AuthentificationUser()
+\begin{center}
+\begin{tabular}{|p{2.5cm}||p{10cm}|}
+\hline
+Method Name & AuthentificationUser() \\
+\hline
+Class Name & AuthentificationUser \\
+\hline
+Functionality & Default constructor\\
+\hline
+Input & None\\
+\hline
+Output & None\\
+\hline
+Pseudo Code & Begin\newline
+\tab Set password and username to empty string\newline
+End \\
+\hline
+\end{tabular}
+\end{center}
+
+% AuthentificationUser(String user, String pass)
+\begin{center}
+\begin{tabular}{|p{2.5cm}||p{10cm}|}
+\hline
+Method Name & Words \\
+\hline
+Class Name & AuthentificationUser \\
+\hline
+Functionality & Paramaterized constructor\\
+\hline
+Input & String user, String pass\\
+\hline
+Output & None\\
+\hline
+Pseudo Code & Begin\newline
+\tab Set username and password according to parameters\newline
+End \\
+\hline
+\end{tabular}
+\end{center}
+
+%getUsername()
+\begin{center}
+\begin{tabular}{|p{2.5cm}||p{10cm}|}
+\hline
+Method Name & getUsername() \\
+\hline
+Class Name & AuthentificationUser \\
+\hline
+Functionality & Getter\\
+\hline
+Input & None\\
+\hline
+Output & String\\
+\hline
+Pseudo Code & Begin\newline
+\tab return username\newline
+End \\
+\hline
+\end{tabular}
+\end{center}
+
+% setUsername(String username)
+\begin{center}
+\begin{tabular}{|p{2.5cm}||p{10cm}|}
+\hline
+Method Name & setUsername() \\
+\hline
+Class Name & AuthentificationUser \\
+\hline
+Functionality & Setter\\
+\hline
+Input & String username\\
+\hline
+Output & None\\
+\hline
+Pseudo Code & Begin\newline
+\tab this.username = username\newline
+End \\
+\hline
+\end{tabular}
+\end{center}
+
+% getPassword()
+\begin{center}
+\begin{tabular}{|p{2.5cm}||p{10cm}|}
+\hline
+Method Name & getPassword() \\
+\hline
+Class Name & AuthentificationUser \\
+\hline
+Functionality & Getter\\
+\hline
+Input & None\\
+\hline
+Output & String\\
+\hline
+Pseudo Code & Begin\newline
+\tab return password\newline
+End \\
+\hline
+\end{tabular}
+\end{center}
+
+% setPassword(String password)
+\begin{center}
+\begin{tabular}{|p{2.5cm}||p{10cm}|}
+\hline
+Method Name & setPassword() \\
+\hline
+Class Name & AuthentificationUser \\
+\hline
+Functionality & Setter\\
+\hline
+Input & String password\\
+\hline
+Output & None\\
+\hline
+Pseudo Code & Begin\newline
+\tab this.password = password\newline
+End \\
+\hline
+\end{tabular}
+\end{center}
+%METHOD TABLE END
+
+%ignore below
+\end{document}
