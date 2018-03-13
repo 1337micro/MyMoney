@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage[table]{xcolor}
 \usepackage{multirow}
+\usepackage{tabularx}
 \newcommand\tab[1][1cm]{\hspace*{#1}}
 \begin{document}
 %ignore above
@@ -9,7 +10,8 @@
 %CLASS TABLE BEGIN
 \begin{table}[]
 \centering
-\begin{tabular}{|p{2cm}||p{1.5cm}||p{6cm}||p{3cm}||p{3cm}|}
+\noindent\makebox[\textwidth]{
+\begin{tabular}{|p{2cm}||p{1.5cm}||p{5cm}||p{4cm}||p{3cm}|}
 \hline
 
 %Class Name
@@ -43,6 +45,7 @@
 \multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }}    &  Public      &  readFromTheFile()      & \multicolumn{2}{l|}{Read the database textfile }                               \\ \cline{2-5}
 
 \end{tabular}
+}
 \end{table}
 
 %CLASS TABLE END
@@ -291,6 +294,7 @@ End \\
 \end{tabular}
 \end{center}
 %METHOD TABLES END
+
 
 %ignore below
 \end{document}
