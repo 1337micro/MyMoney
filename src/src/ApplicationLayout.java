@@ -56,7 +56,7 @@ public class ApplicationLayout extends JFrame{
 		//creating the button for CashSpending feature and setting their size
 		JButton cashspending = new JButton(Constants.BUTTON_SPENDING);
 		cashspending.setFont(new Font("Courier New", Font.ITALIC, 14)); //setting font
-		cashspending.setForeground(new Color(204, 204, 205));
+		cashspending.setForeground(new Color(0, 204, 102)); //setting text color
 		cashspending.setPreferredSize(new Dimension(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT)); //setting size
 		CashSpendingUI cashSpendingUI = new CashSpendingUI();
 		this.cashSpendingUI = cashSpendingUI;        
@@ -65,6 +65,7 @@ public class ApplicationLayout extends JFrame{
 		//creating the button for MyCards feature and setting their size
 		JButton cards = new JButton(Constants.BUTTON_CARDS);
 		cards.setFont(new Font("Courier New", Font.ITALIC, 14));//setting font
+		cards.setForeground(new Color(178, 102, 255));//setting text color
 		cards.setPreferredSize(new Dimension(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT));//setting size
 		MyCardsUI cardsUI = new MyCardsUI();
 		this.cardsUI=cardsUI;
@@ -73,6 +74,7 @@ public class ApplicationLayout extends JFrame{
 		//creating the button for Budgeting feature and setting their size
 		JButton budgeting = new JButton(Constants.BUTTON_BUDGET);
 		budgeting.setFont(new Font("Courier New", Font.ITALIC, 14));//setting font
+		budgeting.setForeground(new Color(0, 204, 204));//setting text color
 		budgeting.setPreferredSize(new Dimension(Constants.BUTTON_WIDTH, Constants.BUTTON_HEIGHT));//setting size
 		BudgetingUI budgetingUI = new BudgetingUI();
 		this.budgetingUI = budgetingUI;
