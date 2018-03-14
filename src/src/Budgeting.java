@@ -47,7 +47,7 @@ public class Budgeting {
 
 	
 	/**
-	 * Deafult constructor reads percentages from default file, has no available funds
+	 * Default constructor reads percentages from default file, has no available funds
 	 */
 	//Default constructor with recommended percentages
 	//Based on http://www.leavedebtbehind.com/frugal-living/budgeting/10-recommended-category-percentages-for-your-family-budget/
@@ -369,7 +369,7 @@ public class Budgeting {
 		return amountMisc;
 	}
 
-	//GETTERS AND SETTERS
+	//GETTERS AND SETTERS FOR PERCENTAGES
 	public double getPercentHousing() {
 		return percentHousing;
 	}
@@ -450,6 +450,7 @@ public class Budgeting {
 		this.percentMisc = percentMisc;
 	}
 
+	//GETTERS AND SETTERS FOR AVAILABLE FUNDS
 	public double getAvailableFunds() {
 		return availableFunds;
 	}
@@ -458,6 +459,7 @@ public class Budgeting {
 		this.availableFunds = availableFunds;
 	}
 
+	//GETTERS AND SETTERS FOR AMOUNT
 	public double getAmountHousing() {
 		return amountHousing;
 	}

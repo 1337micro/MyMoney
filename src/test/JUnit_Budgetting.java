@@ -3,14 +3,199 @@ package test;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-import src.Budgetting;
+import src.Budgeting;
+import src.Constants;
+
+
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+
 public class JUnit_Budgetting {
 
-	Budgetting budget = new Budgetting();
+	Budgeting budget = new Budgeting();
+	Budgeting budgetF = new Budgeting(Constants.BUDGETING_FILE);
+	Budgeting budgetF1 = new Budgeting(100000.0, Constants.BUDGETING_FILE);
+	Budgeting budgetP = new Budgeting(6000, 20, 5, 5, 10, 6, 
+			15, 7, 7, 15, 5);
 	
+	
+	//Test default constructor budgeting
+	@Test
+	public void testDefaultConstructorBudgeting() {
+		assertEquals(0,budget.getAvailableFunds(),0);
+		assertEquals(30,budget.getPercentHousing(),0);
+		assertEquals(10,budget.getPercentFood(),0);
+		assertEquals(7,budget.getPercentUtilities(),0);
+		assertEquals(5,budget.getPercentClothing(),0);
+		assertEquals(7,budget.getPercentMedical(),0);
+		assertEquals(10,budget.getPercentDonations(),0);
+		assertEquals(7,budget.getPercentSavingsInsurance(),0);
+		assertEquals(7,budget.getPercentEntertainment(),0);
+		assertEquals(12,budget.getPercentTransportation(),0);
+		assertEquals(5,budget.getPercentMisc(),0);
+		
+		
+	}
+	@Test
+	public void testConstructorBudgeting() {
+		assertEquals(100000,budgetF1.getAvailableFunds(),0);
+	
+	}
+	
+	@Test
+	public void testConstructorBudgetingWithPercentages() {
+		assertEquals(6000,budgetP.getAvailableFunds(),0);
+		assertEquals(20,budgetP.getPercentHousing(),0);
+		assertEquals(5,budgetP.getPercentFood(),0);
+		assertEquals(5,budgetP.getPercentUtilities(),0);
+		assertEquals(10,budgetP.getPercentClothing(),0);
+		assertEquals(6,budgetP.getPercentMedical(),0);
+		assertEquals(15,budgetP.getPercentDonations(),0);
+		assertEquals(7,budgetP.getPercentSavingsInsurance(),0);
+		assertEquals(7,budgetP.getPercentEntertainment(),0);
+		assertEquals(15,budgetP.getPercentTransportation(),0);
+		assertEquals(10,budgetP.getPercentMisc(),0);
+		
+	}
+	
+    // test getters and setters for percentages 
+	
+	@Test
+	public void testSetGetPercentHousing() {
+		budget.setPercentHousing(25);
+		assertEquals(25,budget.getPercentHousing(),0);
+	}
+	
+	@Test
+	public void testSetGetPercentFood() {
+		budget.setPercentFood(25);
+		assertEquals(25,budget.getPercentFood(),0);
+	}
+	
+	@Test
+	public void testSetGetPercentUtilities() {
+		budget.setPercentUtilities(25);
+		assertEquals(25,budget.getPercentUtilities(),0);
+	}
+	
+	@Test
+	public void testSetGetPercentClothing() {
+		budget.setPercentClothing(25);
+		assertEquals(25,budget.getPercentClothing(),0);
+	}
+	@Test
+	public void testSetGetPercentMedical() {
+		budget.setPercentMedical(25);
+		assertEquals(25,budget.getPercentMedical(),0);
+	}
+	
+	@Test
+	public void testSetGetPercentDonations() {
+		budget.setPercentDonations(25);
+		assertEquals(25,budget.getPercentDonations(),0);
+	}
+	
+	@Test
+	public void testSetGetPercentSavingsInsurance() {
+		budget.setPercentSavingsInsurance(25);
+		assertEquals(25,budget.getPercentSavingsInsurance(),0);
+	}
+	
+	@Test
+	public void testSetGetPercentEntertainment() {
+		budget.setPercentEntertainment(25);
+		assertEquals(25,budget.getPercentEntertainment(),0);
+	}
+	
+	@Test
+	public void testSetGetPercentTransportation() {
+		budget.setPercentTransportation(25);
+		assertEquals(25,budget.getPercentTransportation(),0);
+	}
+	
+	@Test
+	public void testSetGetPercentMisc() {
+		budget.setPercentMisc(25);
+		assertEquals(25,budget.getPercentMisc(),0);
+	}
+	
+	@Test
+	public void testSetGetAvailableFunds() {
+		budget.setAvailableFunds(25);
+		assertEquals(25,budget.getAvailableFunds(),0);
+	}
+	
+	
+	//TEST GETTERS AND SETTERS FOR AMOUNT
+	
+	@Test
+	public void testSetGetAmountHousing() {
+		budget.setAmountHousing(25);
+		assertEquals(25,budget.getAmountHousing(),0);
+	}
+	
+	@Test
+	public void testSetGetAmountFood() {
+		budget.setAmountFood(25);
+		assertEquals(25,budget.getAmountFood(),0);
+	}
+	
+	@Test
+	public void testSetGetAmountUtilities() {
+		budget.setAmountUtilities(25);
+		assertEquals(25,budget.getAmountUtilities(),0);
+	}
+	
+	@Test
+	public void testSetGetAmountClothing() {
+		budget.setAmountClothing(25);
+		assertEquals(25,budget.getAmountClothing(),0);
+	}
+	@Test
+	public void testSetGetAmountMedical() {
+		budget.setAmountMedical(25);
+		assertEquals(25,budget.getAmountMedical(),0);
+	}
+	
+	@Test
+	public void testSetGetAmountDonations() {
+		budget.setAmountDonations(25);
+		assertEquals(25,budget.getAmountDonations(),0);
+	}
+	
+	@Test
+	public void testSetGetAmountSavingsInsurance() {
+		budget.setAmountSavingsInsurance(25);
+		assertEquals(25,budget.getAmountSavingsInsurance(),0);
+	}
+	
+	@Test
+	public void testSetGetAmountEntertainment() {
+		budget.setAmountEntertainment(25);
+		assertEquals(25,budget.getAmountEntertainment(),0);
+	}
+	
+	@Test
+	public void testSetGetAmountTransportation() {
+		budget.setAmountTransportation(25);
+		assertEquals(25,budget.getAmountTransportation(),0);
+	}
+	
+	@Test
+	public void testSetGetAmountMisc() {
+		budget.setAmountMisc(25);
+		assertEquals(25,budget.getAmountMisc(),0);
+	}
+	
+    // test calculate categories	
 	@Test
 	public void testCalculateHousing() {
 		budget.setAvailableFunds(1000);
