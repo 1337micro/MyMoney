@@ -1,18 +1,10 @@
 //-------------------------------------------------------
 //For Comp 354 Section PP - Winter 2018
-//Iteration 2: Noemi Lemonnier, 40001085
+//Iteration 2: Real Nguyen, 27566263
 //Description: CashSpending method to create the object containing all expenditures and the add method involved
 // --------------------------------------------------------
 
 package src;
-
-import java.io.BufferedReader;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Dictionary;
-
-import src.Cards.CardType;
 
 public class CashSpending {
 	//Calculated percentages
@@ -27,7 +19,6 @@ public class CashSpending {
 	private double amountTransportation = 0;
 	private double amountMisc = 0;
 	private Budgeting budgeting;
-	private Dictionary<ExpenditureType, String> expenditureTypeToBudgetingConstantDictionary;
 
 	/*
 	 * Constructor
@@ -35,7 +26,7 @@ public class CashSpending {
 	public CashSpending(double housing, double food, double utilities, double clothing, double medical, 
 			double donations, double savings, double entertainment, double transportation, double misc) {
 		//to make sure no number are 
-		if(housing>=0 || food >= 0 || utilities >=0 || clothing >=0 || medical >=0 || donations >=0 || savings >=0 || entertainment >=0 || transportation >= 0 || misc >=0){
+		if(housing >= 0 && food >= 0 && utilities >= 0 && clothing >= 0 && medical >= 0 && donations >= 0 && savings >= 0 && entertainment >= 0 && transportation >= 0 && misc >= 0){
 			this.amountHousing = housing;
 			this.amountFood = food;
 			this.amountUtilities = utilities;
@@ -67,7 +58,6 @@ public class CashSpending {
 		this.amountTransportation = 0;
 		this.amountMisc = 0;
 		this.budgeting = new Budgeting();
-
 	}
 	/*
 	 * Method to print out the object CashSpending
@@ -172,6 +162,34 @@ public class CashSpending {
 		return false;
 	}
 
+	public boolean isOverBudget(double amount, ExpenditureType type, String budgetingFileName){
+		//sets the budgeting amounts from the file
+		budgeting.readBudgetingFromFile(budgetingFileName);
+
+		switch (type) {
+		case HOUSING:
+			return getAmountHousing() + amount > budgeting.getAmountHousing();
+		case FOOD:
+			return getAmountFood() + amount > budgeting.getAmountFood();
+		case UTILITIES:
+			return getAmountUtilities() + amount > budgeting.getAmountUtilities();
+		case CLOTHING:
+			return getAmountClothing() + amount > budgeting.getAmountClothing();
+		case MEDICAL:
+			return getAmountMedical() + amount > budgeting.getAmountMedical();
+		case DONATIONS:
+			return getAmountDonations() + amount > budgeting.getAmountDonations();
+		case SAVINGS:
+			return getAmountSavingsInsurance() + amount > budgeting.getAmountSavingsInsurance();
+		case ENTERTAINMENT:
+			return getAmountEntertainment() + amount > budgeting.getAmountEntertainment();
+		case TRANSPORTATION:
+			return getAmountTransportation() + amount > budgeting.getAmountTransportation();
+		case MISC:
+			return getAmountMisc() + amount > budgeting.getAmountMisc();
+		}
+		return false;
+	}
 
 	/*
 	 * Getters and Setters

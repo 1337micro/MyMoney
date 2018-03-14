@@ -430,7 +430,7 @@ public class MyCards {
 	/*
 	 * Method used to modify a card when a transaction is done in the database textfile MyCards.txt
 	 */
-	static void modifyFile(String oldString, String newString)
+	public static void modifyFile(String oldString, String newString)
 	{
 		String oldContent = "";
 		FileWriter writer = null;

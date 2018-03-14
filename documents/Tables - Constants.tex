@@ -1,0 +1,104 @@
+\documentclass{article}
+\usepackage[table]{xcolor}
+\usepackage{multirow}
+\begin{document}
+%ignore above
+
+\begin{table}[]
+\centering
+\begin{tabular}{|p{2cm}||p{1.5cm}||p{2cm}||p{7cm}||p{3cm}|}
+\hline
+\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} Class Name}                   & \multicolumn{4}{l|}{Constants}                                                     \\ \hline
+\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} Description}                  & \multicolumn{4}{l|}{Contains all the constants used in the project in one easy to access location}    \\ \hline
+
+%Attributes                                                 
+\rowcolor[HTML]{C0C0C0} 
+\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }                             & Visibility & Data type   & Name                 & Description                \\ \cline{2-5} 
+
+%Application Constants
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} Attributes }} & public  &  int  & APP\textunderscore LAYOUT\textunderscore MARGIN\textunderscore TOP & Top margin of app                     \\ \cline{2-5}
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  int  & APP\textunderscore LAYOUT\textunderscore MARGIN\textunderscore LEFT                       & Left margin of app                     \\ \cline{2-5}
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  int & APP\textunderscore LAYOUT\textunderscore MARGIN\textunderscore RIGHT                       & Right margin of app                 \\ \cline{2-5}
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  int & APP\textunderscore LAYOUT\textunderscore MARGIN\textunderscore BOTTOM                      & Bottom margin of app                     \\ \cline{2-5}
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  int & APP\textunderscore LAYOUT\textunderscore HEIGHT                       & Height of app window              \\ \cline{2-5}
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  int & APP\textunderscore LAYOUT\textunderscore WIDTH                       & Width of app window                      \\ \cline{2-5}
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & APP\textunderscore TITLE                       & Window title                      \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & APP\textunderscore WELCOME\textunderscore TITLE                       & Welcome title                      \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & APP\textunderscore VERSION                       & App version number                     \\ \hline
+
+%Button Constants
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  int & BUTTON\textunderscore WIDTH                      & Button width                     \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  int & BUTTON\textunderscore HEIGHT                    & Button height                     \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & BUTTON\textunderscore BUDGET                      & Budgeting button name                      \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & BUTTON\textunderscore CALCULATE\textunderscore BUDGET                       & Calculate budget  button name                     \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & BUTTON\textunderscore SHOW\textunderscore BUDGET                      & Show budget  button name                      \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & BUTTON\textunderscore CHANGE\textunderscore PERCENTAGES                     & Change percentages  button name                      \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & BUTTON\textunderscore CLEAR\textunderscore PERCENTAGES                   & Clear percentages  button name                     \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & BUTTON\textunderscore CARDS                    & My Cards  button name                     \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & BUTTON\textunderscore ADD\textunderscore CARD                     &                  Add card  button name \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & BUTTON\textunderscore REMOVE\textunderscore CARD                     & Remove card  button name                    \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & BUTTON\textunderscore SPENDING                     & Cash Spending  button name                     \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & BUTTON\textunderscore ADD\textunderscore EXPENSE                     & Add expense  button name                      \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & BUTTON\textunderscore CLEAR\textunderscore EXPENSE                     & Clear expense  button name                      \\ \hline
+
+%Color Constants
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  Color & CASHSPENDING\textunderscore COLOR                     & Window color for Cash Spending               \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  Color & MYCARDS\textunderscore COLOR                     & Window color for   My Cards                      \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  Color & BUDGETING\textunderscore COLOR                     & Window color for  Budgeting                     \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  Color & AUTHENTIFICATION\textunderscore COLOR                     & Window color for  Authentication                      \\ \hline
+
+%Invalid Constants
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & INVALID\textunderscore TITLE                     & Invalid input error message                     \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & INVALID\textunderscore MSG                     & Invalid value or duplicate  input error message                     \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & INVALID\textunderscore MSG1                     & Invalid value error message                         \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & INVALID\textunderscore MSG2                     & No budget error message                         \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & INVALID\textunderscore MSG\textunderscore OVER\textunderscore BUDGET                     & Over budget error message                         \\ \hline
+
+%BudgetUI Constants
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & BGT\textunderscore TITLE                     & Save budget title                      \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & BGT\textunderscore MSG                     & Save budget question                     \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & BGT\textunderscore MSG1                     & Save percentages question                      \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & BGT\textunderscore MSG2                     & Delete budget question                     \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & BGT\textunderscore MSG3                     & Ne budget error                      \\ \hline
+
+%Image Locations
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  ImageIcon & WARNING\textunderscore IMAGE                     & Warning image                      \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  ImageIcon & CARDS\textunderscore IMAGE                     & My Cards image                      \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  Icon & CREDIT\textunderscore IMAGE                     & Credit Cards image                     \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  Icon & DEBIT\textunderscore IMAGE                     & Debit Card image                      \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  Icon & LOYALTY\textunderscore IMAGE                     & Loyalty Cards image                      \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  ImageIcon & IMG\textunderscore UNICORN                     & Unicorn image                      \\ \hline
+
+%Authentication Constants
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  File & AUTHENTIFICATION\textunderscore FILE                     & Authentication file location                      \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  File & MYCARDS\textunderscore FILE                     & Cards file  location                      \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & DEFAULTBUDGETINGPERCENTAGES\textunderscore FILE                     & Percentages file  location                       \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & BUDGETING\textunderscore FILE                     & Budget file  location                       \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  File & TRANSACTIONS\textunderscore FILE                     & Transactions file  location                      \\ \hline
+
+%Budgeting Constants
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  char & SEPARATOR                     & to seperate elements in files                      \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & AVAILABLEFUNDS                     & Text for category                      \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & HOUSING\textunderscore TYPE                     & Text for category                      \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & FOOD\textunderscore TYPE                     & Text for category                       \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & UTILITIES\textunderscore TYPE                     & Text for category                       \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & CLOTHING\textunderscore TYPE                     & Text for category                       \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & MEDICAL\textunderscore TYPE                     & Text for category                       \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & DONATIONS\textunderscore TYPE                     & Text for category                       \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & SAVINGSINSURANCE\textunderscore TYPE                     & Text for category                       \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & ENTERTAINMENT\textunderscore TYPE                     & Text for category                       \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & TRANSPORTATION\textunderscore TYPE                     & Text for category                       \\ \hline
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }} & public  &  String & MISC\textunderscore TYPE                     & Text for category                       \\ \hline
+
+%Methods
+\rowcolor[HTML]{C0C0C0} 
+\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} }                             & Visibility & Method Name & \multicolumn{2}{l|}{\cellcolor[HTML]{C0C0C0}Description} \\ \cline{2-5} 
+
+\multirow{-2}{*}{\cellcolor[HTML]{C0C0C0}{\color[HTML]{000000} Methods}}   & \multicolumn{4}{l|}{none }                               \\ \cline{2-5}
+
+
+\end{tabular}
+\end{table}
+
+%ignore below
+\end{document}
