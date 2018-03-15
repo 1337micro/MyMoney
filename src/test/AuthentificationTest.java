@@ -83,3 +83,4 @@ public class AuthentificationTest {
 		assertEquals("Verifying that the index of the card is correct", 0, AuthentificationList.getIndexUserFromUserName("q_sdf",listL), AuthentificationList.getIndexUserFromUserName("x_cbv",listL));
 	}
 }
+
