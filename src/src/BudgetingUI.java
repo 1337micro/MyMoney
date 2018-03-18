@@ -179,11 +179,16 @@ public class BudgetingUI implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			
+			//adding color to the background
 			UIManager.put("OptionPane.background",new ColorUIResource(204, 255, 255));
 			UIManager.put("Panel.background",new ColorUIResource(255, 255, 224));
+			
+			//creating the panel
 			JPanel panel1=new JPanel(new GridLayout(14,20));
 
-
+ 
+			//initializing labels and test fields to enter new percentages
 			JLabel availableFunds = new JLabel("Please Enter your Available Funds: ");
 			JLabel labelHousing = new JLabel("Housing %:");
 			JLabel labelFood = new JLabel("Food %: ");

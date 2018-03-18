@@ -21,11 +21,8 @@ import java.io.PrintWriter;
 public class JUnit_Budgetting {
 
 	Budgeting budget = new Budgeting();
-	Budgeting budgetF = new Budgeting(Constants.BUDGETING_FILE);
-	Budgeting budgetF1 = new Budgeting(100000.0, Constants.BUDGETING_FILE);
-	Budgeting budgetP = new Budgeting(6000, 20, 5, 5, 10, 6, 
-			15, 7, 7, 15, 5);
-	
+	Budgeting budgetReadFromFile = new Budgeting(100000.0, Constants.DEFAULTBUDGETINGPERCENTAGES_FILE);
+	Budgeting budgetPercentages = new Budgeting(6000, 20, 5, 5, 10, 6, 15, 7, 7, 15, 5);
 	
 	//Test default constructor budgeting
 	@Test
@@ -42,30 +39,29 @@ public class JUnit_Budgetting {
 		assertEquals(12,budget.getPercentTransportation(),0);
 		assertEquals(5,budget.getPercentMisc(),0);
 		
-		
+		//test constructor budgeting with two parameters
 	}
 	@Test
 	public void testConstructorBudgeting() {
-		assertEquals(100000,budgetF1.getAvailableFunds(),0);
+		assertEquals(100000,budgetReadFromFile.getAvailableFunds(),0);
 	
 	}
-	
+	//test constructor budgeting with percentages
 	@Test
 	public void testConstructorBudgetingWithPercentages() {
-		assertEquals(6000,budgetP.getAvailableFunds(),0);
-		assertEquals(20,budgetP.getPercentHousing(),0);
-		assertEquals(5,budgetP.getPercentFood(),0);
-		assertEquals(5,budgetP.getPercentUtilities(),0);
-		assertEquals(10,budgetP.getPercentClothing(),0);
-		assertEquals(6,budgetP.getPercentMedical(),0);
-		assertEquals(15,budgetP.getPercentDonations(),0);
-		assertEquals(7,budgetP.getPercentSavingsInsurance(),0);
-		assertEquals(7,budgetP.getPercentEntertainment(),0);
-		assertEquals(15,budgetP.getPercentTransportation(),0);
-		assertEquals(10,budgetP.getPercentMisc(),0);
-		
+		assertEquals(6000,budgetPercentages.getAvailableFunds(),0);
+		assertEquals(20,budgetPercentages.getPercentHousing(),0);
+		assertEquals(5,budgetPercentages.getPercentFood(),0);
+		assertEquals(5,budgetPercentages.getPercentUtilities(),0);
+		assertEquals(10,budgetPercentages.getPercentClothing(),0);
+		assertEquals(6,budgetPercentages.getPercentMedical(),0);
+		assertEquals(15,budgetPercentages.getPercentDonations(),0);
+		assertEquals(7,budgetPercentages.getPercentSavingsInsurance(),0);
+		assertEquals(7,budgetPercentages.getPercentEntertainment(),0);
+		assertEquals(15,budgetPercentages.getPercentTransportation(),0);
+		assertEquals(10,budgetPercentages.getPercentMisc(),0);
 	}
-	
+		
     // test getters and setters for percentages 
 	
 	@Test
@@ -138,55 +134,55 @@ public class JUnit_Budgetting {
 	
 	@Test
 	public void testSetGetAmountHousing() {
-		budget.setAmountHousing(25);
-		assertEquals(25,budget.getAmountHousing(),0);
+		budget.setAmountHousing(250);
+		assertEquals(250,budget.getAmountHousing(),0);
 	}
 	
 	@Test
 	public void testSetGetAmountFood() {
-		budget.setAmountFood(25);
-		assertEquals(25,budget.getAmountFood(),0);
+		budget.setAmountFood(250);
+		assertEquals(250,budget.getAmountFood(),0);
 	}
 	
 	@Test
 	public void testSetGetAmountUtilities() {
-		budget.setAmountUtilities(25);
-		assertEquals(25,budget.getAmountUtilities(),0);
+		budget.setAmountUtilities(250);
+		assertEquals(250,budget.getAmountUtilities(),0);
 	}
 	
 	@Test
 	public void testSetGetAmountClothing() {
-		budget.setAmountClothing(25);
-		assertEquals(25,budget.getAmountClothing(),0);
+		budget.setAmountClothing(250);
+		assertEquals(250,budget.getAmountClothing(),0);
 	}
 	@Test
 	public void testSetGetAmountMedical() {
-		budget.setAmountMedical(25);
-		assertEquals(25,budget.getAmountMedical(),0);
+		budget.setAmountMedical(250);
+		assertEquals(250,budget.getAmountMedical(),0);
 	}
 	
 	@Test
 	public void testSetGetAmountDonations() {
-		budget.setAmountDonations(25);
-		assertEquals(25,budget.getAmountDonations(),0);
+		budget.setAmountDonations(250);
+		assertEquals(250,budget.getAmountDonations(),0);
 	}
 	
 	@Test
 	public void testSetGetAmountSavingsInsurance() {
-		budget.setAmountSavingsInsurance(25);
-		assertEquals(25,budget.getAmountSavingsInsurance(),0);
+		budget.setAmountSavingsInsurance(250);
+		assertEquals(250,budget.getAmountSavingsInsurance(),0);
 	}
 	
 	@Test
 	public void testSetGetAmountEntertainment() {
-		budget.setAmountEntertainment(25);
-		assertEquals(25,budget.getAmountEntertainment(),0);
+		budget.setAmountEntertainment(250);
+		assertEquals(250,budget.getAmountEntertainment(),0);
 	}
 	
 	@Test
 	public void testSetGetAmountTransportation() {
-		budget.setAmountTransportation(25);
-		assertEquals(25,budget.getAmountTransportation(),0);
+		budget.setAmountTransportation(250);
+		assertEquals(250,budget.getAmountTransportation(),0);
 	}
 	
 	@Test
