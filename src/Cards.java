@@ -14,10 +14,10 @@ import java.util.List;
 public interface Cards {
 
 
-	public enum CardType{
+	enum CardType{
 		DEBIT("DEBIT"), CREDIT("CREDIT"), LOYALTY("LOYALTYCARD");
 		String cardtype;
-		private CardType(String cardtype){
+		CardType(String cardtype){
 			this.cardtype = cardtype;
 		}
 		public String toString(){
@@ -25,27 +25,27 @@ public interface Cards {
 		}
 
 	}
-	public String listFormat();
-	public CardType getType();
-	public void setType(CardType type);
-	public int getAccNb();
-	public void setAccNb(int accNb) ;
-	public int getCardNumber();
-	public void setCardNumber(int cardNumber);
-	public double getMoneyAvailable();
-	public void setMoneyAvailable(double moneyAvailable);
-	public double getMoneySpent();
-	public void setMoneySpent(double moneySpent);
-	public void setLimit(double limit);
-	public double getLimit();
-	public String getEmail();
-	public void setEmail(String email);
-	public int getPointsAvailable();
-	public void setPointsAvailable(int pointsAvailable);
-	public boolean equals(Cards card);
-	public List<String> getList();
-	public void setList(List<String> list);
-	public String getStringList();
+	String listFormat();
+	CardType getType();
+	void setType(CardType type);
+	int getAccNb();
+	void setAccNb(int accNb) ;
+	int getCardNumber();
+	void setCardNumber(int cardNumber);
+	double getMoneyAvailable();
+	void setMoneyAvailable(double moneyAvailable);
+	double getMoneySpent();
+	void setMoneySpent(double moneySpent);
+	void setLimit(double limit);
+	double getLimit();
+	String getEmail();
+	void setEmail(String email);
+	int getPointsAvailable();
+	void setPointsAvailable(int pointsAvailable);
+	boolean equals(Cards card);
+	List<String> getList();
+	void setList(List<String> list);
+	String getStringList();
 	
 }
 
