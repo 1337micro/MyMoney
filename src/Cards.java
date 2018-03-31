@@ -15,7 +15,7 @@ public interface Cards {
 
 
 	enum CardType{
-		DEBIT("DEBIT"), CREDIT("CREDIT"), LOYALTY("LOYALTYCARD");
+		DEBIT("DEBIT"), CREDIT("CREDIT"), LOYALTY("LOYALTYCARD"), BITCOIN("BITCOIN");
 		String cardtype;
 		CardType(String cardtype){
 			this.cardtype = cardtype;

@@ -126,6 +126,12 @@ public class MyCards {
 			Credit credit = new Credit(type, accNb, cardNumber, limit, moneySpent);
 			cards.add(credit);
 		}
+		else if (type == CardType.BITCOIN){
+
+			BitcoinCard bitcoinCard = new BitcoinCard(type, accNb, cardNumber, limit, moneySpent);
+			cards.add(bitcoinCard);
+
+		}
 	}
 
 	/*
@@ -199,6 +205,10 @@ public class MyCards {
 			newCard = new LoyaltyCard(newCard.getType(), newCard.getEmail(), newCard.getCardNumber(), newCard.getPointsAvailable());
 			pw.println(newCard.getType() + "," + newCard.getEmail() + "," + newCard.getCardNumber() + "," + newCard.getPointsAvailable() + "," + newCard.getMoneyAvailable());
 		}
+		if( newCard.getType() == CardType.BITCOIN){
+			newCard = new BitcoinCard(newCard.getType(), newCard.getAccNb(), newCard.getCardNumber(), newCard.getMoneySpent(), newCard.getLimit());
+			pw.println(newCard.getType() + "," + newCard.getAccNb() + "," + newCard.getCardNumber() + "," + newCard.getMoneySpent()+ "," +newCard.getLimit()+ "," +newCard.getMoneyAvailable());
+		}
 
 		// Closing file stream
 		try {
@@ -208,6 +218,7 @@ public class MyCards {
 			System.exit(1);
 		}
 	}
+
 
 	/*
 	 * method to clear the database textfile
@@ -267,6 +278,18 @@ public class MyCards {
 					pointsAvailable= Integer.parseInt(lineArray[3]);
 					money=Double.parseDouble(lineArray[4]);
 					LoyaltyCard cd = new LoyaltyCard(cdtp, eml, cardNum, pointsAvailable);
+					if( cd.getCardNumber() == cardInput.getCardNumber()){
+						return true;
+					}
+				}
+				else if(line.startsWith("BITCOIN")){
+					String[] lineArray = line.split(",");
+					cdtp = CardType.BITCOIN;
+					eml = lineArray[1];
+					cardNum = Integer.parseInt(lineArray[2]);
+					pointsAvailable= Integer.parseInt(lineArray[3]);
+					money=Double.parseDouble(lineArray[4]);
+					BitcoinCard cd = new BitcoinCard(cdtp, accNb, cardNum, moneySpent, limitCard);
 					if( cd.getCardNumber() == cardInput.getCardNumber()){
 						return true;
 					}
@@ -366,6 +389,28 @@ public class MyCards {
 							Object[] data = {cdtp, eml, cardNum, pointsAvailable};
 							model.addRow(data);
 
+						}
+						else{
+							throw new NumberFormatException();
+						}
+					}
+					if(line.startsWith("BITCOIN")){
+						String[] lineArray = line.split(",");
+						cdtp = CardType.BITCOIN;
+						accNb = Integer.parseInt(lineArray[1]);
+						cardNum = Integer.parseInt(lineArray[2]);
+						moneySpent= Double.parseDouble(lineArray[3]);
+						limitCard=Double.parseDouble(lineArray[4]);
+						moneyAvailable=Double.parseDouble(lineArray[5]);
+						double verifyMoney = limitCard-moneySpent;
+						boolean moneyBool= (verifyMoney== verifyMoney);
+						if((accNb>=0) && (cardNum>=0) && (moneySpent>=0) && (limitCard>=0) && (moneyBool==true)){
+							BitcoinCard cd = new BitcoinCard(cdtp, accNb, cardNum, moneySpent, limitCard);
+							cd.setMoneyAvailable(moneyAvailable);
+							cards_list.add(cd);
+							//adding values to table
+							Object[] data = {cdtp, accNb, cardNum, moneySpent};
+							model.addRow(data);
 						}
 						else{
 							throw new NumberFormatException();
