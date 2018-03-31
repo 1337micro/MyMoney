@@ -61,7 +61,7 @@ public class Debit implements Cards{
 	 */
 	@Override
 	public boolean equals(Cards card) {
-		if((this.getType() == card.getType()) &&(this.getAccNb() == card.getAccNb()) && (this.getCardNumber() == card.getAccNb()) && (this.getMoneyAvailable() == card.getMoneyAvailable())){
+		if((this.getType() == card.getType()) &&(this.getAccNb() == card.getAccNb()) && (this.getCardNumber() == card.getCardNumber()) && (this.getMoneyAvailable() == card.getMoneyAvailable())){
 			return true;
 		}
 		return false;

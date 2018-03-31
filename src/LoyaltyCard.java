@@ -69,7 +69,7 @@ public class LoyaltyCard implements Cards{
 	 */
 	@Override
 	public boolean equals(Cards card) {
-		if((this.getType() == card.getType()) &&(this.getAccNb() == card.getAccNb()) && (this.getCardNumber() == card.getAccNb()) && (this.getPointsAvailable() == card.getPointsAvailable())&&(this.getMoneyAvailable() == card.getMoneyAvailable())){
+		if((this.getType() == card.getType()) &&(this.getAccNb() == card.getAccNb()) && (this.getCardNumber() == card.getCardNumber()) && (this.getPointsAvailable() == card.getPointsAvailable())&&(this.getMoneyAvailable() == card.getMoneyAvailable())){
 			return true;
 		}
 		return false;
