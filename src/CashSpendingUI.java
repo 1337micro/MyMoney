@@ -287,6 +287,15 @@ public class CashSpendingUI implements ActionListener {
 					cardTemp.setPointsAvailable(MyCardsUI.getListCards().get(cardIndex).getPointsAvailable());
 					cardTemp.setMoneyAvailable(MyCardsUI.getListCards().get(cardIndex).getMoneyAvailable());
 				}
+				if(MyCardsUI.getListCards().get(cardIndex).getType() == CardType.BITCOIN){
+					cardTemp = new BitcoinCard();
+					cardTemp.setType(MyCardsUI.getListCards().get(cardIndex).getType());
+					cardTemp.setCardNumber(MyCardsUI.getListCards().get(cardIndex).getCardNumber());
+					cardTemp.setAccNb(MyCardsUI.getListCards().get(cardIndex).getAccNb());
+					cardTemp.setMoneySpent(MyCardsUI.getListCards().get(cardIndex).getMoneySpent());
+					cardTemp.setLimit(MyCardsUI.getListCards().get(cardIndex).getLimit());
+					cardTemp.setMoneyAvailable(MyCardsUI.getListCards().get(cardIndex).getMoneyAvailable());
+				}
 
 				boolean didItPass;
 				//depending on which expenditure the user selected
