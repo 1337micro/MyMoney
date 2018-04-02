@@ -2,6 +2,7 @@
 //For Comp 354 Section PP - Winter 2018
 //Iteration 1: Sabrina Rieck, 40032864
 //Iteration 2: Ornela Bregu, 26898580
+//Iteration 3: Dong-Son Nguyen-Huu, 40014054
 //Description: BudgetingUI class links the Budgeting class to the interface. 
 //				Takes user input and returns value to the interface
 //--------------------------------------------------------
