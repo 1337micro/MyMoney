@@ -1,10 +1,12 @@
 //-------------------------------------------------------
 //For Comp 354 Section PP - Winter 2018
 //Iteration2: Noemi Lemonnier, 40001085
+//Iteration3: Noemi Lemonnier, 40001085
 //Description: CashSpending "view" class
 // --------------------------------------------------------
 package src;
 import java.util.ArrayList;
+
 import java.util.Dictionary;
 import java.util.Hashtable;
 import javax.swing.*;
@@ -19,7 +21,9 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Optional;
@@ -34,6 +38,7 @@ public class CashSpendingUI implements ActionListener {
 	Border compound = BorderFactory.createCompoundBorder(raisedbevel, loweredbevel);
 	JPanel panel; // the panel containing all our JTextFields for CashSpending feature
 	private static PrintWriter pw = null;
+	private static BufferedReader reader;
 	private static Cards cardTemp;
 	private static String transactions;
 	private static int i = 1;
@@ -42,7 +47,7 @@ public class CashSpendingUI implements ActionListener {
 	protected static DefaultTableModel tableModel;
 	protected static Object[] COLUMN_NAMES = {"Housing", "Food","Utilities","Clothing", "Medical","Donations","Savings","Entertainment","Transportation","Misc"};
 	JButton addExpense = new JButton(Constants.BUTTON_ADD_EXPENSE);
-	JButton clearExpense = new JButton(Constants.BUTTON_CLEAR_EXPENSE);
+	JButton showExpense = new JButton(Constants.BUTTON_SHOW_EXPENSE);
 	protected static CashSpending expense = new CashSpending();
 	@SuppressWarnings("rawtypes")
 	JComboBox listExpense;
@@ -110,7 +115,7 @@ public class CashSpendingUI implements ActionListener {
 			panel.setBorder(compound);
 
 			addExpense.addActionListener(new AddExpenseListener());
-			clearExpense.addActionListener(new ClearExpenseListener());
+			showExpense.addActionListener(new ShowExpenseListener());
 
 			//setting the panel
 			panel= new JPanel();
@@ -120,7 +125,7 @@ public class CashSpendingUI implements ActionListener {
 			JPanel pan3 = new JPanel();
 			pan3.setBackground(new Color(204, 255, 229));
 			pan3.add(addExpense);
-			pan3.add(clearExpense);
+			pan3.add(showExpense);
 			panel.add(lab);
 			panel.add(pan2);
 			panel.add(pan3);
@@ -168,8 +173,7 @@ public class CashSpendingUI implements ActionListener {
 		 */
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			//UIManager.put("OptionPane.background",new ColorUIResource(204, 255, 229));
-			//UIManager.put("Panel.background",new ColorUIResource(255, 255, 255));
+
 			//create a panel and a layout that fits the amount of information required.
 			JPanel pane=new JPanel(new GridLayout(7,2));
 
@@ -415,24 +419,86 @@ public class CashSpendingUI implements ActionListener {
 		}
 	}
 	/*
-	 * To clear all transactions done
+	 * To show all transactions done
 	 */
-	private class ClearExpenseListener implements ActionListener{
+	private class ShowExpenseListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+			JPanel pane=new JPanel(new GridLayout(3,2));
+
 			try{
-				//clears the table and table model
-				for (int i=0; i< tableModel.getRowCount(); i++){
-					tableModel.removeRow(i);
-					table.removeAll();
-				}
-				clearDataBaseTransactionsDone();
-				writeToFile("All transactions were cleared.");
-			} catch (IOException e) {
+				//creating labels for the text fields
+				JLabel aN= new JLabel("Here is the list of all transactions done:");
+				aN.setFont(new Font("Calibri", Font.BOLD, 14));
+
+				JTextArea listExp = new JTextArea(3,30); //set size;
+				listExp.setText(readFromTheFile()); 
+				JScrollPane jp;
+				listExp.setEditable(false); //not editable by user
+				listExp.setBorder(compound); //giving bounders
+
+				jp = new JScrollPane(listExp); //so if many transactions user can scroll
+				jp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); //location of the scroll
+				//adding the elements to the panel
+				pane.add(aN);
+				pane.add(jp);
+				pane.setPreferredSize(new Dimension(800, 200));
+				pane.setBorder(compound);
+				
+				int option=  JOptionPane.showConfirmDialog(null, pane, "List of All Expenses Done", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+				//if the user clicks on the CANCEL button or Closes the window
+				if(option != 0 || option == 0){
+					JOptionPane.getRootFrame().dispose();
+				};
+			} catch (Exception e) {
 				System.err.println("Error while clearing the expenses.");
 				e.printStackTrace();
 			}
 		}
+
+	}
+	/*
+	 * method to read the database textfile
+	 */
+	public static String readFromTheFile() {
+
+		// Open file to read from
+		try {
+			reader = new BufferedReader(new FileReader(Constants.TRANSACTIONS_FILE));
+
+		} catch (Exception e) {
+			System.out.println("Error when opening file.");
+			System.out.println("Program will terminate.");
+			System.exit(0);
+		}
+		try {
+			String line = null;
+			StringBuffer stringBuffer = new StringBuffer();
+			while((line = reader.readLine())!=null){
+
+				stringBuffer.append(line).append("\n");
+			}
+
+			return stringBuffer.toString();
+
+		} catch (IOException e) {
+			System.out.println("Error while reading file");
+			System.out.println("Program will terminate.");
+			System.exit(0);
+		}
+
+
+		// Closing reading stream
+		try {
+			if (reader != null)
+				reader.close();
+
+		} catch (Exception e) {
+			System.out.println("Error when closing file.");
+			System.out.println("Program will terminate.");
+			System.exit(0);
+		}
+		return null;
 
 	}
 
@@ -447,7 +513,7 @@ public class CashSpendingUI implements ActionListener {
 			System.out.println("Error while creating file");
 			System.exit(1);
 		}
-		String n = ("Transaction #" + i + " for expenditure " + type + " with an amount of $" + amountMn + " paid with card # " + num + " was completed.");
+		String n = String.format("Transaction #%d for expenditure %s with an amount of $ %s paid with card #%d was completed.", i, type, amountMn, num);
 		pw.println(n);
 
 		// Closing file stream
@@ -459,28 +525,6 @@ public class CashSpendingUI implements ActionListener {
 		}
 	}
 
-	/*
-	 * method to write to the database textfile with only a string
-	 */
-	private void writeToFile(String n) {
-		// opening file stream to write log
-		try {
-			pw = new PrintWriter(new FileOutputStream(Constants.TRANSACTIONS_FILE, true));
-		} catch (Exception e) {
-			System.out.println("Error while creating file");
-			System.exit(1);
-		}	
-		pw.println(n);
-
-		// Closing file stream
-		try {
-			pw.close();
-		} catch (Exception e) {
-			System.out.println("Error while closing file");
-			System.exit(1);
-		}
-
-	}
 	/*
 	 * method to clear the database textfile
 	 */
@@ -506,3 +550,4 @@ public class CashSpendingUI implements ActionListener {
 
 
 }
+

@@ -37,7 +37,7 @@ public class Constants {
 	public static final String BUTTON_REMOVE_CARD = "Remove a card";
 	public static final String BUTTON_SPENDING = "Cash Spending";
 	public static final String BUTTON_ADD_EXPENSE = "Add an expense";
-	public static final String BUTTON_CLEAR_EXPENSE = "Clear all expenses";
+	public static final String BUTTON_SHOW_EXPENSE = "Show all expenses";
 	public static final String BUTTON_PRINT_BUDGET = "Print your budget";
 
 	//color constant
@@ -89,6 +89,7 @@ public class Constants {
 	public final static String TRANSPORTATION_TYPE = "Transportation";
 	public final static String MISC_TYPE = "Misc";
 }
+
 
 
 
