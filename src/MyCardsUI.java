@@ -279,6 +279,41 @@ public class MyCardsUI implements ActionListener{
 							tableModel.setValueAt(false, row, column);
 						}
 					}
+					else if(cards_list.get(row).getType() == CardType.BITCOIN){
+						JLabel txt2 = new JLabel ("Bitcoin Exchange Account Card Limit:   $");
+						txt2.setFont(new Font("Calibri", Font.BOLD, 14)); //set font
+						double lmtCard = (cards_list.get(row).getLimit()); //get the card limit
+						String lmt = String.valueOf(lmtCard); //get the value
+						accNm = new JTextArea(lmt); //set the value
+						accNm.setEditable(false); //not editable by user
+						//layout
+						box1.add(txt2);
+						box1.add(accNm);
+						JLabel txt3 = new JLabel ("Transactions done with this card: ");
+						txt3.setFont(new Font("Calibri", Font.BOLD, 14)); // set font
+						transacBox = new JTextArea(3,30); //set size
+						transacBox.setText(cards_list.get(row).getStringList()); // get transactions of the cards
+						transacBox.setEditable(false); //not editable by user
+						transacBox.setBorder(compound); //giving bounders
+						jp = new JScrollPane(transacBox); //so if many transactions user can scroll
+						jp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); //location of the scroll
+						//layout
+						box3.add(txt3);
+						box4.add(jp);
+						boxFinal.add(box1);
+						boxFinal.add(box3);
+						boxFinal.add(box4);
+						pane.add(boxFinal);
+
+						//displaying
+						int option = (int) JOptionPane.showConfirmDialog(null, pane, "Exchange account Card Information", JOptionPane.CLOSED_OPTION, JOptionPane.PLAIN_MESSAGE);
+						//when user exit the window
+						if(option == 0 || option == -1){
+							JOptionPane.getRootFrame().dispose();
+							tableModel.setValueAt(false, row, column);
+						}
+
+					}
 
 
 				} 
@@ -457,6 +492,7 @@ public class MyCardsUI implements ActionListener{
 
 						//if the card already exists
 						boolean isDuplicate = MyCards.readToFindDuplicate(card, tableModel);
+						System.out.println(isDuplicate);
 						if (isDuplicate == true) {
 							throw new NumberFormatException();
 						}
@@ -783,6 +819,30 @@ public class MyCardsUI implements ActionListener{
 					throw new NumberFormatException();
 				}
 			}
+			else if(cards_list.get(index).getType().equals(CardType.BITCOIN)){
+				//calculate money spent and what is left
+				double totalSpent = cards_list.get(index).getMoneySpent() + amount;
+				double newMoneyAvailable = cards_list.get(index).getLimit() - totalSpent;
+				if(cards_list.get(index).getMoneyAvailable() >= amount){ //if enough money in the account
+					//set new amount money spent and what is left between limit and money spent
+					cards_list.get(index).setMoneySpent(totalSpent);
+					cards_list.get(index).setMoneyAvailable(newMoneyAvailable);
+					//Format the new expense
+					String ln2 = getLineFormatTextfile(index);
+					//modify the database text file line about that card
+					MyCards.modifyFile(ln, ln2);
+					//modify the value in the table
+					Object obt = totalSpent;
+					table.setValueAt(obt, index, 3);
+					//fire the change
+					tableModel.fireTableDataChanged();
+					return true;
+				}
+				else{
+					throw new NumberFormatException();
+				}
+
+			}
 			// if the card number is does not match
 		} catch(NumberFormatException e){
 			JOptionPane.showMessageDialog(null, "You have exceeded your account money!\nThis transaction was not added.",Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
@@ -813,6 +873,11 @@ public class MyCardsUI implements ActionListener{
 		if(cards_list.get(indexCard).getType() == CardType.LOYALTY){
 			//format the String line as the selected card information should appear in the text file
 			line = cards_list.get(indexCard).getType() +","+ cards_list.get(indexCard).getEmail() +","+ cards_list.get(indexCard).getCardNumber() +","+ cards_list.get(indexCard).getPointsAvailable() + "," + cards_list.get(indexCard).getMoneyAvailable();
+			return line;
+		}
+		if(cards_list.get(indexCard).getType() == CardType.BITCOIN){
+			//format the String line as the selected card information should appear in the text file
+			line = cards_list.get(indexCard).getType() +","+ cards_list.get(indexCard).getAccNb() +","+ cards_list.get(indexCard).getCardNumber() +","+ cards_list.get(indexCard).getMoneySpent()+","+cards_list.get(indexCard).getLimit()+","+ cards_list.get(indexCard).getMoneyAvailable();
 			return line;
 		}
 		return null;

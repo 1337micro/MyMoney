@@ -159,20 +159,7 @@ public class MyCards {
 			//if you get a match with the card number inputed and one in the array
 			if (list.get(i).getCardNumber()==cardNb){ 
 				//if it is a debit
-				if(list.get(i).getType() == CardType.DEBIT){
-					//cardTmp = new Debit(list.get(i).getType(), list.get(i).getAccNb(), list.get(i).getCardNumber(), list.get(i).getMoneyAvailable());
-					return i;
-				}
-				//if it is a credit
-				if(list.get(i).getType() == CardType.CREDIT){
-					//cardTmp = new Credit(list.get(i).getType(), list.get(i).getAccNb(), list.get(i).getCardNumber(), list.get(i).getMoneySpent(), list.get(i).getLimit());
-					return i;
-				}
-				//if it is a loyalty card
-				if(list.get(i).getType() == CardType.LOYALTY){
-					//cardTmp = new LoyaltyCard(list.get(i).getType(), list.get(i).getEmail(), list.get(i).getCardNumber(), list.get(i).getPointsAvailable());
-					return i;
-				}
+				return i;
 			}
 		}
 		//if nothing is find 
@@ -285,15 +272,17 @@ public class MyCards {
 				else if(line.startsWith("BITCOIN")){
 					String[] lineArray = line.split(",");
 					cdtp = CardType.BITCOIN;
-					eml = lineArray[1];
+					accNb = Integer.parseInt(lineArray[1]);
 					cardNum = Integer.parseInt(lineArray[2]);
-					pointsAvailable= Integer.parseInt(lineArray[3]);
-					money=Double.parseDouble(lineArray[4]);
-					BitcoinCard cd = new BitcoinCard(cdtp, accNb, cardNum, moneySpent, limitCard);
+					moneySpent= Double.parseDouble(lineArray[3]);
+					limitCard=Double.parseDouble(lineArray[4]);
+					moneyAvailable=Double.parseDouble(lineArray[5]);
+					Credit cd = new Credit(cdtp, accNb, cardNum, moneySpent, limitCard);
 					if( cd.getCardNumber() == cardInput.getCardNumber()){
 						return true;
 					}
 				}
+
 
 			}
 
