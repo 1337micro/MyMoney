@@ -38,6 +38,7 @@ public class Constants {
 	public static final String BUTTON_SPENDING = "Cash Spending";
 	public static final String BUTTON_ADD_EXPENSE = "Add an expense";
 	public static final String BUTTON_CLEAR_EXPENSE = "Clear all expenses";
+	public static final String BUTTON_PRINT_BUDGET = "Print your budget";
 
 	//color constant
 	public static final Color CASHSPENDING_COLOR = new Color(204, 255, 229);
