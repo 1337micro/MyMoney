@@ -7,7 +7,6 @@ package src;
 // accepted or rejected and if accepted, they will be taken to the main menu ApplicationLayout
 //          
 //--------------------------------------------------------
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -206,14 +205,15 @@ public class AuthentificationUI extends JFrame{
 				//if the user clicks on the YES/OK BUTTON
 				if(option == 0){ 	
 					try{
+						//if the user does not enter any value
+						if((usn.getText().isEmpty()) || (psw.getText().isEmpty())){
+							throw new NumberFormatException();
+						}
+						
 						//getting information entered by the user
 						username = usn.getText();
 						password = psw.getText();
 
-						//if the user does not enter any value
-						if((username == null) || (password == null)){
-							throw new NumberFormatException();
-						}
 						//creating a new AuthentificationUser object
 						user = new AuthentificationUser(username,password);
 
@@ -322,6 +322,7 @@ public class AuthentificationUI extends JFrame{
 
 	}
 }
+
 
 
 
