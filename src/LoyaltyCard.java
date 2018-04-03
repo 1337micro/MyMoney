@@ -46,7 +46,14 @@ public class LoyaltyCard implements Cards{
 		this.moneyAvailable = (pointsAvailable/100);
 		this.list = new ArrayList<>();
 	}
-
+	/*
+	 * Method to add a string to the list
+	 * @see src.Cards#addExpense(java.lang.String)
+	 */
+	public void addExpense(String n){
+		this.list.add(n);
+	}
+	
 	/*
 	 * Method to get one string with all the information
 	 */
@@ -171,4 +178,5 @@ public class LoyaltyCard implements Cards{
 	}
 
 }
+
 

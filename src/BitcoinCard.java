@@ -33,6 +33,15 @@ public class BitcoinCard implements Cards {
         this.moneyAvailable=limit-moneySpent;
         this.list = new ArrayList<>();
     }
+    
+    /*
+	 * Method to add a string to the list
+	 * @see src.Cards#addExpense(java.lang.String)
+	 */
+	public void addExpense(String n){
+		this.list.add(n);
+	}
+	
     @Override
     public boolean equals(Cards card) {
         if((this.getType() == card.getType()) &&(this.getAccNb() == card.getAccNb()) && (this.getCardNumber() == card.getCardNumber()) &&(this.getLimit() == card.getLimit()) && (this.getMoneySpent() == card.getMoneySpent())){
@@ -148,3 +157,4 @@ public class BitcoinCard implements Cards {
         this.list = list;
     }
 }
+

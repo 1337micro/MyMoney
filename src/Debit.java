@@ -45,6 +45,15 @@ public class Debit implements Cards{
 		this.moneyAvailable=moneyAvailable;
 		this.list = new ArrayList<>();
 	}
+	
+	/*
+	 * Method to add a string to the list
+	 * @see src.Cards#addExpense(java.lang.String)
+	 */
+	public void addExpense(String n){
+		this.list.add(n);
+	}
+	
 	/*
 	 * Method to get one string with all the information
 	 */
@@ -161,4 +170,5 @@ public class Debit implements Cards{
 
 
 }
+
 

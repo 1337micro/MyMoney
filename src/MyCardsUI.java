@@ -48,15 +48,24 @@ public class MyCardsUI implements ActionListener{
 	protected static double limitCard;
 	protected static int pointsAvailable;
 	protected static int indexCard;
+	protected static int indexDebitCard;
+	protected static int indexCreditCard;
 	protected static String line = null; 
+	@SuppressWarnings("rawtypes")
+	protected static JComboBox boxDebitCards;
+	@SuppressWarnings("rawtypes")
+	protected static JComboBox boxCreditCards;
 	Border raisedbevel = BorderFactory.createRaisedBevelBorder();
 	Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 	Border compound = BorderFactory.createCompoundBorder(raisedbevel, loweredbevel);
 	//list of cards
 	protected static ArrayList <Cards> cards_list = new ArrayList<Cards>();
+	protected static ArrayList<Cards> creditCard;
+	protected static ArrayList<Cards> debitCard;
 	//button to add and remove
 	JButton addCardButton = new JButton(Constants.BUTTON_ADD_CARD);
 	JButton removeCardButton = new JButton(Constants.BUTTON_REMOVE_CARD);
+	JButton paiementButton  = new JButton (Constants.BUTTON_PAIEMENT_CARD);
 
 
 
@@ -132,6 +141,7 @@ public class MyCardsUI implements ActionListener{
 			pan3.setBackground(Constants.MYCARDS_COLOR); //background color
 			pan3.add(addCardButton);
 			pan3.add(removeCardButton);
+			pan3.add(paiementButton);
 			panel.add(lab);
 			panel.add(pan2);
 			panel.add(pan3);
@@ -145,9 +155,10 @@ public class MyCardsUI implements ActionListener{
 			//adding the buttons and setting their sizes and adding their Listener
 			addCardButton.setPreferredSize(new Dimension(150,25));
 			removeCardButton.setPreferredSize(new Dimension(150,25));
+			paiementButton.setPreferredSize(new Dimension(150,25));
 			addCardButton.addActionListener(new AddCardListener());
 			removeCardButton.addActionListener(new RemoveListener());
-
+			paiementButton.addActionListener(new PaiementListener());
 
 	}
 
@@ -323,6 +334,136 @@ public class MyCardsUI implements ActionListener{
 
 	}
 
+	/*
+	 * Private class to customize the events that will happen when the user clicks on the paiement button
+	 */
+	private class PaiementListener implements ActionListener {
+		/* 
+		 * returns an array with the card numbers of all debit cards present in the array as Object
+		 */
+		public Object [] debitNum(ArrayList <Cards> a) {
+			debitCard = new ArrayList<Cards>();
+			for (int i=0;i< a.size(); i++) {
+				if(a.get(i).getType() == Cards.CardType.DEBIT){
+					debitCard.add(a.get(i));
+				}
+			}
+			Object [] cardNumbers = new Object[debitCard.size()];
+			for (int i=0;i< debitCard.size(); i++) {
+				cardNumbers[i] = debitCard.get(i).getCardNumber();
+			}
+			return cardNumbers;
+		}
+
+		/* 
+		 * returns an array with the card numbers of all credit cards present in the array as Object
+		 */
+		public Object [] creditNum(ArrayList <Cards> a) {
+			creditCard = new ArrayList<Cards>();
+			for (int i=0;i< a.size(); i++) {
+				if(a.get(i).getType() == Cards.CardType.CREDIT){
+					creditCard.add(a.get(i));
+				}
+			}
+			Object [] cardNumbers = new Object[creditCard.size()];
+			for (int i=0;i< creditCard.size(); i++) {
+				cardNumbers[i] = creditCard.get(i).getCardNumber();
+			}
+			return cardNumbers;
+		}
+
+
+		/*
+		 * Displays a window to allow the user to make a paiement froma  debit card toa  credit card
+		 *
+		 */
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			try{
+				//setting the panel
+				JPanel pane = new JPanel(new GridLayout(10,5));
+				JLabel lab1 = new JLabel("This option is to make a paiement to one of your credit cards.");
+				JLabel lab2 = new JLabel("Select the debit card");
+				boxDebitCards = new JComboBox<Object>(debitNum(cards_list));
+				JLabel lab3 = new JLabel("Enter the amount to transfer");
+				JTextField txt3 = new JTextField();
+				JLabel lab4 = new JLabel("Select the credit card");
+				boxCreditCards = new JComboBox<Object>(creditNum(cards_list));
+				JLabel lab5 = new JLabel("Do you want to confirm this transaction?");
+				pane.add(lab1);
+				pane.add(lab2);
+				pane.add(boxDebitCards);
+				pane.add(lab3);
+				pane.add(txt3);
+				pane.add(lab4);
+				pane.add(boxCreditCards);
+				pane.add(lab5);
+
+				//window
+				int opt = JOptionPane.showConfirmDialog(null, pane, "Paiement of a Credit Card", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+				//if user clicks on OK
+				if(opt ==0){
+					//getting the selected card number by the user for credit and debit cards
+					int cardDebitNb = debitCard.get(boxDebitCards.getSelectedIndex()).getCardNumber();
+					int cardCreditNb = creditCard.get(boxCreditCards.getSelectedIndex()).getCardNumber();
+					//get the amount entered
+					int amountToPay = Integer.parseInt(txt3.getText());
+
+					//exception thrown 
+					if(amountToPay <0 || txt3.getText() == null || amountToPay>  debitCard.get(boxDebitCards.getSelectedIndex()).getMoneyAvailable()){
+						throw new NumberFormatException();
+					}
+
+					//to get the index of the card number selected from the existing array list
+					indexDebitCard = MyCards.getIndexCardFromAccountNumber(cardDebitNb, cards_list);
+					//to get the index of the card number selected from the existing array list
+					indexCreditCard = MyCards.getIndexCardFromAccountNumber(cardCreditNb, cards_list);
+					String lnDb = getLineFormatTextfile(indexDebitCard);
+					String lnCd = getLineFormatTextfile(indexCreditCard);
+
+					//if the card Number selected is at the index obtained by getIndexCardFromAccountNumber in the existing array list
+					if(cardDebitNb == cards_list.get(indexDebitCard).getCardNumber() && cardCreditNb == cards_list.get(indexCreditCard).getCardNumber() && amountToPay>0){
+						double amountAfterTransactionDebit = cards_list.get(indexDebitCard).getMoneyAvailable() - amountToPay;
+						double amountAfterTransactionCredit = cards_list.get(indexCreditCard).getMoneySpent() - amountToPay;
+						cards_list.get(indexDebitCard).setMoneyAvailable(amountAfterTransactionDebit);
+						cards_list.get(indexCreditCard).setMoneySpent(amountAfterTransactionCredit);
+						String lnDb2 = getLineFormatTextfile(indexDebitCard);
+						String lnCd2 = getLineFormatTextfile(indexCreditCard);
+
+						//modify the database text file line about that card
+						MyCards.modifyFile(lnDb, lnDb2); 
+						//modify the database text file line about that card
+						MyCards.modifyFile(lnCd, lnCd2); 
+
+						//modify the value in the table
+						Object obtDb = amountAfterTransactionDebit;
+						table.setValueAt(obtDb, indexDebitCard, 3);
+						//modify the value in the table
+						Object obtCd = amountAfterTransactionCredit;
+						table.setValueAt(obtCd, indexCreditCard, 3);
+						//fire the change
+						tableModel.fireTableDataChanged();
+						String trs = String.format("Paiement Transaction with debit card #%s for credit card  #%s with an amount of $ %s was completed.", cards_list.get(indexDebitCard).getCardNumber(), cards_list.get(indexCreditCard).getCardNumber(), amountToPay);
+						CashSpendingUI.writeToFile(trs);
+						cards_list.get(indexDebitCard).addExpense(trs);
+					}
+				}
+				//if user doesn't click on OK
+				if(opt !=0){
+					JOptionPane.getRootFrame().dispose();
+				}
+
+			} catch (NumberFormatException nfe) {
+				JOptionPane.showMessageDialog(null, Constants.INVALID_MSG, Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
+				int opt = JOptionPane.CLOSED_OPTION;
+				if (opt != 0) {
+					JOptionPane.getRootFrame().dispose();
+				}
+			}
+		}
+
+	}
 
 	/*
 	 * Private class to customize the events that will happen when the user clicks on the add card button
@@ -334,8 +475,7 @@ public class MyCardsUI implements ActionListener{
 		 */
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			//UIManager.put("OptionPane.background",new ColorUIResource(204, 204, 255));
-			//UIManager.put("Panel.background",new ColorUIResource(255, 255, 255));
+
 			Cards.CardType[] possibilities = Cards.CardType.values();
 			Cards.CardType type = (Cards.CardType) JOptionPane.showInputDialog(null, "Choose  type of card to add\t\t"
 					, "Addition of a card", JOptionPane.QUESTION_MESSAGE, Constants.CARDS_IMAGE, possibilities, possibilities[0]);
@@ -661,8 +801,6 @@ public class MyCardsUI implements ActionListener{
 						if (accNb < 0 || cardNum < 0 || moneySpent < 0 || limitCard < 0 || accNb > 9999 || cardNum > 99999999) {
 							throw new NumberFormatException();
 						}
-						BitcoinCard btc = new BitcoinCard();
-
 						card = new BitcoinCard(cdtp, accNb, cardNum, moneySpent, limitCard);
 
 						//if the card already exists
@@ -912,6 +1050,7 @@ public class MyCardsUI implements ActionListener{
 		cards_list.get(index).setList(list);
 	}
 }
+
 
 
 

@@ -46,6 +46,8 @@ public interface Cards {
 	List<String> getList();
 	void setList(List<String> list);
 	String getStringList();
+	void addExpense(String trs);
 	
 }
+
 
