@@ -28,6 +28,7 @@ import javax.swing.border.Border;
 import javax.swing.plaf.ColorUIResource;
 
 
+
 public class AuthentificationUI extends JFrame{
 	//open the window
 	JFrame frame = new JFrame();
@@ -226,7 +227,6 @@ public class AuthentificationUI extends JFrame{
 						else{
 							users_list.add(user); //add object to the ArrayList
 							AuthentificationList.writeToFile(user); //write information to the Db txt 
-							MyCards.clearDataBaseMyCards();
 							JOptionPane.getRootFrame().dispose(); //close the window
 
 							//close the authentification frame
@@ -245,10 +245,6 @@ public class AuthentificationUI extends JFrame{
 						if(opt != 0){
 							JOptionPane.getRootFrame().dispose();
 						}
-					}
-					} catch (IOException e) {
-						System.err.println("Error while clearing the MyCards Database textfile");
-						e.printStackTrace();
 					}
 				}
 
@@ -318,13 +314,16 @@ public class AuthentificationUI extends JFrame{
 	 * method to clear the database textfile
 	 */
 	public static void clearDataBaseAuthentification() throws IOException{
-		if (Constants.AUTHENTIFICATION_FILE .exists() && Constants.AUTHENTIFICATION_FILE .isFile())
+		
+		//File file = new File();
+		if (Constants.AUTHENTIFICATION_FILE.exists() && Constants.AUTHENTIFICATION_FILE .isFile() && Constants.MYCARDS_FILE.exists()&&Constants.MYCARDS_FILE.isFile())
 		{
 			//delete if exists
 			Constants.AUTHENTIFICATION_FILE .delete();
+			Constants.MYCARDS_FILE.delete();
 		}
 		Constants.AUTHENTIFICATION_FILE .createNewFile();
-
+		Constants.MYCARDS_FILE.createNewFile();
 	}
 }
 
