@@ -22,7 +22,7 @@ public class Constants {
 	public static final int APP_LAYOUT_WIDTH = 1000;
 	public static final String APP_TITLE = "MyMoney Desktop Application";
 	public static final String APP_WELCOME_TITLE = "Welcome to " + APP_TITLE;
-	public static final String APP_VERSION = "Version 2.0.0";
+	public static final String APP_VERSION = "Version 3.0.0";
 
 	//button constants 
 	public static final int BUTTON_WIDTH = 150;
