@@ -3,50 +3,57 @@
 //Iteration 1: Genevieve Plante-Brisebois 40003112
 //Help received from the Programmer Organizer: Noémi Lemonnier 40001075
 //Iteration 2: Noémi Lemonnier 40001075
-//Description: Credit.java implements the interface Cards and serves 
-//the purpose of implementing the specifics of the cards of type CREDIT
+//Description: Debit.java implements the interface Cards and serves 
+//the purpose of implementing the specifics of the cards of type DEBIT
 //--------------------------------------------------------
-
 
 package src;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Credit implements Cards{
+public class Debit implements Cards{
 	//declaring attributes
 	CardType type;
 	int accNb;
 	int cardNumber;
-	double limit;
-	double moneySpent;
 	double moneyAvailable;
 	List<String> list;
 	String tmp ="";
+
 	/*
-	 * Default constructor
+	 * Default Constructor
 	 */
-	public Credit() {
-		type=CardType.CREDIT;
+	public Debit() {
+		type=CardType.DEBIT;
 		accNb = 0;
 		cardNumber=0;
-		limit=0;
-		moneySpent=0;
-		moneyAvailable=limit-moneySpent;
+		moneyAvailable=0.0;
 		this.list = new ArrayList<>();
 	}
-	/*
+	/**
 	 * Constructor
+	 * @param CardType type
+	 * @param int accNb
+	 * @param int cardNumber
+	 * @param double moneyCurrent
 	 */
-	public Credit(CardType cardType, int accNb, int d, double moneySpent, double limit) {
-		this.type=CardType.CREDIT;
+	public Debit(CardType cardType, int accNb, int cardNumber, double moneyAvailable) {
+		this.type=CardType.DEBIT;
 		this.accNb = accNb;
-		this.cardNumber=d;
-		this.limit =limit;
-		this.moneySpent=moneySpent;
-		this.moneyAvailable=limit-moneySpent;
+		this.cardNumber=cardNumber;
+		this.moneyAvailable=moneyAvailable;
 		this.list = new ArrayList<>();
 	}
+	
+	/*
+	 * Method to add a string to the list
+	 * @see src.Cards#addExpense(java.lang.String)
+	 */
+	public void addExpense(String n){
+		this.list.add(n);
+	}
+	
 	/*
 	 * Method to get one string with all the information
 	 */
@@ -57,17 +64,17 @@ public class Credit implements Cards{
 		}
 		return tmp;
 	}
+	
 	/*
 	 * Method to check if the card is equal to another card
 	 */
 	@Override
 	public boolean equals(Cards card) {
-		if((this.getType() == card.getType()) &&(this.getAccNb() == card.getAccNb()) && (this.getCardNumber() == card.getAccNb()) &&(this.getLimit() == card.getLimit()) && (this.getMoneySpent() == card.getMoneySpent())){
+		if((this.getType() == card.getType()) &&(this.getAccNb() == card.getAccNb()) && (this.getCardNumber() == card.getCardNumber()) && (this.getMoneyAvailable() == card.getMoneyAvailable())){
 			return true;
 		}
 		return false;
 	}
-
 	/*
 	 * method to get each string of their list
 	 */
@@ -78,12 +85,10 @@ public class Credit implements Cards{
 		}
 		return tmp;
 	}
-	
-/*
- * Getters and setters for the attributes
- * (non-Javadoc)
- * @see src.Cards#getType()
- */
+
+	/*
+	 * Getters and Setter for the class attributes
+	 */
 	@Override
 	public CardType getType() {
 		return this.type;
@@ -91,7 +96,6 @@ public class Credit implements Cards{
 	@Override
 	public void setType(CardType type) {
 		this.type = type;
-
 	}
 	@Override
 	public int getAccNb() {
@@ -110,42 +114,41 @@ public class Credit implements Cards{
 		this.cardNumber = cardNumber;
 	}
 	@Override
-	public double getMoneySpent() {
-		return moneySpent;
-	}
-	@Override
-	public void setMoneySpent(double moneySpent) {
-		this.moneySpent = moneySpent;
-	}
-	@Override
-	public void setLimit(double limit) {
-		this.limit=limit;
-	}
-	@Override
-	public double getLimit() {
-		return limit;
-	}
-	@Override
 	public double getMoneyAvailable() {
-		return moneyAvailable;
+		return this.moneyAvailable;
 	}
 	@Override
-	public void setMoneyAvailable(double moneyAvailable) {	
-		if(limit-moneySpent==moneyAvailable)
-			this.moneyAvailable=moneyAvailable;
-		else {
-			this.moneyAvailable=moneyAvailable;
-			moneyAvailable=limit-moneySpent;
-		} 
+	public void setMoneyAvailable(double moneyAvailable) {
+		this.moneyAvailable = moneyAvailable;	
 	}
 	public List<String> getList() {
 		return list;
 	}
-
 	public void setList(List<String> list) {
 		this.list = list;
 	}
 
+	//not used in this case
+	@Override
+	public double getMoneySpent() {
+		return 0;
+	}
+
+	//not used in this case
+	@Override
+	public void setMoneySpent(double moneySpent) {
+	}
+
+	//not used in this case
+	@Override
+	public void setLimit(double limit) {	
+	}
+
+	//not used in this case
+	@Override
+	public double getLimit() {
+		return 0;
+	}
 	//not used in this case
 	@Override
 	public int getPointsAvailable() {
@@ -165,5 +168,7 @@ public class Credit implements Cards{
 	public void setEmail(String email) {
 	}
 
+
 }
+
 

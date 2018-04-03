@@ -2,6 +2,7 @@
 //For Comp 354 Section PP - Winter 2018
 //Iteration 1: Sabrina Rieck, 40032864
 //Iteration 2: Ornela Bregu, 26898580
+//Iteration 3: Dong-Son Nguyen-Huu, 40014054
 //Description: BudgetingUI class links the Budgeting class to the interface. 
 //				Takes user input and returns value to the interface
 //--------------------------------------------------------
@@ -17,9 +18,11 @@ import java.util.Optional;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.plaf.ColorUIResource;
+import java.io.PrintWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
-
-public class BudgetingUI implements ActionListener{
+public class BudgetingUI extends Budgeting implements ActionListener {
 
 	public JPanel getPanel() {
 		return panel;
@@ -46,6 +49,7 @@ public class BudgetingUI implements ActionListener{
 	JButton changePercentages; //add a button to change the percentages for each category
 	JButton clearPercentages; //add a button to clear budget and percentages
 	JButton showBudget; //add a button to show the personalized budget
+	JButton printBudget; //add a button to print the personalized budget
 	Border raisedbevel = BorderFactory.createRaisedBevelBorder();
 	Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 	Border compound = BorderFactory.createCompoundBorder(raisedbevel, loweredbevel);
@@ -90,8 +94,6 @@ public class BudgetingUI implements ActionListener{
 		//Initializing the panel
 		panel = new JPanel();
 
-		
-
 		//setting the background
 		panel.setBackground(new Color(204, 255, 255));
 		outputField.setBackground(new Color(255, 255, 224));
@@ -103,7 +105,6 @@ public class BudgetingUI implements ActionListener{
 		calculateBudget = new JButton(Constants.BUTTON_CALCULATE_BUDGET);
 		calculateBudget.addActionListener(new CalculateAndDisplayBudget());
 
-
 		changePercentages = new JButton(Constants.BUTTON_CHANGE_PERCENTAGES);
 		changePercentages.addActionListener(new DisplayPercentages());
 
@@ -112,12 +113,16 @@ public class BudgetingUI implements ActionListener{
 
 		showBudget = new JButton(Constants.BUTTON_SHOW_BUDGET);
 		showBudget.addActionListener(new showPersonalizedBudget());
-
+		
+		printBudget = new JButton(Constants.BUTTON_PRINT_BUDGET);
+		printBudget.addActionListener(new PrintBudget());
+		
 		//Adding elements to panel
 		panel.add(calculateBudget);
 		panel.add(changePercentages);
 		panel.add(showBudget);
 		panel.add(clearPercentages);
+		panel.add(printBudget);
 		panel.add(outputField, BorderLayout.CENTER);
 		panel.setVisible(false);
 	}
@@ -152,7 +157,49 @@ public class BudgetingUI implements ActionListener{
 
 		}
 	}
+	
+	public class PrintBudget implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			calculateAmountsFromPercentages();
 
+			// opening file stream to write log
+			PrintWriter pw = null;
+			try {
+				pw = new PrintWriter(new FileOutputStream("PersonalizedBudgetFile.txt"));
+			} catch (Exception f) {
+				System.out.println("Error while creating file");
+				System.exit(1);
+			}
+
+			//Print to file according to
+			//AvailableFunds:Amount
+			//Section:Percentage:Amount
+			pw.println("Personalized Budget File");
+			pw.println("---------------------------------------------------");
+			pw.println();
+			pw.println("Available Funds: \t$" + getAvailableFunds());
+			pw.println("Housing:\t\t" + getPercentHousing() + "%:\t$" + getAmountHousing());
+			pw.println("Food:\t\t\t" + getPercentFood() + "%:\t$" + getAmountFood());
+			pw.println("Utilities:\t\t" + getPercentUtilities() + "%:\t$" + getAmountUtilities());
+			pw.println("Clothing:\t\t" + getPercentClothing() + "%:\t$" + getAmountClothing());
+			pw.println("Medical:\t\t" + getPercentMedical() + "%:\t$" + getAmountMedical());
+			pw.println("Donations:\t\t" + getPercentDonations() + "%:\t$" + getAmountDonations());
+			pw.println("Savings/Insurance:\t" + getPercentSavingsInsurance() + "%:\t$" + getAmountSavingsInsurance());
+			pw.println("Entertainment:\t\t" + getPercentEntertainment() + "%:\t$" + getAmountEntertainment());
+			pw.println("Transportation:\t\t" + getPercentTransportation() + "%:\t$" + getAmountTransportation());
+			pw.println("Misc:\t\t\t" + getPercentMisc() + "%:\t$" + getAmountMisc());
+
+			// Closing file stream
+			try {
+				pw.close();
+				JOptionPane.showMessageDialog(null, "Personalized File created successfully");
+			} catch (Exception g) {
+				System.out.println("Error while closing file");
+				System.exit(1);
+			}
+		}
+		
+	}
 	/*
 	 * Method to clear the default percentages and modify them
 	 */
@@ -179,11 +226,16 @@ public class BudgetingUI implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			
+			//adding color to the background
 			UIManager.put("OptionPane.background",new ColorUIResource(204, 255, 255));
 			UIManager.put("Panel.background",new ColorUIResource(255, 255, 224));
+			
+			//creating the panel
 			JPanel panel1=new JPanel(new GridLayout(14,20));
 
-
+ 
+			//initializing labels and test fields to enter new percentages
 			JLabel availableFunds = new JLabel("Please Enter your Available Funds: ");
 			JLabel labelHousing = new JLabel("Housing %:");
 			JLabel labelFood = new JLabel("Food %: ");
@@ -296,7 +348,9 @@ public class BudgetingUI implements ActionListener{
 							JOptionPane.getRootFrame().dispose();
 						}
 					}
-				}}}
+				}
+			}
+		}
 	/**
 	 * Inner class to get input from text field, calculate the budget, then display it
 	 */
@@ -346,7 +400,9 @@ public class BudgetingUI implements ActionListener{
 					int opt = JOptionPane.CLOSED_OPTION;
 					if(opt != 0){
 						JOptionPane.getRootFrame().dispose();
-					}}
+					}
+				}
+				
 			}
 		}
 

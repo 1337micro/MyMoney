@@ -1,16 +1,16 @@
 //-------------------------------------------------------
 //For Comp 354 Section PP - Winter 2018
 //Iteration2: Noemi Lemonnier, 40001085
+//Iteration3: Noemi Lemonnier, 40001085
 //Description: CashSpending "view" class
 // --------------------------------------------------------
 package src;
 import java.util.ArrayList;
+
 import java.util.Dictionary;
 import java.util.Hashtable;
-
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.plaf.ColorUIResource;
 import javax.swing.table.DefaultTableModel;
 import src.Cards.CardType;
 import src.CashSpending.ExpenditureType;
@@ -21,7 +21,9 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Optional;
@@ -30,34 +32,28 @@ public class CashSpendingUI implements ActionListener {
 	public JPanel getPanel() {
 		return panel;
 	}
-
 	//declaring attributes 
-	private static PrintWriter pw = null;
-
-	private static Cards cardTemp;
-	private static String transactions;
-	private static int i = 1;
-	private static int nbCard;
 	Border raisedbevel = BorderFactory.createRaisedBevelBorder();
 	Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 	Border compound = BorderFactory.createCompoundBorder(raisedbevel, loweredbevel);
 	JPanel panel; // the panel containing all our JTextFields for CashSpending feature
+	private static PrintWriter pw = null;
+	private static BufferedReader reader;
+	private static Cards cardTemp;
+	private static String transactions;
+	private static int i = 1;
+	private static int nbCard;
 	protected static JTable table;
 	protected static DefaultTableModel tableModel;
 	protected static Object[] COLUMN_NAMES = {"Housing", "Food","Utilities","Clothing", "Medical","Donations","Savings","Entertainment","Transportation","Misc"};
 	JButton addExpense = new JButton(Constants.BUTTON_ADD_EXPENSE);
+	JButton showExpense = new JButton(Constants.BUTTON_SHOW_EXPENSE);
 	protected static CashSpending expense = new CashSpending();
 	@SuppressWarnings("rawtypes")
 	JComboBox listExpense;
 	@SuppressWarnings("rawtypes")
 	JComboBox boxCards;
 	private Dictionary<Integer, ExpenditureType> indexToExpenditureTypeDictionary;
-
-	/*
-	public static ArrayList<Transactions> getCardTransactions_list() {
-		return cardTransactions_list;
-	}
-	 */
 
 	/**
 	 * Button listening for a click on the "Cash Spending" button. It will show or hide the CashSpending panel "thePanel"
@@ -87,6 +83,7 @@ public class CashSpendingUI implements ActionListener {
 	}
 
 
+	@SuppressWarnings("serial")
 	public void CashSpendingUI() {
 		JLabel lab = new JLabel("Please note that you need to save your cards first.");
 		lab.setFont(new Font("Courier New", Font.BOLD, 14));
@@ -118,6 +115,7 @@ public class CashSpendingUI implements ActionListener {
 			panel.setBorder(compound);
 
 			addExpense.addActionListener(new AddExpenseListener());
+			showExpense.addActionListener(new ShowExpenseListener());
 
 			//setting the panel
 			panel= new JPanel();
@@ -127,6 +125,7 @@ public class CashSpendingUI implements ActionListener {
 			JPanel pan3 = new JPanel();
 			pan3.setBackground(new Color(204, 255, 229));
 			pan3.add(addExpense);
+			pan3.add(showExpense);
 			panel.add(lab);
 			panel.add(pan2);
 			panel.add(pan3);
@@ -174,8 +173,7 @@ public class CashSpendingUI implements ActionListener {
 		 */
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			//UIManager.put("OptionPane.background",new ColorUIResource(204, 255, 229));
-			//UIManager.put("Panel.background",new ColorUIResource(255, 255, 255));
+
 			//create a panel and a layout that fits the amount of information required.
 			JPanel pane=new JPanel(new GridLayout(7,2));
 
@@ -256,10 +254,72 @@ public class CashSpendingUI implements ActionListener {
 	 */
 	public void addingToTheExpenditure(int index, int cardIndex, double amount){
 		try{
-			//checks if we are not going over budget
+			JPanel pane = new JPanel();
+			pane.setBorder(compound);
+			pane.setBackground(Color.WHITE);
+
+			//checks if we are not going over budget 
 			if(expense.isOverBudget(amount, indexToExpenditureTypeDictionary.get(index))) {
-				String e = Constants.INVALID_MSG_OVER_BUDGET;
-				throw new NumberFormatException(e);
+				//creating labels for the text fields
+				String se = String.format("You will go over your budget by spending %s on %s", amount,  indexToExpenditureTypeDictionary.get(index));
+				JLabel aN= new JLabel(se);
+				aN.setFont(new Font("Calibri", Font.BOLD, 14));
+				JLabel bN= new JLabel("\nDo you want to add this expense?");
+				bN.setFont(new Font("Calibri", Font.BOLD, 14));
+
+				//adding the elements to the panel
+				pane.add(aN);
+				pane.add(bN);
+
+				// user gets the chose of adding or not the expense
+				int option=  JOptionPane.showConfirmDialog(null, pane, "Alert Going Over Budget", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+				//if the user clicks on the CANCEL button or Closes the window
+				if(option != 0){
+					JOptionPane.getRootFrame().dispose();
+				};
+
+				//if the user clicks on the YES/OK BUTTON
+				if(option == 0){ 
+					//setting the Cards cardTemp as the selected card by user
+					if(MyCardsUI.getListCards().get(cardIndex).getType() == CardType.DEBIT){
+						cardTemp = new Debit();
+						cardTemp.setType(MyCardsUI.getListCards().get(cardIndex).getType());
+						cardTemp.setCardNumber(MyCardsUI.getListCards().get(cardIndex).getCardNumber());
+						cardTemp.setAccNb(MyCardsUI.getListCards().get(cardIndex).getAccNb());
+						cardTemp.setMoneyAvailable(MyCardsUI.getListCards().get(cardIndex).getMoneyAvailable());
+					}
+					if(MyCardsUI.getListCards().get(cardIndex).getType() == CardType.CREDIT){
+						cardTemp = new Credit();
+						cardTemp.setType(MyCardsUI.getListCards().get(cardIndex).getType());
+						cardTemp.setCardNumber(MyCardsUI.getListCards().get(cardIndex).getCardNumber());
+						cardTemp.setAccNb(MyCardsUI.getListCards().get(cardIndex).getAccNb());
+						cardTemp.setMoneySpent(MyCardsUI.getListCards().get(cardIndex).getMoneySpent());
+						cardTemp.setLimit(MyCardsUI.getListCards().get(cardIndex).getLimit());
+						cardTemp.setMoneyAvailable(MyCardsUI.getListCards().get(cardIndex).getMoneyAvailable());
+					}
+					if(MyCardsUI.getListCards().get(cardIndex).getType() == CardType.LOYALTY){
+						cardTemp = new LoyaltyCard();
+						cardTemp.setType(MyCardsUI.getListCards().get(cardIndex).getType());
+						cardTemp.setEmail(MyCardsUI.getListCards().get(cardIndex).getEmail());
+						cardTemp.setCardNumber(MyCardsUI.getListCards().get(cardIndex).getCardNumber());
+						cardTemp.setPointsAvailable(MyCardsUI.getListCards().get(cardIndex).getPointsAvailable());
+						cardTemp.setMoneyAvailable(MyCardsUI.getListCards().get(cardIndex).getMoneyAvailable());
+					}
+					if(MyCardsUI.getListCards().get(cardIndex).getType() == CardType.BITCOIN){
+						cardTemp = new BitcoinCard();
+						cardTemp.setType(MyCardsUI.getListCards().get(cardIndex).getType());
+						cardTemp.setCardNumber(MyCardsUI.getListCards().get(cardIndex).getCardNumber());
+						cardTemp.setAccNb(MyCardsUI.getListCards().get(cardIndex).getAccNb());
+						cardTemp.setMoneySpent(MyCardsUI.getListCards().get(cardIndex).getMoneySpent());
+						cardTemp.setLimit(MyCardsUI.getListCards().get(cardIndex).getLimit());
+						cardTemp.setMoneyAvailable(MyCardsUI.getListCards().get(cardIndex).getMoneyAvailable());
+					}
+					String n = String.format("!! User went over its budget by doing the transaction of %s in %s with card number %s !!", amount,  indexToExpenditureTypeDictionary.get(index), MyCardsUI.getListCards().get(cardIndex).getCardNumber());
+					
+					writeToFile(n);
+				}
+				//String e = Constants.INVALID_MSG_OVER_BUDGET;
+				//throw new NumberFormatException(e);
 			}
 			//if amount enter is invalid
 			if(amount < 0 ){
@@ -293,6 +353,15 @@ public class CashSpendingUI implements ActionListener {
 					cardTemp.setPointsAvailable(MyCardsUI.getListCards().get(cardIndex).getPointsAvailable());
 					cardTemp.setMoneyAvailable(MyCardsUI.getListCards().get(cardIndex).getMoneyAvailable());
 				}
+				if(MyCardsUI.getListCards().get(cardIndex).getType() == CardType.BITCOIN){
+					cardTemp = new BitcoinCard();
+					cardTemp.setType(MyCardsUI.getListCards().get(cardIndex).getType());
+					cardTemp.setCardNumber(MyCardsUI.getListCards().get(cardIndex).getCardNumber());
+					cardTemp.setAccNb(MyCardsUI.getListCards().get(cardIndex).getAccNb());
+					cardTemp.setMoneySpent(MyCardsUI.getListCards().get(cardIndex).getMoneySpent());
+					cardTemp.setLimit(MyCardsUI.getListCards().get(cardIndex).getLimit());
+					cardTemp.setMoneyAvailable(MyCardsUI.getListCards().get(cardIndex).getMoneyAvailable());
+				}
 
 				boolean didItPass;
 				//depending on which expenditure the user selected
@@ -308,7 +377,7 @@ public class CashSpendingUI implements ActionListener {
 						//adding the transaction to the cards_list at the selected card
 						MyCardsUI.addToTheList(cardTemp, transactions);
 						//writing expense done to the TransactionsDone.txt
-						writeToFile(ExpenditureType.HOUSING, amount	, nbCard);} 
+						writeToFile(ExpenditureType.HOUSING, amount	, cardTemp.getCardNumber());} 
 					break;
 
 				case 1: 
@@ -318,7 +387,7 @@ public class CashSpendingUI implements ActionListener {
 						i++;
 						transactions = MyCards.formatTransactionCards(ExpenditureType.FOOD, amount, cardTemp.getCardNumber());
 						MyCardsUI.addToTheList(cardTemp, transactions);
-						writeToFile(ExpenditureType.FOOD, amount, nbCard);}
+						writeToFile(ExpenditureType.FOOD, amount, cardTemp.getCardNumber());}
 					break;
 
 				case 2: 
@@ -328,7 +397,7 @@ public class CashSpendingUI implements ActionListener {
 						i++;
 						transactions = MyCards.formatTransactionCards(ExpenditureType.UTILITIES, amount, cardTemp.getCardNumber());
 						MyCardsUI.addToTheList(cardTemp, transactions);
-						writeToFile(ExpenditureType.UTILITIES, amount, nbCard);}
+						writeToFile(ExpenditureType.UTILITIES, amount, cardTemp.getCardNumber());}
 					break;
 
 				case 3: 
@@ -338,7 +407,7 @@ public class CashSpendingUI implements ActionListener {
 						i++;
 						transactions = MyCards.formatTransactionCards(ExpenditureType.CLOTHING, amount, cardTemp.getCardNumber());
 						MyCardsUI.addToTheList(cardTemp, transactions);
-						writeToFile(ExpenditureType.CLOTHING, amount, nbCard);}
+						writeToFile(ExpenditureType.CLOTHING, amount, cardTemp.getCardNumber());}
 					break;
 
 				case 4: 
@@ -348,7 +417,7 @@ public class CashSpendingUI implements ActionListener {
 						i++;
 						transactions = MyCards.formatTransactionCards(ExpenditureType.MEDICAL, amount, cardTemp.getCardNumber());
 						MyCardsUI.addToTheList(cardTemp, transactions);
-						writeToFile(ExpenditureType.MEDICAL, amount, nbCard);}
+						writeToFile(ExpenditureType.MEDICAL, amount, cardTemp.getCardNumber());}
 					break;
 
 				case 5: 
@@ -358,7 +427,7 @@ public class CashSpendingUI implements ActionListener {
 						i++;
 						transactions = MyCards.formatTransactionCards(ExpenditureType.DONATIONS, amount, cardTemp.getCardNumber());
 						MyCardsUI.addToTheList(cardTemp, transactions);
-						writeToFile(ExpenditureType.DONATIONS, amount, nbCard);}
+						writeToFile(ExpenditureType.DONATIONS, amount, cardTemp.getCardNumber());}
 					break;
 
 				case 6: 
@@ -368,7 +437,7 @@ public class CashSpendingUI implements ActionListener {
 						i++;
 						transactions = MyCards.formatTransactionCards(ExpenditureType.SAVINGS, amount, cardTemp.getCardNumber());
 						MyCardsUI.addToTheList(cardTemp, transactions);
-						writeToFile(ExpenditureType.SAVINGS, amount, nbCard);}
+						writeToFile(ExpenditureType.SAVINGS, amount, cardTemp.getCardNumber());}
 					break;
 
 				case 7: 
@@ -378,7 +447,7 @@ public class CashSpendingUI implements ActionListener {
 						i++;
 						transactions = MyCards.formatTransactionCards(ExpenditureType.ENTERTAINMENT, amount, cardTemp.getCardNumber());
 						MyCardsUI.addToTheList(cardTemp, transactions);
-						writeToFile(ExpenditureType.ENTERTAINMENT, amount, nbCard);}
+						writeToFile(ExpenditureType.ENTERTAINMENT, amount, cardTemp.getCardNumber());}
 					break;
 
 				case 8: 
@@ -388,7 +457,7 @@ public class CashSpendingUI implements ActionListener {
 						i++;
 						transactions = MyCards.formatTransactionCards(ExpenditureType.TRANSPORTATION, amount, cardTemp.getCardNumber());
 						MyCardsUI.addToTheList(cardTemp, transactions);
-						writeToFile(ExpenditureType.TRANSPORTATION, amount, nbCard);}
+						writeToFile(ExpenditureType.TRANSPORTATION, amount, cardTemp.getCardNumber());}
 					break;
 
 				case 9: 
@@ -398,7 +467,7 @@ public class CashSpendingUI implements ActionListener {
 						i++;
 						transactions = MyCards.formatTransactionCards(ExpenditureType.MISC, amount, cardTemp.getCardNumber());
 						MyCardsUI.addToTheList(cardTemp, transactions);
-						writeToFile(ExpenditureType.MISC, amount, nbCard);}
+						writeToFile(ExpenditureType.MISC, amount, cardTemp.getCardNumber());}
 					break;	
 				}
 			}
@@ -411,12 +480,94 @@ public class CashSpendingUI implements ActionListener {
 			}
 		}
 	}
+	/*
+	 * To show all transactions done
+	 */
+	private class ShowExpenseListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			JPanel pane=new JPanel(new GridLayout(3,2));
+
+			try{
+				//creating labels for the text fields
+				JLabel aN= new JLabel("Here is the list of all transactions done:");
+				aN.setFont(new Font("Calibri", Font.BOLD, 14));
+
+				JTextArea listExp = new JTextArea(3,30); //set size;
+				listExp.setText(readFromTheFile()); 
+				JScrollPane jp;
+				listExp.setEditable(false); //not editable by user
+				listExp.setBorder(compound); //giving bounders
+
+				jp = new JScrollPane(listExp); //so if many transactions user can scroll
+				jp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); //location of the scroll
+				//adding the elements to the panel
+				pane.add(aN);
+				pane.add(jp);
+				pane.setPreferredSize(new Dimension(800, 200));
+				pane.setBorder(compound);
+
+				int option=  JOptionPane.showConfirmDialog(null, pane, "List of All Expenses Done", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+				//if the user clicks on the CANCEL button or Closes the window
+				if(option != 0 || option == 0){
+					JOptionPane.getRootFrame().dispose();
+				};
+			} catch (Exception e) {
+				System.err.println("Error while clearing the expenses.");
+				e.printStackTrace();
+			}
+		}
+
+	}
+	/*
+	 * method to read the database textfile
+	 */
+	public static String readFromTheFile() {
+
+		// Open file to read from
+		try {
+			reader = new BufferedReader(new FileReader(Constants.TRANSACTIONS_FILE));
+
+		} catch (Exception e) {
+			System.out.println("Error when opening file.");
+			System.out.println("Program will terminate.");
+			System.exit(0);
+		}
+		try {
+			String line = null;
+			StringBuffer stringBuffer = new StringBuffer();
+			while((line = reader.readLine())!=null){
+
+				stringBuffer.append(line).append("\n");
+			}
+
+			return stringBuffer.toString();
+
+		} catch (IOException e) {
+			System.out.println("Error while reading file");
+			System.out.println("Program will terminate.");
+			System.exit(0);
+		}
+
+
+		// Closing reading stream
+		try {
+			if (reader != null)
+				reader.close();
+
+		} catch (Exception e) {
+			System.out.println("Error when closing file.");
+			System.out.println("Program will terminate.");
+			System.exit(0);
+		}
+		return null;
+
+	}
 
 	/*
-	 * method to write to the database textfile
+	 * method to write to the database textfile with 3 attributes
 	 */
 	public static void writeToFile(ExpenditureType type, double amountMn, int num){
-
 		// opening file stream to write log
 		try {
 			pw = new PrintWriter(new FileOutputStream(Constants.TRANSACTIONS_FILE, true));
@@ -424,7 +575,29 @@ public class CashSpendingUI implements ActionListener {
 			System.out.println("Error while creating file");
 			System.exit(1);
 		}
-		String n = ("Transaction #" + i + " for expenditure " + type + " with an amount of $" + amountMn + " paid with card # " + num + " was completed.");
+		String n = String.format("Transaction #%d for expenditure %s with an amount of $ %s paid with card #%d was completed.", i, type, amountMn, num);
+		pw.println(n);
+
+		// Closing file stream
+		try {
+			pw.close();
+		} catch (Exception e) {
+			System.out.println("Error while closing file");
+			System.exit(1);
+		}
+	}
+
+	/*
+	 * method to write to the database textfile with 3 attributes
+	 */
+	public static void writeToFile(String n){
+		// opening file stream to write log
+		try {
+			pw = new PrintWriter(new FileOutputStream(Constants.TRANSACTIONS_FILE, true));
+		} catch (Exception e) {
+			System.out.println("Error while creating file");
+			System.exit(1);
+		}
 		pw.println(n);
 
 		// Closing file stream
@@ -461,3 +634,5 @@ public class CashSpendingUI implements ActionListener {
 
 
 }
+
+

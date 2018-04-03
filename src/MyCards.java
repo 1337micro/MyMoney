@@ -126,6 +126,12 @@ public class MyCards {
 			Credit credit = new Credit(type, accNb, cardNumber, limit, moneySpent);
 			cards.add(credit);
 		}
+		else if (type == CardType.BITCOIN){
+
+			BitcoinCard bitcoinCard = new BitcoinCard(type, accNb, cardNumber, limit, moneySpent);
+			cards.add(bitcoinCard);
+
+		}
 	}
 
 	/*
@@ -153,20 +159,7 @@ public class MyCards {
 			//if you get a match with the card number inputed and one in the array
 			if (list.get(i).getCardNumber()==cardNb){ 
 				//if it is a debit
-				if(list.get(i).getType() == CardType.DEBIT){
-					//cardTmp = new Debit(list.get(i).getType(), list.get(i).getAccNb(), list.get(i).getCardNumber(), list.get(i).getMoneyAvailable());
-					return i;
-				}
-				//if it is a credit
-				if(list.get(i).getType() == CardType.CREDIT){
-					//cardTmp = new Credit(list.get(i).getType(), list.get(i).getAccNb(), list.get(i).getCardNumber(), list.get(i).getMoneySpent(), list.get(i).getLimit());
-					return i;
-				}
-				//if it is a loyalty card
-				if(list.get(i).getType() == CardType.LOYALTY){
-					//cardTmp = new LoyaltyCard(list.get(i).getType(), list.get(i).getEmail(), list.get(i).getCardNumber(), list.get(i).getPointsAvailable());
-					return i;
-				}
+				return i;
 			}
 		}
 		//if nothing is find 
@@ -199,6 +192,10 @@ public class MyCards {
 			newCard = new LoyaltyCard(newCard.getType(), newCard.getEmail(), newCard.getCardNumber(), newCard.getPointsAvailable());
 			pw.println(newCard.getType() + "," + newCard.getEmail() + "," + newCard.getCardNumber() + "," + newCard.getPointsAvailable() + "," + newCard.getMoneyAvailable());
 		}
+		if( newCard.getType() == CardType.BITCOIN){
+			newCard = new BitcoinCard(newCard.getType(), newCard.getAccNb(), newCard.getCardNumber(), newCard.getMoneySpent(), newCard.getLimit());
+			pw.println(newCard.getType() + "," + newCard.getAccNb() + "," + newCard.getCardNumber() + "," + newCard.getMoneySpent()+ "," +newCard.getLimit()+ "," +newCard.getMoneyAvailable());
+		}
 
 		// Closing file stream
 		try {
@@ -208,6 +205,7 @@ public class MyCards {
 			System.exit(1);
 		}
 	}
+
 
 	/*
 	 * method to clear the database textfile
@@ -271,6 +269,20 @@ public class MyCards {
 						return true;
 					}
 				}
+				else if(line.startsWith("BITCOIN")){
+					String[] lineArray = line.split(",");
+					cdtp = CardType.BITCOIN;
+					accNb = Integer.parseInt(lineArray[1]);
+					cardNum = Integer.parseInt(lineArray[2]);
+					moneySpent= Double.parseDouble(lineArray[3]);
+					limitCard=Double.parseDouble(lineArray[4]);
+					moneyAvailable=Double.parseDouble(lineArray[5]);
+					Credit cd = new Credit(cdtp, accNb, cardNum, moneySpent, limitCard);
+					if( cd.getCardNumber() == cardInput.getCardNumber()){
+						return true;
+					}
+				}
+
 
 			}
 
@@ -366,6 +378,28 @@ public class MyCards {
 							Object[] data = {cdtp, eml, cardNum, pointsAvailable};
 							model.addRow(data);
 
+						}
+						else{
+							throw new NumberFormatException();
+						}
+					}
+					if(line.startsWith("BITCOIN")){
+						String[] lineArray = line.split(",");
+						cdtp = CardType.BITCOIN;
+						accNb = Integer.parseInt(lineArray[1]);
+						cardNum = Integer.parseInt(lineArray[2]);
+						moneySpent= Double.parseDouble(lineArray[3]);
+						limitCard=Double.parseDouble(lineArray[4]);
+						moneyAvailable=Double.parseDouble(lineArray[5]);
+						double verifyMoney = limitCard-moneySpent;
+						boolean moneyBool= (verifyMoney== verifyMoney);
+						if((accNb>=0) && (cardNum>=0) && (moneySpent>=0) && (limitCard>=0) && (moneyBool==true)){
+							BitcoinCard cd = new BitcoinCard(cdtp, accNb, cardNum, moneySpent, limitCard);
+							cd.setMoneyAvailable(moneyAvailable);
+							cards_list.add(cd);
+							//adding values to table
+							Object[] data = {cdtp, accNb, cardNum, moneySpent};
+							model.addRow(data);
 						}
 						else{
 							throw new NumberFormatException();
@@ -505,4 +539,5 @@ public class MyCards {
 		return (ArrayList <Cards>)cards;
 	}
 }
+
 

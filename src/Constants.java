@@ -22,7 +22,7 @@ public class Constants {
 	public static final int APP_LAYOUT_WIDTH = 1000;
 	public static final String APP_TITLE = "MyMoney Desktop Application";
 	public static final String APP_WELCOME_TITLE = "Welcome to " + APP_TITLE;
-	public static final String APP_VERSION = "Version 2.0.0";
+	public static final String APP_VERSION = "Version 3.0.0";
 
 	//button constants 
 	public static final int BUTTON_WIDTH = 150;
@@ -35,9 +35,11 @@ public class Constants {
 	public static final String BUTTON_CARDS = "My Cards";
 	public static final String BUTTON_ADD_CARD = "Add a card";
 	public static final String BUTTON_REMOVE_CARD = "Remove a card";
+	public static final String BUTTON_PAIEMENT_CARD = "Make a paiement";
 	public static final String BUTTON_SPENDING = "Cash Spending";
 	public static final String BUTTON_ADD_EXPENSE = "Add an expense";
-	public static final String BUTTON_CLEAR_EXPENSE = "Clear all expenses";
+	public static final String BUTTON_SHOW_EXPENSE = "Show all expenses";
+	public static final String BUTTON_PRINT_BUDGET = "Print your budget";
 
 	//color constant
 	public static final Color CASHSPENDING_COLOR = new Color(204, 255, 229);
@@ -88,6 +90,9 @@ public class Constants {
 	public final static String TRANSPORTATION_TYPE = "Transportation";
 	public final static String MISC_TYPE = "Misc";
 }
+
+
+
 
 
 

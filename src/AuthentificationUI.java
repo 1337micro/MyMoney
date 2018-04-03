@@ -7,7 +7,6 @@ package src;
 // accepted or rejected and if accepted, they will be taken to the main menu ApplicationLayout
 //          
 //--------------------------------------------------------
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -27,6 +26,7 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.plaf.ColorUIResource;
+
 
 
 public class AuthentificationUI extends JFrame{
@@ -206,14 +206,15 @@ public class AuthentificationUI extends JFrame{
 				//if the user clicks on the YES/OK BUTTON
 				if(option == 0){ 	
 					try{
+						//if the user does not enter any value
+						if((usn.getText().isEmpty()) || (psw.getText().isEmpty())){
+							throw new NumberFormatException();
+						}
+						
 						//getting information entered by the user
 						username = usn.getText();
 						password = psw.getText();
 
-						//if the user does not enter any value
-						if((username == null) || (password == null)){
-							throw new NumberFormatException();
-						}
 						//creating a new AuthentificationUser object
 						user = new AuthentificationUser(username,password);
 
@@ -310,18 +311,21 @@ public class AuthentificationUI extends JFrame{
 	}
 
 	/*
-	 * method to clear the database textfile
+	 * method to clear the database textfiles for Authentification and MyCards
 	 */
 	public static void clearDataBaseAuthentification() throws IOException{
-		if (Constants.AUTHENTIFICATION_FILE .exists() && Constants.AUTHENTIFICATION_FILE .isFile())
+		
+		if (Constants.AUTHENTIFICATION_FILE.exists() && Constants.AUTHENTIFICATION_FILE .isFile() && Constants.MYCARDS_FILE.exists()&&Constants.MYCARDS_FILE.isFile())
 		{
 			//delete if exists
 			Constants.AUTHENTIFICATION_FILE .delete();
+			Constants.MYCARDS_FILE.delete();
 		}
 		Constants.AUTHENTIFICATION_FILE .createNewFile();
-
+		Constants.MYCARDS_FILE.createNewFile();
 	}
 }
+
 
 
 

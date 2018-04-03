@@ -46,7 +46,14 @@ public class LoyaltyCard implements Cards{
 		this.moneyAvailable = (pointsAvailable/100);
 		this.list = new ArrayList<>();
 	}
-
+	/*
+	 * Method to add a string to the list
+	 * @see src.Cards#addExpense(java.lang.String)
+	 */
+	public void addExpense(String n){
+		this.list.add(n);
+	}
+	
 	/*
 	 * Method to get one string with all the information
 	 */
@@ -69,7 +76,7 @@ public class LoyaltyCard implements Cards{
 	 */
 	@Override
 	public boolean equals(Cards card) {
-		if((this.getType() == card.getType()) &&(this.getAccNb() == card.getAccNb()) && (this.getCardNumber() == card.getAccNb()) && (this.getPointsAvailable() == card.getPointsAvailable())&&(this.getMoneyAvailable() == card.getMoneyAvailable())){
+		if((this.getType() == card.getType()) &&(this.getAccNb() == card.getAccNb()) && (this.getCardNumber() == card.getCardNumber()) && (this.getPointsAvailable() == card.getPointsAvailable())&&(this.getMoneyAvailable() == card.getMoneyAvailable())){
 			return true;
 		}
 		return false;
@@ -171,4 +178,5 @@ public class LoyaltyCard implements Cards{
 	}
 
 }
+
 
