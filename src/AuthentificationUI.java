@@ -311,11 +311,10 @@ public class AuthentificationUI extends JFrame{
 	}
 
 	/*
-	 * method to clear the database textfile
+	 * method to clear the database textfiles for Authentification and MyCards
 	 */
 	public static void clearDataBaseAuthentification() throws IOException{
 		
-		//File file = new File();
 		if (Constants.AUTHENTIFICATION_FILE.exists() && Constants.AUTHENTIFICATION_FILE .isFile() && Constants.MYCARDS_FILE.exists()&&Constants.MYCARDS_FILE.isFile())
 		{
 			//delete if exists
