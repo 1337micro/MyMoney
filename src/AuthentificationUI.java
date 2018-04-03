@@ -226,6 +226,7 @@ public class AuthentificationUI extends JFrame{
 						else{
 							users_list.add(user); //add object to the ArrayList
 							AuthentificationList.writeToFile(user); //write information to the Db txt 
+							MyCards.clearDataBaseMyCards();
 							JOptionPane.getRootFrame().dispose(); //close the window
 
 							//close the authentification frame
@@ -244,6 +245,10 @@ public class AuthentificationUI extends JFrame{
 						if(opt != 0){
 							JOptionPane.getRootFrame().dispose();
 						}
+					}
+					} catch (IOException e) {
+						System.err.println("Error while clearing the MyCards Database textfile");
+						e.printStackTrace();
 					}
 				}
 
