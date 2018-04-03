@@ -254,10 +254,72 @@ public class CashSpendingUI implements ActionListener {
 	 */
 	public void addingToTheExpenditure(int index, int cardIndex, double amount){
 		try{
-			//checks if we are not going over budget
+			JPanel pane = new JPanel();
+			pane.setBorder(compound);
+			pane.setBackground(Color.WHITE);
+
+			//checks if we are not going over budget 
 			if(expense.isOverBudget(amount, indexToExpenditureTypeDictionary.get(index))) {
-				String e = Constants.INVALID_MSG_OVER_BUDGET;
-				throw new NumberFormatException(e);
+				//creating labels for the text fields
+				String se = String.format("You will go over your budget by spending %s on %s", amount,  indexToExpenditureTypeDictionary.get(index));
+				JLabel aN= new JLabel(se);
+				aN.setFont(new Font("Calibri", Font.BOLD, 14));
+				JLabel bN= new JLabel("\nDo you want to add this expense?");
+				bN.setFont(new Font("Calibri", Font.BOLD, 14));
+
+				//adding the elements to the panel
+				pane.add(aN);
+				pane.add(bN);
+
+				// user gets the chose of adding or not the expense
+				int option=  JOptionPane.showConfirmDialog(null, pane, "Alert Going Over Budget", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+				//if the user clicks on the CANCEL button or Closes the window
+				if(option != 0){
+					JOptionPane.getRootFrame().dispose();
+				};
+
+				//if the user clicks on the YES/OK BUTTON
+				if(option == 0){ 
+					//setting the Cards cardTemp as the selected card by user
+					if(MyCardsUI.getListCards().get(cardIndex).getType() == CardType.DEBIT){
+						cardTemp = new Debit();
+						cardTemp.setType(MyCardsUI.getListCards().get(cardIndex).getType());
+						cardTemp.setCardNumber(MyCardsUI.getListCards().get(cardIndex).getCardNumber());
+						cardTemp.setAccNb(MyCardsUI.getListCards().get(cardIndex).getAccNb());
+						cardTemp.setMoneyAvailable(MyCardsUI.getListCards().get(cardIndex).getMoneyAvailable());
+					}
+					if(MyCardsUI.getListCards().get(cardIndex).getType() == CardType.CREDIT){
+						cardTemp = new Credit();
+						cardTemp.setType(MyCardsUI.getListCards().get(cardIndex).getType());
+						cardTemp.setCardNumber(MyCardsUI.getListCards().get(cardIndex).getCardNumber());
+						cardTemp.setAccNb(MyCardsUI.getListCards().get(cardIndex).getAccNb());
+						cardTemp.setMoneySpent(MyCardsUI.getListCards().get(cardIndex).getMoneySpent());
+						cardTemp.setLimit(MyCardsUI.getListCards().get(cardIndex).getLimit());
+						cardTemp.setMoneyAvailable(MyCardsUI.getListCards().get(cardIndex).getMoneyAvailable());
+					}
+					if(MyCardsUI.getListCards().get(cardIndex).getType() == CardType.LOYALTY){
+						cardTemp = new LoyaltyCard();
+						cardTemp.setType(MyCardsUI.getListCards().get(cardIndex).getType());
+						cardTemp.setEmail(MyCardsUI.getListCards().get(cardIndex).getEmail());
+						cardTemp.setCardNumber(MyCardsUI.getListCards().get(cardIndex).getCardNumber());
+						cardTemp.setPointsAvailable(MyCardsUI.getListCards().get(cardIndex).getPointsAvailable());
+						cardTemp.setMoneyAvailable(MyCardsUI.getListCards().get(cardIndex).getMoneyAvailable());
+					}
+					if(MyCardsUI.getListCards().get(cardIndex).getType() == CardType.BITCOIN){
+						cardTemp = new BitcoinCard();
+						cardTemp.setType(MyCardsUI.getListCards().get(cardIndex).getType());
+						cardTemp.setCardNumber(MyCardsUI.getListCards().get(cardIndex).getCardNumber());
+						cardTemp.setAccNb(MyCardsUI.getListCards().get(cardIndex).getAccNb());
+						cardTemp.setMoneySpent(MyCardsUI.getListCards().get(cardIndex).getMoneySpent());
+						cardTemp.setLimit(MyCardsUI.getListCards().get(cardIndex).getLimit());
+						cardTemp.setMoneyAvailable(MyCardsUI.getListCards().get(cardIndex).getMoneyAvailable());
+					}
+					String n = String.format("!! User went over its budget by doing the transaction of %s in %s with card number %s !!", amount,  indexToExpenditureTypeDictionary.get(index), MyCardsUI.getListCards().get(cardIndex).getCardNumber());
+					
+					writeToFile(n);
+				}
+				//String e = Constants.INVALID_MSG_OVER_BUDGET;
+				//throw new NumberFormatException(e);
 			}
 			//if amount enter is invalid
 			if(amount < 0 ){
@@ -315,7 +377,7 @@ public class CashSpendingUI implements ActionListener {
 						//adding the transaction to the cards_list at the selected card
 						MyCardsUI.addToTheList(cardTemp, transactions);
 						//writing expense done to the TransactionsDone.txt
-						writeToFile(ExpenditureType.HOUSING, amount	, nbCard);} 
+						writeToFile(ExpenditureType.HOUSING, amount	, cardTemp.getCardNumber());} 
 					break;
 
 				case 1: 
@@ -325,7 +387,7 @@ public class CashSpendingUI implements ActionListener {
 						i++;
 						transactions = MyCards.formatTransactionCards(ExpenditureType.FOOD, amount, cardTemp.getCardNumber());
 						MyCardsUI.addToTheList(cardTemp, transactions);
-						writeToFile(ExpenditureType.FOOD, amount, nbCard);}
+						writeToFile(ExpenditureType.FOOD, amount, cardTemp.getCardNumber());}
 					break;
 
 				case 2: 
@@ -335,7 +397,7 @@ public class CashSpendingUI implements ActionListener {
 						i++;
 						transactions = MyCards.formatTransactionCards(ExpenditureType.UTILITIES, amount, cardTemp.getCardNumber());
 						MyCardsUI.addToTheList(cardTemp, transactions);
-						writeToFile(ExpenditureType.UTILITIES, amount, nbCard);}
+						writeToFile(ExpenditureType.UTILITIES, amount, cardTemp.getCardNumber());}
 					break;
 
 				case 3: 
@@ -345,7 +407,7 @@ public class CashSpendingUI implements ActionListener {
 						i++;
 						transactions = MyCards.formatTransactionCards(ExpenditureType.CLOTHING, amount, cardTemp.getCardNumber());
 						MyCardsUI.addToTheList(cardTemp, transactions);
-						writeToFile(ExpenditureType.CLOTHING, amount, nbCard);}
+						writeToFile(ExpenditureType.CLOTHING, amount, cardTemp.getCardNumber());}
 					break;
 
 				case 4: 
@@ -355,7 +417,7 @@ public class CashSpendingUI implements ActionListener {
 						i++;
 						transactions = MyCards.formatTransactionCards(ExpenditureType.MEDICAL, amount, cardTemp.getCardNumber());
 						MyCardsUI.addToTheList(cardTemp, transactions);
-						writeToFile(ExpenditureType.MEDICAL, amount, nbCard);}
+						writeToFile(ExpenditureType.MEDICAL, amount, cardTemp.getCardNumber());}
 					break;
 
 				case 5: 
@@ -365,7 +427,7 @@ public class CashSpendingUI implements ActionListener {
 						i++;
 						transactions = MyCards.formatTransactionCards(ExpenditureType.DONATIONS, amount, cardTemp.getCardNumber());
 						MyCardsUI.addToTheList(cardTemp, transactions);
-						writeToFile(ExpenditureType.DONATIONS, amount, nbCard);}
+						writeToFile(ExpenditureType.DONATIONS, amount, cardTemp.getCardNumber());}
 					break;
 
 				case 6: 
@@ -375,7 +437,7 @@ public class CashSpendingUI implements ActionListener {
 						i++;
 						transactions = MyCards.formatTransactionCards(ExpenditureType.SAVINGS, amount, cardTemp.getCardNumber());
 						MyCardsUI.addToTheList(cardTemp, transactions);
-						writeToFile(ExpenditureType.SAVINGS, amount, nbCard);}
+						writeToFile(ExpenditureType.SAVINGS, amount, cardTemp.getCardNumber());}
 					break;
 
 				case 7: 
@@ -385,7 +447,7 @@ public class CashSpendingUI implements ActionListener {
 						i++;
 						transactions = MyCards.formatTransactionCards(ExpenditureType.ENTERTAINMENT, amount, cardTemp.getCardNumber());
 						MyCardsUI.addToTheList(cardTemp, transactions);
-						writeToFile(ExpenditureType.ENTERTAINMENT, amount, nbCard);}
+						writeToFile(ExpenditureType.ENTERTAINMENT, amount, cardTemp.getCardNumber());}
 					break;
 
 				case 8: 
@@ -395,7 +457,7 @@ public class CashSpendingUI implements ActionListener {
 						i++;
 						transactions = MyCards.formatTransactionCards(ExpenditureType.TRANSPORTATION, amount, cardTemp.getCardNumber());
 						MyCardsUI.addToTheList(cardTemp, transactions);
-						writeToFile(ExpenditureType.TRANSPORTATION, amount, nbCard);}
+						writeToFile(ExpenditureType.TRANSPORTATION, amount, cardTemp.getCardNumber());}
 					break;
 
 				case 9: 
@@ -405,7 +467,7 @@ public class CashSpendingUI implements ActionListener {
 						i++;
 						transactions = MyCards.formatTransactionCards(ExpenditureType.MISC, amount, cardTemp.getCardNumber());
 						MyCardsUI.addToTheList(cardTemp, transactions);
-						writeToFile(ExpenditureType.MISC, amount, nbCard);}
+						writeToFile(ExpenditureType.MISC, amount, cardTemp.getCardNumber());}
 					break;	
 				}
 			}
@@ -444,7 +506,7 @@ public class CashSpendingUI implements ActionListener {
 				pane.add(jp);
 				pane.setPreferredSize(new Dimension(800, 200));
 				pane.setBorder(compound);
-				
+
 				int option=  JOptionPane.showConfirmDialog(null, pane, "List of All Expenses Done", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 				//if the user clicks on the CANCEL button or Closes the window
 				if(option != 0 || option == 0){
@@ -526,6 +588,28 @@ public class CashSpendingUI implements ActionListener {
 	}
 
 	/*
+	 * method to write to the database textfile with 3 attributes
+	 */
+	public static void writeToFile(String n){
+		// opening file stream to write log
+		try {
+			pw = new PrintWriter(new FileOutputStream(Constants.TRANSACTIONS_FILE, true));
+		} catch (Exception e) {
+			System.out.println("Error while creating file");
+			System.exit(1);
+		}
+		pw.println(n);
+
+		// Closing file stream
+		try {
+			pw.close();
+		} catch (Exception e) {
+			System.out.println("Error while closing file");
+			System.exit(1);
+		}
+	}
+
+	/*
 	 * method to clear the database textfile
 	 */
 	public static void clearDataBaseTransactionsDone() throws IOException{
@@ -550,4 +634,5 @@ public class CashSpendingUI implements ActionListener {
 
 
 }
+
 
