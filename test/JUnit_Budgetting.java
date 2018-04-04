@@ -258,6 +258,7 @@ public class JUnit_Budgetting {
 	}
 	
 	@Test
+	//Test to see if the "print()" method created its intended file
 	public void testPrintBudget(){
 		budgetUI.print();
 		assertTrue(PERSONALIZED_BUDGET_FILE.exists()&&!PERSONALIZED_BUDGET_FILE.isDirectory());

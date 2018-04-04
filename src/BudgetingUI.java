@@ -170,9 +170,15 @@ public class BudgetingUI implements ActionListener {
 
 		}
 	}
-
+	/*
+	 * Button that will call the "print()" method to create a text file of budget details 
+	 */
 	public class PrintBudget implements ActionListener{
+		@Override
 		public void actionPerformed(ActionEvent e) {
+			/*
+			 * Method that will write the budget details to a text file
+			 */
 			print();
 		}
 
@@ -383,6 +389,9 @@ public class BudgetingUI implements ActionListener {
 		
 	}
 	
+	/*
+	 * Method called in PrintBudget button
+	 */
 	public void print(){
 		Budgeting budget = new Budgeting(Constants.BUDGETING_FILE);
 		// opening file stream to write log
