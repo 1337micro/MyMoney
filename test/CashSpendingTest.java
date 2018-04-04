@@ -155,9 +155,9 @@ public class CashSpendingTest{
     //test to see if the metho writes poperly to the file
     public void writetofileTest() {
 try {
-    	String trs = String.format("Paiement Transaction with debit card for credit card with an amount of was completed.");
+    	String trs = String.format("Payment Transaction with debit card for credit card with an amount of was completed.");
     	CashSpendingUI.writeToFile(trs);
-    	assertEquals(CashSpendingUI.readFromTheFile(), "Paiement Transaction with debit card for credit card with an amount of was completed.");
+    	assertEquals(CashSpendingUI.readFromTheFile(), "Payment Transaction with debit card for credit card with an amount of was completed.");
 }
 catch (Exception e) {
 	System.out.println("Error when opening file.");

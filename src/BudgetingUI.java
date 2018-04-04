@@ -173,50 +173,7 @@ public class BudgetingUI implements ActionListener {
 
 	public class PrintBudget implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			Budgeting budget = new Budgeting(Constants.BUDGETING_FILE);
-			// opening file stream to write log
-			PrintWriter pw = null;
-			try {
-				if (Constants.PERSONALIZED_BUDGET_FILE.exists() && Constants.PERSONALIZED_BUDGET_FILE.isFile())
-				{
-					//delete if exists
-					Constants.PERSONALIZED_BUDGET_FILE.delete();
-					JOptionPane.showMessageDialog(null, "Previous Personalized File was removed");
-				}
-				Constants.PERSONALIZED_BUDGET_FILE.createNewFile();
-
-				pw = new PrintWriter(new FileOutputStream(Constants.PERSONALIZED_BUDGET_FILE));
-			} catch (Exception f) {
-				System.out.println("Error while creating file");
-				System.exit(1);
-			}
-
-			//Print to file according to
-			//AvailableFunds:Amount
-			//Section:Percentage:Amount
-			pw.println("Personalized Budget File");
-			pw.println("---------------------------------------------------");
-			pw.println();
-			pw.println("Available Funds: \t$" + budget.getAvailableFunds());
-			pw.println("Housing:\t\t" + budget.getPercentHousing() + "%:\t$" + budget.getAmountHousing());
-			pw.println("Food:\t\t\t" + budget.getPercentFood() + "%:\t$" + budget.getAmountFood());
-			pw.println("Utilities:\t\t" + budget.getPercentUtilities() + "%:\t$" + budget.getAmountUtilities());
-			pw.println("Clothing:\t\t" + budget.getPercentClothing() + "%:\t$" + budget.getAmountClothing());
-			pw.println("Medical:\t\t" + budget.getPercentMedical() + "%:\t$" + budget.getAmountMedical());
-			pw.println("Donations:\t\t" + budget.getPercentDonations() + "%:\t$" + budget.getAmountDonations());
-			pw.println("Savings/Insurance:\t" + budget.getPercentSavingsInsurance() + "%:\t$" + budget.getAmountSavingsInsurance());
-			pw.println("Entertainment:\t\t" + budget.getPercentEntertainment() + "%:\t$" + budget.getAmountEntertainment());
-			pw.println("Transportation:\t\t" + budget.getPercentTransportation() + "%:\t$" + budget.getAmountTransportation());
-			pw.println("Misc:\t\t\t" + budget.getPercentMisc() + "%:\t$" + budget.getAmountMisc());
-
-			// Closing file stream
-			try {
-				pw.close();
-				JOptionPane.showMessageDialog(null, "Personalized File created successfully");
-			} catch (Exception g) {
-				System.out.println("Error while closing file");
-				System.exit(1);
-			}
+			print();
 		}
 
 	}
@@ -421,6 +378,55 @@ public class BudgetingUI implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			displayBudget();
+		}
+		
+		
+	}
+	
+	public void print(){
+		Budgeting budget = new Budgeting(Constants.BUDGETING_FILE);
+		// opening file stream to write log
+		PrintWriter pw = null;
+		try {
+			if (Constants.PERSONALIZED_BUDGET_FILE.exists() && Constants.PERSONALIZED_BUDGET_FILE.isFile())
+			{
+				//delete if exists
+				Constants.PERSONALIZED_BUDGET_FILE.delete();
+				JOptionPane.showMessageDialog(null, "Previous Personalized File was removed");
+			}
+			Constants.PERSONALIZED_BUDGET_FILE.createNewFile();
+
+			pw = new PrintWriter(new FileOutputStream(Constants.PERSONALIZED_BUDGET_FILE));
+		} catch (Exception f) {
+			System.out.println("Error while creating file");
+			System.exit(1);
+		}
+
+		//Print to file according to
+		//AvailableFunds:Amount
+		//Section:Percentage:Amount
+		pw.println("Personalized Budget File");
+		pw.println("---------------------------------------------------");
+		pw.println();
+		pw.println("Available Funds: \t$" + budget.getAvailableFunds());
+		pw.println("Housing:\t\t" + budget.getPercentHousing() + "%:\t$" + budget.getAmountHousing());
+		pw.println("Food:\t\t\t" + budget.getPercentFood() + "%:\t$" + budget.getAmountFood());
+		pw.println("Utilities:\t\t" + budget.getPercentUtilities() + "%:\t$" + budget.getAmountUtilities());
+		pw.println("Clothing:\t\t" + budget.getPercentClothing() + "%:\t$" + budget.getAmountClothing());
+		pw.println("Medical:\t\t" + budget.getPercentMedical() + "%:\t$" + budget.getAmountMedical());
+		pw.println("Donations:\t\t" + budget.getPercentDonations() + "%:\t$" + budget.getAmountDonations());
+		pw.println("Savings/Insurance:\t" + budget.getPercentSavingsInsurance() + "%:\t$" + budget.getAmountSavingsInsurance());
+		pw.println("Entertainment:\t\t" + budget.getPercentEntertainment() + "%:\t$" + budget.getAmountEntertainment());
+		pw.println("Transportation:\t\t" + budget.getPercentTransportation() + "%:\t$" + budget.getAmountTransportation());
+		pw.println("Misc:\t\t\t" + budget.getPercentMisc() + "%:\t$" + budget.getAmountMisc());
+
+		// Closing file stream
+		try {
+			pw.close();
+			JOptionPane.showMessageDialog(null, "Personalized File created successfully");
+		} catch (Exception g) {
+			System.out.println("Error while closing file");
+			System.exit(1);
 		}
 	}
 }
