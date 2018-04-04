@@ -67,6 +67,7 @@ public class Constants {
 	public static final Icon CREDIT_IMAGE = new ImageIcon("creditImage.png");
 	public static final Icon DEBIT_IMAGE = new ImageIcon("debitImage.png");
 	public static final Icon LOYALTY_IMAGE = new ImageIcon("loyaltyImage.png");
+	public static final Icon BITCOIN_IMAGE = new ImageIcon("bitcoinImage.png");
 	public static ImageIcon IMG_UNICORN = new ImageIcon("unicorn.png");
 
 	//Authentification constants
@@ -92,6 +93,7 @@ public class Constants {
 	public final static String MISC_TYPE = "Misc";
 	
 }
+
 
 
 

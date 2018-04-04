@@ -813,7 +813,7 @@ public class MyCardsUI implements ActionListener{
 
 
 				//popping up the option panel so that the user can input the information
-				int cardInput = JOptionPane.showConfirmDialog(null, pane, "Bitcoin Card Information", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, Constants.CREDIT_IMAGE);
+				int cardInput = JOptionPane.showConfirmDialog(null, pane, "Bitcoin Card Information", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, Constants.BITCOIN_IMAGE);
 
 				//if the user clicks on the CANCEL button or Closes the window
 				if (cardInput != 0) {
@@ -1083,6 +1083,7 @@ public class MyCardsUI implements ActionListener{
 		cards_list.get(index).setList(list);
 	}
 }
+
 
 
 
