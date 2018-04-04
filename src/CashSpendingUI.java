@@ -101,7 +101,7 @@ public class CashSpendingUI implements ActionListener {
 		panButton.setBorder(raisedbevel);
 		
 		
-		JLabel txtCashSp = new JLabel("Please note that you need to save your cards first.");
+		JLabel txtCashSp = new JLabel("Please note that you need to load your cards before entering expenses.");
 		txtCashSp.setFont(new Font("Courier New", Font.BOLD, 14));
 		//setting the custom table model to the class I created 
 		tableModel =  new DefaultTableModel(COLUMN_NAMES, 0);
@@ -498,26 +498,28 @@ public class CashSpendingUI implements ActionListener {
 	private class ShowExpenseListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			JPanel pane=new JPanel(new GridLayout(3,2));
-
+			//JPanel pane=new JPanel(new GridLayout(3,2));
+			JPanel pane=new JPanel();
 			try{
 				//creating labels for the text fields
-				JLabel aN= new JLabel("Here is the list of all transactions done:");
-				aN.setFont(new Font("Calibri", Font.BOLD, 14));
+				//JLabel aN= new JLabel("Here is the list of all transactions done:");
+				//aN.setFont(new Font("Calibri", Font.BOLD, 14));
 
-				JTextArea listExp = new JTextArea(3,30); //set size;
+				JTextArea listExp = new JTextArea(3,50); //set size;
 				listExp.setText(readFromTheFile()); 
 				JScrollPane jp;
 				listExp.setEditable(false); //not editable by user
-				listExp.setBorder(compound); //giving bounders
-
+				listExp.setBorder(loweredbevel); //giving bounders
+				//listExp.setPreferredSize(new Dimension(700,300));
+				
 				jp = new JScrollPane(listExp); //so if many transactions user can scroll
 				jp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); //location of the scroll
+				jp.setPreferredSize(new Dimension(750,300));
 				//adding the elements to the panel
-				pane.add(aN);
+				//pane.add(aN);
 				pane.add(jp);
-				pane.setPreferredSize(new Dimension(800, 200));
-				pane.setBorder(compound);
+				pane.setPreferredSize(new Dimension(800, 100));
+				
 
 				int option=  JOptionPane.showConfirmDialog(null, pane, "List of All Expenses Done", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 				//if the user clicks on the CANCEL button or Closes the window

@@ -247,7 +247,7 @@ public class BudgetingUI implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			//creating the panel
-			JPanel panel1=new JPanel(new GridLayout(14,20));
+			JPanel panel1=new JPanel(new GridLayout(11,20));
 
 
 			//initializing labels and test fields to enter new percentages
@@ -312,7 +312,6 @@ public class BudgetingUI implements ActionListener {
 			panel1.add(labelMisc);
 			panel1.add(inputPercentageMisc);
 
-			panel1.setBorder(compound);
 
 			//popping up the option panel so that the user can input the information
 			int percentageInput=JOptionPane.showConfirmDialog(null, panel1, "Budgeting Percentages", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
