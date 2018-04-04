@@ -89,6 +89,7 @@ public class Constants {
 	public final static String ENTERTAINMENT_TYPE = "Entertainment";
 	public final static String TRANSPORTATION_TYPE = "Transportation";
 	public final static String MISC_TYPE = "Misc";
+	public final static File PRINT_BUDGET = new File("PersonalizedBudgetFile.txt");
 }
 
 

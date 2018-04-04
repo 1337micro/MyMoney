@@ -613,7 +613,7 @@ public class CashSpendingUI implements ActionListener {
 	 * method to clear the database textfile
 	 */
 	public static void clearDataBaseTransactionsDone() throws IOException{
-		i = 0;
+		
 		if (Constants.TRANSACTIONS_FILE.exists() && Constants.TRANSACTIONS_FILE.isFile())
 		{
 			//delete if exists

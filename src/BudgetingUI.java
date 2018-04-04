@@ -165,7 +165,15 @@ public class BudgetingUI extends Budgeting implements ActionListener {
 			// opening file stream to write log
 			PrintWriter pw = null;
 			try {
-				pw = new PrintWriter(new FileOutputStream("PersonalizedBudgetFile.txt"));
+				if (Constants.PRINT_BUDGET.exists() && Constants.PRINT_BUDGET.isFile())
+				{
+					//delete if exists
+					Constants.PRINT_BUDGET.delete();
+					JOptionPane.showMessageDialog(null, "Previous Personalized File was removed");
+				}
+				Constants.PRINT_BUDGET.createNewFile();
+				
+				pw = new PrintWriter(new FileOutputStream(Constants.PRINT_BUDGET));
 			} catch (Exception f) {
 				System.out.println("Error while creating file");
 				System.exit(1);
