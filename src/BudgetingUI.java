@@ -392,7 +392,7 @@ public class BudgetingUI implements ActionListener {
 			{
 				//delete if exists
 				Constants.PERSONALIZED_BUDGET_FILE.delete();
-				JOptionPane.showMessageDialog(null, "Previous Personalized File was removed");
+				
 			}
 			Constants.PERSONALIZED_BUDGET_FILE.createNewFile();
 
@@ -430,6 +430,7 @@ public class BudgetingUI implements ActionListener {
 		}
 	}
 }
+
 
 
 
