@@ -90,18 +90,20 @@ public class BudgetingUI implements ActionListener {
 	private void buildBudgetingDisplayPanel(){
 		//Initializing the panel
 		panel = new JPanel();
-		JPanel pan = new JPanel();
-		JPanel pan2= new JPanel();
+		JPanel panButton = new JPanel();
+		JPanel panTxtField= new JPanel();
 
 		//setting the background
 		panel.setBackground(new Color(204, 255, 255));
 		panel.setBorder(compound);
-		pan2.setBackground(new Color(255, 255, 255));
-		pan2.setPreferredSize(new Dimension(750,400));
-		pan2.setBorder(loweredetched);
-		pan.setBackground(new Color(228, 228, 228));
-		pan.setPreferredSize(new Dimension(737,43));
-		pan.setBorder(raisedbevel);
+		
+		panTxtField.setBackground(new Color(255, 255, 255));
+		panTxtField.setPreferredSize(new Dimension(750,300));
+		panTxtField.setBorder(loweredetched);
+		
+		panButton.setBackground(new Color(228, 228, 228));
+		panButton.setPreferredSize(new Dimension(750,43));
+		panButton.setBorder(raisedbevel);
 		
 		//Initializing output field
 		outputField = new JTextArea();
@@ -127,14 +129,14 @@ public class BudgetingUI implements ActionListener {
 		printBudget.addActionListener(new PrintBudget());
 
 		//Adding elements to panel
-		pan.add(calculateBudget);
-		pan.add(changePercentages);
-		pan.add(showBudget);
-		pan.add(clearPercentages);
-		pan.add(printBudget);
-		pan2.add(pan);
-		pan2.add(outputField, BorderLayout.CENTER);
-		panel.add(pan2);
+		panButton.add(calculateBudget);
+		panButton.add(changePercentages);
+		panButton.add(showBudget);
+		panButton.add(clearPercentages);
+		panButton.add(printBudget);
+		panel.add(panButton);
+		panTxtField.add(outputField, BorderLayout.CENTER);
+		panel.add(panTxtField);
 		panel.setVisible(false);
 	}
 
