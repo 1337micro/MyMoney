@@ -11,15 +11,16 @@ package src;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Optional;
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.plaf.ColorUIResource;
+import javax.swing.border.EtchedBorder;
+
 import java.io.PrintWriter;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 public class BudgetingUI implements ActionListener {
@@ -52,6 +53,8 @@ public class BudgetingUI implements ActionListener {
 	JButton printBudget; //add a button to print the personalized budget
 	Border raisedbevel = BorderFactory.createRaisedBevelBorder();
 	Border loweredbevel = BorderFactory.createLoweredBevelBorder();
+	Border empty = BorderFactory.createEmptyBorder();
+	Border loweredetched = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
 	Border compound = BorderFactory.createCompoundBorder(raisedbevel, loweredbevel);
 	Border lineBdr = BorderFactory.createLineBorder(Color.BLACK);
 	/**
@@ -85,21 +88,27 @@ public class BudgetingUI implements ActionListener {
 	 * Add the necessary SWING elements to the Budgeting panel
 	 */
 	private void buildBudgetingDisplayPanel(){
-
-		//Initializing output field
-		outputField = new JTextArea();
-		outputField.setEditable(false);
-		outputField.setVisible(false); //field is invisible until CalculateBudget button is pushed
-
 		//Initializing the panel
 		panel = new JPanel();
+		JPanel pan = new JPanel();
+		JPanel pan2= new JPanel();
 
 		//setting the background
 		panel.setBackground(new Color(204, 255, 255));
-		outputField.setBackground(new Color(255, 255, 224));
-		outputField.setBorder(lineBdr);
-	
 		panel.setBorder(compound);
+		pan2.setBackground(new Color(255, 255, 255));
+		pan2.setPreferredSize(new Dimension(750,400));
+		pan2.setBorder(loweredetched);
+		pan.setBackground(new Color(228, 228, 228));
+		pan.setPreferredSize(new Dimension(737,43));
+		pan.setBorder(raisedbevel);
+		
+		//Initializing output field
+		outputField = new JTextArea();
+		outputField.setBorder(empty);
+		outputField.setPreferredSize(new Dimension(700,250));
+		outputField.setEditable(false);
+		outputField.setVisible(false); //field is invisible until CalculateBudget button is pushed
 
 		//creating the buttons
 		calculateBudget = new JButton(Constants.BUTTON_CALCULATE_BUDGET);
@@ -113,17 +122,19 @@ public class BudgetingUI implements ActionListener {
 
 		showBudget = new JButton(Constants.BUTTON_SHOW_BUDGET);
 		showBudget.addActionListener(new showPersonalizedBudget());
-		
+
 		printBudget = new JButton(Constants.BUTTON_PRINT_BUDGET);
 		printBudget.addActionListener(new PrintBudget());
-		
+
 		//Adding elements to panel
-		panel.add(calculateBudget);
-		panel.add(changePercentages);
-		panel.add(showBudget);
-		panel.add(clearPercentages);
-		panel.add(printBudget);
-		panel.add(outputField, BorderLayout.CENTER);
+		pan.add(calculateBudget);
+		pan.add(changePercentages);
+		pan.add(showBudget);
+		pan.add(clearPercentages);
+		pan.add(printBudget);
+		pan2.add(pan);
+		pan2.add(outputField, BorderLayout.CENTER);
+		panel.add(pan2);
 		panel.setVisible(false);
 	}
 
@@ -153,11 +164,11 @@ public class BudgetingUI implements ActionListener {
 			}
 			else if  (avF!=0) 
 			{   outputField.setVisible(true);
-				outputField.setText(budget.toString());}
+			outputField.setText(budget.toString());}
 
 		}
 	}
-	
+
 	public class PrintBudget implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			Budgeting budget = new Budgeting(Constants.BUDGETING_FILE);
@@ -171,7 +182,7 @@ public class BudgetingUI implements ActionListener {
 					JOptionPane.showMessageDialog(null, "Previous Personalized File was removed");
 				}
 				Constants.PERSONALIZED_BUDGET_FILE.createNewFile();
-				
+
 				pw = new PrintWriter(new FileOutputStream(Constants.PERSONALIZED_BUDGET_FILE));
 			} catch (Exception f) {
 				System.out.println("Error while creating file");
@@ -205,7 +216,7 @@ public class BudgetingUI implements ActionListener {
 				System.exit(1);
 			}
 		}
-		
+
 	}
 	/*
 	 * Method to clear the default percentages and modify them
@@ -233,15 +244,10 @@ public class BudgetingUI implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
-			//adding color to the background
-			UIManager.put("OptionPane.background",new ColorUIResource(204, 255, 255));
-			UIManager.put("Panel.background",new ColorUIResource(255, 255, 224));
-			
 			//creating the panel
 			JPanel panel1=new JPanel(new GridLayout(14,20));
 
- 
+
 			//initializing labels and test fields to enter new percentages
 			JLabel availableFunds = new JLabel("Please Enter your Available Funds: ");
 			JLabel labelHousing = new JLabel("Housing %:");
@@ -356,15 +362,13 @@ public class BudgetingUI implements ActionListener {
 						}
 					}
 				}
-			}
 		}
+	}
 	/**
 	 * Inner class to get input from text field, calculate the budget, then display it
 	 */
 	public class CalculateAndDisplayBudget implements ActionListener{
 		private void displayBudget() {
-			UIManager.put("OptionPane.background",new ColorUIResource(204, 255, 255));
-			UIManager.put("Panel.background",new ColorUIResource(255, 255, 224));
 
 			JPanel panel2=new JPanel();
 			JTextField inputAFunds = new JTextField(10);
@@ -409,7 +413,7 @@ public class BudgetingUI implements ActionListener {
 						JOptionPane.getRootFrame().dispose();
 					}
 				}
-				
+
 			}
 		}
 
