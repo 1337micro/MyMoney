@@ -1,8 +1,9 @@
 //-------------------------------------------------------
 //For Comp 354 Section PP - Winter 2018
 //Iteration 1: Genevieve Plante-Brisebois 40003112
-//Help received from the Programmer Organizer: Noémi Lemonnier 40001075
-//Iteration 2: Noémi Lemonnier 40001075
+//Help received from the Programmer Organizer: Noémi Lemonnier 40001085
+//Iteration 2: Noémi Lemonnier 40001085
+//Iteration 3: Noémi Lemonnier 40001085
 //Description: Credit.java implements the interface Cards and serves 
 //the purpose of implementing the specifics of the cards of type CREDIT
 //--------------------------------------------------------
@@ -47,12 +48,23 @@ public class Credit implements Cards{
 		this.moneyAvailable=limit-moneySpent;
 		this.list = new ArrayList<>();
 	}
+
 	/*
 	 * Method to add a string to the list
 	 * @see src.Cards#addExpense(java.lang.String)
 	 */
 	public void addExpense(String n){
-		this.list.add(n);
+		List<String> listTemp = new ArrayList<>();
+		for(int i =0; i< list.size(); i++){
+			listTemp.add(list.get(i));
+			list.remove(i);
+		}
+		listTemp.add(n);
+
+		for(int j=0; j< listTemp.size(); j++){
+			list.add(listTemp.get(j));
+		}
+
 	}
 	/*
 	 * Method to get one string with all the information
@@ -76,21 +88,10 @@ public class Credit implements Cards{
 	}
 
 	/*
-	 * method to get each string of their list
+	 * Getters and setters for the attributes
+	 * (non-Javadoc)
+	 * @see src.Cards#getType()
 	 */
-	@Override
-	public String getStringList() {
-		for(int i=0; i< this.getList().size(); i++){
-			tmp+= this.getList().get(i);
-		}
-		return tmp;
-	}
-	
-/*
- * Getters and setters for the attributes
- * (non-Javadoc)
- * @see src.Cards#getType()
- */
 	@Override
 	public CardType getType() {
 		return this.type;
@@ -173,5 +174,6 @@ public class Credit implements Cards{
 	}
 
 }
+
 
 

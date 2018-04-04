@@ -2,8 +2,9 @@ package src;
 //-------------------------------------------------------
 //For Comp 354 Section PP - Winter 2018
 //Iteration 1: Genevieve Plante-Brisebois 40003112
-//Help received from the Programmer Organizer: Noémi Lemonnier 40001075
+//Help received from the Programmer Organizer: Noémi Lemonnier 40001085
 //Iteration 2: Noemi Lemonnier 40001085
+//Iteration 3: Noemi Lemonnier 40001085
 //Description: MyCardsUI.java is a class that display the user interface 
 // for the My Cards class.  
 //            
@@ -203,7 +204,13 @@ public class MyCardsUI implements ActionListener{
 						JLabel txt2 = new JLabel ("Transactions done with this card: ");
 						txt2.setFont(new Font("Calibri", Font.BOLD, 14)); // set font
 						transacBox = new JTextArea(3,30); //set size
-						transacBox.setText(cards_list.get(row).getStringList()); // get transactions of the cards
+						
+						String tmpStr = "";
+						for(int i=0; i< cards_list.get(row).getList().size(); i++){
+							tmpStr += cards_list.get(row).getList().get(i);
+						}
+						transacBox.setText(tmpStr); // get transactions of the cards
+						
 						transacBox.setEditable(false); //not editable by user
 						transacBox.setBorder(compound); //giving bounders
 						jp = new JScrollPane(transacBox); //so if many transactions user can scroll
@@ -236,7 +243,13 @@ public class MyCardsUI implements ActionListener{
 						JLabel txt3 = new JLabel ("Transactions done with this card: ");
 						txt3.setFont(new Font("Calibri", Font.BOLD, 14)); // set font
 						transacBox = new JTextArea(3,30); //set size
-						transacBox.setText(cards_list.get(row).getStringList()); // get transactions of the cards
+						
+						String tmpStr = "";
+						for(int i=0; i< cards_list.get(row).getList().size(); i++){
+							tmpStr += cards_list.get(row).getList().get(i);
+						}
+						transacBox.setText(tmpStr); // get transactions of the cards
+						
 						transacBox.setEditable(false); //not editable by user
 						transacBox.setBorder(compound); //giving bounders
 						jp = new JScrollPane(transacBox); //so if many transactions user can scroll
@@ -271,7 +284,13 @@ public class MyCardsUI implements ActionListener{
 						JLabel txt3 = new JLabel ("Transactions done with this card: ");
 						txt3.setFont(new Font("Calibri", Font.BOLD, 14));
 						transacBox = new JTextArea(3,30);
-						transacBox.setText(cards_list.get(row).getStringList());
+						
+						String tmpStr = "";
+						for(int i=0; i< cards_list.get(row).getList().size(); i++){
+							tmpStr += cards_list.get(row).getList().get(i);
+						}
+						transacBox.setText(tmpStr); // get transactions of the cards
+						
 						transacBox.setEditable(false);
 						transacBox.setBorder(compound);						
 						jp = new JScrollPane(transacBox);
@@ -303,7 +322,13 @@ public class MyCardsUI implements ActionListener{
 						JLabel txt3 = new JLabel ("Transactions done with this card: ");
 						txt3.setFont(new Font("Calibri", Font.BOLD, 14)); // set font
 						transacBox = new JTextArea(3,30); //set size
-						transacBox.setText(cards_list.get(row).getStringList()); // get transactions of the cards
+						
+						String tmpStr = "";
+						for(int i=0; i< cards_list.get(row).getList().size(); i++){
+							tmpStr += cards_list.get(row).getList().get(i);
+						}
+						transacBox.setText(tmpStr); // get transactions of the cards
+						
 						transacBox.setEditable(false); //not editable by user
 						transacBox.setBorder(compound); //giving bounders
 						jp = new JScrollPane(transacBox); //so if many transactions user can scroll
@@ -1050,6 +1075,7 @@ public class MyCardsUI implements ActionListener{
 		cards_list.get(index).setList(list);
 	}
 }
+
 
 
 

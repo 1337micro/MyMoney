@@ -1,6 +1,7 @@
 //-------------------------------------------------------
 //For Comp 354 Section PP - Winter 2018
 //Iteration 2: Real Nguyen, 27566263
+//Help received from the Programmer Organizer: Noémi Lemonnier 40001085
 //Description: CashSpending method to create the object containing all expenditures and the add method involved
 // --------------------------------------------------------
 

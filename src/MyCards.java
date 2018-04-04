@@ -1,8 +1,9 @@
 //-------------------------------------------------------
 //For Comp 354 Section PP - Winter 2018
 //Iteration 1: Genevieve Plante-Brisebois 40003112
-//Help received from the Programmer Organizer: Noémi Lemonnier 40001075
+//Help received from the Programmer Organizer: Noémi Lemonnier 40001085
 //Iteration 2: Noemi Lemonnier 40001085
+//Iteration 3: Noemi Lemonnier 40001085 
 //Description: Brings together the debit, credit, loyalty classes together to make the program work. 
 //				It is the junction of all other card related files.
 //--------------------------------------------------------
@@ -539,5 +540,6 @@ public class MyCards {
 		return (ArrayList <Cards>)cards;
 	}
 }
+
 
 
