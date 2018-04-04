@@ -2,9 +2,8 @@ package src;
 //-------------------------------------------------------
 //For Comp 354 Section PP - Winter 2018
 //Iteration 1: Genevieve Plante-Brisebois 40003112
-//Help received from the Programmer Organizer: Noémi Lemonnier 40001085
+//Help received from the Programmer Organizer: Noémi Lemonnier 40001075
 //Iteration 2: Noemi Lemonnier 40001085
-//Iteration 3: Noemi Lemonnier 40001085
 //Description: MyCardsUI.java is a class that display the user interface 
 // for the My Cards class.  
 //            
@@ -14,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
@@ -57,6 +57,7 @@ public class MyCardsUI implements ActionListener{
 	@SuppressWarnings("rawtypes")
 	protected static JComboBox boxCreditCards;
 	Border raisedbevel = BorderFactory.createRaisedBevelBorder();
+	Border loweredetched = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
 	Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 	Border compound = BorderFactory.createCompoundBorder(raisedbevel, loweredbevel);
 	//list of cards
@@ -100,8 +101,16 @@ public class MyCardsUI implements ActionListener{
 	 */
 	@SuppressWarnings("serial")
 	public void MyCardsUI(){
-		JLabel lab = new JLabel("Please add or remove the cards you own.");
-		lab.setFont(new Font("Courier New", Font.BOLD, 14));
+		//setting the panel
+		panel= new JPanel();
+		JPanel panButton = new JPanel();
+		JPanel panTable = new JPanel();
+		
+		//panels background colors
+		panTable.setBackground(Constants.MYCARDS_COLOR);
+		panButton.setBackground(new Color(228, 228, 228));
+		panButton.setPreferredSize(new Dimension(750,43));
+		panButton.setBorder(raisedbevel);
 
 		//setting the custom table model to the class I created 
 		tableModel =  new DefaultTableModel(COLUMN_NAMES, 0);
@@ -133,19 +142,15 @@ public class MyCardsUI implements ActionListener{
 			JScrollPane scrollPane = JTable.createScrollPaneForTable(table);
 			scrollPane.setPreferredSize(new Dimension(750, 300));
 
-			//setting the panel
-			panel= new JPanel();
-			JPanel pan2 = new JPanel();
-			pan2.setBackground(Constants.MYCARDS_COLOR); //background color
-			pan2.add(scrollPane, BorderLayout.CENTER);
-			JPanel pan3 = new JPanel();
-			pan3.setBackground(Constants.MYCARDS_COLOR); //background color
-			pan3.add(addCardButton);
-			pan3.add(removeCardButton);
-			pan3.add(paiementButton);
-			panel.add(lab);
-			panel.add(pan2);
-			panel.add(pan3);
+			
+			panButton.add(addCardButton);
+			panButton.add(removeCardButton);
+			panButton.add(paiementButton);
+			panTable.add(scrollPane, BorderLayout.CENTER);
+			
+			
+			panel.add(panButton);
+			panel.add(panTable);
 			panel.setBorder(compound);
 			panel.setBackground(Constants.MYCARDS_COLOR); //background color
 			panel.setVisible(false);
@@ -212,7 +217,7 @@ public class MyCardsUI implements ActionListener{
 						transacBox.setText(tmpStr); // get transactions of the cards
 						
 						transacBox.setEditable(false); //not editable by user
-						transacBox.setBorder(compound); //giving bounders
+						transacBox.setBorder(loweredetched); //giving bounders
 						jp = new JScrollPane(transacBox); //so if many transactions user can scroll
 						jp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); //location of the scroll
 						//layout
@@ -237,6 +242,7 @@ public class MyCardsUI implements ActionListener{
 						String lmt = String.valueOf(lmtCard); //get the value
 						accNm = new JTextArea(lmt); //set the value
 						accNm.setEditable(false); //not editable by user
+						accNm.setBorder(raisedbevel);
 						//layout
 						box1.add(txt2);
 						box1.add(accNm);
@@ -251,7 +257,7 @@ public class MyCardsUI implements ActionListener{
 						transacBox.setText(tmpStr); // get transactions of the cards
 						
 						transacBox.setEditable(false); //not editable by user
-						transacBox.setBorder(compound); //giving bounders
+						transacBox.setBorder(loweredetched); //giving bounders
 						jp = new JScrollPane(transacBox); //so if many transactions user can scroll
 						jp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); //location of the scroll
 						//layout
@@ -278,6 +284,7 @@ public class MyCardsUI implements ActionListener{
 						String ptsCash = String.valueOf(pts);
 						accNm = new JTextArea(ptsCash);
 						accNm.setEditable(false);
+						accNm.setBorder(raisedbevel);
 						box2.add(txt2);
 						box2.add(accNm);
 
@@ -292,7 +299,7 @@ public class MyCardsUI implements ActionListener{
 						transacBox.setText(tmpStr); // get transactions of the cards
 						
 						transacBox.setEditable(false);
-						transacBox.setBorder(compound);						
+						transacBox.setBorder(loweredetched);						
 						jp = new JScrollPane(transacBox);
 						jp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 						box3.add(txt3);
@@ -316,6 +323,7 @@ public class MyCardsUI implements ActionListener{
 						String lmt = String.valueOf(lmtCard); //get the value
 						accNm = new JTextArea(lmt); //set the value
 						accNm.setEditable(false); //not editable by user
+						accNm.setBorder(raisedbevel);
 						//layout
 						box1.add(txt2);
 						box1.add(accNm);
@@ -330,7 +338,7 @@ public class MyCardsUI implements ActionListener{
 						transacBox.setText(tmpStr); // get transactions of the cards
 						
 						transacBox.setEditable(false); //not editable by user
-						transacBox.setBorder(compound); //giving bounders
+						transacBox.setBorder(loweredetched); //giving bounders
 						jp = new JScrollPane(transacBox); //so if many transactions user can scroll
 						jp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); //location of the scroll
 						//layout
