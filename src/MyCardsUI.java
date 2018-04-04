@@ -415,7 +415,7 @@ public class MyCardsUI implements ActionListener{
 			try{
 				//setting the panel
 				JPanel pane = new JPanel(new GridLayout(10,5));
-				JLabel lab1 = new JLabel("This option is to make a paiement to one of your credit cards.");
+				JLabel lab1 = new JLabel("This option is to make a payment to one of your credit cards.");
 				JLabel lab2 = new JLabel("Select the debit card");
 				boxDebitCards = new JComboBox<Object>(debitNum(cards_list));
 				JLabel lab3 = new JLabel("Enter the amount to transfer");
@@ -433,7 +433,7 @@ public class MyCardsUI implements ActionListener{
 				pane.add(lab5);
 
 				//window
-				int opt = JOptionPane.showConfirmDialog(null, pane, "Paiement of a Credit Card", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+				int opt = JOptionPane.showConfirmDialog(null, pane, "Payment of a Credit Card", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
 				//if user clicks on OK
 				if(opt ==0){
@@ -477,7 +477,7 @@ public class MyCardsUI implements ActionListener{
 						table.setValueAt(obtCd, indexCreditCard, 3);
 						//fire the change
 						tableModel.fireTableDataChanged();
-						String trs = String.format("Paiement Transaction with debit card #%s for credit card  #%s with an amount of $ %s was completed.", cards_list.get(indexDebitCard).getCardNumber(), cards_list.get(indexCreditCard).getCardNumber(), amountToPay);
+						String trs = String.format("Payment Transaction with debit card #%s for credit card  #%s with an amount of $ %s was completed.", cards_list.get(indexDebitCard).getCardNumber(), cards_list.get(indexCreditCard).getCardNumber(), amountToPay);
 						CashSpendingUI.writeToFile(trs);
 						cards_list.get(indexDebitCard).addExpense(trs);
 					}
