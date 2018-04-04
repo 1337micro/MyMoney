@@ -22,7 +22,7 @@ import java.io.PrintWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-public class BudgetingUI extends Budgeting implements ActionListener {
+public class BudgetingUI implements ActionListener {
 
 	public JPanel getPanel() {
 		return panel;
@@ -160,8 +160,7 @@ public class BudgetingUI extends Budgeting implements ActionListener {
 	
 	public class PrintBudget implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			calculateAmountsFromPercentages();
-
+			Budgeting budget = new Budgeting(Constants.BUDGETING_FILE);
 			// opening file stream to write log
 			PrintWriter pw = null;
 			try {
@@ -185,17 +184,17 @@ public class BudgetingUI extends Budgeting implements ActionListener {
 			pw.println("Personalized Budget File");
 			pw.println("---------------------------------------------------");
 			pw.println();
-			pw.println("Available Funds: \t$" + getAvailableFunds());
-			pw.println("Housing:\t\t" + getPercentHousing() + "%:\t$" + getAmountHousing());
-			pw.println("Food:\t\t\t" + getPercentFood() + "%:\t$" + getAmountFood());
-			pw.println("Utilities:\t\t" + getPercentUtilities() + "%:\t$" + getAmountUtilities());
-			pw.println("Clothing:\t\t" + getPercentClothing() + "%:\t$" + getAmountClothing());
-			pw.println("Medical:\t\t" + getPercentMedical() + "%:\t$" + getAmountMedical());
-			pw.println("Donations:\t\t" + getPercentDonations() + "%:\t$" + getAmountDonations());
-			pw.println("Savings/Insurance:\t" + getPercentSavingsInsurance() + "%:\t$" + getAmountSavingsInsurance());
-			pw.println("Entertainment:\t\t" + getPercentEntertainment() + "%:\t$" + getAmountEntertainment());
-			pw.println("Transportation:\t\t" + getPercentTransportation() + "%:\t$" + getAmountTransportation());
-			pw.println("Misc:\t\t\t" + getPercentMisc() + "%:\t$" + getAmountMisc());
+			pw.println("Available Funds: \t$" + budget.getAvailableFunds());
+			pw.println("Housing:\t\t" + budget.getPercentHousing() + "%:\t$" + budget.getAmountHousing());
+			pw.println("Food:\t\t\t" + budget.getPercentFood() + "%:\t$" + budget.getAmountFood());
+			pw.println("Utilities:\t\t" + budget.getPercentUtilities() + "%:\t$" + budget.getAmountUtilities());
+			pw.println("Clothing:\t\t" + budget.getPercentClothing() + "%:\t$" + budget.getAmountClothing());
+			pw.println("Medical:\t\t" + budget.getPercentMedical() + "%:\t$" + budget.getAmountMedical());
+			pw.println("Donations:\t\t" + budget.getPercentDonations() + "%:\t$" + budget.getAmountDonations());
+			pw.println("Savings/Insurance:\t" + budget.getPercentSavingsInsurance() + "%:\t$" + budget.getAmountSavingsInsurance());
+			pw.println("Entertainment:\t\t" + budget.getPercentEntertainment() + "%:\t$" + budget.getAmountEntertainment());
+			pw.println("Transportation:\t\t" + budget.getPercentTransportation() + "%:\t$" + budget.getAmountTransportation());
+			pw.println("Misc:\t\t\t" + budget.getPercentMisc() + "%:\t$" + budget.getAmountMisc());
 
 			// Closing file stream
 			try {
