@@ -15,6 +15,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.swing.JOptionPane;
+
 public class Budgeting {
 
 	//Percentage instance members
@@ -44,9 +46,9 @@ public class Budgeting {
 
 	//Other instance members
 	private double availableFunds =0;
-	
 
-	
+
+
 	/**
 	 * Default constructor reads percentages from default file, has no available funds
 	 */
@@ -58,7 +60,7 @@ public class Budgeting {
 
 		this.availableFunds = 0;
 	}
-	
+
 	/**
 	 * Constructor reads percentages from chosen file, has no available funds
 	 * @param fileName
@@ -66,9 +68,9 @@ public class Budgeting {
 	//Read percentages from chosen file
 	public Budgeting(String fileName) {
 		readBudgetingFromFile(fileName);
-		
+
 	}
-	
+
 	/**
 	 * Constructor reads percentages from chosen file, and has input for available funds
 	 * @param availableFunds
@@ -255,47 +257,47 @@ public class Budgeting {
 				String[] lineArray = line.split(":");
 				switch (lineArray[0]) {
 				case "Housing": setPercentHousing(Double.parseDouble(lineArray[1]));
-								if(lineArray.length>2)
-									setAmountHousing(Double.parseDouble(lineArray[2]));
-								break;
+				if(lineArray.length>2)
+					setAmountHousing(Double.parseDouble(lineArray[2]));
+				break;
 				case "Food": setPercentFood(Double.parseDouble(lineArray[1]));
-								if(lineArray.length>2)
-									setAmountFood(Double.parseDouble(lineArray[2]));
-								break;
+				if(lineArray.length>2)
+					setAmountFood(Double.parseDouble(lineArray[2]));
+				break;
 				case "Utilities": setPercentUtilities(Double.parseDouble(lineArray[1]));
-									if(lineArray.length>2)
-										setAmountUtilities(Double.parseDouble(lineArray[2]));
-									break;
+				if(lineArray.length>2)
+					setAmountUtilities(Double.parseDouble(lineArray[2]));
+				break;
 				case "Clothing": setPercentClothing(Double.parseDouble(lineArray[1]));
-								if(lineArray.length>2)
-									setAmountClothing(Double.parseDouble(lineArray[2]));
-								break;
+				if(lineArray.length>2)
+					setAmountClothing(Double.parseDouble(lineArray[2]));
+				break;
 				case "Medical": setPercentMedical(Double.parseDouble(lineArray[1]));
-								if(lineArray.length>2)
-									setAmountMedical(Double.parseDouble(lineArray[2]));
-								break;
+				if(lineArray.length>2)
+					setAmountMedical(Double.parseDouble(lineArray[2]));
+				break;
 				case "Donations": setPercentDonations(Double.parseDouble(lineArray[1]));
-								if(lineArray.length>2)
-									setAmountDonations(Double.parseDouble(lineArray[2]));
-								break;
+				if(lineArray.length>2)
+					setAmountDonations(Double.parseDouble(lineArray[2]));
+				break;
 				case "SavingsInsurance": setPercentSavingsInsurance(Double.parseDouble(lineArray[1]));
-								if(lineArray.length>2)
-									setAmountSavingsInsurance(Double.parseDouble(lineArray[2]));
-								break;
+				if(lineArray.length>2)
+					setAmountSavingsInsurance(Double.parseDouble(lineArray[2]));
+				break;
 				case "Entertainment": setPercentEntertainment(Double.parseDouble(lineArray[1]));
-										if(lineArray.length>2)
-											setAmountEntertainment(Double.parseDouble(lineArray[2]));
-										break;
+				if(lineArray.length>2)
+					setAmountEntertainment(Double.parseDouble(lineArray[2]));
+				break;
 				case "Transportation": setPercentTransportation(Double.parseDouble(lineArray[1]));
-										if(lineArray.length>2)
-											setAmountTransportation(Double.parseDouble(lineArray[2]));
-										break;
+				if(lineArray.length>2)
+					setAmountTransportation(Double.parseDouble(lineArray[2]));
+				break;
 				case "Misc": setPercentMisc(Double.parseDouble(lineArray[1]));
-								if(lineArray.length>2)
-									setAmountMisc(Double.parseDouble(lineArray[2]));
-								break;
+				if(lineArray.length>2)
+					setAmountMisc(Double.parseDouble(lineArray[2]));
+				break;
 				case "AvailableFunds": setAvailableFunds(Double.parseDouble(lineArray[1]));
-									break;
+				break;
 				}
 			}
 		} catch (IOException e) {
@@ -319,6 +321,7 @@ public class Budgeting {
 
 	}
 
+	
 	//Methods to calculate the percentages
 	public double calculateHousing() {
 		amountHousing = percentHousing*availableFunds/100;
@@ -544,5 +547,6 @@ public class Budgeting {
 
 
 }
+
 
 

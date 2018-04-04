@@ -164,7 +164,7 @@ public class MyCardsUI implements ActionListener{
 			paymentButton.setPreferredSize(new Dimension(150,25));
 			addCardButton.addActionListener(new AddCardListener());
 			removeCardButton.addActionListener(new RemoveListener());
-			paymentButton.addActionListener(new PaymentListener());
+			paymentButton.addActionListener(new PaiementListener());
 
 	}
 
@@ -368,9 +368,9 @@ public class MyCardsUI implements ActionListener{
 	}
 
 	/*
-	 * Private class to customize the events that will happen when the user clicks on the payment button
+	 * Private class to customize the events that will happen when the user clicks on the paiement button
 	 */
-	private class PaymentListener implements ActionListener {
+	private class PaiementListener implements ActionListener {
 		/* 
 		 * returns an array with the card numbers of all debit cards present in the array as Object
 		 */
@@ -407,7 +407,7 @@ public class MyCardsUI implements ActionListener{
 
 
 		/*
-		 * Displays a window to allow the user to make a payment from a debit card to a credit card
+		 * Displays a window to allow the user to make a paiement froma  debit card toa  credit card
 		 *
 		 */
 		@Override
@@ -415,7 +415,7 @@ public class MyCardsUI implements ActionListener{
 			try{
 				//setting the panel
 				JPanel pane = new JPanel(new GridLayout(10,5));
-				JLabel lab1 = new JLabel("This option is to make a payment to one of your credit cards.");
+				JLabel lab1 = new JLabel("This option is to make a paiement to one of your credit cards.");
 				JLabel lab2 = new JLabel("Select the debit card");
 				boxDebitCards = new JComboBox<Object>(debitNum(cards_list));
 				JLabel lab3 = new JLabel("Enter the amount to transfer");
@@ -433,7 +433,7 @@ public class MyCardsUI implements ActionListener{
 				pane.add(lab5);
 
 				//window
-				int opt = JOptionPane.showConfirmDialog(null, pane, "Payment of a Credit Card", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+				int opt = JOptionPane.showConfirmDialog(null, pane, "Paiement of a Credit Card", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
 				//if user clicks on OK
 				if(opt ==0){
@@ -477,7 +477,7 @@ public class MyCardsUI implements ActionListener{
 						table.setValueAt(obtCd, indexCreditCard, 3);
 						//fire the change
 						tableModel.fireTableDataChanged();
-						String trs = String.format("Payment Transaction with debit card #%s for credit card  #%s with an amount of $ %s was completed.", cards_list.get(indexDebitCard).getCardNumber(), cards_list.get(indexCreditCard).getCardNumber(), amountToPay);
+						String trs = String.format("Paiement Transaction with debit card #%s for credit card  #%s with an amount of $ %s was completed.", cards_list.get(indexDebitCard).getCardNumber(), cards_list.get(indexCreditCard).getCardNumber(), amountToPay);
 						CashSpendingUI.writeToFile(trs);
 						cards_list.get(indexDebitCard).addExpense(trs);
 					}
@@ -701,7 +701,7 @@ public class MyCardsUI implements ActionListener{
 				cN.setFont(new Font("Calibri", Font.BOLD, 14));
 				JLabel mC = new JLabel("Enter the amount of you already spent");
 				mC.setFont(new Font("Calibri", Font.BOLD, 14));
-				JLabel lt = new JLabel("Enter your credit limit");
+				JLabel lt = new JLabel("Enter the credit card limit");
 				lt.setFont(new Font("Calibri", Font.BOLD, 14));
 
 				//creating text fields to take the input from the user
@@ -782,11 +782,11 @@ public class MyCardsUI implements ActionListener{
 				//creating labels to go with the textfields
 				JLabel aN = new JLabel("Enter your Exchange account Number (4 numbers)");
 				aN.setFont(new Font("Calibri", Font.BOLD, 14));
-				JLabel cN = new JLabel("Enter the Exchange password (8 numbers)");
+				JLabel cN = new JLabel("Enter the card Number (8 numbers)");
 				cN.setFont(new Font("Calibri", Font.BOLD, 14));
-				JLabel mC = new JLabel("Enter the amount of you already spent in mBTC");
+				JLabel mC = new JLabel("Enter the amount of mBTC already spent");
 				mC.setFont(new Font("Calibri", Font.BOLD, 14));
-				JLabel lt = new JLabel("Enter your bitcoin balance in mBTC");
+				JLabel lt = new JLabel("Enter the bitcoin card limit");
 				lt.setFont(new Font("Calibri", Font.BOLD, 14));
 
 				//creating text fields to take the input from the user
@@ -1083,6 +1083,7 @@ public class MyCardsUI implements ActionListener{
 		cards_list.get(index).setList(list);
 	}
 }
+
 
 
 
