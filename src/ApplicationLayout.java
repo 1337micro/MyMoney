@@ -9,6 +9,8 @@
 package src;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+
 import java.awt.*;
 
 
@@ -18,6 +20,7 @@ public class ApplicationLayout extends JFrame{
 	private  CashSpendingUI cashSpendingUI;
 	private BudgetingUI budgetingUI;
 	private MyCardsUI cardsUI;
+	Border raisedbevel = BorderFactory.createRaisedBevelBorder();
 
 	public ApplicationLayout() {
 
@@ -86,13 +89,14 @@ public class ApplicationLayout extends JFrame{
 		frameTBbutt2.add(cashspending);
 		frameTBbutt3.add(budgeting);
 		frameTImg.add(imgLab);
-		
-		
+
+
 		//adding panels to the toolbar
 		vertical.add(frameTBbutt1);
 		vertical.add(frameTBbutt2);
 		vertical.add(frameTBbutt3);
 		vertical.add(frameTImg);
+		vertical.setBorder(raisedbevel);
 
 		//adding toolbar to the frame
 		add(vertical, BorderLayout.WEST);
@@ -100,7 +104,7 @@ public class ApplicationLayout extends JFrame{
 		//setting the version status of the application we can update that in time
 		JLabel statusbar = new JLabel(Constants.APP_VERSION);
 		add(statusbar, BorderLayout.SOUTH);
-
+		
 		//setting the frame attributes
 		setSize(Constants.APP_LAYOUT_WIDTH, Constants.APP_LAYOUT_HEIGHT);
 		setResizable(false);
@@ -123,5 +127,6 @@ public class ApplicationLayout extends JFrame{
 
 
 }
+
 
 
