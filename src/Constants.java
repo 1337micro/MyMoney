@@ -35,7 +35,7 @@ public class Constants {
 	public static final String BUTTON_CARDS = "My Cards";
 	public static final String BUTTON_ADD_CARD = "Add a card";
 	public static final String BUTTON_REMOVE_CARD = "Remove a card";
-	public static final String BUTTON_PAIEMENT_CARD = "Make a payment";
+	public static final String BUTTON_PAYMENT_CARD = "Make a payment";
 	public static final String BUTTON_SPENDING = "Cash Spending";
 	public static final String BUTTON_ADD_EXPENSE = "Add an expense";
 	public static final String BUTTON_SHOW_EXPENSE = "Show all expenses";
@@ -92,7 +92,6 @@ public class Constants {
 	public final static String MISC_TYPE = "Misc";
 	
 }
-
 
 
 

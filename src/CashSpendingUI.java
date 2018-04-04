@@ -91,6 +91,7 @@ public class CashSpendingUI implements ActionListener {
 		panel = new JPanel();
 		JPanel panTable = new JPanel();
 		JPanel panButton = new JPanel();
+		JPanel panTxt = new JPanel();
 		
 		panel.setBackground(new Color(204, 255, 229));
 		panel.setBorder(compound);
@@ -99,10 +100,13 @@ public class CashSpendingUI implements ActionListener {
 		panButton.setBackground(new Color(228, 228, 228));
 		panButton.setPreferredSize(new Dimension(750,43));
 		panButton.setBorder(raisedbevel);
-		
+		panTxt.setBackground(new Color(228, 228, 228));
 		
 		JLabel txtCashSp = new JLabel("Please note that you need to load your cards before entering expenses.");
-		txtCashSp.setFont(new Font("Courier New", Font.BOLD, 14));
+		txtCashSp.setFont(new Font("Arial", Font.BOLD, 14));
+		panTxt.add(txtCashSp);
+		panTxt.setPreferredSize(new Dimension(750,40));
+		panTxt.setBorder(raisedbevel);
 		//setting the custom table model to the class I created 
 		tableModel =  new DefaultTableModel(COLUMN_NAMES, 0);
 		table = new JTable(tableModel){
@@ -142,7 +146,7 @@ public class CashSpendingUI implements ActionListener {
 			
 			panel.add(panButton);
 			panel.add(panTable);
-			panel.add(txtCashSp);
+			panel.add(panTxt, BorderLayout.SOUTH);
 			
 
 			indexToExpenditureTypeDictionary = new Hashtable<Integer, ExpenditureType>();
@@ -647,6 +651,5 @@ public class CashSpendingUI implements ActionListener {
 
 
 }
-
 
 

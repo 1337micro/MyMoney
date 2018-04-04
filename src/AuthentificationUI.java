@@ -108,8 +108,8 @@ public class AuthentificationUI extends JFrame{
 		JLabel txt2 = new JLabel("Username:\t");
 		JLabel txt3 = new JLabel("Password:\t");
 		txt1.setFont(new Font("Garamond", Font.PLAIN, 16)); //setting the font
-		txt2.setFont(new Font("Courier New", Font.BOLD, 14)); //setting the font
-		txt3.setFont(new Font("Courier New", Font.BOLD, 14)); //setting the font
+		txt2.setFont(new Font("Arial", Font.BOLD, 14)); //setting the font
+		txt3.setFont(new Font("Arial", Font.BOLD, 14)); //setting the font
 		verticalPan.add(txt1);
 		horizPan.add(txt2);
 		horizPan.add(userTxt);
