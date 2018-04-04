@@ -11,6 +11,7 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
 import src.Cards.CardType;
 import src.CashSpending.ExpenditureType;
@@ -35,6 +36,7 @@ public class CashSpendingUI implements ActionListener {
 	//declaring attributes 
 	Border raisedbevel = BorderFactory.createRaisedBevelBorder();
 	Border loweredbevel = BorderFactory.createLoweredBevelBorder();
+	Border loweredetched = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
 	Border compound = BorderFactory.createCompoundBorder(raisedbevel, loweredbevel);
 	JPanel panel; // the panel containing all our JTextFields for CashSpending feature
 	private static PrintWriter pw = null;
@@ -85,8 +87,22 @@ public class CashSpendingUI implements ActionListener {
 
 	@SuppressWarnings("serial")
 	public void CashSpendingUI() {
-		JLabel lab = new JLabel("Please note that you need to save your cards first.");
-		lab.setFont(new Font("Courier New", Font.BOLD, 14));
+		//setting panels
+		panel = new JPanel();
+		JPanel panTable = new JPanel();
+		JPanel panButton = new JPanel();
+		
+		panel.setBackground(new Color(204, 255, 229));
+		panel.setBorder(compound);
+		panel.setVisible(false);
+		
+		panButton.setBackground(new Color(228, 228, 228));
+		panButton.setPreferredSize(new Dimension(750,43));
+		panButton.setBorder(raisedbevel);
+		
+		
+		JLabel txtCashSp = new JLabel("Please note that you need to save your cards first.");
+		txtCashSp.setFont(new Font("Courier New", Font.BOLD, 14));
 		//setting the custom table model to the class I created 
 		tableModel =  new DefaultTableModel(COLUMN_NAMES, 0);
 		table = new JTable(tableModel){
@@ -109,29 +125,25 @@ public class CashSpendingUI implements ActionListener {
 			JScrollPane scrollPane = JTable.createScrollPaneForTable(table);
 			scrollPane.setPreferredSize(new Dimension(750, 300));
 
-			panel = new JPanel();
-			panel.setLayout(new BoxLayout(panel, BoxLayout.LINE_AXIS));
-			panel.setBackground(new Color(204, 255, 229));
-			panel.setBorder(compound);
+			
 
 			addExpense.addActionListener(new AddExpenseListener());
 			showExpense.addActionListener(new ShowExpenseListener());
 
 			//setting the panel
-			panel= new JPanel();
-			JPanel pan2 = new JPanel();
-			pan2.setBackground(new Color(204, 255, 229));
-			pan2.add(scrollPane, BorderLayout.CENTER);
-			JPanel pan3 = new JPanel();
-			pan3.setBackground(new Color(204, 255, 229));
-			pan3.add(addExpense);
-			pan3.add(showExpense);
-			panel.add(lab);
-			panel.add(pan2);
-			panel.add(pan3);
-			panel.setBorder(compound);
-			panel.setBackground(new Color(204, 255, 229));
-			panel.setVisible(false);
+			
+			
+			panTable.setBackground(new Color(204, 255, 229));
+			panTable.add(scrollPane, BorderLayout.CENTER);
+			
+			
+			panButton.add(addExpense);
+			panButton.add(showExpense);
+			
+			panel.add(panButton);
+			panel.add(panTable);
+			panel.add(txtCashSp);
+			
 
 			indexToExpenditureTypeDictionary = new Hashtable<Integer, ExpenditureType>();
 			indexToExpenditureTypeDictionary.put(0, ExpenditureType.HOUSING);
@@ -613,7 +625,6 @@ public class CashSpendingUI implements ActionListener {
 	 * method to clear the database textfile
 	 */
 	public static void clearDataBaseTransactionsDone() throws IOException{
-		
 		if (Constants.TRANSACTIONS_FILE.exists() && Constants.TRANSACTIONS_FILE.isFile())
 		{
 			//delete if exists
@@ -634,5 +645,6 @@ public class CashSpendingUI implements ActionListener {
 
 
 }
+
 
 
