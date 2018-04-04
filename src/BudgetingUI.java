@@ -164,15 +164,15 @@ public class BudgetingUI implements ActionListener {
 			// opening file stream to write log
 			PrintWriter pw = null;
 			try {
-				if (Constants.PRINT_BUDGET.exists() && Constants.PRINT_BUDGET.isFile())
+				if (Constants.PERSONALIZED_BUDGET_FILE.exists() && Constants.PERSONALIZED_BUDGET_FILE.isFile())
 				{
 					//delete if exists
-					Constants.PRINT_BUDGET.delete();
+					Constants.PERSONALIZED_BUDGET_FILE.delete();
 					JOptionPane.showMessageDialog(null, "Previous Personalized File was removed");
 				}
-				Constants.PRINT_BUDGET.createNewFile();
+				Constants.PERSONALIZED_BUDGET_FILE.createNewFile();
 				
-				pw = new PrintWriter(new FileOutputStream(Constants.PRINT_BUDGET));
+				pw = new PrintWriter(new FileOutputStream(Constants.PERSONALIZED_BUDGET_FILE));
 			} catch (Exception f) {
 				System.out.println("Error while creating file");
 				System.exit(1);
@@ -419,6 +419,7 @@ public class BudgetingUI implements ActionListener {
 		}
 	}
 }
+
 
 
 

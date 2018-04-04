@@ -75,6 +75,7 @@ public class Constants {
 	public final static String DEFAULTBUDGETINGPERCENTAGES_FILE = "DefaultBudgetingPercentages.txt";
 	public final static String BUDGETING_FILE = "Budgeting.txt";
 	public final static File TRANSACTIONS_FILE = new File("TransactionsDone.txt");
+	public final static File PERSONALIZED_BUDGET_FILE = new File("PersonalizedBudgetFile.txt");
 
 	//Budgeting constants
 	public final static char SEPARATOR = ':';
@@ -89,8 +90,9 @@ public class Constants {
 	public final static String ENTERTAINMENT_TYPE = "Entertainment";
 	public final static String TRANSPORTATION_TYPE = "Transportation";
 	public final static String MISC_TYPE = "Misc";
-	public final static File PRINT_BUDGET = new File("PersonalizedBudgetFile.txt");
+	
 }
+
 
 
 
