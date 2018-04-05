@@ -1,14 +1,14 @@
 Personalized Budget File
 ---------------------------------------------------
 
-Available Funds: 	$1500.0
-Housing:		30.0%:	$450.0
-Food:			10.0%:	$150.0
-Utilities:		7.0%:	$105.0
-Clothing:		5.0%:	$75.0
-Medical:		7.0%:	$105.0
-Donations:		10.0%:	$150.0
-Savings/Insurance:	7.0%:	$105.0
-Entertainment:		7.0%:	$105.0
-Transportation:		12.0%:	$180.0
-Misc:			5.0%:	$75.0
+Available Funds: 	$212.0
+Housing:		30.0%:	$63.6
+Food:			10.0%:	$21.2
+Utilities:		7.0%:	$14.84
+Clothing:		5.0%:	$10.6
+Medical:		7.0%:	$14.84
+Donations:		10.0%:	$21.2
+Savings/Insurance:	7.0%:	$14.84
+Entertainment:		7.0%:	$14.84
+Transportation:		12.0%:	$25.44
+Misc:			5.0%:	$10.6

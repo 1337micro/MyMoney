@@ -134,6 +134,7 @@ public class CashSpending {
 		}
 	}
 
+
 	public boolean isOverBudget(double amount, ExpenditureType type){
 		//sets the budgeting amounts from the file
 		budgeting.readBudgetingFromFile(Constants.BUDGETING_FILE);

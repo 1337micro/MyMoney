@@ -17,6 +17,7 @@ import src.CashSpendingUI;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
+import static src.Constants.BUDGETING_FILE_TEST;
 
 public class CashSpendingTest{
 	CashSpending.ExpenditureType expenditureTypeFood =  CashSpending.ExpenditureType.FOOD;
@@ -89,17 +90,17 @@ public class CashSpendingTest{
 	@Test
 	public void defaultIsOverBudgetDefaultBudgetingFileTest(){    	
 		//Test that cash spending is over budget with default budgeting file	
-		double budgetingTest = 300;
+		double budgetingTest = 250;
 		CashSpending spending = new CashSpending();
 
-		assertFalse(spending.isOverBudget(budgetingTest, CashSpending.ExpenditureType.HOUSING));
+		assertFalse(spending.isOverBudget(budgetingTest, CashSpending.ExpenditureType.HOUSING,BUDGETING_FILE_TEST));
 		assertTrue(spending.isOverBudget(budgetingTest, CashSpending.ExpenditureType.FOOD));
 	}
 
 	@Test
 	public void defaultIsOverBudgetDefaultCustomFileTest(){    	
 		//Test that cash spending is over budget with custom budgeting file	
-		double budgetingTest = 35.65;
+		double budgetingTest = 100;
 		CashSpending spending = new CashSpending();
 
 		assertTrue(spending.isOverBudget(budgetingTest, CashSpending.ExpenditureType.UTILITIES, "BudgetingTest.txt"));

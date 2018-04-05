@@ -75,6 +75,7 @@ public class Constants {
 	public final static File MYCARDS_FILE = new File("MyCards.txt");
 	public final static String DEFAULTBUDGETINGPERCENTAGES_FILE = "DefaultBudgetingPercentages.txt";
 	public final static String BUDGETING_FILE = "Budgeting.txt";
+	public final static String BUDGETING_FILE_TEST = "BudgetingTest.txt";
 	public final static File TRANSACTIONS_FILE = new File("TransactionsDone.txt");
 	public final static File PERSONALIZED_BUDGET_FILE = new File("PersonalizedBudgetFile.txt");
 
