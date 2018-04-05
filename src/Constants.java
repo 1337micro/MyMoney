@@ -72,6 +72,7 @@ public class Constants {
 
 	//Authentification constants
 	public final static File AUTHENTIFICATION_FILE = new File("Authentification.txt");
+	public final static File DEFAULT_BUDGET_FILE = new File("DefaultBudgeting.txt");
 	public final static File MYCARDS_FILE = new File("MyCards.txt");
 	public final static String DEFAULTBUDGETINGPERCENTAGES_FILE = "DefaultBudgetingPercentages.txt";
 	public final static String BUDGETING_FILE = "Budgeting.txt";

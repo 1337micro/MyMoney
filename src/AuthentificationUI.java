@@ -12,7 +12,12 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -314,15 +319,37 @@ public class AuthentificationUI extends JFrame{
 	 * method to clear the database textfiles for Authentification and MyCards
 	 */
 	public static void clearDataBaseAuthentification() throws IOException{
+		File budget = new File(Constants.BUDGETING_FILE);
 		
-		if (Constants.AUTHENTIFICATION_FILE.exists() && Constants.AUTHENTIFICATION_FILE .isFile() && Constants.MYCARDS_FILE.exists()&&Constants.MYCARDS_FILE.isFile())
+		if (Constants.AUTHENTIFICATION_FILE.exists() && Constants.AUTHENTIFICATION_FILE .isFile() && Constants.MYCARDS_FILE.exists()&&Constants.MYCARDS_FILE.isFile() && budget.exists() && budget.isFile())
 		{
 			//delete if exists
 			Constants.AUTHENTIFICATION_FILE .delete();
 			Constants.MYCARDS_FILE.delete();
+			budget.delete();
+			
 		}
 		Constants.AUTHENTIFICATION_FILE .createNewFile();
 		Constants.MYCARDS_FILE.createNewFile();
+		//budget.createNewFile();
+		copyFileUsingStream(Constants.DEFAULT_BUDGET_FILE,budget);
+	}
+	
+	private static void copyFileUsingStream(File source, File dest) throws IOException {
+	    InputStream is = null;
+	    OutputStream os = null;
+	    try {
+	        is = new FileInputStream(source);
+	        os = new FileOutputStream(dest);
+	        byte[] buffer = new byte[1024];
+	        int length;
+	        while ((length = is.read(buffer)) > 0) {
+	            os.write(buffer, 0, length);
+	        }
+	    } finally {
+	        is.close();
+	        os.close();
+	    }
 	}
 }
 
