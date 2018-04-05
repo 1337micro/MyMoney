@@ -2,14 +2,17 @@ package test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
 import src.AuthentificationUser;
+import src.AuthentificationUI;
 import src.AuthentificationList;
 import src.Cards;
+import src.Constants;
 import src.MyCards;
 
 public class AuthentificationTest {
@@ -81,6 +84,11 @@ public class AuthentificationTest {
 		List <AuthentificationUser> listL=users_list.getUsersList();
 		int index = AuthentificationList.getIndexUserFromUserName("q_sdf",listL);
 		assertEquals("Verifying that the index of the card is correct", 0, AuthentificationList.getIndexUserFromUserName("q_sdf",listL), AuthentificationList.getIndexUserFromUserName("x_cbv",listL));
+	}
+	
+	public void testSameFileContent(){
+		File test = new File("BudgetCopyTest.txt");
+		AuthentificationUI.budgetDup(Constants.DEFAULT_BUDGET_FILE, test);
 	}
 }
 
