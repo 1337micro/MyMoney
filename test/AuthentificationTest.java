@@ -3,10 +3,12 @@ package test;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+import org.apache.commons.io;
 
 import src.AuthentificationUser;
 import src.AuthentificationUI;
@@ -88,7 +90,13 @@ public class AuthentificationTest {
 	
 	public void testSameFileContent(){
 		File test = new File("BudgetCopyTest.txt");
-		AuthentificationUI.budgetDup(Constants.DEFAULT_BUDGET_FILE, test);
+		try {
+			AuthentificationUI.budgetDup(Constants.DEFAULT_BUDGET_FILE, test);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		assertTrue()
 	}
 }
 
