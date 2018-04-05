@@ -332,23 +332,26 @@ public class AuthentificationUI extends JFrame{
 		Constants.AUTHENTIFICATION_FILE .createNewFile();
 		Constants.MYCARDS_FILE.createNewFile();
 		//budget.createNewFile();
-		copyFileUsingStream(Constants.DEFAULT_BUDGET_FILE,budget);
+		budgetDup(Constants.DEFAULT_BUDGET_FILE,budget);
 	}
 	
-	private static void copyFileUsingStream(File source, File dest) throws IOException {
-	    InputStream is = null;
-	    OutputStream os = null;
+	/*
+	 * Static method that will create a copy of an inputted file
+	 */
+	private static void budgetDup(File original, File duplicate) throws IOException {
+	    InputStream input = null;
+	    OutputStream output = null;
 	    try {
-	        is = new FileInputStream(source);
-	        os = new FileOutputStream(dest);
+	        input = new FileInputStream(original);
+	        output = new FileOutputStream(duplicate);
 	        byte[] buffer = new byte[1024];
 	        int length;
-	        while ((length = is.read(buffer)) > 0) {
-	            os.write(buffer, 0, length);
+	        while ((length = input.read(buffer)) > 0) {
+	            output.write(buffer, 0, length);
 	        }
 	    } finally {
-	        is.close();
-	        os.close();
+	        input.close();
+	        output.close();
 	    }
 	}
 }
