@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
@@ -56,6 +57,7 @@ public class MyCardsUI implements ActionListener{
 	@SuppressWarnings("rawtypes")
 	protected static JComboBox boxCreditCards;
 	Border raisedbevel = BorderFactory.createRaisedBevelBorder();
+	Border loweredetched = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
 	Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 	Border compound = BorderFactory.createCompoundBorder(raisedbevel, loweredbevel);
 	//list of cards
@@ -65,7 +67,7 @@ public class MyCardsUI implements ActionListener{
 	//button to add and remove
 	JButton addCardButton = new JButton(Constants.BUTTON_ADD_CARD);
 	JButton removeCardButton = new JButton(Constants.BUTTON_REMOVE_CARD);
-	JButton paiementButton  = new JButton (Constants.BUTTON_PAIEMENT_CARD);
+	JButton paymentButton  = new JButton (Constants.BUTTON_PAYMENT_CARD);
 
 
 
@@ -99,8 +101,16 @@ public class MyCardsUI implements ActionListener{
 	 */
 	@SuppressWarnings("serial")
 	public void MyCardsUI(){
-		JLabel lab = new JLabel("Please add or remove the cards you own.");
-		lab.setFont(new Font("Courier New", Font.BOLD, 14));
+		//setting the panel
+		panel= new JPanel();
+		JPanel panButton = new JPanel();
+		JPanel panTable = new JPanel();
+
+		//panels background colors
+		panTable.setBackground(Constants.MYCARDS_COLOR);
+		panButton.setBackground(new Color(228, 228, 228));
+		panButton.setPreferredSize(new Dimension(750,43));
+		panButton.setBorder(raisedbevel);
 
 		//setting the custom table model to the class I created 
 		tableModel =  new DefaultTableModel(COLUMN_NAMES, 0);
@@ -132,19 +142,15 @@ public class MyCardsUI implements ActionListener{
 			JScrollPane scrollPane = JTable.createScrollPaneForTable(table);
 			scrollPane.setPreferredSize(new Dimension(750, 300));
 
-			//setting the panel
-			panel= new JPanel();
-			JPanel pan2 = new JPanel();
-			pan2.setBackground(Constants.MYCARDS_COLOR); //background color
-			pan2.add(scrollPane, BorderLayout.CENTER);
-			JPanel pan3 = new JPanel();
-			pan3.setBackground(Constants.MYCARDS_COLOR); //background color
-			pan3.add(addCardButton);
-			pan3.add(removeCardButton);
-			pan3.add(paiementButton);
-			panel.add(lab);
-			panel.add(pan2);
-			panel.add(pan3);
+
+			panButton.add(addCardButton);
+			panButton.add(removeCardButton);
+			panButton.add(paymentButton);
+			panTable.add(scrollPane, BorderLayout.CENTER);
+
+
+			panel.add(panButton);
+			panel.add(panTable);
 			panel.setBorder(compound);
 			panel.setBackground(Constants.MYCARDS_COLOR); //background color
 			panel.setVisible(false);
@@ -155,10 +161,10 @@ public class MyCardsUI implements ActionListener{
 			//adding the buttons and setting their sizes and adding their Listener
 			addCardButton.setPreferredSize(new Dimension(150,25));
 			removeCardButton.setPreferredSize(new Dimension(150,25));
-			paiementButton.setPreferredSize(new Dimension(150,25));
+			paymentButton.setPreferredSize(new Dimension(150,25));
 			addCardButton.addActionListener(new AddCardListener());
 			removeCardButton.addActionListener(new RemoveListener());
-			paiementButton.addActionListener(new PaiementListener());
+			paymentButton.addActionListener(new PaymentListener());
 
 	}
 
@@ -203,9 +209,15 @@ public class MyCardsUI implements ActionListener{
 						JLabel txt2 = new JLabel ("Transactions done with this card: ");
 						txt2.setFont(new Font("Calibri", Font.BOLD, 14)); // set font
 						transacBox = new JTextArea(3,30); //set size
-						transacBox.setText(cards_list.get(row).getStringList()); // get transactions of the cards
+
+						String tmpStr = "";
+						for(int i=0; i< cards_list.get(row).getList().size(); i++){
+							tmpStr += cards_list.get(row).getList().get(i);
+						}
+						transacBox.setText(tmpStr); // get transactions of the cards
+
 						transacBox.setEditable(false); //not editable by user
-						transacBox.setBorder(compound); //giving bounders
+						transacBox.setBorder(loweredetched); //giving bounders
 						jp = new JScrollPane(transacBox); //so if many transactions user can scroll
 						jp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); //location of the scroll
 						//layout
@@ -230,15 +242,22 @@ public class MyCardsUI implements ActionListener{
 						String lmt = String.valueOf(lmtCard); //get the value
 						accNm = new JTextArea(lmt); //set the value
 						accNm.setEditable(false); //not editable by user
+						accNm.setBorder(raisedbevel);
 						//layout
 						box1.add(txt2);
 						box1.add(accNm);
 						JLabel txt3 = new JLabel ("Transactions done with this card: ");
 						txt3.setFont(new Font("Calibri", Font.BOLD, 14)); // set font
 						transacBox = new JTextArea(3,30); //set size
-						transacBox.setText(cards_list.get(row).getStringList()); // get transactions of the cards
+
+						String tmpStr = "";
+						for(int i=0; i< cards_list.get(row).getList().size(); i++){
+							tmpStr += cards_list.get(row).getList().get(i);
+						}
+						transacBox.setText(tmpStr); // get transactions of the cards
+
 						transacBox.setEditable(false); //not editable by user
-						transacBox.setBorder(compound); //giving bounders
+						transacBox.setBorder(loweredetched); //giving bounders
 						jp = new JScrollPane(transacBox); //so if many transactions user can scroll
 						jp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); //location of the scroll
 						//layout
@@ -265,15 +284,22 @@ public class MyCardsUI implements ActionListener{
 						String ptsCash = String.valueOf(pts);
 						accNm = new JTextArea(ptsCash);
 						accNm.setEditable(false);
+						accNm.setBorder(raisedbevel);
 						box2.add(txt2);
 						box2.add(accNm);
 
 						JLabel txt3 = new JLabel ("Transactions done with this card: ");
 						txt3.setFont(new Font("Calibri", Font.BOLD, 14));
 						transacBox = new JTextArea(3,30);
-						transacBox.setText(cards_list.get(row).getStringList());
+
+						String tmpStr = "";
+						for(int i=0; i< cards_list.get(row).getList().size(); i++){
+							tmpStr += cards_list.get(row).getList().get(i);
+						}
+						transacBox.setText(tmpStr); // get transactions of the cards
+
 						transacBox.setEditable(false);
-						transacBox.setBorder(compound);						
+						transacBox.setBorder(loweredetched);						
 						jp = new JScrollPane(transacBox);
 						jp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 						box3.add(txt3);
@@ -297,15 +323,22 @@ public class MyCardsUI implements ActionListener{
 						String lmt = String.valueOf(lmtCard); //get the value
 						accNm = new JTextArea(lmt); //set the value
 						accNm.setEditable(false); //not editable by user
+						accNm.setBorder(raisedbevel);
 						//layout
 						box1.add(txt2);
 						box1.add(accNm);
 						JLabel txt3 = new JLabel ("Transactions done with this card: ");
 						txt3.setFont(new Font("Calibri", Font.BOLD, 14)); // set font
 						transacBox = new JTextArea(3,30); //set size
-						transacBox.setText(cards_list.get(row).getStringList()); // get transactions of the cards
+
+						String tmpStr = "";
+						for(int i=0; i< cards_list.get(row).getList().size(); i++){
+							tmpStr += cards_list.get(row).getList().get(i);
+						}
+						transacBox.setText(tmpStr); // get transactions of the cards
+
 						transacBox.setEditable(false); //not editable by user
-						transacBox.setBorder(compound); //giving bounders
+						transacBox.setBorder(loweredetched); //giving bounders
 						jp = new JScrollPane(transacBox); //so if many transactions user can scroll
 						jp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); //location of the scroll
 						//layout
@@ -335,9 +368,9 @@ public class MyCardsUI implements ActionListener{
 	}
 
 	/*
-	 * Private class to customize the events that will happen when the user clicks on the paiement button
+	 * Private class to customize the events that will happen when the user clicks on the payment button
 	 */
-	private class PaiementListener implements ActionListener {
+	private class PaymentListener implements ActionListener {
 		/* 
 		 * returns an array with the card numbers of all debit cards present in the array as Object
 		 */
@@ -374,93 +407,105 @@ public class MyCardsUI implements ActionListener{
 
 
 		/*
-		 * Displays a window to allow the user to make a paiement froma  debit card toa  credit card
+		 * Displays a window to allow the user to make a payment froma  debit card toa  credit card
 		 *
 		 */
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			try{
-				//setting the panel
-				JPanel pane = new JPanel(new GridLayout(10,5));
-				JLabel lab1 = new JLabel("This option is to make a paiement to one of your credit cards.");
-				JLabel lab2 = new JLabel("Select the debit card");
-				boxDebitCards = new JComboBox<Object>(debitNum(cards_list));
-				JLabel lab3 = new JLabel("Enter the amount to transfer");
-				JTextField txt3 = new JTextField();
-				JLabel lab4 = new JLabel("Select the credit card");
-				boxCreditCards = new JComboBox<Object>(creditNum(cards_list));
-				JLabel lab5 = new JLabel("Do you want to confirm this transaction?");
-				pane.add(lab1);
-				pane.add(lab2);
-				pane.add(boxDebitCards);
-				pane.add(lab3);
-				pane.add(txt3);
-				pane.add(lab4);
-				pane.add(boxCreditCards);
-				pane.add(lab5);
+				if(cards_list.isEmpty()==false){
+					//setting the panel
+					JPanel pane = new JPanel(new GridLayout(10,5));
+					JLabel lab1 = new JLabel("This option is to make a payment to one of your credit cards.");
+					JLabel lab2 = new JLabel("Select the debit card");
+					boxDebitCards = new JComboBox<Object>(debitNum(cards_list));
+					JLabel lab3 = new JLabel("Enter the amount to transfer");
+					JTextField txt3 = new JTextField();
+					JLabel lab4 = new JLabel("Select the credit card");
+					boxCreditCards = new JComboBox<Object>(creditNum(cards_list));
+					JLabel lab5 = new JLabel("Do you want to confirm this transaction?");
+					pane.add(lab1);
+					pane.add(lab2);
+					pane.add(boxDebitCards);
+					pane.add(lab3);
+					pane.add(txt3);
+					pane.add(lab4);
+					pane.add(boxCreditCards);
+					pane.add(lab5);
 
-				//window
-				int opt = JOptionPane.showConfirmDialog(null, pane, "Paiement of a Credit Card", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+					//window
+					int opt = JOptionPane.showConfirmDialog(null, pane, "Payment of a Credit Card", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
-				//if user clicks on OK
-				if(opt ==0){
-					//getting the selected card number by the user for credit and debit cards
-					int cardDebitNb = debitCard.get(boxDebitCards.getSelectedIndex()).getCardNumber();
-					int cardCreditNb = creditCard.get(boxCreditCards.getSelectedIndex()).getCardNumber();
-					//get the amount entered
-					int amountToPay = Integer.parseInt(txt3.getText());
+					//if user clicks on OK
+					if(opt ==0){
+						//getting the selected card number by the user for credit and debit cards
+						int cardDebitNb = debitCard.get(boxDebitCards.getSelectedIndex()).getCardNumber();
+						int cardCreditNb = creditCard.get(boxCreditCards.getSelectedIndex()).getCardNumber();
+						//get the amount entered
+						int amountToPay = Integer.parseInt(txt3.getText());
 
-					//exception thrown 
-					if(amountToPay <0 || txt3.getText() == null || amountToPay>  debitCard.get(boxDebitCards.getSelectedIndex()).getMoneyAvailable()){
-						throw new NumberFormatException();
+						//exception thrown 
+						if(amountToPay <0 || txt3.getText() == null || amountToPay>  debitCard.get(boxDebitCards.getSelectedIndex()).getMoneyAvailable()){
+							throw new NumberFormatException();
+						}
+
+						//to get the index of the card number selected from the existing array list
+						indexDebitCard = MyCards.getIndexCardFromAccountNumber(cardDebitNb, cards_list);
+						//to get the index of the card number selected from the existing array list
+						indexCreditCard = MyCards.getIndexCardFromAccountNumber(cardCreditNb, cards_list);
+						String lnDb = getLineFormatTextfile(indexDebitCard);
+						String lnCd = getLineFormatTextfile(indexCreditCard);
+
+						//if the card Number selected is at the index obtained by getIndexCardFromAccountNumber in the existing array list
+						if(cardDebitNb == cards_list.get(indexDebitCard).getCardNumber() && cardCreditNb == cards_list.get(indexCreditCard).getCardNumber() && amountToPay>0){
+							double amountAfterTransactionDebit = cards_list.get(indexDebitCard).getMoneyAvailable() - amountToPay;
+							double amountAfterTransactionCredit = cards_list.get(indexCreditCard).getMoneySpent() - amountToPay;
+							cards_list.get(indexDebitCard).setMoneyAvailable(amountAfterTransactionDebit);
+							cards_list.get(indexCreditCard).setMoneySpent(amountAfterTransactionCredit);
+							String lnDb2 = getLineFormatTextfile(indexDebitCard);
+							String lnCd2 = getLineFormatTextfile(indexCreditCard);
+
+							//modify the database text file line about that card
+							MyCards.modifyFile(lnDb, lnDb2); 
+							//modify the database text file line about that card
+							MyCards.modifyFile(lnCd, lnCd2); 
+
+							//modify the value in the table
+							Object obtDb = amountAfterTransactionDebit;
+							table.setValueAt(obtDb, indexDebitCard, 3);
+							//modify the value in the table
+							Object obtCd = amountAfterTransactionCredit;
+							table.setValueAt(obtCd, indexCreditCard, 3);
+							//fire the change
+							tableModel.fireTableDataChanged();
+							String trs = String.format("Payment Transaction with debit card #%s for credit card  #%s with an amount of $ %s was completed.", cards_list.get(indexDebitCard).getCardNumber(), cards_list.get(indexCreditCard).getCardNumber(), amountToPay);
+							CashSpendingUI.writeToFile(trs);
+							cards_list.get(indexDebitCard).addExpense(trs);
+						}
 					}
-
-					//to get the index of the card number selected from the existing array list
-					indexDebitCard = MyCards.getIndexCardFromAccountNumber(cardDebitNb, cards_list);
-					//to get the index of the card number selected from the existing array list
-					indexCreditCard = MyCards.getIndexCardFromAccountNumber(cardCreditNb, cards_list);
-					String lnDb = getLineFormatTextfile(indexDebitCard);
-					String lnCd = getLineFormatTextfile(indexCreditCard);
-
-					//if the card Number selected is at the index obtained by getIndexCardFromAccountNumber in the existing array list
-					if(cardDebitNb == cards_list.get(indexDebitCard).getCardNumber() && cardCreditNb == cards_list.get(indexCreditCard).getCardNumber() && amountToPay>0){
-						double amountAfterTransactionDebit = cards_list.get(indexDebitCard).getMoneyAvailable() - amountToPay;
-						double amountAfterTransactionCredit = cards_list.get(indexCreditCard).getMoneySpent() - amountToPay;
-						cards_list.get(indexDebitCard).setMoneyAvailable(amountAfterTransactionDebit);
-						cards_list.get(indexCreditCard).setMoneySpent(amountAfterTransactionCredit);
-						String lnDb2 = getLineFormatTextfile(indexDebitCard);
-						String lnCd2 = getLineFormatTextfile(indexCreditCard);
-
-						//modify the database text file line about that card
-						MyCards.modifyFile(lnDb, lnDb2); 
-						//modify the database text file line about that card
-						MyCards.modifyFile(lnCd, lnCd2); 
-
-						//modify the value in the table
-						Object obtDb = amountAfterTransactionDebit;
-						table.setValueAt(obtDb, indexDebitCard, 3);
-						//modify the value in the table
-						Object obtCd = amountAfterTransactionCredit;
-						table.setValueAt(obtCd, indexCreditCard, 3);
-						//fire the change
-						tableModel.fireTableDataChanged();
-						String trs = String.format("Paiement Transaction with debit card #%s for credit card  #%s with an amount of $ %s was completed.", cards_list.get(indexDebitCard).getCardNumber(), cards_list.get(indexCreditCard).getCardNumber(), amountToPay);
-						CashSpendingUI.writeToFile(trs);
-						cards_list.get(indexDebitCard).addExpense(trs);
+					//if user doesn't click on OK
+					if(opt !=0){
+						JOptionPane.getRootFrame().dispose();
 					}
 				}
-				//if user doesn't click on OK
-				if(opt !=0){
-					JOptionPane.getRootFrame().dispose();
+				else{
+					throw new Exception();
 				}
-
-			} catch (NumberFormatException nfe) {
+			}
+			catch (NumberFormatException nfe) {
 				JOptionPane.showMessageDialog(null, Constants.INVALID_MSG, Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
 				int opt = JOptionPane.CLOSED_OPTION;
 				if (opt != 0) {
 					JOptionPane.getRootFrame().dispose();
 				}
+			}catch (Exception ne) {
+				JOptionPane.showMessageDialog(null, "No payment can be made as no card has been entered", Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
+				int opt = JOptionPane.CLOSED_OPTION;
+				if (opt != 0) {
+					JOptionPane.getRootFrame().dispose();
+				}
 			}
+
 		}
 
 	}
@@ -668,7 +713,7 @@ public class MyCardsUI implements ActionListener{
 				cN.setFont(new Font("Calibri", Font.BOLD, 14));
 				JLabel mC = new JLabel("Enter the amount of you already spent");
 				mC.setFont(new Font("Calibri", Font.BOLD, 14));
-				JLabel lt = new JLabel("Enter your credit limit");
+				JLabel lt = new JLabel("Enter the credit card limit");
 				lt.setFont(new Font("Calibri", Font.BOLD, 14));
 
 				//creating text fields to take the input from the user
@@ -749,11 +794,11 @@ public class MyCardsUI implements ActionListener{
 				//creating labels to go with the textfields
 				JLabel aN = new JLabel("Enter your Exchange account Number (4 numbers)");
 				aN.setFont(new Font("Calibri", Font.BOLD, 14));
-				JLabel cN = new JLabel("Enter the Exchange password (8 numbers)");
+				JLabel cN = new JLabel("Enter the card Number (8 numbers)");
 				cN.setFont(new Font("Calibri", Font.BOLD, 14));
-				JLabel mC = new JLabel("Enter the amount of you already spent in mBTC");
+				JLabel mC = new JLabel("Enter the amount of mBTC already spent");
 				mC.setFont(new Font("Calibri", Font.BOLD, 14));
-				JLabel lt = new JLabel("Enter your bitcoin balance in mBTC");
+				JLabel lt = new JLabel("Enter the bitcoin card limit");
 				lt.setFont(new Font("Calibri", Font.BOLD, 14));
 
 				//creating text fields to take the input from the user
@@ -780,7 +825,7 @@ public class MyCardsUI implements ActionListener{
 
 
 				//popping up the option panel so that the user can input the information
-				int cardInput = JOptionPane.showConfirmDialog(null, pane, "Bitcoin Card Information", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, Constants.CREDIT_IMAGE);
+				int cardInput = JOptionPane.showConfirmDialog(null, pane, "Bitcoin Card Information", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, Constants.BITCOIN_IMAGE);
 
 				//if the user clicks on the CANCEL button or Closes the window
 				if (cardInput != 0) {
@@ -853,26 +898,38 @@ public class MyCardsUI implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			try{
-				//getting the selected card number by the user
-				int cardNb= (int)JOptionPane.showInputDialog(null, "Please choose the card to remove","Removal of a card",JOptionPane.QUESTION_MESSAGE,Constants.CARDS_IMAGE, cardNum(cards_list), cardNum(cards_list)[0] );
+				if(cards_list.isEmpty()==false){
+					//getting the selected card number by the user
+					int cardNb= (int)JOptionPane.showInputDialog(null, "Please choose the card to remove","Removal of a card",JOptionPane.QUESTION_MESSAGE,Constants.CARDS_IMAGE, cardNum(cards_list), cardNum(cards_list)[0] );
 
-				//to get the index of the card number selected from the existing array list
-				indexCard = MyCards.getIndexCardFromAccountNumber(cardNb, cards_list);
+					//to get the index of the card number selected from the existing array list
+					indexCard = MyCards.getIndexCardFromAccountNumber(cardNb, cards_list);
 
-				//if the card Number selected is at the index obtained by getIndexCardFromAccountNumber in the existing array list
-				if(cardNb == cards_list.get(indexCard).getCardNumber()){
-					line = getLineFormatTextfile(indexCard);
-					try {
-						//calls the method in MyCards to remove the selected card in the Text File
-						MyCards.removeLine(line);
-						System.out.println("It Removed Card#" + cards_list.get(indexCard).getCardNumber());
-					} catch (IOException e1) {
-						System.out.println("Error in removing the line");
-						e1.printStackTrace();
+					//if the card Number selected is at the index obtained by getIndexCardFromAccountNumber in the existing array list
+					if(cardNb == cards_list.get(indexCard).getCardNumber()){
+						line = getLineFormatTextfile(indexCard);
+						try {
+							//calls the method in MyCards to remove the selected card in the Text File
+							MyCards.removeLine(line);
+							System.out.println("It Removed Card#" + cards_list.get(indexCard).getCardNumber());
+						} catch (IOException e1) {
+							System.out.println("Error in removing the line");
+							e1.printStackTrace();
+						}
+						//to remove the selected Card from the array list and from the table
+						cards_list.remove(indexCard);
+						tableModel.removeRow(indexCard);
 					}
-					//to remove the selected Card from the array list and from the table
-					cards_list.remove(indexCard);
-					tableModel.removeRow(indexCard);
+				}
+				else{
+					throw new NumberFormatException();
+				}
+			}
+			catch(NumberFormatException eb){
+				JOptionPane.showMessageDialog(null, "You cannot delete a card as no card has been entered.",Constants.INVALID_TITLE, JOptionPane.WARNING_MESSAGE, Constants.WARNING_IMAGE);
+				int opt = JOptionPane.CLOSED_OPTION;
+				if(opt != 0){
+					JOptionPane.getRootFrame().dispose();
 				}
 			}
 			//if the user clicks on Cancel button or Exit the JOptionPane without removing any cards
@@ -1050,6 +1107,8 @@ public class MyCardsUI implements ActionListener{
 		cards_list.get(index).setList(list);
 	}
 }
+
+
 
 
 

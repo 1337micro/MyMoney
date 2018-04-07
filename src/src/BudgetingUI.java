@@ -11,18 +11,19 @@ package src;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Optional;
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.plaf.ColorUIResource;
+import javax.swing.border.EtchedBorder;
+
 import java.io.PrintWriter;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-public class BudgetingUI extends Budgeting implements ActionListener {
+public class BudgetingUI implements ActionListener {
 
 	public JPanel getPanel() {
 		return panel;
@@ -52,6 +53,8 @@ public class BudgetingUI extends Budgeting implements ActionListener {
 	JButton printBudget; //add a button to print the personalized budget
 	Border raisedbevel = BorderFactory.createRaisedBevelBorder();
 	Border loweredbevel = BorderFactory.createLoweredBevelBorder();
+	Border empty = BorderFactory.createEmptyBorder();
+	Border loweredetched = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
 	Border compound = BorderFactory.createCompoundBorder(raisedbevel, loweredbevel);
 	Border lineBdr = BorderFactory.createLineBorder(Color.BLACK);
 	/**
@@ -85,21 +88,29 @@ public class BudgetingUI extends Budgeting implements ActionListener {
 	 * Add the necessary SWING elements to the Budgeting panel
 	 */
 	private void buildBudgetingDisplayPanel(){
-
-		//Initializing output field
-		outputField = new JTextArea();
-		outputField.setEditable(false);
-		outputField.setVisible(false); //field is invisible until CalculateBudget button is pushed
-
 		//Initializing the panel
 		panel = new JPanel();
+		JPanel panButton = new JPanel();
+		JPanel panTxtField= new JPanel();
 
 		//setting the background
 		panel.setBackground(new Color(204, 255, 255));
-		outputField.setBackground(new Color(255, 255, 224));
-		outputField.setBorder(lineBdr);
-	
 		panel.setBorder(compound);
+		
+		panTxtField.setBackground(new Color(255, 255, 255));
+		panTxtField.setPreferredSize(new Dimension(750,300));
+		panTxtField.setBorder(loweredetched);
+		
+		panButton.setBackground(new Color(228, 228, 228));
+		panButton.setPreferredSize(new Dimension(750,43));
+		panButton.setBorder(raisedbevel);
+		
+		//Initializing output field
+		outputField = new JTextArea();
+		outputField.setBorder(empty);
+		outputField.setPreferredSize(new Dimension(700,250));
+		outputField.setEditable(false);
+		outputField.setVisible(false); //field is invisible until CalculateBudget button is pushed
 
 		//creating the buttons
 		calculateBudget = new JButton(Constants.BUTTON_CALCULATE_BUDGET);
@@ -113,17 +124,19 @@ public class BudgetingUI extends Budgeting implements ActionListener {
 
 		showBudget = new JButton(Constants.BUTTON_SHOW_BUDGET);
 		showBudget.addActionListener(new showPersonalizedBudget());
-		
+
 		printBudget = new JButton(Constants.BUTTON_PRINT_BUDGET);
 		printBudget.addActionListener(new PrintBudget());
-		
+
 		//Adding elements to panel
-		panel.add(calculateBudget);
-		panel.add(changePercentages);
-		panel.add(showBudget);
-		panel.add(clearPercentages);
-		panel.add(printBudget);
-		panel.add(outputField, BorderLayout.CENTER);
+		panButton.add(calculateBudget);
+		panButton.add(changePercentages);
+		panButton.add(showBudget);
+		panButton.add(clearPercentages);
+		panButton.add(printBudget);
+		panel.add(panButton);
+		panTxtField.add(outputField, BorderLayout.CENTER);
+		panel.add(panTxtField);
 		panel.setVisible(false);
 	}
 
@@ -153,52 +166,22 @@ public class BudgetingUI extends Budgeting implements ActionListener {
 			}
 			else if  (avF!=0) 
 			{   outputField.setVisible(true);
-				outputField.setText(budget.toString());}
+			outputField.setText(budget.toString());}
 
 		}
 	}
-	
+	/*
+	 * Button that will call the "print()" method to create a text file of budget details 
+	 */
 	public class PrintBudget implements ActionListener{
+		@Override
 		public void actionPerformed(ActionEvent e) {
-			calculateAmountsFromPercentages();
-
-			// opening file stream to write log
-			PrintWriter pw = null;
-			try {
-				pw = new PrintWriter(new FileOutputStream("PersonalizedBudgetFile.txt"));
-			} catch (Exception f) {
-				System.out.println("Error while creating file");
-				System.exit(1);
-			}
-
-			//Print to file according to
-			//AvailableFunds:Amount
-			//Section:Percentage:Amount
-			pw.println("Personalized Budget File");
-			pw.println("---------------------------------------------------");
-			pw.println();
-			pw.println("Available Funds: \t$" + getAvailableFunds());
-			pw.println("Housing:\t\t" + getPercentHousing() + "%:\t$" + getAmountHousing());
-			pw.println("Food:\t\t\t" + getPercentFood() + "%:\t$" + getAmountFood());
-			pw.println("Utilities:\t\t" + getPercentUtilities() + "%:\t$" + getAmountUtilities());
-			pw.println("Clothing:\t\t" + getPercentClothing() + "%:\t$" + getAmountClothing());
-			pw.println("Medical:\t\t" + getPercentMedical() + "%:\t$" + getAmountMedical());
-			pw.println("Donations:\t\t" + getPercentDonations() + "%:\t$" + getAmountDonations());
-			pw.println("Savings/Insurance:\t" + getPercentSavingsInsurance() + "%:\t$" + getAmountSavingsInsurance());
-			pw.println("Entertainment:\t\t" + getPercentEntertainment() + "%:\t$" + getAmountEntertainment());
-			pw.println("Transportation:\t\t" + getPercentTransportation() + "%:\t$" + getAmountTransportation());
-			pw.println("Misc:\t\t\t" + getPercentMisc() + "%:\t$" + getAmountMisc());
-
-			// Closing file stream
-			try {
-				pw.close();
-				JOptionPane.showMessageDialog(null, "Personalized File created successfully");
-			} catch (Exception g) {
-				System.out.println("Error while closing file");
-				System.exit(1);
-			}
+			/*
+			 * Method that will write the budget details to a text file
+			 */
+			print();
 		}
-		
+
 	}
 	/*
 	 * Method to clear the default percentages and modify them
@@ -226,15 +209,10 @@ public class BudgetingUI extends Budgeting implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
-			//adding color to the background
-			UIManager.put("OptionPane.background",new ColorUIResource(204, 255, 255));
-			UIManager.put("Panel.background",new ColorUIResource(255, 255, 224));
-			
 			//creating the panel
-			JPanel panel1=new JPanel(new GridLayout(14,20));
+			JPanel panel1=new JPanel(new GridLayout(11,20));
 
- 
+
 			//initializing labels and test fields to enter new percentages
 			JLabel availableFunds = new JLabel("Please Enter your Available Funds: ");
 			JLabel labelHousing = new JLabel("Housing %:");
@@ -297,7 +275,6 @@ public class BudgetingUI extends Budgeting implements ActionListener {
 			panel1.add(labelMisc);
 			panel1.add(inputPercentageMisc);
 
-			panel1.setBorder(compound);
 
 			//popping up the option panel so that the user can input the information
 			int percentageInput=JOptionPane.showConfirmDialog(null, panel1, "Budgeting Percentages", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
@@ -349,15 +326,13 @@ public class BudgetingUI extends Budgeting implements ActionListener {
 						}
 					}
 				}
-			}
 		}
+	}
 	/**
 	 * Inner class to get input from text field, calculate the budget, then display it
 	 */
 	public class CalculateAndDisplayBudget implements ActionListener{
 		private void displayBudget() {
-			UIManager.put("OptionPane.background",new ColorUIResource(204, 255, 255));
-			UIManager.put("Panel.background",new ColorUIResource(255, 255, 224));
 
 			JPanel panel2=new JPanel();
 			JTextField inputAFunds = new JTextField(10);
@@ -402,7 +377,7 @@ public class BudgetingUI extends Budgeting implements ActionListener {
 						JOptionPane.getRootFrame().dispose();
 					}
 				}
-				
+
 			}
 		}
 
@@ -410,8 +385,62 @@ public class BudgetingUI extends Budgeting implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			displayBudget();
 		}
+		
+		
+	}
+	
+	/*
+	 * Method called in PrintBudget button
+	 */
+	public void print(){
+		Budgeting budget = new Budgeting(Constants.BUDGETING_FILE);
+		// opening file stream to write log
+		PrintWriter pw = null;
+		try {
+			if (Constants.PERSONALIZED_BUDGET_FILE.exists() && Constants.PERSONALIZED_BUDGET_FILE.isFile())
+			{
+				//delete if exists
+				Constants.PERSONALIZED_BUDGET_FILE.delete();
+				
+			}
+			Constants.PERSONALIZED_BUDGET_FILE.createNewFile();
+
+			pw = new PrintWriter(new FileOutputStream(Constants.PERSONALIZED_BUDGET_FILE));
+		} catch (Exception f) {
+			System.out.println("Error while creating file");
+			System.exit(1);
+		}
+
+		//Print to file according to
+		//AvailableFunds:Amount
+		//Section:Percentage:Amount
+		pw.println("Personalized Budget File");
+		pw.println("---------------------------------------------------");
+		pw.println();
+		pw.println("Available Funds: \t$" + budget.getAvailableFunds());
+		pw.println("Housing:\t\t" + budget.getPercentHousing() + "%:\t$" + budget.getAmountHousing());
+		pw.println("Food:\t\t\t" + budget.getPercentFood() + "%:\t$" + budget.getAmountFood());
+		pw.println("Utilities:\t\t" + budget.getPercentUtilities() + "%:\t$" + budget.getAmountUtilities());
+		pw.println("Clothing:\t\t" + budget.getPercentClothing() + "%:\t$" + budget.getAmountClothing());
+		pw.println("Medical:\t\t" + budget.getPercentMedical() + "%:\t$" + budget.getAmountMedical());
+		pw.println("Donations:\t\t" + budget.getPercentDonations() + "%:\t$" + budget.getAmountDonations());
+		pw.println("Savings/Insurance:\t" + budget.getPercentSavingsInsurance() + "%:\t$" + budget.getAmountSavingsInsurance());
+		pw.println("Entertainment:\t\t" + budget.getPercentEntertainment() + "%:\t$" + budget.getAmountEntertainment());
+		pw.println("Transportation:\t\t" + budget.getPercentTransportation() + "%:\t$" + budget.getAmountTransportation());
+		pw.println("Misc:\t\t\t" + budget.getPercentMisc() + "%:\t$" + budget.getAmountMisc());
+
+		// Closing file stream
+		try {
+			pw.close();
+			JOptionPane.showMessageDialog(null, "Personalized File created successfully");
+		} catch (Exception g) {
+			System.out.println("Error while closing file");
+			System.exit(1);
+		}
 	}
 }
+
+
 
 
 

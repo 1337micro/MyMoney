@@ -11,6 +11,7 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
 import src.Cards.CardType;
 import src.CashSpending.ExpenditureType;
@@ -35,6 +36,7 @@ public class CashSpendingUI implements ActionListener {
 	//declaring attributes 
 	Border raisedbevel = BorderFactory.createRaisedBevelBorder();
 	Border loweredbevel = BorderFactory.createLoweredBevelBorder();
+	Border loweredetched = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
 	Border compound = BorderFactory.createCompoundBorder(raisedbevel, loweredbevel);
 	JPanel panel; // the panel containing all our JTextFields for CashSpending feature
 	private static PrintWriter pw = null;
@@ -85,8 +87,26 @@ public class CashSpendingUI implements ActionListener {
 
 	@SuppressWarnings("serial")
 	public void CashSpendingUI() {
-		JLabel lab = new JLabel("Please note that you need to save your cards first.");
-		lab.setFont(new Font("Courier New", Font.BOLD, 14));
+		//setting panels
+		panel = new JPanel();
+		JPanel panTable = new JPanel();
+		JPanel panButton = new JPanel();
+		JPanel panTxt = new JPanel();
+		
+		panel.setBackground(new Color(204, 255, 229));
+		panel.setBorder(compound);
+		panel.setVisible(false);
+		
+		panButton.setBackground(new Color(228, 228, 228));
+		panButton.setPreferredSize(new Dimension(750,43));
+		panButton.setBorder(raisedbevel);
+		panTxt.setBackground(new Color(228, 228, 228));
+		
+		JLabel txtCashSp = new JLabel("Please note that you need to load your cards before entering expenses.");
+		txtCashSp.setFont(new Font("Arial", Font.BOLD, 14));
+		panTxt.add(txtCashSp);
+		panTxt.setPreferredSize(new Dimension(750,40));
+		panTxt.setBorder(raisedbevel);
 		//setting the custom table model to the class I created 
 		tableModel =  new DefaultTableModel(COLUMN_NAMES, 0);
 		table = new JTable(tableModel){
@@ -109,29 +129,25 @@ public class CashSpendingUI implements ActionListener {
 			JScrollPane scrollPane = JTable.createScrollPaneForTable(table);
 			scrollPane.setPreferredSize(new Dimension(750, 300));
 
-			panel = new JPanel();
-			panel.setLayout(new BoxLayout(panel, BoxLayout.LINE_AXIS));
-			panel.setBackground(new Color(204, 255, 229));
-			panel.setBorder(compound);
+			
 
 			addExpense.addActionListener(new AddExpenseListener());
 			showExpense.addActionListener(new ShowExpenseListener());
 
 			//setting the panel
-			panel= new JPanel();
-			JPanel pan2 = new JPanel();
-			pan2.setBackground(new Color(204, 255, 229));
-			pan2.add(scrollPane, BorderLayout.CENTER);
-			JPanel pan3 = new JPanel();
-			pan3.setBackground(new Color(204, 255, 229));
-			pan3.add(addExpense);
-			pan3.add(showExpense);
-			panel.add(lab);
-			panel.add(pan2);
-			panel.add(pan3);
-			panel.setBorder(compound);
-			panel.setBackground(new Color(204, 255, 229));
-			panel.setVisible(false);
+			
+			
+			panTable.setBackground(new Color(204, 255, 229));
+			panTable.add(scrollPane, BorderLayout.CENTER);
+			
+			
+			panButton.add(addExpense);
+			panButton.add(showExpense);
+			
+			panel.add(panButton);
+			panel.add(panTable);
+			panel.add(panTxt, BorderLayout.SOUTH);
+			
 
 			indexToExpenditureTypeDictionary = new Hashtable<Integer, ExpenditureType>();
 			indexToExpenditureTypeDictionary.put(0, ExpenditureType.HOUSING);
@@ -486,26 +502,28 @@ public class CashSpendingUI implements ActionListener {
 	private class ShowExpenseListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			JPanel pane=new JPanel(new GridLayout(3,2));
-
+			//JPanel pane=new JPanel(new GridLayout(3,2));
+			JPanel pane=new JPanel();
 			try{
 				//creating labels for the text fields
-				JLabel aN= new JLabel("Here is the list of all transactions done:");
-				aN.setFont(new Font("Calibri", Font.BOLD, 14));
+				//JLabel aN= new JLabel("Here is the list of all transactions done:");
+				//aN.setFont(new Font("Calibri", Font.BOLD, 14));
 
-				JTextArea listExp = new JTextArea(3,30); //set size;
+				JTextArea listExp = new JTextArea(3,50); //set size;
 				listExp.setText(readFromTheFile()); 
 				JScrollPane jp;
 				listExp.setEditable(false); //not editable by user
-				listExp.setBorder(compound); //giving bounders
-
+				listExp.setBorder(loweredbevel); //giving bounders
+				//listExp.setPreferredSize(new Dimension(700,300));
+				
 				jp = new JScrollPane(listExp); //so if many transactions user can scroll
 				jp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); //location of the scroll
+				jp.setPreferredSize(new Dimension(750,300));
 				//adding the elements to the panel
-				pane.add(aN);
+				//pane.add(aN);
 				pane.add(jp);
-				pane.setPreferredSize(new Dimension(800, 200));
-				pane.setBorder(compound);
+				pane.setPreferredSize(new Dimension(800, 100));
+				
 
 				int option=  JOptionPane.showConfirmDialog(null, pane, "List of All Expenses Done", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 				//if the user clicks on the CANCEL button or Closes the window
@@ -613,7 +631,6 @@ public class CashSpendingUI implements ActionListener {
 	 * method to clear the database textfile
 	 */
 	public static void clearDataBaseTransactionsDone() throws IOException{
-		i = 0;
 		if (Constants.TRANSACTIONS_FILE.exists() && Constants.TRANSACTIONS_FILE.isFile())
 		{
 			//delete if exists

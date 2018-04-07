@@ -35,7 +35,7 @@ public class Constants {
 	public static final String BUTTON_CARDS = "My Cards";
 	public static final String BUTTON_ADD_CARD = "Add a card";
 	public static final String BUTTON_REMOVE_CARD = "Remove a card";
-	public static final String BUTTON_PAIEMENT_CARD = "Make a payment";
+	public static final String BUTTON_PAYMENT_CARD = "Make a payment";
 	public static final String BUTTON_SPENDING = "Cash Spending";
 	public static final String BUTTON_ADD_EXPENSE = "Add an expense";
 	public static final String BUTTON_SHOW_EXPENSE = "Show all expenses";
@@ -67,14 +67,17 @@ public class Constants {
 	public static final Icon CREDIT_IMAGE = new ImageIcon("creditImage.png");
 	public static final Icon DEBIT_IMAGE = new ImageIcon("debitImage.png");
 	public static final Icon LOYALTY_IMAGE = new ImageIcon("loyaltyImage.png");
+	public static final Icon BITCOIN_IMAGE = new ImageIcon("bitcoinImage.png");
 	public static ImageIcon IMG_UNICORN = new ImageIcon("unicorn.png");
 
 	//Authentification constants
 	public final static File AUTHENTIFICATION_FILE = new File("Authentification.txt");
+	public final static File DEFAULT_BUDGET_FILE = new File("DefaultBudgeting.txt");
 	public final static File MYCARDS_FILE = new File("MyCards.txt");
 	public final static String DEFAULTBUDGETINGPERCENTAGES_FILE = "DefaultBudgetingPercentages.txt";
 	public final static String BUDGETING_FILE = "Budgeting.txt";
 	public final static File TRANSACTIONS_FILE = new File("TransactionsDone.txt");
+	public final static File PERSONALIZED_BUDGET_FILE = new File("PersonalizedBudgetFile.txt");
 
 	//Budgeting constants
 	public final static char SEPARATOR = ':';
@@ -89,7 +92,9 @@ public class Constants {
 	public final static String ENTERTAINMENT_TYPE = "Entertainment";
 	public final static String TRANSPORTATION_TYPE = "Transportation";
 	public final static String MISC_TYPE = "Misc";
+	
 }
+
 
 
 

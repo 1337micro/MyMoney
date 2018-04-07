@@ -39,7 +39,17 @@ public class BitcoinCard implements Cards {
 	 * @see src.Cards#addExpense(java.lang.String)
 	 */
 	public void addExpense(String n){
-		this.list.add(n);
+		List<String> listTemp = new ArrayList<>();
+		for(int i =0; i< list.size(); i++){
+			listTemp.add(list.get(i));
+			list.remove(i);
+		}
+		listTemp.add(n);
+		
+		for(int j=0; j< listTemp.size(); j++){
+			list.add(listTemp.get(j));
+		}
+		
 	}
 	
     @Override
@@ -50,17 +60,7 @@ public class BitcoinCard implements Cards {
         return false;
     }
 
-    /*
-     * method to get each string of their list
-     */
-    @Override
-    public String getStringList() {
-        String tmp = "";
-        for(int i=0; i< this.getList().size(); i++){
-            tmp+= this.getList().get(i);
-        }
-        return tmp;
-    }
+   
     public String listFormat(){
         String tmp="";
         for(int i =0 ; i< this.getList().size(); i++){
@@ -157,4 +157,5 @@ public class BitcoinCard implements Cards {
         this.list = list;
     }
 }
+
 

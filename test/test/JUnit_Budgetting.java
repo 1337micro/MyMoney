@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 import src.Budgeting;
+import src.BudgetingUI;
 import src.Constants;
 
 
@@ -11,6 +12,7 @@ import src.Constants;
 import static org.junit.Assert.assertEquals;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -23,6 +25,9 @@ public class JUnit_Budgetting {
 	Budgeting budget = new Budgeting();
 	Budgeting budgetReadFromFile = new Budgeting(100000.0, Constants.DEFAULTBUDGETINGPERCENTAGES_FILE);
 	Budgeting budgetPercentages = new Budgeting(6000, 20, 5, 5, 10, 6, 15, 7, 7, 15, 5);
+	BudgetingUI budgetUI = new BudgetingUI();
+	
+	public final static File PERSONALIZED_BUDGET_FILE = new File("PersonalizedBudgetFile.txt");
 	
 	//Test default constructor budgeting
 	@Test
@@ -250,6 +255,13 @@ public class JUnit_Budgetting {
 	public void testCalculateMisc() {
 		budget.setAvailableFunds(1000);
 		assertEquals(50,budget.calculateMisc(),0);
+	}
+	
+	@Test
+	//Test to see if the "print()" method created its intended file
+	public void testPrintBudget(){
+		budgetUI.print();
+		assertTrue(PERSONALIZED_BUDGET_FILE.exists()&&!PERSONALIZED_BUDGET_FILE.isDirectory());
 	}
 
 }

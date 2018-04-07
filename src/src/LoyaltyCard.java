@@ -1,7 +1,8 @@
 package src;
 //-------------------------------------------------------
 //For Comp 354 Section PP - Winter 2018
-//Iteration 2: Noémi Lemonnier 40001075
+//Iteration 2: Noémi Lemonnier 40001085
+//Iteration 3: Noemi Lemonnier 40001085
 //Description: LoyaltyCard.java implements the interface Cards and serves 
 //the purpose of implementing the specifics of the cards of type LoyaltyCard
 //--------------------------------------------------------
@@ -51,7 +52,17 @@ public class LoyaltyCard implements Cards{
 	 * @see src.Cards#addExpense(java.lang.String)
 	 */
 	public void addExpense(String n){
-		this.list.add(n);
+		List<String> listTemp = new ArrayList<>();
+		for(int i =0; i< list.size(); i++){
+			listTemp.add(list.get(i));
+			list.remove(i);
+		}
+		listTemp.add(n);
+		
+		for(int j=0; j< listTemp.size(); j++){
+			list.add(listTemp.get(j));
+		}
+		
 	}
 	
 	/*
@@ -82,16 +93,6 @@ public class LoyaltyCard implements Cards{
 		return false;
 	}
 
-	/*
-	 * method to get each string of their list
-	 */
-	@Override
-	public String getStringList() {
-		for(int i=0; i< this.getList().size(); i++){
-			tmp+= this.getList().get(i);
-		}
-		return tmp;
-	}
 
 	/*
 	 * Getters and Setter for the class attributes
@@ -178,5 +179,6 @@ public class LoyaltyCard implements Cards{
 	}
 
 }
+
 
 
