@@ -289,6 +289,7 @@ public class CashSpendingUI implements ActionListener {
 
 				// user gets the chose of adding or not the expense
 				int option=  JOptionPane.showConfirmDialog(null, pane, "Alert Going Over Budget", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+				System.out.println(option);
 				//if the user clicks on the CANCEL button or Closes the window
 				if(option != 0){
 					JOptionPane.getRootFrame().dispose();
@@ -338,12 +339,12 @@ public class CashSpendingUI implements ActionListener {
 				//throw new NumberFormatException(e);
 			}
 			//if amount enter is invalid
-			if(amount < 0 ){
+			else if(amount < 0 ){
 				String e = "Please enter a valid amount of money!";
 				throw new NumberFormatException(e);
 			}
 
-			if((index >=0 || index<=9) && (amount>=0)){ 
+			else if((index >=0 || index<=9) && (amount>=0)){ 
 				//setting the Cards cardTemp as the selected card by user
 				if(MyCardsUI.getListCards().get(cardIndex).getType() == CardType.DEBIT){
 					cardTemp = new Debit();
@@ -643,6 +644,17 @@ public class CashSpendingUI implements ActionListener {
 	/*
 	 * Method to obtain the card Number selected by user when expense added
 	 */
+	public static int getNbCard() {
+		return nbCard;
+	}
+
+
+
+
+}
+
+
+
 	public static int getNbCard() {
 		return nbCard;
 	}
