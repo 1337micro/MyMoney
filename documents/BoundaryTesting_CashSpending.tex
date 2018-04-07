@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage[table]{xcolor}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage[margin=1in]{geometry}
+
+\setlength{\parindent}{0in}
+\begin{document}
+%ignore above
+
+\begin{table}[]
+\centering
+\begin{tabular}{|
+>{\columncolor[HTML]{C0C0C0}}p{1.5cm} |p{2cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
+\hline
+{\color[HTML]{000000} Class name}        & CashSpendingUI                         & \cellcolor[HTML]{C0C0C0}Method name     & \multicolumn{3}{l|}{addingToTheExpenditure}                                                                      \\ \hline
+{\color[HTML]{000000} Variable name}     & amount                         & \cellcolor[HTML]{C0C0C0}Lower bound     & 0                                 & \cellcolor[HTML]{C0C0C0}Upper bound       & 150       \\ \hline
+{\color[HTML]{000000} }                  & \cellcolor[HTML]{C0C0C0}Value & \cellcolor[HTML]{C0C0C0}Expected output & \cellcolor[HTML]{C0C0C0}Actual output & \multicolumn{2}{p{7cm}|}{\cellcolor[HTML]{C0C0C0}Bug found?} \\ \hline
+{\color[HTML]{000000} Below lower bound} & -1                         & Error message is shown                                   & Error message is shown                                 & \multicolumn{2}{p{6cm}|}{No}                              \\ \hline
+{\color[HTML]{000000} On lower bound}    & 0                         & Value accepted                                   & Value accepted                                 & \multicolumn{2}{p{6cm}|}{No}                              \\ \hline
+{\color[HTML]{000000} Between bounds}    & 100                         & Value accepted                                   & Value accepted                                 & \multicolumn{2}{p{6cm}|}{No}                              \\ \hline
+{\color[HTML]{000000} On upper bound}    & 150                         & Value accepted                                   & Value accepted                                 & \multicolumn{2}{p{6cm}|}{No}                              \\ \hline
+{\color[HTML]{000000} Above upper bound} & 151                         & Confirmation message is shown                                   & Confirmation message is shown                                 & \multicolumn{2}{p{6cm}|}{No}                              \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[]
+\centering
+\begin{tabular}{|
+>{\columncolor[HTML]{C0C0C0}}p{1.5cm} |p{2cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
+\hline
+{\color[HTML]{000000} Class name}        & WORDS                         & \cellcolor[HTML]{C0C0C0}Method name     & \multicolumn{3}{l|}{WORDS}                                                                      \\ \hline
+{\color[HTML]{000000} Variable name}     & WORDS                         & \cellcolor[HTML]{C0C0C0}Lower bound     & WORDS                                 & \cellcolor[HTML]{C0C0C0}Upper bound       & WORDS       \\ \hline
+{\color[HTML]{000000} }                  & \cellcolor[HTML]{C0C0C0}Value & \cellcolor[HTML]{C0C0C0}Expected output & \cellcolor[HTML]{C0C0C0}Actual output & \multicolumn{2}{p{7cm}|}{\cellcolor[HTML]{C0C0C0}Bug found?} \\ \hline
+{\color[HTML]{000000} Below lower bound} & WORDS                         & WORDS                                   & WORDS                                 & \multicolumn{2}{p{6cm}|}{WORDS}                              \\ \hline
+{\color[HTML]{000000} On lower bound}    & WORDS                         & WORDS                                   & WORDS                                 & \multicolumn{2}{p{6cm}|}{WORDS}                              \\ \hline
+{\color[HTML]{000000} Between bounds}    & WORDS                         & WORDS                                   & WORDS                                 & \multicolumn{2}{p{6cm}|}{WORDS}                              \\ \hline
+{\color[HTML]{000000} On upper bound}    & WORDS                         & WORDS                                   & WORDS                                 & \multicolumn{2}{p{6cm}|}{WORDS}                              \\ \hline
+{\color[HTML]{000000} Above upper bound} & WORDS                         & WORDS                                   & WORDS                                 & \multicolumn{2}{p{6cm}|}{WORDS}                              \\ \hline
+\end{tabular}
+\end{table}
+
+%ignore below
+\end{document}
