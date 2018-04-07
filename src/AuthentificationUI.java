@@ -338,7 +338,7 @@ public class AuthentificationUI extends JFrame{
 	/*
 	 * Static method that will create a copy of an inputted file
 	 */
-	private static void budgetDup(File original, File duplicate) throws IOException {
+	public static void budgetDup(File original, File duplicate) throws IOException {
 	    InputStream input = null;
 	    OutputStream output = null;
 	    try {

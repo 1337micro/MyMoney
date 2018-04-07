@@ -2,14 +2,20 @@ package test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+//import org.apache.commons.io.FileUtils;
 
 import src.AuthentificationUser;
 import src.AuthentificationList;
+import src.AuthentificationUI;
 import src.Cards;
+import src.Constants;
 import src.MyCards;
 
 public class AuthentificationTest {
@@ -82,5 +88,21 @@ public class AuthentificationTest {
 		int index = AuthentificationList.getIndexUserFromUserName("q_sdf",listL);
 		assertEquals("Verifying that the index of the card is correct", 0, AuthentificationList.getIndexUserFromUserName("q_sdf",listL), AuthentificationList.getIndexUserFromUserName("x_cbv",listL));
 	}
+	
+//	@Test
+//	public void testDuplicateFile() {
+//		File test = new File("DefaultBudgetTest.txt");
+//		try {
+//			AuthentificationUI.budgetDup(Constants.DEFAULT_BUDGET_FILE,test);
+//		} catch (IOException e) {
+//			System.out.println("Error when attempting to duplicate file, will now exit");
+//			System.exit(0);
+//		}
+//		
+//		boolean compareFiles = FileUtils.contentEquals(Constants.DEFAULT_BUDGET_FILE,test);
+//		
+//		
+//		
+//	}
 }
 
