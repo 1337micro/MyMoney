@@ -1,0 +1,148 @@
+\documentclass{article}
+\usepackage[table]{xcolor}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage[margin=1in]{geometry}
+
+\setlength{\parindent}{0in}
+\begin{document}
+%ignore above
+
+%closing the application right away
+\begin{table}[h]
+\centering
+\begin{tabular}{|
+>{\columncolor[HTML]{C0C0C0}}p{4cm} |p{12cm}|}
+\hline
+Test Case                                                                & Opening the application and closing it \\ \hline
+Test Case Description                                                    & Clicking on the "close" button of the application before going through the identification process  \\ \hline
+\begin{tabular}[c]{@{}l@{}}Input \\ (Steps to produce test)\end{tabular} & 1. Launch the application\newline
+2. Click "close" button\newline \\ \hline
+\begin{tabular}[c]{@{}l@{}}Output\\ (Expected results)\end{tabular}      & The application closes \\ \hline
+\end{tabular}
+\end{table}
+
+
+%identify oneself and close
+\begin{table}[h]
+\centering
+\begin{tabular}{|
+>{\columncolor[HTML]{C0C0C0}}p{4cm} |p{12cm}|}
+\hline
+Test Case                                                                & Identify oneself then close the application \\ \hline
+Test Case Description                                                    & Clicking the "close" button immediately after identifying oneself  \\ \hline
+\begin{tabular}[c]{@{}l@{}}Input \\ (Steps to produce test)\end{tabular} & 1. Launch the application\newline
+2. Go through the Authentification subsystem\newline
+3. Click on the "close" button.\newline\\ \hline
+\begin{tabular}[c]{@{}l@{}}Output\\ (Expected results)\end{tabular}      & The user has been identified but no further action has been taken  \\ \hline
+\end{tabular}
+\end{table}
+
+
+
+
+%identify oneself mycards close
+\begin{table}[h]
+\centering
+\begin{tabular}{|
+>{\columncolor[HTML]{C0C0C0}}p{4cm} |p{12cm}|}
+\hline
+Test Case                                                                & Identify oneself, go through MyCards subsystem and close \\ \hline
+Test Case Description                                                    & Clicking the "close" button after going through the MyCards subsystem  \\ \hline
+\begin{tabular}[c]{@{}l@{}}Input \\ (Steps to produce test)\end{tabular} & 1. Launch the application\newline
+2. Go through the Authentification subsystem\newline 
+3. Click on the "MyCards" button in order to reach the MyCards subsystem\newline
+4. Do actions in the MyCards subsystem\newline
+5. Click on the "close" button\newline\\ \hline
+\begin{tabular}[c]{@{}l@{}}Output\\ (Expected results)\end{tabular}      & The Autentification and MyCards subsystem works with no failure\\ \hline
+\end{tabular}
+\end{table}
+
+
+
+
+%identidy budget close
+\begin{table}[h]
+\centering
+\begin{tabular}{|
+>{\columncolor[HTML]{C0C0C0}}p{4cm} |p{12cm}|}
+\hline
+Test Case                                                                & Go through Authentification and Budgetting subsystems and close \\ \hline
+Test Case Description                                                    & Clicking the "close" button after going through the Budgetting subsystem  \\ \hline
+\begin{tabular}[c]{@{}l@{}}Input \\ (Steps to produce test)\end{tabular} & 1. Launch the application\newline
+2.Go through the Authentification subsystem\newline 
+3.Click on the "Budget" button\newline
+4. Do actions in the Budgetting subsystem\newline
+5. Click on the "close" button\newline \\ \hline
+\begin{tabular}[c]{@{}l@{}}Output\\ (Expected results)\end{tabular}      & The Authentification and Budget subsystems work with no failure \\ \hline
+\end{tabular}
+\end{table}
+
+
+%identify cash close
+\begin{table}[h]
+\centering
+\begin{tabular}{|
+>{\columncolor[HTML]{C0C0C0}}p{4cm} |p{12cm}|}
+\hline
+Test Case                                                                & Closing the application without being able to take action in the CashSpending subsystem as a new user \\ \hline
+Test Case Description                                                    & Clicking the "Close" after not being able to take action in the CashSpending subsystem  \\ \hline
+\begin{tabular}[c]{@{}l@{}}Input \\ (Steps to produce test)\end{tabular} & 1. Launch the application\newline
+2. Go throught the Authentification subsystem as new user \newline
+3. Click on the "CashSpendin" button\newline
+4. Click on the "add expense" button\newline
+5. Close the error message asking to add a card in the system\newline
+6. Close the application\newline
+\\ \hline
+\begin{tabular}[c]{@{}l@{}}Output\\ (Expected results)\end{tabular}      & The proper error message is displayed and no CashSpending is added. \\ \hline
+\end{tabular}
+\end{table}
+
+
+%identify cards budget close
+\begin{table}[h]
+\centering
+\begin{tabular}{|
+>{\columncolor[HTML]{C0C0C0}}p{4cm} |p{12cm}|}
+\hline
+Test Case                                                                & Go through the Authentification, MyCards and Budget subsystems \\ \hline
+Test Case Description                                                    & Clicking the "close" button after going through multiple subsystems.  \\ \hline
+\begin{tabular}[c]{@{}l@{}}Input \\ (Steps to produce test)\end{tabular} & 1. Launch the application\newline
+2. Go through the Authentification subsystem\newline
+3. Click on the "MyCards" button\newline
+4. Do actions in the MyCards subsystem\newline
+5. Click on the "Budgeting" button\newline
+6. Do actions in Budgeting subsystem\newline
+7. Click on the "close" button\newline\\ \hline
+\begin{tabular}[c]{@{}l@{}}Output\\ (Expected results)\end{tabular}      & User is able to take actions in all mentionned subsystems with no trouble and close the application properly \\ \hline
+\end{tabular}
+\end{table}
+
+
+%identify cards cash close
+\begin{table}[h]
+\centering
+\begin{tabular}{|
+>{\columncolor[HTML]{C0C0C0}}p{4cm} |p{12cm}|}
+\hline
+Test Case                                                                & Go through the Authentification, MyCArds and CashSpending subsystems and then closing the application \\ \hline
+Test Case Description                                                    & Clicking the "close" button after taking some actions in the CashSpending subsystem  \\ \hline
+\begin{tabular}[c]{@{}l@{}}Input \\ (Steps to produce test)\end{tabular} & 1. Launch the application\newline
+2. Go through the Authentification subsystem\newline
+3. Click on the "MyCards" button\newline
+4. Do actions in the MyCards subsystem\newline
+5. Click on the "CashSpending" button\newline
+6. If the user added a card, be able to enter expenses, else display of error message\newline
+7. Close the application\newline\\ \hline
+\begin{tabular}[c]{@{}l@{}}Output\\ (Expected results)\end{tabular}      & There is a new expense only if the user previously added a card.  \\ \hline
+\end{tabular}
+\end{table}
+
+
+
+
+
+
+%ignore below
+\end{document}
