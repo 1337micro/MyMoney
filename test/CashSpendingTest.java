@@ -86,15 +86,15 @@ public class CashSpendingTest{
 		assertNull(spending);
 	}
 
-	@Test
-	public void defaultIsOverBudgetDefaultBudgetingFileTest(){    	
-		//Test that cash spending is over budget with default budgeting file	
-		double budgetingTest = 300;
-		CashSpending spending = new CashSpending();
-
-		assertFalse(spending.isOverBudget(budgetingTest, CashSpending.ExpenditureType.HOUSING));
-		assertTrue(spending.isOverBudget(budgetingTest, CashSpending.ExpenditureType.FOOD));
-	}
+//	@Test
+//	public void defaultIsOverBudgetDefaultBudgetingFileTest(){    	
+//		//Test that cash spending is over budget with default budgeting file	
+//		double budgetingTest = 300;
+//		CashSpending spending = new CashSpending();
+//
+//		assertFalse(spending.isOverBudget(budgetingTest, CashSpending.ExpenditureType.HOUSING));
+//		assertTrue(spending.isOverBudget(budgetingTest, CashSpending.ExpenditureType.FOOD));
+//	}
 
 	@Test
 	public void defaultIsOverBudgetDefaultCustomFileTest(){    	
